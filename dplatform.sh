@@ -57,6 +57,7 @@ while whiptail --title DPlatform Main Menu --menu "
 	 "Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
 	 "RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
 	 "Seafile" "Cloud storage with file encryption and group sharing" \
+	 "Syncthing" "Open Source Continuous File Synchronization" \
 	 "Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
 	 "Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
 	 "Wekan" "Collaborative Trello-like kanban board application" \
@@ -89,6 +90,7 @@ while whiptail --title DPlatform Main Menu --menu "
 		 "Rocket.Chat") . apps/rocketchat.sh;;
 		 "RetroPie") . apps/retropie.sh;;
 		 "Seafile") . apps/seafile.sh;;
+		 "Syncthing") .apps/syncthing.sh;;
 		 "Taiga.Io") . apps/taigaio.sh;;
 		 "Taiga-Lets-Chat") . apps/taigaio.sh;;
 		 "Wekan") . apps/wekan.sh;;
