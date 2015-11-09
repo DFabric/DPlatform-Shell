@@ -40,7 +40,6 @@ trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 while whiptail --title DPlatform Main Menu --menu "
 				What service would you like to deploy?" 24 96 12 \
 	 "Ajenti" "Web admin panel" \
-	 "Discourse" "Platform for community discussion. Free, open, simple" \
 	 "Docker" "Open container engine platform for distributed application" \
 	 "EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 	 "Etherpad" "Real-time collaborative document editor" \
@@ -73,7 +72,6 @@ while whiptail --title DPlatform Main Menu --menu "
 		 1) ;; # Return to main menu
 		 0) case $CHOICE in
 		 "Ajenti") . apps/ajenti.sh;;
-		 "Discourse") . apps/discourse.sh;;
 		 "Docker") sudo sh -c ". sysutils/docker.sh";;
 		 "Etherpad") . apps/etherpad.sh;;
 		 "EtherCalc") . apps/ethercalc.sh;;
