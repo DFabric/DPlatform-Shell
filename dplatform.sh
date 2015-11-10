@@ -73,31 +73,31 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
-		"Agar.io Clone") . apps/agar.io-clone.sh;;
-		"Ajenti") . apps/ajenti.sh;;
-		"Docker") sudo sh -c ". sysutils/docker.sh";;
-		"Etherpad") . apps/etherpad.sh;;
-		"EtherCalc") . apps/ethercalc.sh;;
-		"GitLab") . apps/gitlab.sh;;
-		"Gogs") . apps/gogs.sh;;
-		"Ghost") . apps/ghost.sh;;
-		"KeystoneJS") . apps/keystonejs.sh;;
+		Agar.io Clone) . apps/agar.io-clone.sh;;
+		Ajenti) . apps/ajenti.sh;;
+		Docker) sudo sh -c ". sysutils/docker.sh";;
+		Etherpad) . apps/etherpad.sh;;
+		EtherCalc) . apps/ethercalc.sh;;
+		GitLab) . apps/gitlab.sh;;
+		Gogs) . apps/gogs.sh;;
+		Ghost) . apps/ghost.sh;;
+		KeystoneJS) . apps/keystonejs.sh;;
 		"Let's Chat") . apps/lets-chat.sh;;
-		"Mattermost") . apps/mattermost.sh;;
-		"Mattermost-GitLab") . apps/mattermost-gitlab.sh;;
-		"Modoboa") . apps/modoboa.sh;;
-		"Mumble") sudo sh -c ". apps/mumble.sh";;
-		"Node.js") . sysutils/nodejs.sh;;
-		"OpenVPN") sudo sh -c ". apps/openvpn.sh";;
-		"Rocket.Chat") . apps/rocketchat.sh;;
-		"RetroPie") . apps/retropie.sh;;
-		"Seafile") . apps/seafile.sh;;
-		"Syncthing") . apps/syncthing.sh;;
-		"Taiga.Io") . apps/taigaio.sh;;
-		"Taiga-Lets-Chat") . apps/taigaio.sh;;
-		"Wekan") . apps/wekan.sh;;
-		"Wide") . apps/wide.sh;;
-		"update") if hash git 2>/dev/null
+		Mattermost) . apps/mattermost.sh;;
+		Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
+		Modoboa) . apps/modoboa.sh;;
+		Mumble) sudo sh -c ". apps/mumble.sh";;
+		Node.js) . sysutils/nodejs.sh;;
+		OpenVPN) sudo sh -c ". apps/openvpn.sh";;
+		Rocket.Chat) . apps/rocketchat.sh;;
+		RetroPie) . apps/retropie.sh;;
+		Seafile) . apps/seafile.sh;;
+		Syncthing) . apps/syncthing.sh;;
+		Taiga.Io) . apps/taigaio.sh;;
+		Taiga-Lets-Chat) . apps/taigaio.sh;;
+		Wekan) . apps/wekan.sh;;
+		Wide) . apps/wide.sh;;
+		update) if hash git 2>/dev/null
 		then git pull
 		else
 			rm -r *

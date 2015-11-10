@@ -11,10 +11,12 @@ ver=$(echo $ver | awk '{ver=substr($0, 46); print ver;}')
 
 if ARCH=86
   then arch=386
-else
-  arch=ARCH
 fi
-wget https://github.com/gogits/gogs/releases/download/v$ver/linux_$ARCH.zip
+if arch=ARCH
+  then wget https://github.com/gogits/gogs/releases/download/v$ver/raspi2.zip
+else
+  wget https://github.com/gogits/gogs/releases/download/v$ver/linux_$ARCH.zip
+fi
 unzip linux_$arch.zip
 rm linux_$arch.zip
 

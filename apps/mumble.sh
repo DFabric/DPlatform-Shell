@@ -1,4 +1,6 @@
 #!/bin/sh
-apt-get install mumble-server
+$install mumble-server
 
-dpkg-reconfigure mumble-server
+whiptail --msgbox "Mumble successfully installed!
+
+You should need to open port 64738" 16 68
