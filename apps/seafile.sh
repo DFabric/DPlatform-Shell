@@ -1,20 +1,21 @@
 #!/bin/sh
 
-trap 'rm -f choice$$' 0 1 2 5 15 EXIT
-while whiptail --title Seafile --menu "What data base would you like to deploy with Seafile?
+seafile_menu() {
+	trap 'rm -f choice$$' 0 1 2 5 15 EXIT
+	whiptail --title Seafile --menu "What data base would you like to deploy with Seafile?
 
-SQLite is good in Home/Personal Environment, while MariaDB/Nginx is recommended in Production/Enterprise Environment
+	SQLite is good in Home/Personal Environment, while MariaDB/Nginx is recommended in Production/Enterprise Environment
 
-If you don't know, the first answer should fit you" 16 64 2 \
-	 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
-	 "Deploy Seafile with MariaDB" "Advanced features, heavier" \
-	 2> choice$$
-	 read CHOICE < choice$$
-	 case $CHOICE in
-		 "Deploy Seafile with SQLite") seafile_sqlite();;
-		 "Deploy Seafile with MariaDB") seafile_mariadb();;
-   esac
-done
+	If you don't know, the first answer should fit you" 16 64 2 \
+	"Deploy Seafile with SQLite" "Light, powerfull, simpler" \
+	"Deploy Seafile with MariaDB" "Advanced features, heavier" \
+	2> choice$$
+	read CHOICE < choice$$
+	case $CHOICE in
+		"Deploy Seafile with SQLite") seafile_sqlite;;
+		"Deploy Seafile with MariaDB") seafile_mariadb;;
+	esac
+}
 
 # https://github.com/SeafileDE/seafile-server-installer
 seafile_mariadb() {
@@ -35,6 +36,7 @@ seafile_mariadb() {
 
 	wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/$dist
 	bash $dist
+	done_info
 }
 
 # http://manual.seafile.com/deploy/using_sqlite.html
@@ -56,6 +58,7 @@ seafile_sqlite() {
 	mkdir haiwen
 	mv seafile-server_* haiwen
 	cd haiwen
+
 	# after moving seafile-server_* to this directory
 	tar -xzf seafile-server_*
 	mkdir installed
@@ -67,16 +70,20 @@ seafile_sqlite() {
 
 	cd seafile-server-*
 	./setup-seafile.sh  #run the setup script & answer prompted questions
-
+done_info
 }
-whiptail --msgbox "Seafile successfully installed!
 
-Open http://your_hostname.com:<port> in your browser
-Default port: 8000. To change it, for example to 8001
-You can modify SERVICE_URL via web UI in System Admin->Settings
+done_info() {
+	whiptail --msgbox "	Seafile successfully installed!
 
-You should open TCP port 8082 in your firewall settings.
+	Open http://your_hostname.com:<port> in your browser
+	Default port: 8000. To change it, for example to 8001
+	You can modify SERVICE_URL via web UI in System Admin->Settings
 
-Start Seafile and Seahub:
-./seafile.sh start && ./seahub.sh start <port>" 16 68
-break
+	You should open TCP port 8082 in your firewall settings.
+
+	Start Seafile and Seahub:
+	./seafile.sh start && ./seahub.sh start <port>" 16 80
+}
+
+seafile_menu
