@@ -39,73 +39,75 @@ Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 64
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 while whiptail --title "DPlatform - Main menu" --menu "
 				What service would you like to deploy?" 24 96 12 \
-	 "Ajenti" "Web admin panel" \
-	 "Docker" "Open container engine platform for distributed application" \
-	 "EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
-	 "Etherpad" "Real-time collaborative document editor" \
-	 "GitLab" "Open source Version Control to collaborate on code" \
-	 "Gogs" "Gogs(Go Git Service), a painless self-hosted Git Service" \
-	 "Ghost" "Simple and powerful blogging/publishing platform" \
-	 "KeystoneJS" "Node.js CMS & Web Application Platform" \
-	 "Let's Chat" "Self-hosted chat app for small teams" \
-	 "Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
-	 "Modoboa" "Mail hosting made simple" \
-	 "Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
-	 "Mumble" "Voicechat utility" \
-	 "Node.js" "Install Node.js using nvm" \
-	 "OpenVPN" "Open source secure tunneling VPN daemon" \
-	 "Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
-	 "RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
-	 "Seafile" "Cloud storage with file encryption and group sharing" \
-	 "Syncthing" "Open Source Continuous File Synchronization" \
-	 "Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
-	 "Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
-	 "Wekan" "Collaborative Trello-like kanban board application" \
-	 "Wide" "Web-based IDE for Teams using Go(lang)" \
-	 "update" "Update Confinux" \
-	 2> choice$$
-	 do cd $DIR
-	 read CHOICE < choice$$
-	 # Confirmation dialog
-	 whiptail --yesno "		$CHOICE will be installed.
-	 Do you want to continue?" 8 60
-	 case $? in
-		 1) ;; # Return to main menu
-		 0) case $CHOICE in
-		 "Ajenti") . apps/ajenti.sh;;
-		 "Docker") sudo sh -c ". sysutils/docker.sh";;
-		 "Etherpad") . apps/etherpad.sh;;
-		 "EtherCalc") . apps/ethercalc.sh;;
-		 "GitLab") . apps/gitlab.sh;;
-		 "Gogs") . apps/gogs.sh;;
-		 "Ghost") . apps/ghost.sh;;
-		 "KeystoneJS") . apps/keystonejs.sh;;
-		 "Let's Chat") . apps/lets-chat.sh;;
-		 "Mattermost") . apps/mattermost.sh;;
-		 "Mattermost-GitLab") . apps/mattermost-gitlab.sh;;
-		 "Modoboa") . apps/modoboa.sh;;
-		 "Mumble") sudo sh -c ". apps/mumble.sh";;
-		 "Node.js") . sysutils/nodejs.sh;;
-		 "OpenVPN") sudo sh -c ". apps/openvpn.sh";;
-		 "Rocket.Chat") . apps/rocketchat.sh;;
-		 "RetroPie") . apps/retropie.sh;;
-		 "Seafile") . apps/seafile.sh;;
-		 "Syncthing") . apps/syncthing.sh;;
-		 "Taiga.Io") . apps/taigaio.sh;;
-		 "Taiga-Lets-Chat") . apps/taigaio.sh;;
-		 "Wekan") . apps/wekan.sh;;
-		 "Wide") . apps/wide.sh;;
-		 "update") if hash git 2>/dev/null
-		 then git pull
-		 else
-			 rm -r *
-			 wget https://github.com/j8r/DPlatform/archive/master.zip
-			 unzip master.zip
-			 cp -r DPlatform-master/* .
-			 rm -r *master*
-		 fi
-		 whiptail --msgbox "DPlatform is successfully updated" 16 60;;
-		 *)	whiptail --msgbox "To Be Implemented." 8 60;;
-	 esac;;
- esac
+	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
+	"Ajenti" "Web admin panel" \
+	"Docker" "Open container engine platform for distributed application" \
+	"EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
+	"Etherpad" "Real-time collaborative document editor" \
+	"GitLab" "Open source Version Control to collaborate on code" \
+	"Gogs" "Gogs(Go Git Service), a painless self-hosted Git Service" \
+	"Ghost" "Simple and powerful blogging/publishing platform" \
+	"KeystoneJS" "Node.js CMS & Web Application Platform" \
+	"Let's Chat" "Self-hosted chat app for small teams" \
+	"Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
+	"Modoboa" "Mail hosting made simple" \
+	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
+	"Mumble" "Voicechat utility" \
+	"Node.js" "Install Node.js using nvm" \
+	"OpenVPN" "Open source secure tunneling VPN daemon" \
+	"Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
+	"RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
+	"Seafile" "Cloud storage with file encryption and group sharing" \
+	"Syncthing" "Open Source Continuous File Synchronization" \
+	"Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
+	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
+	"Wekan" "Collaborative Trello-like kanban board application" \
+	"Wide" "Web-based IDE for Teams using Go(lang)" \
+	"update" "Update Confinux" \
+	2> choice$$
+	do cd $DIR
+	read CHOICE < choice$$
+	# Confirmation dialog
+	whiptail --yesno "		$CHOICE will be installed.
+	Do you want to continue?" 8 48
+	case $? in
+		1) ;; # Return to main menu
+		0) case $CHOICE in
+		"Agar.io Clone") . apps/agar.io-clone.sh;;
+		"Ajenti") . apps/ajenti.sh;;
+		"Docker") sudo sh -c ". sysutils/docker.sh";;
+		"Etherpad") . apps/etherpad.sh;;
+		"EtherCalc") . apps/ethercalc.sh;;
+		"GitLab") . apps/gitlab.sh;;
+		"Gogs") . apps/gogs.sh;;
+		"Ghost") . apps/ghost.sh;;
+		"KeystoneJS") . apps/keystonejs.sh;;
+		"Let's Chat") . apps/lets-chat.sh;;
+		"Mattermost") . apps/mattermost.sh;;
+		"Mattermost-GitLab") . apps/mattermost-gitlab.sh;;
+		"Modoboa") . apps/modoboa.sh;;
+		"Mumble") sudo sh -c ". apps/mumble.sh";;
+		"Node.js") . sysutils/nodejs.sh;;
+		"OpenVPN") sudo sh -c ". apps/openvpn.sh";;
+		"Rocket.Chat") . apps/rocketchat.sh;;
+		"RetroPie") . apps/retropie.sh;;
+		"Seafile") . apps/seafile.sh;;
+		"Syncthing") . apps/syncthing.sh;;
+		"Taiga.Io") . apps/taigaio.sh;;
+		"Taiga-Lets-Chat") . apps/taigaio.sh;;
+		"Wekan") . apps/wekan.sh;;
+		"Wide") . apps/wide.sh;;
+		"update") if hash git 2>/dev/null
+		then git pull
+		else
+			rm -r *
+			wget https://github.com/j8r/DPlatform/archive/master.zip
+			unzip master.zip
+			cp -r DPlatform-master/* .
+			rm -r *master*
+		fi
+		whiptail --msgbox "DPlatform is successfully updated" 16 60;;
+		*) whiptail --msgbox "To Be Implemented." 8 60;;
+		esac;;
+	esac
 done
