@@ -28,16 +28,16 @@ elif echo $ARCH | grep arm
 fi
 
 clear
-whiptail --title Dplatform --msgbox "
-DPlatform - Turn your own server, including Raspberry Pi like ARM boards and x86 servers to a cloud platform
-https://github.com/j8r/Dplatform
+whiptail --title DPlatform --msgbox "
+DPlatform - Deploy apps services efficiently and turn your server to a cloud platform
+https://github.com/j8r/DPlatform
 
 
 
 
 Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 64
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
-while whiptail --title DPlatform Main Menu --menu "
+while whiptail --title "DPlatform - Main menu" --menu "
 				What service would you like to deploy?" 24 96 12 \
 	 "Ajenti" "Web admin panel" \
 	 "Docker" "Open container engine platform for distributed application" \
@@ -90,19 +90,22 @@ while whiptail --title DPlatform Main Menu --menu "
 		 "Rocket.Chat") . apps/rocketchat.sh;;
 		 "RetroPie") . apps/retropie.sh;;
 		 "Seafile") . apps/seafile.sh;;
-		 "Syncthing") .apps/syncthing.sh;;
+		 "Syncthing") . apps/syncthing.sh;;
 		 "Taiga.Io") . apps/taigaio.sh;;
 		 "Taiga-Lets-Chat") . apps/taigaio.sh;;
 		 "Wekan") . apps/wekan.sh;;
 		 "Wide") . apps/wide.sh;;
-		 "update") rm -r *
-		 wget https://github.com/j8r/dplatform/archive/master.zip
-		 unzip master.zip
-		 cp -r dplatform-master/* .
-		 rm -r *master*
-		 echo Dplatform is successfully updated!
-		 break;;
-		 *)	whiptail --msgbox "To Be Implemented." 20 80;;
+		 "update") if hash git 2>/dev/null
+		 then git pull
+		 else
+			 rm -r *
+			 wget https://github.com/j8r/DPlatform/archive/master.zip
+			 unzip master.zip
+			 cp -r DPlatform-master/* .
+			 rm -r *master*
+		 fi
+		 whiptail --msgbox "DPlatform is successfully updated" 16 60;;
+		 *)	whiptail --msgbox "To Be Implemented." 8 60;;
 	 esac;;
  esac
 done
