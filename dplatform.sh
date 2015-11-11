@@ -12,7 +12,6 @@ elif hash pacman 2>/dev/null
 	then PKG=pkg
 	install="pacman -S"
 fi
-
 # Detect distro
 if grep 'Ubuntu' /etc/issue 2>/dev/null
 	then DIST=ubuntu

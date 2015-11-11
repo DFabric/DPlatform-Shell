@@ -9,10 +9,10 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/r
 # Only keep the version number in the url
 ver=$(echo $ver | awk '{ver=substr($0, 46); print ver;}')
 
-if $ARCH = 86
+if [ $ARCH = 86 ]
   then arch=386
 fi
-if $ARCH = arm
+if [ $ARCH = arm ]
   then wget https://github.com/gogits/gogs/releases/download/v$ver/raspi2.zip
 else
   wget https://github.com/gogits/gogs/releases/download/v$ver/linux_$ARCH.zip
