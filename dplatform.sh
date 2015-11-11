@@ -73,7 +73,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
-		Agar.io Clone) . apps/agar.io-clone.sh;;
+		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Docker) sudo sh -c ". sysutils/docker.sh";;
 		Etherpad) . apps/etherpad.sh;;
