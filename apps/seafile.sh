@@ -1,47 +1,20 @@
 #!/bin/sh
 
-seafile_menu() {
-	trap 'rm -f choice$$' 0 1 2 5 15 EXIT
-	whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
+trap 'rm -f choice$$' 0 1 2 5 15 EXIT
+whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
-	SQLite is good in Home/Personal Environment, while MariaDB/Nginx
-	is recommended in Production/Enterprise Environment
+SQLite is good in Home/Personal Environment, while MariaDB/Nginx
+is recommended in Production/Enterprise Environment
 
-	If you don't know, the first answer should fit you" 16 80 2 \
-	"Deploy Seafile with SQLite" "Light, powerfull, simpler" \
-	"Deploy Seafile with MariaDB" "Advanced features, heavier" \
-	2> choice$$
-	read CHOICE < choice$$
-	case $CHOICE in
-		"Deploy Seafile with SQLite") seafile_sqlite;;
-		"Deploy Seafile with MariaDB") seafile_mariadb;;
-	esac
-}
-
-# https://github.com/SeafileDE/seafile-server-installer
-seafile_mariadb() {
-	apt-get install lsb-release -y
-	cd /root
-	# Only Debian based OS are supported
-	if test "$PKG" != deb
-	  then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
-	  break
-	fi
-	if ARCH=arm
-	  then dist=seafile-ce_ubuntu-trusty-arm
-	elif DIST=ubuntu && ARCH=x86_64
-	  then dist=seafile-ce_ubuntu-trusty-amd64
-	else
-	  dist=seafile_debian
-	fi
-
-	wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/$dist
-	bash $dist
-	done_info
-}
+If you don't know, the first answer should fit you" 16 80 2 \
+"Deploy Seafile with SQLite" "Light, powerfull, simpler" \
+"Deploy Seafile with MariaDB" "Advanced features, heavier" \
+2> choice$$
+read CHOICE < choice$$
+case $CHOICE in
 
 # http://manual.seafile.com/deploy/using_sqlite.html
-seafile_sqlite() {
+	"Deploy Seafile with SQLite")
 	if ARCH=amd64
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.0_x86-64-beta.tar.gz
 	elif ARCH=86
@@ -70,21 +43,36 @@ seafile_sqlite() {
 	$install python2.7 libpython2.7 python-setuptools python-imaging sqlite3
 
 	cd seafile-server-*
-	./setup-seafile.sh  #run the setup script & answer prompted questions
-done_info
-}
+	#run the setup script & answer prompted questions
+	./setup-seafile.sh;;
 
-done_info() {
-	whiptail --msgbox "	Seafile successfully installed!
+	# https://github.com/SeafileDE/seafile-server-installer
+	"Deploy Seafile with MariaDB")
+	$install lsb-release
+	cd /root
+	# Only Debian based OS are supported
+	if test "$PKG" != deb
+		then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
+		break
+	fi
+	if ARCH=arm
+		then dist=seafile-ce_ubuntu-trusty-arm
+	elif DIST=ubuntu && ARCH=x86_64
+		then dist=seafile-ce_ubuntu-trusty-amd64
+	else
+			dist=seafile_debian
+	fi
+	wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/$dist
+	bash $dist
+esac
 
-	Open http://your_hostname.com:<port> in your browser
-	Default port: 8000. To change it, for example to 8001
-	You can modify SERVICE_URL via web UI in System Admin->Settings
+whiptail --msgbox "Seafile successfully installed!
 
-	You should open TCP port 8082 in your firewall settings.
+Open http://your_hostname.com:<port> in your browser
+Default port: 8000. To change it, for example to 8001
+You can modify SERVICE_URL via web UI in System Admin->Settings
 
-	Start Seafile and Seahub:
-	./seafile.sh start && ./seahub.sh start <port>" 16 80
-}
+You should open TCP port 8082 in your firewall settings.
 
-seafile_menu
+Start Seafile and Seahub:
+./seafile.sh start && ./seahub.sh start <port>" 16 80
