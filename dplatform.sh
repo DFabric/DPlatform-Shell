@@ -106,8 +106,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 			cp -r DPlatform-master/* .
 			rm -r *master*
 		fi
-		whiptail --msgbox "DPlatform is successfully updated" 16 60;;
-		*) whiptail --msgbox "To Be Implemented." 8 60;;
+		whiptail --msgbox "DPlatform is successfully updated" 8 60;;
 		esac;;
 	esac
 done

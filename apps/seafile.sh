@@ -2,11 +2,12 @@
 
 seafile_menu() {
 	trap 'rm -f choice$$' 0 1 2 5 15 EXIT
-	whiptail --title Seafile --menu "What data base would you like to deploy with Seafile?
+	whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
-	SQLite is good in Home/Personal Environment, while MariaDB/Nginx is recommended in Production/Enterprise Environment
+	SQLite is good in Home/Personal Environment, while MariaDB/Nginx
+	is recommended in Production/Enterprise Environment
 
-	If you don't know, the first answer should fit you" 16 64 2 \
+	If you don't know, the first answer should fit you" 16 80 2 \
 	"Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 	"Deploy Seafile with MariaDB" "Advanced features, heavier" \
 	2> choice$$
@@ -51,9 +52,9 @@ seafile_sqlite() {
 		# Only keep the version number in the url
 		ver=$(echo $ver | awk '{ver=substr($0, 53); print ver;}')
 		# One of this 3 link works
-		wget https://github.com/haiwen/seafile-rpi/releases/download/$ver/seafile-server_'$ver'_pi.tar.gz
-		wget https://github.com/haiwen/seafile-rpi/releases/download/$ver/seafile-server_stable_'$ver'_pi.tar.gz
-		wget https://github.com/haiwen/seafile-rpi/releases/download/$ver/seafile-server_beta_'$ver'_pi.tar.gz
+		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_"$ver"_pi.tar.gz
+		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_"$ver"_pi.tar.gz
+		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_"$ver"_pi.tar.gz
 	fi
 	mkdir haiwen
 	mv seafile-server_* haiwen
