@@ -1,5 +1,6 @@
 #!/bin/sh
 
+. ../sysutils/nodejs.sh
 $install git
 
 # Cloning the source code from Github

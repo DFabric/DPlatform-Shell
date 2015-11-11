@@ -1,5 +1,6 @@
 #!/bin/sh
 
+$install git
 git clone https://github.com/modoboa/modoboa-installer
 cd modoboa-installer
 ./run.py 127.0.0.1

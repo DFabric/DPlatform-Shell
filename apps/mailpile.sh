@@ -1,6 +1,5 @@
 #!/bin/sh
-apt-get install gnupg openssl python-virtualenv python-pip python-lxml
-apt-get install git
+$install gnupg openssl python-virtualenv python-pip python-lxml git
 
 # clone Mailpile, docs and plugins (submodules) to your machine
 git clone --recursive https://github.com/mailpile/Mailpile.git

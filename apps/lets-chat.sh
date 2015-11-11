@@ -2,14 +2,17 @@
 
 # Prerequisites
 # Unofficial MongoDB 2.6.4 for ARM, mongo can not be executed but not a problem, see https://facat.github.io/cross-compile-mongodb-for-arm.html
-if ARCH=arm && PKG=deb
+ARCH=arm
+PKG=deb
+if [ $ARCH = arm ] && [ $PKG = deb ]
   then cd /etc
+  $install p7zip
   wget facat.github.io/mongodb-2.6.4-arm.7z /etc
   7z mongodb-2.6.4-arm.7z
   rm mongodb-2.6.4-arm.7z
   cd /root
-elif PKG=deb
-  . ../sysutils/mongodb.sh
+elif $PKG = deb
+  then . ../sysutils/mongodb.sh
   $install python2.7
 fi
 . ../sysutils/nodejs.sh

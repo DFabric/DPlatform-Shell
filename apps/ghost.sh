@@ -1,6 +1,8 @@
 #!/bin/sh
 
 . ../sysutils/nodejs.sh
+$install unzip
+
 # http://support.ghost.org/installing-ghost-linux/
 # Grab the latest version of Ghost from Ghost.org
 curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip

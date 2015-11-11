@@ -6,7 +6,7 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syn
 # Only keep the version number in the url
 ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
 
-if ARCH=86
+if $ARCH = 86
   then arch=386
 else
   arch=ARCH

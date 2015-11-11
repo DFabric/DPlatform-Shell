@@ -1,5 +1,5 @@
 #!/bin/sh
-apt-get install curl
+$install curl
 curl https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh > install.sh && bash install.sh
 
 # Start the service:

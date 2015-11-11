@@ -12,7 +12,7 @@ curl https://install.meteor.com/ | sh
 
 npm install pm2 -g
 
-if PKG=rpm
+if $PKG = rpm
   pm2 startup amazon
 else
   pm2 startup

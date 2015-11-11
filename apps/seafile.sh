@@ -13,13 +13,13 @@ If you don't know, the first answer should fit you" 16 80 2 \
 read CHOICE < choice$$
 case $CHOICE in
 
-# http://manual.seafile.com/deploy/using_sqlite.html
+	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
-	if ARCH=amd64
+	if $ARCH = amd64
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.0_x86-64-beta.tar.gz
-	elif ARCH=86
+	elif $ARCH = 86
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_4.4.6_i386.tar.g
-	elif ARCH=arm
+	elif $ARCH = arm
 		then # Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
 		# Only keep the version number in the url
@@ -55,7 +55,7 @@ case $CHOICE in
 		then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
 		break
 	fi
-	if ARCH=arm
+	if $ARCH = arm
 		then dist=seafile-ce_ubuntu-trusty-arm
 	elif DIST=ubuntu && ARCH=x86_64
 		then dist=seafile-ce_ubuntu-trusty-amd64
