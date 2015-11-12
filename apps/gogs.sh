@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Prerequisites
- $install sqlite3 git
+$install sqlite3 git
 
 # Get the latest Seafile release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/releases/latest)

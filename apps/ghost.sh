@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ../sysutils/nodejs.sh
+. sysutils/nodejs.sh
 $install unzip
 
 # http://support.ghost.org/installing-ghost-linux/

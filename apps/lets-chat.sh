@@ -10,10 +10,10 @@ if [ $ARCH = arm ] && [ $PKG = deb ]
   rm mongodb-2.6.4-arm.7z
   cd /root
 elif [ $PKG = deb ]
-  then . ../sysutils/mongodb.sh
+  then . sysutils/mongodb.sh
   $install python2.7
 fi
-. ../sysutils/nodejs.sh
+. sysutils/nodejs.sh
 
 git clone https://github.com/sdelements/lets-chat.git
 cd lets-chat

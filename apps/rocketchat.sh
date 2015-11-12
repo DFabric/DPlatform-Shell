@@ -3,7 +3,7 @@
 #https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 
 # SYSTEM CONFIGURATION
-. ../sysutils/nodejs.sh
+. sysutils/nodejs.sh
 $install git curl
 npm install nave -g
 nave usemain 0.12.7
