@@ -1,13 +1,10 @@
 #!/bin/sh
-apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
-echo "deb https://apt.dockerproject.org/repo debian-jessie main" >> /etc/apt/sources.list.d/docker.list
+# Verify that you have wget installed. If wget isn’t installed, install it
+if hash wget 2>/dev/null
+	then $install wget
+fi
+# Get the latest Docker package.
+wget -qO- https://get.docker.com/ | sh
 
-apt-get update
-$install docker-engine
-service docker start
-
-# Uninstall
-uninstall) {apt-get autoremove --purge docker-engine
-rm -rf /var/lib/docker;;
-}
+echo Docker installed

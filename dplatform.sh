@@ -49,8 +49,8 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"KeystoneJS" "Node.js CMS & Web Application Platform" \
 	"Let's Chat" "Self-hosted chat app for small teams" \
 	"Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
-	"Modoboa" "Mail hosting made simple" \
 	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
+	"Modoboa" "Mail hosting made simple" \
 	"Mumble" "Voicechat utility" \
 	"Node.js" "Install Node.js using nvm" \
 	"OpenVPN" "Open source secure tunneling VPN daemon" \

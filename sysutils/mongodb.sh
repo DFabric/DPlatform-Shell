@@ -36,3 +36,5 @@ else
   echo You need to manually install MongoDB
   exit
 fi
+
+echo MongoDB installed

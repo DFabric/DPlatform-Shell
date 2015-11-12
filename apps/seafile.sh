@@ -9,9 +9,9 @@ is recommended in Production/Enterprise Environment
 If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 "Deploy Seafile with MariaDB" "Advanced features, heavier" \
-2> choice$$
-read CHOICE < choice$$
-case $CHOICE in
+2> seachoice$$
+read SEACHOICE < seachoice$$
+case $SEACHOICE in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
@@ -75,4 +75,8 @@ You can modify SERVICE_URL via web UI in System Admin->Settings
 You should open TCP port 8082 in your firewall settings.
 
 Start Seafile and Seahub:
-./seafile.sh start && ./seahub.sh start <port>" 16 80
+cd DPlatform/haiwen
+conf/ccnet.conf
+cd seafile-server-latest
+./seafile.sh start
+./seahub.sh start <port>" 16 80

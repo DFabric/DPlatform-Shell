@@ -15,4 +15,4 @@ whiptail --msgbox "Etherpad successfully installed!
 
 To start Etherpad, run 'cd etherpad-lite && bin/run.sh'
 
-Open http://127.0.0.1:9001 in your browser." 20 80
+Open http://127.0.0.1:9001 in your browser." 12 60

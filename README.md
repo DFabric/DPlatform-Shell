@@ -1,5 +1,5 @@
 # DPlatform [ALPHA]
-#### Deploy apps services efficiently and turn your server to a cloud platform
+#### Want a cloud storage, a voice chat or a VPN? Deploy apps services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform
 ##### Development is still active. Most things should work, but problems could occur, more testing is needed
 ##### Please feel free to open an issue and create a pull request, all contributions are welcome!
 
@@ -16,8 +16,8 @@
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
- - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
+ - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [Node.js](https://nodejs.org/) - Install Node.js - [nvm](https://github.com/creationix/nvm) optional
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)

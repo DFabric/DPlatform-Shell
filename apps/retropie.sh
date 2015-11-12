@@ -2,7 +2,7 @@
 
 if ! [ $ARCH = arm ]
   then whiptail --msgbox "You need an ARM CPU to setup RetroPie" 8 48
-  break
+  exit
 fi
 $install git
 # Download the latest RetroPie setup script
