@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ARM CPU
-if [ $ARCH = arm )
+if [ $ARCH = arm ]
   then $install mongodb
 
 # Debian (apt) based OS
