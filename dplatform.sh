@@ -74,7 +74,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		0) case $CHOICE in
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
-		Docker) sudo sh -c ". sysutils/docker.sh";;
+		Docker) . sysutils/docker.sh;;
 		Etherpad) . apps/etherpad.sh;;
 		EtherCalc) . apps/ethercalc.sh;;
 		GitLab) . apps/gitlab.sh;;
@@ -85,9 +85,9 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		Mattermost) . apps/mattermost.sh;;
 		Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
 		Modoboa) . apps/modoboa.sh;;
-		Mumble) sudo sh -c ". apps/mumble.sh";;
+		Mumble) . apps/mumble.sh;;
 		Node.js) . sysutils/nodejs.sh;;
-		OpenVPN) sudo sh -c ". apps/openvpn.sh";;
+		OpenVPN) . apps/openvpn.sh;;
 		Rocket.Chat) . apps/rocketchat.sh;;
 		RetroPie) . apps/retropie.sh;;
 		Seafile) . apps/seafile.sh;;
