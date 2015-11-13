@@ -19,7 +19,16 @@ else
 fi
 
 # Check MongoDB version
-if grep '2.4' mongo --version 2>/dev/null
+mongo_version=$(mongo --version)
+# Keep the version numver
+mongo_version=${mongo_version: 23}
+mongo_version=${mongo_version%.*}
+# Concatenate major and minor version numbers together
+mongo_major=${mongo_version%.*}
+mongo_minor=${mongo_version#*.}
+mongo_version=$mongo_major$mongo_minor
+
+if (( $mongo_version < 25 ))
   then echo replSet=001-rs >> /etc/mongod.conf
 else
   echo "replication:
