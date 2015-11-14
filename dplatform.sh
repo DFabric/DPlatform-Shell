@@ -28,9 +28,9 @@ fi
 
 clear
 whiptail --title DPlatform --msgbox "
-DPlatform - Deploy apps services efficiently and turn your server to a cloud platform
-https://github.com/j8r/DPlatform
+DPlatform - Deploy self-hosted apps efficiently
 
+https://github.com/j8r/DPlatform
 
 
 
@@ -57,8 +57,10 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
 	"RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
 	"Seafile" "Cloud storage with file encryption and group sharing" \
+	"Shout" "The self-hosted web IRC client" \
 	"Syncthing" "Open Source Continuous File Synchronization" \
 	"Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
+	"Wagtail" "Django CMS focused on flexibility and user experience" \
 	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
 	"Wekan" "Collaborative Trello-like kanban board application" \
 	"Wide" "Web-based IDE for Teams using Go(lang)" \
@@ -92,8 +94,10 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		RetroPie) . apps/retropie.sh;;
 		Seafile) . apps/seafile.sh;;
 		Syncthing) . apps/syncthing.sh;;
+		Shout) . apps/shout.sh;;
 		Taiga.Io) . apps/taigaio.sh;;
 		Taiga-Lets-Chat) . apps/taigaio.sh;;
+		Wagtail) . apps/wagtail.sh;;
 		Wekan) . apps/wekan.sh;;
 		Wide) . apps/wide.sh;;
 		update) if hash git 2>/dev/null

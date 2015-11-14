@@ -1,7 +1,19 @@
 # DPlatform [ALPHA]
 #### Want a cloud storage, a voice chat or a VPN? Deploy apps services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform
+#####Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have also some support.
+
 ##### Development is still active. Most things should work, but problems could occur, more testing is needed
+
 ##### Please feel free to open an issue and create a pull request, all contributions are welcome!
+
+## Install
+
+Clone the git project, then go to the directory and run DPlatform
+```
+git clone https://github.com/j8r/DPlatform
+cd DPlatform
+./dplatform.sh
+```
 
 ## Available Apps (few still need work)
 
