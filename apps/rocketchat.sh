@@ -11,7 +11,7 @@ nave usemain 0.12.7
 
 # Install Meteor
 # https://github.com/4commerce-technologies-AG/meteor
-if [ $PKG = arm ]
+if [ $ARCH = arm ]
   then cd $HOME
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
