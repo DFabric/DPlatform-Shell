@@ -1,16 +1,17 @@
 # DPlatform [ALPHA]
 #### Want a cloud storage, a voice chat or a VPN? Deploy apps services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform
 #####Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have also some support.
-
 ##### Development is still active. Most things should work, but problems could occur, more testing is needed
-
 ##### Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Install
 
-Clone the git project, then go to the directory and run DPlatform
+Clone the git project, then
 ```
 git clone https://github.com/j8r/DPlatform
+```
+Go to the DPlatform directory and run DPlatform
+```
 cd DPlatform
 ./dplatform.sh
 ```
@@ -31,11 +32,13 @@ cd DPlatform
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [Mumble](http://www.mumble.info/) - Voicechat utility
+ - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js - [nvm](https://github.com/creationix/nvm) optional
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
+ - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
  - [Taiga-LetsChat](https://github.com/taigaio/taiga-contrib-letschat) - Taiga contrib plugin for Let's Chat integration

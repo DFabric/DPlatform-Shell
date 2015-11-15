@@ -1,7 +1,16 @@
 #!/bin/sh
 
+# Unofficial MongoDB 2.6.4 for Debian based ARM systems, mongo can not be executed but not a problem, see https://facat.github.io/cross-compile-mongodb-for-arm.html
+if [ $ARCH = arm ] && [ $PKG = deb ] && [ $MONGODB_VERSION = 26 ]
+  then cd /etc
+  $install p7zip
+  wget facat.github.io/mongodb-2.6.4-arm.7z
+  7z mongodb-2.6.4-arm.7z
+  rm mongodb-2.6.4-arm.7z
+  cd /$DIR
+
 # ARM CPU
-if [ $ARCH = arm ]
+elif [ $ARCH = arm ]
   then $install mongodb
 
 # Debian (deb) based OS

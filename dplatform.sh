@@ -52,12 +52,14 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
 	"Modoboa" "Mail hosting made simple" \
 	"Mumble" "Voicechat utility" \
+	"NodeBB" "Node.js based community forum built for the modern web" \
 	"Node.js" "Install Node.js using nvm" \
 	"OpenVPN" "Open source secure tunneling VPN daemon" \
 	"Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
 	"RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
 	"Seafile" "Cloud storage with file encryption and group sharing" \
 	"Shout" "The self-hosted web IRC client" \
+	"Stringer" "A self-hosted, anti-social RSS reader" \
 	"Syncthing" "Open Source Continuous File Synchronization" \
 	"Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
 	"Wagtail" "Django CMS focused on flexibility and user experience" \
@@ -93,6 +95,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		Rocket.Chat) . apps/rocketchat.sh;;
 		RetroPie) . apps/retropie.sh;;
 		Seafile) . apps/seafile.sh;;
+		Stringer) . apps/stringer.sh;;
 		Syncthing) . apps/syncthing.sh;;
 		Shout) . apps/shout.sh;;
 		Taiga.Io) . apps/taigaio.sh;;

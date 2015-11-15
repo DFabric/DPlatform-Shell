@@ -3,6 +3,7 @@
 #https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 
 # SYSTEM CONFIGURATION
+. sysutils/mongodb.sh
 . sysutils/nodejs.sh
 $install git curl
 npm install nave -g
