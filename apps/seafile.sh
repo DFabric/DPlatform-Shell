@@ -1,5 +1,5 @@
 #!/bin/sh
-
+cd $HOME
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
@@ -9,9 +9,9 @@ is recommended in Production/Enterprise Environment
 If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 "Deploy Seafile with MariaDB" "Advanced features, heavier" \
-2> seachoice$$
-read SEACHOICE < seachoice$$
-case $SEACHOICE in
+2> choice$$
+read CHOICE < choice$$
+case $CHOICE in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
