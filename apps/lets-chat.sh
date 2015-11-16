@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Prerequisites
-MONGODB_VERSION=26
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
 

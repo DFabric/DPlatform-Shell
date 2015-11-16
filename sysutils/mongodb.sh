@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Unofficial MongoDB 2.6.4 for Debian based ARM systems, mongo can not be executed but not a problem, see https://facat.github.io/cross-compile-mongodb-for-arm.html
-if [ $ARCH = arm ] && [ $PKG = deb ] && [ $MONGODB_VERSION = 26 ]
+# Unofficial MongoDB 2.6.7 for Debian based ARM systems
+if [ $ARCH = arm ] && [ $PKG = deb ]
   then cd /etc
-  wget https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/:mongo_Linux_armv7l_v2.6.7.tar.gz
+  wget https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv7l_v2.6.7.tar.gz
   tar -xzf mongo_Linux_armv7l_v2.6.7.tar.gz
   rm mongo_Linux_armv7l_v2.6.7.tar.gz
   cd /$DIR

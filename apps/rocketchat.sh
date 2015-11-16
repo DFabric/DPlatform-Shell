@@ -1,6 +1,7 @@
 #!/bin/sh
 
 #https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
+cd $HOME
 
 # SYSTEM CONFIGURATION
 . sysutils/mongodb.sh
@@ -12,8 +13,7 @@ nave usemain 0.12.7
 # Install Meteor
 # https://github.com/4commerce-technologies-AG/meteor
 if [ $ARCH = arm ]
-  then cd $HOME
-  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
+  then git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
   $HOME/meteor/meteor --version
 else

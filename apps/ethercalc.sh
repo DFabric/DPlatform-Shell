@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils:nodejs.sh
+. sysutils/nodejs.sh
 
 # Lobal installation (need root)
 npm i -g ethercalc

@@ -1,5 +1,5 @@
 #!/bin/sh
-
+cd $HOME
 . sysutils/nodejs.sh
 
 if [ $PKG = apt ]
@@ -13,6 +13,8 @@ bin/run.sh
 
 whiptail --msgbox "Etherpad successfully installed!
 
-To start Etherpad, run 'cd etherpad-lite && bin/run.sh'
+To start Etherpad, run:
+cd etherpad-lite
+bin/run.sh'
 
-Open http://127.0.0.1:9001 in your browser." 12 60
+Open http://127.0.0.1:9001 in your browser." 16 60

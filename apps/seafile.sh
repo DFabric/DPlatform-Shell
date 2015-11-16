@@ -75,8 +75,6 @@ You can modify SERVICE_URL via web UI in System Admin->Settings
 You should open TCP port 8082 in your firewall settings.
 
 Start Seafile and Seahub:
-cd DPlatform/haiwen
-conf/ccnet.conf
-cd seafile-server-latest
+cd haiwen/seafile-server-latest
 ./seafile.sh start
 ./seahub.sh start <port>" 16 80

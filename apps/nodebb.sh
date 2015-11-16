@@ -1,5 +1,4 @@
 #!/bin/sh
-MONGODB_VERSION=26
 . sysutils/nodejs.sh
 . sysutils/mongodb.sh
 
