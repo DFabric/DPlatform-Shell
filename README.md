@@ -27,6 +27,7 @@ cd DPlatform
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
+ - [Laverna](https://laverna.cc/) - Laverna is a JavaScript note taking application with Markdown editor and encryption support
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
