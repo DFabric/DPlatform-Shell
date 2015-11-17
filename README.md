@@ -1,12 +1,12 @@
 # DPlatform [ALPHA]
-#### Want a cloud storage, a voice chat or a VPN? Deploy apps services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform
-#####Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have also some support.
+#### Woulf you like a cloud storage, a VPN or a website? Deploy apps services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+##### Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have also some support.
 ##### Development is still active. Most things should work, but problems could occur, more testing is needed
 ##### Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Install
 
-Clone the git project, then
+First, clone the git project
 ```
 git clone https://github.com/j8r/DPlatform
 ```
@@ -28,6 +28,7 @@ cd DPlatform
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
+ - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)

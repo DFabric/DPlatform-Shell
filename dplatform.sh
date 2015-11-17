@@ -48,6 +48,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"Ghost" "Simple and powerful blogging/publishing platform" \
 	"KeystoneJS" "Node.js CMS & Web Application Platform" \
 	"Let's Chat" "Self-hosted chat app for small teams" \
+	"Mailpile" "Modern, fast email client with user-friendly privacy features" \
 	"Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
 	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
 	"Modoboa" "Mail hosting made simple" \
