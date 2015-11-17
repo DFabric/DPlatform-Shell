@@ -1,11 +1,12 @@
 #!/bin/sh
 
 #https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
+
+. sysutils/mongodb.sh
+. sysutils/nodejs.sh
 cd $HOME
 
 # SYSTEM CONFIGURATION
-. sysutils/mongodb.sh
-. sysutils/nodejs.sh
 $install git curl
 npm install nave -g
 nave usemain 0.12.7

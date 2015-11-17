@@ -1,6 +1,7 @@
 #!/bin/sh
-cd $HOME
 . sysutils/nodejs.sh
+cd $HOME
+
 $install git
 
 # Cloning the source code from Github

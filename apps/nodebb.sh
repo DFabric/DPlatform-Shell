@@ -1,7 +1,7 @@
 #!/bin/sh
 . sysutils/nodejs.sh
 . sysutils/mongodb.sh
-
+cd $HOME
 # https://docs.nodebb.org/en/latest/installing/os.html
 
 ## Installing NodeBB
@@ -23,5 +23,7 @@ npm install --production
 
 whiptail --msgbox "NodeBB successfully installed!
 
-Open http://your_ip:4567 in your browser" 12 60
+Open http://your_ip:4567 in your browser
+
+Run the NodeBB forum: cd nodebb && ./nodebb start" 12 60
 # https://www.npmjs.com/package/nodebb-plugin-blog-comments

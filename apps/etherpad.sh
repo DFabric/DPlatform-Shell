@@ -1,6 +1,6 @@
 #!/bin/sh
-cd $HOME
 . sysutils/nodejs.sh
+cd $HOME
 
 if [ $PKG = apt ]
   then apt-get install gzip git curl python libssl-dev pkg-config build-essential
@@ -15,6 +15,6 @@ whiptail --msgbox "Etherpad successfully installed!
 
 To start Etherpad, run:
 cd etherpad-lite
-bin/run.sh'
+bin/run.sh
 
 Open http://127.0.0.1:9001 in your browser." 16 60

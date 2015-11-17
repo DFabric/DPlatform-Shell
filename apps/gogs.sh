@@ -1,5 +1,5 @@
 #!/bin/sh
-
+cd $HOME
 # Prerequisites
 $install sqlite3 git
 

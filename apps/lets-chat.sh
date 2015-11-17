@@ -3,6 +3,7 @@
 # Prerequisites
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
+cd $HOME
 
 $install python2.7
 
