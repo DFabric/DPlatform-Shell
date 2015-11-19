@@ -112,4 +112,4 @@ PATH=/home/stringer/.rbenv/bin:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
 
 whiptail --msgbox "Stringer successfully installed!
 
-Open http://your_ip:5000 in your browser" 16 60
+Open http://$DOMAIN:5000 in your browser" 12 48

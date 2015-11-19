@@ -94,6 +94,6 @@ pm2 save
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 
-Open http://your_hostname.com:3000 in your browser and register.
+Open http://$DOMAIN:3000 in your browser and register.
 
-The first users to register will be promoted to administrator." 16 60
+The first users to register will be promoted to administrator." 12 64

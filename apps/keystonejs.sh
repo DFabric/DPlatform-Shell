@@ -18,4 +18,4 @@ whiptail --msgbox "KeystoneJS successfully installed!
 
 To run your KeystoneJS project: node keystone
 
-Open http://localhost:3000 to view it in your browser." 16 60
+Open http://$DOMAIN:3000 to view it in your browser." 12 64

@@ -6,4 +6,4 @@ bash setup-server.sh
 
 whiptail --msgbox "Taiga.Io successfully installed!
 
-Open http://your_local_ip:8000 in your browser to access to Taiga.Io" 16 60
+Open http://$DOMAIN:8000 in your browser to access to Taiga.Io" 12 64

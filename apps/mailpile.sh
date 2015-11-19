@@ -32,9 +32,9 @@ git submodule update
 
 whiptail --msgbox "Mailpile successfully installed!
 You should need to open port 33411 and 993
-Open http://localhost:33411 in your browser
+Open http://$DOMAIN:33411 in your browser
 
 To run Mailpile again:
 cd Mailpile
 source mp-virtualenv/bin/activate
-./mp" 16 60
+./mp" 16 48

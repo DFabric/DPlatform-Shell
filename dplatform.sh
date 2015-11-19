@@ -1,6 +1,8 @@
 #!/bin/sh
 DIR=$(cd -P $(dirname $0) && pwd)
-
+IP=$(wget -qO- ipv4.icanhazip.com)
+LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+DOMAIN=$IP
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
@@ -11,6 +13,8 @@ elif hash rpm 2>/dev/null
 elif hash pacman 2>/dev/null
 	then PKG=pkg
 	install="pacman -S"
+else
+	PKG=unknown
 fi
 # Detect distro
 if grep 'Ubuntu' /etc/issue 2>/dev/null
@@ -27,17 +31,19 @@ elif echo $ARCH | grep arm
 fi
 
 clear
-whiptail --title DPlatform --msgbox "
-DPlatform - Deploy self-hosted apps efficiently
-
+whiptail --title DPlatform --msgbox "DPlatform - Deploy self-hosted apps efficiently
 https://github.com/j8r/DPlatform
 
+=Your domain name: $DOMAIN
+-Your public IP: $IP
+Your local IP: $LOCALIP
+Your OS: $PKG based $ARCH $(cat /etc/issue)
 
-
-Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 64
+Confirm with Enter <-'
+Copyright (c) 2015 Julien Reichardt - The MIT License (MIT)" 16 80
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 while whiptail --title "DPlatform - Main menu" --menu "
-				What service would you like to deploy?" 24 96 12 \
+	What service would you like to deploy? Select with Arrows <-v^-> and/or Tab <=>" 24 96 12 \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
 	"Ajenti" "Web admin panel" \
 	"Docker" "Open container engine platform for distributed application" \
@@ -78,6 +84,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
+		http://www.freenom.com
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Docker) . sysutils/docker.sh;;

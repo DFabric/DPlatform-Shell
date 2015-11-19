@@ -14,4 +14,5 @@ pip install -r requirements.txt
 
  whiptail --msgbox "Wagtail successfully installed!
 
- Your site is now accessible at http://localhost:8000, with the admin backend available at http://localhost:8000/admin/." 16 60
+ Your site is now accessible at http://$DOMAIN:8000
+ Admin backend available at http://$DOMAIN:8000/admin" 16 64

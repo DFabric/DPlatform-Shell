@@ -235,4 +235,4 @@ NEED_REVIEW
 
 whiptail --msgbox "Mattermost successfully installed!
 
-Open http://your_hostname.com:8065 in your browser" 16 60
+Open http://$DOMAIN:8065 in your browser" 12 48

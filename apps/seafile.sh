@@ -68,7 +68,7 @@ esac
 
 whiptail --msgbox "Seafile successfully installed!
 
-Open http://your_hostname.com:<port> in your browser
+Open http://$DOMAIN:<port> in your browser
 Default port: 8000. To change it, for example to 8001
 You can modify SERVICE_URL via web UI in System Admin->Settings
 

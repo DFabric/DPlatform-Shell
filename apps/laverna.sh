@@ -20,4 +20,4 @@ git clone -b gh-pages https://github.com/Laverna/static-laverna
 
 whiptail --msgbox "Laverna successfully installed!
 
-Open http://localhost in your browser" 12 60
+Open http://$DOMAIN in your browser" 12 48

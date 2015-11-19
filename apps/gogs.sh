@@ -24,4 +24,4 @@ rm linux_$ARCH.zip
 
 whiptail --msgbox "Gogs successfully installed!
 
-Open http://your_hostname.com:3000 in your browser." 16 60
+Open http://$DOMAIN:3000 in your browser." 12 48

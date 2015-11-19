@@ -14,4 +14,4 @@ sudo ./retropie_setup.sh
 
 whiptail --msgbox "RetroPie successfully installed!
 
-You might need to reboot your Raspberry" 12 60
+You might need to reboot your Raspberry" 12 48

@@ -10,4 +10,4 @@ whiptail --msgbox "Shout successfully installed!
 Start the Shout server, for example:
 shout start --port 80 --private
 
-shout --help" 16 60
+shout --help" 12 48
