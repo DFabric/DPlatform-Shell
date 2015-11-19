@@ -1,26 +1,39 @@
 #!/bin/sh
 
 . sysutils/nodejs.sh
+
+npm install nave -g
+nave usemain 0.12.7
+
 $install unzip
 
 # http://support.ghost.org/installing-ghost-linux/
+# https://www.howtoinstallghost.com/vps-manual/
+
+## Download and Install Ghost
 # Grab the latest version of Ghost from Ghost.org
 curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
 
-# Unzip Ghost into the folder /var/www/ghost (recommended install location)
+# Unzip Ghost into the recommended install folder location /var/www/ghost
 
 mkdir /var/www/
 unzip -uo ghost.zip -d /var/www/ghost
 
-# Move to the new ghost directory, and install Ghost (production dependencies only):
+# Move to the new ghost directory, and install Ghost production dependencies
 
 cd /var/www/ghost && npm install --production
+
+## Configure Ghost
+
+cp config.example.js config.js
+sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
+
+# Start Ghost (production environment)
+cd /var/www/ghost && npm start --production
 
 whiptail --msgbox "Ghost successfully installed!
 
 To start Ghost (production environment), run 'cd /var/www/ghost && npm start --production'
 
-Ghost will now be running on the default ip/port 127.0.0.1:2368.
-
-Visit http://<your-ip-address>:2368 to see your newly setup Ghost blog
-Visit http://<your-ip-address>:2368/ghost and create your admin user to login to the Ghost admin" 20 80
+Visit http://$DOMAIN:2368 to see your newly setup Ghost blog
+Visit http://$DOMAIN:2368/ghost and create your admin user to login to the Ghost admin" 16 80
