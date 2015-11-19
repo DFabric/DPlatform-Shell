@@ -1,7 +1,7 @@
 #!/bin/sh
 cd $HOME
 # Prerequisites
-$install sqlite3 git
+$install sqlite3 git unzip
 
 # Get the latest Seafile release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/releases/latest)
@@ -14,14 +14,18 @@ if [ $ARCH = 86 ]
 fi
 if [ $ARCH = arm ]
   then wget https://github.com/gogits/gogs/releases/download/v$ver/raspi2.zip
+  unzip raspi2.zip
+  rm raspi2.zip
 else
   wget https://github.com/gogits/gogs/releases/download/v$ver/linux_$ARCH.zip
+  unzip linux_$ARCH.zip
+  rm linux_$ARCH.zip
 fi
-unzip linux_$ARCH.zip
-rm linux_$ARCH.zip
 
-./gogs web
+cd gogs && ./gogs web
 
 whiptail --msgbox "Gogs successfully installed!
 
-Open http://$DOMAIN:3000 in your browser." 12 48
+To run Gogs: cd gogs && ./gogs web
+
+Open http://$DOMAIN:3000 in your browser" 12 48

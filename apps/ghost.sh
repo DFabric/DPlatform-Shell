@@ -19,6 +19,7 @@ curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
 mkdir /var/www/
 unzip -uo ghost.zip -d /var/www/ghost
 
+rm ghost.zip
 # Move to the new ghost directory, and install Ghost production dependencies
 
 cd /var/www/ghost && npm install --production
