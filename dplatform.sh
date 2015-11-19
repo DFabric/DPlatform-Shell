@@ -34,7 +34,7 @@ clear
 whiptail --title DPlatform --msgbox "DPlatform - Deploy self-hosted apps efficiently
 https://github.com/j8r/DPlatform
 
-=Your domain name: $DOMAIN
+=Your domain name: $DOMAIN Free domains at http://www.freenom.com
 -Your public IP: $IP
 Your local IP: $LOCALIP
 Your OS: $PKG based $ARCH $(cat /etc/issue)
@@ -84,7 +84,6 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
-		http://www.freenom.com
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Docker) . sysutils/docker.sh;;
