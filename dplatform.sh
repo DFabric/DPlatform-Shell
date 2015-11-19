@@ -94,6 +94,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		Ghost) . apps/ghost.sh;;
 		KeystoneJS) . apps/keystonejs.sh;;
 		"Let's Chat") . apps/lets-chat.sh;;
+		Mailpile) . apps/mailpile.sh;;
 		Mattermost) . apps/mattermost.sh;;
 		Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
 		Modoboa) . apps/modoboa.sh;;
