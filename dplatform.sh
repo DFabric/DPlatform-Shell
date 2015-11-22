@@ -2,7 +2,7 @@
 DIR=$(cd -P $(dirname $0) && pwd)
 IP=$(wget -qO- ipv4.icanhazip.com)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-DOMAIN=$IP
+DOMAIN=$(hostname -f)
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
@@ -34,7 +34,7 @@ clear
 whiptail --title DPlatform --msgbox "DPlatform - Deploy self-hosted apps efficiently
 https://github.com/j8r/DPlatform
 
-=Your domain name: $DOMAIN Free domains at http://www.freenom.com
+=Your domain name: $DOMAIN
 -Your public IP: $IP
 Your local IP: $LOCALIP
 Your OS: $PKG based $ARCH $(cat /etc/issue)
@@ -44,6 +44,7 @@ Copyright (c) 2015 Julien Reichardt - The MIT License (MIT)" 16 80
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 while whiptail --title "DPlatform - Main menu" --menu "
 	What service would you like to deploy? Select with Arrows <-v^-> and/or Tab <=>" 24 96 12 \
+	"Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
 	"Ajenti" "Web admin panel" \
 	"Docker" "Open container engine platform for distributed application" \
@@ -84,6 +85,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
+		Domain name) . sysutils/hostname.sh;;
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Docker) . sysutils/docker.sh;;
