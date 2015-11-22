@@ -10,11 +10,10 @@ whiptail --yesno "Would you like to send the .ovpn file via mail which include t
 case $? in
   0) # Check if Postfix and Mutt are installed
   if ! hash postfix mutt 2>/dev/null
-    then
-    # FQDN required for mail server
-    . ../sysutils/hostname.sh
+    then # Install postfix mail server and mutt for attachment
+    whiptail --msgbox " During the package configuration, select 'Internet Site' in the second prompt menu.
 
-    # Install postfix mail server and mutt for attachment
+    Next, you can keep all the defaults configurations and always press [Enter]" 12 48
     $install postfix mutt
   fi
 
