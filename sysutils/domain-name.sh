@@ -17,4 +17,9 @@ case $? in
 esac
 DOMAIN=${x%?}
 
+# Replace old hostname by the new
+rm /etc/hostname
+echo $DOMAIN >> /etc/hostname
+
+# Add the new domain to the hosts
 echo "127.0.0.1 $DOMAIN" >> /etc/hosts
