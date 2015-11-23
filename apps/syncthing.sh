@@ -20,4 +20,4 @@ whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your c
 You will need to setup a port forward for 22000/TCP.
 To be able to access the web GUI from other computers, you need to open port 8384
 
-The admin GUI starts automatically and remains available on https://$DOMAIN:8384" 16 64
+The admin GUI starts automatically and remains available on https://$IP:8384" 16 64

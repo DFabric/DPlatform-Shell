@@ -35,4 +35,4 @@ wide
 
 whiptail --msgbox "Wide successfully installed!
 
-Open browser: http://$DOMAIN:7070" 12 48
+Open browser: http://$IP:7070" 12 48

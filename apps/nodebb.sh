@@ -23,10 +23,11 @@ npm install --production
 
 whiptail --msgbox "NodeBB successfully installed!
 
-Open http://$DOMAIN:4567 in your browser
+Open http://$IP:4567 in your browser
 
 Run the NodeBB forum: cd nodebb && ./nodebb start" 12 64
 
+# https://www.npmjs.com/package/nodebb-plugin-blog-comments
 <<ghost_comment_plugin
 Installation
 

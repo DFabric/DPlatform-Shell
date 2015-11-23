@@ -10,7 +10,7 @@ service clamav-daemon restart
 
 whiptail --msgbox "Modoboa successfully installed!
 
-You should be able to access Modoboa at http://$DOMAIN:8000
+You should be able to access Modoboa at http://$IP:8000
 
 Your installation should now have a default super administrator:
 

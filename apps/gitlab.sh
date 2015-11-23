@@ -40,7 +40,7 @@ sudo gitlab-ctl reconfigure
 
 whiptail --msgbox "GitLab successfully installed!
 
-Browse to $DOMAIN and login
+Browse to $IP and login
 
 Username: root
 Password: 5iveL\!fe " 12 48

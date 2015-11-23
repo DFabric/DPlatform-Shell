@@ -2,13 +2,14 @@
 
 . sysutils/nodejs.sh
 . sysutils/mongodb.sh
+cd $HOME
 
 # Install the generator
 npm install -g generator-keystone
 
 # Create project folder
-mkdir my-test-project
-cd my-test-project
+mkdir keystone-site-project
+cd keystone-site-project
 
 yo keystone
 
@@ -16,6 +17,6 @@ node keystone
 
 whiptail --msgbox "KeystoneJS successfully installed!
 
-To run your KeystoneJS project: node keystone
+To run your KeystoneJS project: cd keystone-site-project && node keystone
 
-Open http://$DOMAIN:3000 to view it in your browser." 12 64
+Open http://$IP:3000 to view it in your browser." 12 64

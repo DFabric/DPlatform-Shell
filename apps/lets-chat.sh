@@ -5,6 +5,7 @@
 . sysutils/nodejs.sh
 cd $HOME
 
+# https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7
 
 git clone https://github.com/sdelements/lets-chat.git
@@ -24,4 +25,4 @@ whiptail --msgbox "Let's Chat successfully installed!
 
 To start Let's Chat: cd lets-chat && npm start
 
-Open http://$DOMAIN:5000 in your browser" 12 64
+Open http://$IP:5000 in your browser" 12 64

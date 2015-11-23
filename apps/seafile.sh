@@ -53,7 +53,7 @@ case $CHOICE in
 	# Only Debian based OS are supported
 	if ! [ $PKG = deb ]
 		then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
-		break
+		exit
 	fi
 	if [ $ARCH = arm ]
 		then dist=seafile-ce_ubuntu-trusty-arm
@@ -68,7 +68,7 @@ esac
 
 whiptail --msgbox "Seafile successfully installed!
 
-Open http://$DOMAIN:<port> in your browser
+Open http://$IP:<port> in your browser
 Default port: 8000. To change it, for example to 8001
 You can modify SERVICE_URL via web UI in System Admin->Settings
 

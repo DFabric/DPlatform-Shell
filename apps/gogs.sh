@@ -28,4 +28,4 @@ whiptail --msgbox "Gogs successfully installed!
 
 To run Gogs: cd gogs && ./gogs web
 
-Open http://$DOMAIN:3000 in your browser" 12 48
+Open http://$IP:3000 in your browser" 12 48
