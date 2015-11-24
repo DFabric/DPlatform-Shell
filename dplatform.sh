@@ -6,7 +6,7 @@ DOMAIN=$(hostname -f)
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
-	install="apt-get install -y"
+	install="debconf-apt-progress -- apt-get install -y"
 elif hash rpm 2>/dev/null
 	then PKG=rpm
 	install="yum install --enablerepo=epel -y"
