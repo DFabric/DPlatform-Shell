@@ -1,6 +1,6 @@
 # DPlatform [ALPHA]
-#### Would you like a cloud storage, a VPN or a website? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
-Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have also some support.
+##### Would you like a cloud storage, a VPN or a website? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
@@ -20,6 +20,7 @@ cd DPlatform && sudo ./dplatform.sh
 ## Available Apps (few still need work)
 
  - Set a domain name to use a name instead of the computer's IP address
+ - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Web admin panel
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application

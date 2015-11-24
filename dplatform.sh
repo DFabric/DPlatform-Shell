@@ -70,6 +70,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"Shout" "The self-hosted web IRC client" \
 	"Stringer" "A self-hosted, anti-social RSS reader" \
 	"Syncthing" "Open Source Continuous File Synchronization" \
+	"Torrent" "Deluge and Transmission torrent web interface" \
 	"Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
 	"Wagtail" "Django CMS focused on flexibility and user experience" \
 	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
