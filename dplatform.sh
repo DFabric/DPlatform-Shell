@@ -86,7 +86,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	case $? in
 		1) ;; # Return to main menu
 		0) case $CHOICE in
-		Domain name) . sysutils/hostname.sh;;
+		"Domain name") . sysutils/hostname.sh;;
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Docker) . sysutils/docker.sh;;
