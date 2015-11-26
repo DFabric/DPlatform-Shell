@@ -2,6 +2,9 @@
 
 git clone https://github.com/taigaio/taiga-scripts.git
 cd taiga-scripts
+
+# Delete "exit" to remove root protection
+sed -i '/exit 1/d' setup-server.sh
 bash setup-server.sh
 
 whiptail --msgbox "Taiga.Io successfully installed!
