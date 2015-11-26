@@ -3,14 +3,14 @@ cd $HOME
 # Prerequisites
 $install sqlite3 git unzip
 
-# Get the latest Seafile release
+# Get the latest Gogs release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/releases/latest)
 
 # Only keep the version number in the url
 ver=$(echo $ver | awk '{ver=substr($0, 46); print ver;}')
 
 if [ $ARCH = 86 ]
-  then arch=386
+  then ARCH=386
 fi
 if [ $ARCH = arm ]
   then wget https://github.com/gogits/gogs/releases/download/v$ver/raspi2.zip
