@@ -33,6 +33,7 @@ cd DPlatform && sudo ./dplatform.sh
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
  - [Laverna](https://laverna.cc/) - Laverna is a JavaScript note taking application with Markdown editor and encryption support
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
+ - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost

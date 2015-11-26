@@ -57,6 +57,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"KeystoneJS" "Node.js CMS & Web Application Platform" \
 	"Laverna" "Note taking application with Mardown editor and encryption" \
 	"Let's Chat" "Self-hosted chat app for small teams" \
+	"Linx" " Self-hosted file/code/media sharing website" \
 	"Mailpile" "Modern, fast email client with user-friendly privacy features" \
 	"Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
 	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
@@ -99,6 +100,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		"JS Bin") . apps/jsbin.sh;;
 		KeystoneJS) . apps/keystonejs.sh;;
 		"Let's Chat") . apps/lets-chat.sh;;
+		Linx) . apps/linx.sh;;
 		Mailpile) . apps/mailpile.sh;;
 		Mattermost) . apps/mattermost.sh;;
 		Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
