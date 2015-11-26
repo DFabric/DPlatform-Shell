@@ -53,6 +53,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"GitLab" "Open source Version Control to collaborate on code" \
 	"Gogs" "Gogs(Go Git Service), a painless self-hosted Git Service" \
 	"Ghost" "Simple and powerful blogging/publishing platform" \
+	"JS Bin" "Collaborative JavaScript Debugging App" \
 	"KeystoneJS" "Node.js CMS & Web Application Platform" \
 	"Laverna" "Note taking application with Mardown editor and encryption" \
 	"Let's Chat" "Self-hosted chat app for small teams" \
@@ -95,6 +96,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		GitLab) . apps/gitlab.sh;;
 		Gogs) . apps/gogs.sh;;
 		Ghost) . apps/ghost.sh;;
+		"JS Bin") . apps/jsbin.sh;;
 		KeystoneJS) . apps/keystonejs.sh;;
 		"Let's Chat") . apps/lets-chat.sh;;
 		Mailpile) . apps/mailpile.sh;;

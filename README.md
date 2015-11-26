@@ -29,6 +29,7 @@ cd DPlatform && sudo ./dplatform.sh
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
+ - [JS Bin](http://jsbin.com) - JS Bin is an open source collaborative web development debugging tool
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
  - [Laverna](https://laverna.cc/) - Laverna is a JavaScript note taking application with Markdown editor and encryption support
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
