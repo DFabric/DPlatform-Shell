@@ -1,0 +1,9 @@
+# Ignore everything
+*
+# Except this files
+!.gitignore
+!dplatform.sh
+!README.md
+!LICENSE
+!apps/
+!sysutils/
