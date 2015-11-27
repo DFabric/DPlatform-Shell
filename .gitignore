@@ -5,5 +5,8 @@
 !dplatform.sh
 !README.md
 !LICENSE
+/*
 !apps/
+!apps/*
 !sysutils/
+!sysutils/*

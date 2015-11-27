@@ -37,16 +37,17 @@ https://github.com/j8r/DPlatform
 =Your domain name: $DOMAIN
 -Your public IP: $IP
 Your local IP: $LOCALIP
-Your OS: $PKG based $ARCH $(cat /etc/issue)
+Your OS: $ARCH arch $PKG based $(cat /etc/issue)
 
 Confirm with Enter <-'
-Copyright (c) 2015 Julien Reichardt - The MIT License (MIT)" 16 80
-trap 'rm -f choice$$' 0 1 2 5 15 EXIT
+Copyright (c) 2015 Julien Reichardt - The MIT License (MIT)" 16 64
+trap 'rm -f choice$$' EXIT
 while whiptail --title "DPlatform - Main menu" --menu "
 	What service would you like to deploy? Select with Arrows <-v^-> and/or Tab <=>" 24 96 12 \
 	"Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
 	"Ajenti" "Web admin panel" \
+	"Dillinger" "The last Markdown editor, ever" \
 	"Docker" "Open container engine platform for distributed application" \
 	"EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 	"Etherpad" "Real-time collaborative document editor" \
@@ -91,6 +92,7 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		"Domain name") . sysutils/hostname.sh;;
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
+		Dillinger) . apps/dillinger.sh;;
 		Docker) . sysutils/docker.sh;;
 		Etherpad) . apps/etherpad.sh;;
 		EtherCalc) . apps/ethercalc.sh;;

@@ -1,21 +1,8 @@
 # DPlatform [ALPHA]
-##### Would you like a cloud storage, a VPN or a website? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+##### Would you like a Cloud storage, a Chat platform, a CMS Website or even a VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
-
-## Install
-
-First, clone the git project
-```
-sudo apt-get -y install git
-git clone https://github.com/j8r/DPlatform
-chmod +x DPlatform/dplatform.sh
-```
-Go to the DPlatform directory and run DPlatform
-```
-cd DPlatform && sudo ./dplatform.sh
-```
 
 ## Available Apps (few still need work)
 
@@ -23,6 +10,7 @@ cd DPlatform && sudo ./dplatform.sh
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Web admin panel
+ - [Dillinger](http://dillinger.io/) - Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
@@ -51,3 +39,15 @@ cd DPlatform && sudo ./dplatform.sh
  - [Taiga-LetsChat](https://github.com/taigaio/taiga-contrib-letschat) - Taiga contrib plugin for Let's Chat integration
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
+
+## Install
+
+First, clone the git project
+```
+sudo apt-get -y install git
+git clone https://github.com/j8r/DPlatform
+```
+Go to the DPlatform directory and run DPlatform
+```
+cd DPlatform && sudo ./dplatform.sh
+```
