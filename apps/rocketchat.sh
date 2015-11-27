@@ -1,15 +1,15 @@
 #!/bin/sh
 
-#https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
-
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
 
+# https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 
+## Install Dependencies
 # SYSTEM CONFIGURATION
-$install git curl
+$install git curl graphicsmagick
 npm install nave -g
-nave usemain 0.12.7
+nave usemain 0.10
 
 # Install Meteor
 # https://github.com/4commerce-technologies-AG/meteor
@@ -22,13 +22,13 @@ else
 fi
 
 npm install pm2 -g
-
 if [ $PKG = rpm ]
   then pm2 startup amazon
 else
   pm2 startup
 fi
 
+## Setup MongoDB Replica Set
 # Check MongoDB version
 mongo_version=$(mongo --version)
 # Keep the version numver
@@ -39,17 +39,31 @@ mongo_major=${mongo_version%.*}
 mongo_minor=${mongo_version#*.}
 mongo_version=$mongo_major$mongo_minor
 
+# Mongo 2.4 or earlier
 if (( $mongo_version < 25 ))
   then echo replSet=001-rs >> /etc/mongod.conf
+# Mongo 2.6+: using YAML syntax
 else
   echo "replication:
       replSetName:  "001-rs"" >> /etc/mongod.conf
 fi
 service mongod restart
 mongo
-rs.initiate()
 
-# Deploy Rocket.Chat
+# Initiate the Replica Set
+rs.initiate({_id:"001-rs",members:[{_id:0,host:"localhost:27017"}]})
+
+<<RESULT_EXPECTED
+{
+    "ok" : 1
+}
+# After a few seconds
+001-rs:PRIMARY>
+RESULT_EXPECTED
+
+exit
+
+## Download Rocket.Chat
 
 HOST=your_hostname.com
 MONGO_URL=mongodb://localhost:27017/rocketchat
