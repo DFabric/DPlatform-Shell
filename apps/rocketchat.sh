@@ -4,7 +4,7 @@
 
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
-cd $HOME
+
 
 # SYSTEM CONFIGURATION
 $install git curl
@@ -16,7 +16,7 @@ nave usemain 0.12.7
 if [ $ARCH = arm ]
   then git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
-  $HOME/meteor/meteor --version
+  meteor/meteor --version
 else
   curl https://install.meteor.com/ | sh
 fi

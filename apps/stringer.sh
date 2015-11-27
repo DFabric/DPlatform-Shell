@@ -52,9 +52,9 @@ su -l stringer
 
 cd
 git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bash_profile
-echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
-git clone git://github.com/sstephenson/ruby-build.git $HOME/.rbenv/plugins/ruby-build
+echo 'export PATH=".rbenv/bin:$PATH"' >> .bash_profile
+echo 'eval "$(rbenv init -)"' >> .bash_profile
+git clone git://github.com/sstephenson/ruby-build.git .rbenv/plugins/ruby-build
 source ~/.bash_profile
 
 rbenv install 2.0.0-p0
@@ -84,16 +84,16 @@ rbenv rehash
 
 # Stringer uses environment variables to determine information about your database, edit these values to reflect your database and the password you chose earlier
 
-echo 'export STRINGER_DATABASE="stringer_live"' >> $HOME/.bash_profile
-echo 'export STRINGER_DATABASE_USERNAME="stringer"' >> $HOME/.bash_profile
-echo 'export STRINGER_DATABASE_PASSWORD="EDIT_ME"' >> $HOME/.bash_profile
-echo 'export RACK_ENV="production"' >> $HOME/.bash_profile
-echo "export SECRET_TOKEN=`openssl rand -hex 20`" >> $HOME/.bash_profile
+echo 'export STRINGER_DATABASE="stringer_live"' >> .bash_profile
+echo 'export STRINGER_DATABASE_USERNAME="stringer"' >> .bash_profile
+echo 'export STRINGER_DATABASE_PASSWORD="EDIT_ME"' >> .bash_profile
+echo 'export RACK_ENV="production"' >> .bash_profile
+echo "export SECRET_TOKEN=`openssl rand -hex 20`" >> .bash_profile
 source ~/.bash_profile
 
 # Tell stringer to run the database in production mode, using the postgres database you created earlier.
 
-cd $HOME/stringer
+cd stringer
 rake db:migrate RACK_ENV=production
 
 # Run the application:
@@ -108,7 +108,7 @@ crontab -e
 
 SHELL=/bin/bash
 PATH=/home/stringer/.rbenv/bin:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
-*/10 * * * *  source $HOME/.bash_profile; cd $HOME/stringer/; bundle exec rake fetch_feeds;
+*/10 * * * *  source .bash_profile; cd stringer/; bundle exec rake fetch_feeds;
 
 whiptail --msgbox "Stringer successfully installed!
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-cd $HOME
+
 trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 

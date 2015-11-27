@@ -3,7 +3,7 @@
 # Prerequisites
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
-cd $HOME
+
 
 # https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7

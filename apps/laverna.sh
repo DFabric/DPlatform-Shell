@@ -1,5 +1,5 @@
 #!/bin/sh
-cd $HOME
+
 $install nginx git
 
 # Nginx

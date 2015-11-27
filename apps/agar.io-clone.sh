@@ -1,6 +1,6 @@
 #!/bin/sh
 . sysutils/nodejs.sh
-cd $HOME
+
 
 $install git
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $HOME
+
 # Get the latest Linx-server release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/linx-server/releases/latest)
 

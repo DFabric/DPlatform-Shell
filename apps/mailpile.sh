@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # https://github.com/mailpile/Mailpile/wiki/Getting-started-on-linux
-cd $HOME
+
 
 $install gnupg openssl python-virtualenv python-pip python-lxml git
 

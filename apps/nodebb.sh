@@ -1,7 +1,7 @@
 #!/bin/sh
 . sysutils/nodejs.sh
 . sysutils/mongodb.sh
-cd $HOME
+
 # https://docs.nodebb.org/en/latest/installing/os.html
 
 ## Installing NodeBB

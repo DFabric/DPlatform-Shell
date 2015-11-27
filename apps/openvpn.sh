@@ -28,7 +28,7 @@ case $? in
   user_mail=${x%?}
 
   # Send mail attachment with mutt
-  echo "Use this .ovpn file to connect to your VPN with your OpenVPN client installed in your system" | mutt -a "$HOME/*.ovpn" -s "Your OpenVPN certificate file" -- $user_mail
+  echo "Use this .ovpn file to connect to your VPN with your OpenVPN client installed in your system" | mutt -a "*.ovpn" -s "Your OpenVPN certificate file" -- $user_mail
 
   whiptail --yesno "It is safer to stop the Postfix mail service if you don't use it.
   The service will restart automatically the next time you need to send an .ovpn file via mail.
@@ -42,12 +42,12 @@ case $? in
 esac
 
 # Move the client .ovpn file to a folder with all OpenVPN clients
-mkdir $HOME/OpenVPN-clients
-mv $HOME/*.ovpn $HOME/OpenVPN-clients
+mkdir OpenVPN-clients
+mv *.ovpn OpenVPN-clients
 
 whiptail --msgbox "OpenVPN successfully installed and operational!
 
-Your clients certificates are available at $HOME/OpenVPN-clients
-Certficates actually presents: $(ls $HOME/OpenVPN-clients)
+Your clients certificates are available at OpenVPN-clients
+Certficates actually presents: $(ls OpenVPN-clients)
 
 If you want to add more clients, you simply need to run this script another time!" 12 64
