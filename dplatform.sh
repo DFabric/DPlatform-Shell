@@ -16,35 +16,25 @@ elif hash pacman 2>/dev/null
 else
 	PKG=unknown
 fi
-# Detect distro
+# Detect distribution
 if grep 'Ubuntu' /etc/issue 2>/dev/null
 	then DIST=ubuntu
 fi
-# Detect arch
+# Detect architecture
 ARCH=$(uname -m)
-if echo $ARCH | grep x86_64
+if [ $ARCH = *x86_64* ]
 	then ARCH=amd64
-elif echo $ARCH | grep 86
+elif [ $ARCH = *86* ]
 	then ARCH=86
-elif echo $ARCH | grep arm
+elif [ $ARCH = *arm* ]
 	then ARCH=arm
 fi
 
-clear
-whiptail --title DPlatform --msgbox "DPlatform - Deploy self-hosted apps efficiently
-https://github.com/j8r/DPlatform
-
-=Your domain name: $DOMAIN
--Your public IP: $IP
-Your local IP: $LOCALIP
-Your OS: $ARCH arch $PKG based $(cat /etc/issue)
-
-Confirm with Enter <-'
-Copyright (c) 2015 Julien Reichardt - The MIT License (MIT)" 16 64
-trap 'rm -f choice$$' EXIT
-while whiptail --title "DPlatform - Main menu" --menu "
-	What service would you like to deploy? Select with Arrows <-v^-> and/or Tab <=>" 24 96 12 \
-	"Domain name" "Set a domain name to use a name instead of the computer's IP address" \
+# Applications installation menu
+installation_menu() {
+	trap 'rm -f /tmp/choice' EXIT
+	while whiptail --title "DPlatform - Installation menu" --menu "
+	What application would you like to deploy?" 24 96 14 \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
 	"Ajenti" "Web admin panel" \
 	"Dillinger" "The last Markdown editor, ever" \
@@ -79,17 +69,15 @@ while whiptail --title "DPlatform - Main menu" --menu "
 	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
 	"Wekan" "Collaborative Trello-like kanban board application" \
 	"Wide" "Web-based IDE for Teams using Go(lang)" \
-	"update" "Update Confinux" \
-	2> choice$$
+	2> choice
 	do cd $DIR
-	read CHOICE < choice$$
+	read CHOICE < choice
 	# Confirmation dialog
 	whiptail --yesno "		$CHOICE will be installed.
 	Do you want to continue?" 8 48
 	case $? in
-		1) ;; # Return to main menu
+		1) ;; # Return to installation menu
 		0) case $CHOICE in
-		"Domain name") . sysutils/hostname.sh;;
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
 		Dillinger) . apps/dillinger.sh;;
@@ -121,16 +109,37 @@ while whiptail --title "DPlatform - Main menu" --menu "
 		Wagtail) . apps/wagtail.sh;;
 		Wekan) . apps/wekan.sh;;
 		Wide) . apps/wide.sh;;
-		update) if hash git 2>/dev/null
-		then git pull
-		else
-			rm -r *
-			wget https://github.com/j8r/DPlatform/archive/master.zip
-			unzip master.zip
-			cp -r DPlatform-master/* .
-			rm -r *master*
-		fi
-		whiptail --msgbox "DPlatform is successfully updated" 8 60;;
 		esac;;
 	esac
+	done
+}
+
+# Main menu
+trap 'rm -f /tmp/choice' EXIT
+while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+"Install apps" "Install new applications" \
+"Remove apps" "Uninstall applications" \
+"Service Manager" "Start/Stop, and set auto start/stop services at startup" \
+"Domain name" "Set a domain name to use a name instead of the computer's IP address" \
+"Update" "Update Confinux" \
+"About" "Informations about this project and your system" \
+2> choice
+do cd $DIR
+read CHOICE < choice
+case $CHOICE in
+	"Install apps") installation_menu;;
+	"Remove apps") whiptail --msgbox "	Comming soon!" 8 48;;
+	"Service Manager") whiptail --msgbox "	Comming soon!" 8 48;;
+	"Domain name") . sysutils/domain-name.sh;;
+	Update) git pull
+	whiptail --msgbox "DPlatform is successfully updated" 8 48;;
+	About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
+	https://github.com/j8r/DPlatform
+
+	=Your domain name: $DOMAIN
+	-Your public IP: $IP
+	Your local IP: $LOCALIP
+	Your OS: $ARCH arch $PKG based $(cat /etc/issue)
+	Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 68;;
+esac
 done
