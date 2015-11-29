@@ -19,7 +19,7 @@ psql \q
 ## Setup Mattermost Server
 
 # Download the latest Mattermost Server by typing:
-wget https://github.com/mattermost/platform/releases/download/v1.0.0/mattermost.tar.gz
+wget https://github.com/mattermost/platform/releases/download/v1.2.1/mattermost.tar.gz
 
 # Install Mattermost under /opt
 cd /opt
