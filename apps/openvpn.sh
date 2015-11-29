@@ -42,7 +42,7 @@ case $? in
 esac
 
 # Move the client .ovpn file to a folder with all OpenVPN clients
-mkdir OpenVPN-clients
+mkdir -p OpenVPN-clients
 mv *.ovpn OpenVPN-clients
 
 whiptail --msgbox "OpenVPN successfully installed and operational!
