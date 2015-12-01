@@ -69,9 +69,9 @@ installation_menu() {
 	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
 	"Wekan" "Collaborative Trello-like kanban board application" \
 	"Wide" "Web-based IDE for Teams using Go(lang)" \
-	2> choice
+	2> /tmp/choice
 	do cd $DIR
-	read CHOICE < choice
+	read CHOICE < /tmp/choice
 	# Confirmation dialog
 	whiptail --yesno "		$CHOICE will be installed.
 	Do you want to continue?" 8 48
@@ -123,9 +123,9 @@ while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v^-
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 "Update" "Update Confinux" \
 "About" "Informations about this project and your system" \
-2> choice
+2> /tmp/choice
 do cd $DIR
-read CHOICE < choice
+read CHOICE < /tmp/choice
 case $CHOICE in
 	"Install apps") installation_menu;;
 	"Remove apps") whiptail --msgbox "	Comming soon!" 8 48;;

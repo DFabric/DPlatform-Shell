@@ -1,6 +1,6 @@
 #!/bin/sh
 
-trap 'rm -f choice$$' 0 1 2 5 15 EXIT
+trap 'rm -f /tmp/choice' 0 1 2 5 15 EXIT
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
 SQLite is good in Home/Personal Environment, while MariaDB/Nginx
@@ -9,8 +9,8 @@ is recommended in Production/Enterprise Environment
 If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 "Deploy Seafile with MariaDB" "Advanced features, heavier" \
-2> choice$$
-read CHOICE < choice$$
+2> /tmp/choice
+read CHOICE < /tmp/choice
 case $CHOICE in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
