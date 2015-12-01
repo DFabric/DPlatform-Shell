@@ -37,6 +37,7 @@ installation_menu() {
 	What application would you like to deploy?" 24 96 14 \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
 	"Ajenti" "Web admin panel" \
+	"(WordPress) Calypso" "Reading, writing, and managing all of your WordPress sites" \
 	"Dillinger" "The last Markdown editor, ever" \
 	"Docker" "Open container engine platform for distributed application" \
 	"EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
@@ -80,6 +81,7 @@ installation_menu() {
 		0) case $CHOICE in
 		"Agar.io Clone") . apps/agar.io-clone.sh;;
 		Ajenti) . apps/ajenti.sh;;
+		"(WordPress) Calypso") . apps/calypso.sh;;
 		Dillinger) . apps/dillinger.sh;;
 		Docker) . sysutils/docker.sh;;
 		Etherpad) . apps/etherpad.sh;;
