@@ -4,7 +4,7 @@ Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) s
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
-## Available Apps (few still need work)
+## Features and available apps (few still need work)
 
  - Set a domain name to use a name instead of the computer's IP address
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
@@ -50,5 +50,9 @@ git clone https://github.com/j8r/DPlatform
 ```
 Go to the DPlatform directory and run DPlatform
 ```
-cd DPlatform && sudo ./dplatform.sh
+cd DPlatform && sudo sh dplatform.sh
 ```
+
+## License
+
+DPlatform is distributed under the [MIT License](http://opensource.org/licenses/MIT)
