@@ -120,21 +120,21 @@ installation_menu() {
 trap 'rm -f /tmp/choice' EXIT
 while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
+"Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Service Manager" "Start/Stop, and set auto start/stop services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
-"Update" "Update Confinux" \
 "About" "Informations about this project and your system" \
 2> /tmp/choice
 do cd $DIR
 read CHOICE < /tmp/choice
 case $CHOICE in
 	"Install apps") installation_menu;;
-	"Remove apps") whiptail --msgbox "	Comming soon!" 8 48;;
-	"Service Manager") whiptail --msgbox "	Comming soon!" 8 48;;
-	"Domain name") . sysutils/domain-name.sh;;
 	Update) git pull
-	whiptail --msgbox "DPlatform is successfully updated" 8 48;;
+	whiptail --msgbox "	DPlatform updated. Applications update comming soon\!" 8 48;;
+	"Remove apps") whiptail --msgbox "	Comming soon\!" 8 48;;
+	"Service Manager") whiptail --msgbox "	Comming soon\!" 8 48;;
+	"Domain name") . sysutils/domain-name.sh;;
 	About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 	https://github.com/j8r/DPlatform
 
