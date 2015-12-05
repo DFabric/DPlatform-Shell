@@ -14,9 +14,8 @@ whiptail --title "Domain name" --clear --inputbox "Enter your FQDN domain name" 
 case $? in
   0) DOMAIN=${x%?}
 
-  # Replace old hostname by the new
-  rm /etc/hostname
-  echo $DOMAIN >> /etc/hostname
+  # Replace the old hostname by the new
+  echo $DOMAIN > /etc/hostname
 
   # Add the new domain to the hosts
   echo "127.0.0.1 $DOMAIN" >> /etc/hosts;;
