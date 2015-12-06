@@ -26,6 +26,8 @@ if [ $ARCH = *x86_64* ]
 	then ARCH=amd64
 elif [ $ARCH = *86* ]
 	then ARCH=86
+elif [ $ARCH = *armv6* ]
+	then ARCH=armv6
 elif [ $ARCH = *arm* ]
 	then ARCH=arm
 fi
@@ -79,7 +81,7 @@ installation_menu() {
 		Do you want to continue?" 8 48
 		case $? in
 			1) ;; # Return to installation menu
-			0) echo $CHOICE #>> installed-apps
+			0) echo $CHOICE >> installed-apps
 			case $CHOICE in
 			"Agar.io Clone") . apps/agar.io-clone.sh;;
 			Ajenti) . apps/ajenti.sh;;
