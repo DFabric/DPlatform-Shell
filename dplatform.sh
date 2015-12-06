@@ -38,40 +38,41 @@ installation_menu() {
 	while whiptail --title "DPlatform - Installation menu" --menu "
 	What application would you like to deploy?" 24 96 14 \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
-	"Ajenti" "Web admin panel" \
+	Ajenti "Web admin panel" \
 	"(WordPress) Calypso" "Reading, writing, and managing all of your WordPress sites" \
-	"Dillinger" "The last Markdown editor, ever" \
-	"Docker" "Open container engine platform for distributed application" \
-	"EtherCalc" "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
-	"Etherpad" "Real-time collaborative document editor" \
-	"GitLab" "Open source Version Control to collaborate on code" \
-	"Gogs" "Gogs(Go Git Service), a painless self-hosted Git Service" \
-	"Ghost" "Simple and powerful blogging/publishing platform" \
+	Dillinger "The last Markdown editor, ever" \
+	Docker "Open container engine platform for distributed application" \
+	EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
+	Etherpad "Real-time collaborative document editor" \
+	GitLab "Open source Version Control to collaborate on code" \
+	Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
+	Ghost "Simple and powerful blogging/publishing platform" \
 	"JS Bin" "Collaborative JavaScript Debugging App" \
-	"KeystoneJS" "Node.js CMS & Web Application Platform" \
-	"Laverna" "Note taking application with Mardown editor and encryption" \
+	KeystoneJS "Node.js CMS & Web Application Platform" \
+	Laverna "Note taking application with Mardown editor and encryption" \
 	"Let's Chat" "Self-hosted chat app for small teams" \
-	"Linx" " Self-hosted file/code/media sharing website" \
-	"Mailpile" "Modern, fast email client with user-friendly privacy features" \
-	"Mattermost" "Mattermost is an open source, on-prem Slack-alternative" \
-	"Mattermost-GitLab" "GitLab Integration Service for Mattermost" \
-	"Modoboa" "Mail hosting made simple" \
-	"Mumble" "Voicechat utility" \
-	"NodeBB" "Node.js based community forum built for the modern web" \
-	"Node.js" "Install Node.js using nvm" \
-	"OpenVPN" "Open source secure tunneling VPN daemon" \
-	"Rocket.Chat" "The Ultimate Open Source WebChat Platform" \
-	"RetroPie" "Setup Raspberry PI with RetroArch emulator and various cores" \
-	"Seafile" "Cloud storage with file encryption and group sharing" \
-	"Shout" "The self-hosted web IRC client" \
-	"Stringer" "A self-hosted, anti-social RSS reader" \
-	"Syncthing" "Open Source Continuous File Synchronization" \
-	"Torrent" "Deluge and Transmission torrent web interface" \
-	"Taiga.Io" "Agile, Free and Open Source Project Management Platform" \
-	"Wagtail" "Django CMS focused on flexibility and user experience" \
-	"Taiga-LetsChat" "Taiga contrib plugin for Let's Chat integration" \
-	"Wekan" "Collaborative Trello-like kanban board application" \
-	"Wide" "Web-based IDE for Teams using Go(lang)" \
+	Linx " Self-hosted file/code/media sharing website" \
+	Mailpile "Modern, fast email client with user-friendly privacy features" \
+	Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
+	Mattermost-GitLab "GitLab Integration Service for Mattermost" \
+	Modoboa "Mail hosting made simple" \
+	MongoDB "The next-generation database" \
+	Mumble "Voicechat utility" \
+	NodeBB "Node.js based community forum built for the modern web" \
+	Node.js "Install Node.js using nvm" \
+	OpenVPN "Open source secure tunneling VPN daemon" \
+	Rocket.Chat "The Ultimate Open Source WebChat Platform" \
+	RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
+	Seafile "Cloud storage with file encryption and group sharing" \
+	Shout "The self-hosted web IRC client" \
+	Stringer "A self-hosted, anti-social RSS reader" \
+	Syncthing "Open Source Continuous File Synchronization" \
+	Torrent "Deluge and Transmission torrent web interface" \
+	Taiga.Io "Agile, Free and Open Source Project Management Platform" \
+	Wagtail "Django CMS focused on flexibility and user experience" \
+	Taiga-LetsChat "Taiga contrib plugin for Let's Chat integration" \
+	Wekan "Collaborative Trello-like kanban board application" \
+	Wide "Web-based IDE for Teams using Go(lang)" \
 	2> /tmp/choice
 	do
 		cd $DIR
@@ -101,6 +102,7 @@ installation_menu() {
 			Mattermost) . apps/mattermost.sh;;
 			Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
 			Modoboa) . apps/modoboa.sh;;
+			MongoDB) . sysutils/mongodb.sh;;
 			Mumble) . apps/mumble.sh;;
 			Node.js) . sysutils/nodejs.sh;;
 			OpenVPN) . apps/openvpn.sh;;

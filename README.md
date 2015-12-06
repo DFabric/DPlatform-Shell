@@ -1,6 +1,6 @@
 # DPlatform [ALPHA]
-##### Would you like a Cloud storage, a Chat platform, a CMS Website or even a VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
-Mainly, but not limited, for Debian based x86(-64) and ARM (Raspberry Pi like) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
+##### Do you want a Cloud Storage, a Chat Platform, a CMS Website or even a VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
@@ -27,6 +27,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
+ - [MongoDB](https://www.mongodb.org/) - MongoDB is the database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate.
  - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js - [nvm](https://github.com/creationix/nvm) optional
