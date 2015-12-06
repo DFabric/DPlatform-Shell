@@ -13,10 +13,12 @@ nave usemain 0.10
 
 # Install Meteor
 # https://github.com/4commerce-technologies-AG/meteor
-if [ $ARCH = arm ]
-  then git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
+if [ $ARCH = arm* ]
+  then cd $HOME
+  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
   meteor/meteor --version
+  cd $DIR
 else
   curl https://install.meteor.com/ | sh
 fi
@@ -64,7 +66,6 @@ RESULT_EXPECTED
 exit
 
 ## Download Rocket.Chat
-
 HOST=your_hostname.com
 MONGO_URL=mongodb://localhost:27017/rocketchat
 MONGO_OPLOG_URL=mongodb://localhost:27017/local
