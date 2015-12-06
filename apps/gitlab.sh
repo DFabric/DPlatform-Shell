@@ -4,7 +4,7 @@
 if [ $PKG = apt ]
   then $install curl openssh-server ca-certificates postfix apt-transport-https
 # CentOS 7 (and RedHat/Oracle/Scientific Linux 7)
-elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ]
+elif [ $PKG = rpm ] & [ hash systemctl 2>/dev/null ]
   then yum install curl openssh-server
   systemctl enable sshd
   systemctl start sshd

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Unofficial MongoDB 2.6.7 for Debian based ARM systems
-if [ $ARCH = arm* ] && [ $PKG = deb ]
+if [ $ARCH = arm* ] & [ $PKG = deb ]
   then cd /etc
   if [ $ARCH = arm6 ]
     then arch=armv6l
