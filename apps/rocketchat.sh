@@ -42,7 +42,7 @@ mongo_minor=${mongo_version#*.}
 mongo_version=$mongo_major$mongo_minor
 
 # Mongo 2.4 or earlier
-if (( $mongo_version < 25 ))
+if [ $mongo_version -lt 25 ]
   then echo replSet=001-rs >> /etc/mongod.conf
 # Mongo 2.6+: using YAML syntax
 else
