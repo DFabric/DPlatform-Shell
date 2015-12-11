@@ -6,6 +6,7 @@ OpenVPN installation thanks to https://github.com/Nyr/openvpn-install" 12 64
 
 wget git.io/vpn --no-check-certificate -O openvpn-install.sh && bash openvpn-install.sh
 
+cd ~/
 whiptail --yesno "Would you like to send the .ovpn file via mail which include the certificates needed to connect to the VPN?" 8 60
 case $? in
   0) # Check if Postfix and Mutt are installed
@@ -26,7 +27,7 @@ case $? in
   user_mail=${x%?}
 
   # Send mail attachment with mutt
-  echo "Use this .ovpn file to connect to your VPN with your OpenVPN client installed in your system" | mutt -a "*.ovpn" -s "Your OpenVPN certificate file" -- $user_mail
+  echo "Use this .ovpn file to connect to your VPN with your OpenVPN client installed in your system" | mutt -a "*.ovpn" -s "Your OpenVPN certificate file" -- $user_mail;;
   1) ;; # Continue
 esac
 
@@ -39,4 +40,4 @@ whiptail --msgbox "OpenVPN successfully installed and operational!
 Your clients certificates are available at OpenVPN-clients
 Certficates actually presents: $(ls OpenVPN-clients)
 
-If you want to add more clients, you simply need to run this script another time\!" 12 64
+If you want to add more clients, you simply need to run this script another time!" 12 64
