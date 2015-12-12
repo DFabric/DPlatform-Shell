@@ -1,4 +1,10 @@
 #!/bin/sh
+# DeployPlaform - Deploy self-hosted apps efficiently
+
+# This script is implemented as POSIX-compliant.
+# It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
+# and probably other distros of the same families, although no support is offered for them. 
+
 DIR=$(cd -P $(dirname $0) && pwd)
 IP=$(wget -qO- ipv4.icanhazip.com)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
