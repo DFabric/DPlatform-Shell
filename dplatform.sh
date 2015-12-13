@@ -3,7 +3,7 @@
 
 # This script is implemented as POSIX-compliant.
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
-# and probably other distros of the same families, although no support is offered for them. 
+# and probably other distros of the same families, although no support is offered for them.
 
 DIR=$(cd -P $(dirname $0) && pwd)
 IP=$(wget -qO- ipv4.icanhazip.com)
@@ -67,8 +67,9 @@ installation_menu() {
 	NodeBB "Node.js based community forum built for the modern web" \
 	Node.js "Install Node.js using nvm" \
 	OpenVPN "Open source secure tunneling VPN daemon" \
-	Rocket.Chat "The Ultimate Open Source WebChat Platform" \
+	"Reaction Commerce" "Modern reactive, real-time event driven ecommerce platform." \
 	RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
+	Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 	Seafile "Cloud storage with file encryption and group sharing" \
 	Shout "The self-hosted web IRC client" \
 	Stringer "A self-hosted, anti-social RSS reader" \
@@ -112,8 +113,9 @@ installation_menu() {
 			Mumble) . apps/mumble.sh;;
 			Node.js) . sysutils/nodejs.sh;;
 			OpenVPN) . apps/openvpn.sh;;
-			Rocket.Chat) . apps/rocketchat.sh;;
+			"Reaction Commerce") . apps/reaction.sh;;
 			RetroPie) . apps/retropie.sh;;
+			Rocket.Chat) . apps/rocketchat.sh;;
 			Seafile) . apps/seafile.sh;;
 			Stringer) . apps/stringer.sh;;
 			Syncthing) . apps/syncthing.sh;;

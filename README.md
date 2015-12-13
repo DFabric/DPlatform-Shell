@@ -9,7 +9,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - Set a domain name to use a name instead of the computer's IP address
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
- - [Ajenti](http://ajenti.org/core/) - Web admin panel
+ - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
  - [Dillinger](http://dillinger.io/) - Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
@@ -32,8 +32,9 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js - [nvm](https://github.com/creationix/nvm) optional
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
- - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
+ - [Reaction Commerce](https://reactioncommerce.com/) - Reaction Commerce is a completely open source JavaScript platform for today's premier ecommerce experiences.
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
+ - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
