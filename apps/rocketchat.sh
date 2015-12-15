@@ -8,27 +8,35 @@
 ## Install Dependencies
 # SYSTEM CONFIGURATION
 $install git curl graphicsmagick
-npm install nave -g
-nave usemain 0.10
 
-# Install Meteor
-# https://github.com/4commerce-technologies-AG/meteor
-if [ $ARCH = arm* ]
-  then cd $HOME
-  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
-  # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
-  meteor/meteor --version
-  cd $DIR
-else
-  curl https://install.meteor.com/ | sh
-fi
+# Install a tool to let us change the node version.
+npm install -g n
 
-npm install pm2 -g
-if [ $PKG = rpm ]
-  then pm2 startup amazon
-else
-  pm2 startup
-fi
+# Meteor needs at least this version of node to work.
+n 0.10.40
+
+## Install Rocket.Chat
+# Download Stable version of Rocket.Chat
+curl -O https://s3.amazonaws.com/rocketchatbuild/rocket.chat-master.tgz
+
+tar zxvf rocket.chat-*.tgz
+
+mv bundle Rocket.Chat
+cd Rocket.Chat/programs/server
+npm install
+cd ../..
+
+# Set environment variables
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port. default:[3000]" 8 32
+
+port=${x%?}
+port=${port:-3000}
+export ROOT_URL=http://$IP:$port/
+export MONGO_URL=mongodb://localhost:27017/rocketchat
+export PORT=$port
+
+# Run the server
+node main.js
 
 ## Setup MongoDB Replica Set
 # Check MongoDB version
@@ -52,63 +60,22 @@ fi
 service mongod restart
 mongo
 
-# Initiate the Replica Set
-rs.initiate({_id:"001-rs",members:[{_id:0,host:"localhost:27017"}]})
+# Start the MongoDB shell and initiate the replica set
+mongo rs.initiate()
 
 <<RESULT_EXPECTED
 {
-    "ok" : 1
+  "info2" : "no configuration explicitly specified -- making one",
+  "me" : "localhost:27017",
+  "info" : "Config now saved locally.  Should come online in about a minute.",
+  "ok" : 1
 }
-# After a few seconds
-001-rs:PRIMARY>
 RESULT_EXPECTED
 
-exit
-
-## Download Rocket.Chat
-HOST=your_hostname.com
-MONGO_URL=mongodb://localhost:27017/rocketchat
-MONGO_OPLOG_URL=mongodb://localhost:27017/local
-ROOT_URL=http://$HOST
-PORT=3000
-
-mkdir -p /var/www/
-mkdir -p /var/log/rocket.chat
-cd /var/www/
-wget https://github.com/RocketChat/Rocket.Chat/archive/master.tar.gz
-tar -xvzf master.tar.gz
-mv Rocket.Chat-master rocket.chat
-
-cd ./rocket.chat
-meteor build --server "$HOST" --directory .
-
-cd ./bundle/programs/server
-npm install
-
-cd ../..
-
-rm -f pm2-rocket-chat.json
-echo '{'                                                     > pm2-rocket-chat.json
-echo '  "apps": [{'                                         >> pm2-rocket-chat.json
-echo '    "name": "rocket.chat",'                           >> pm2-rocket-chat.json
-echo '    "script": "/var/www/rocket.chat/bundle/main.js",' >> pm2-rocket-chat.json
-echo '    "out_file": "/var/log/rocket.chat/app.log",'      >> pm2-rocket-chat.json
-echo '    "error_file": "/var/log/rocket.chat/err.log",'    >> pm2-rocket-chat.json
-echo "    \"port\": \"$PORT\","                             >> pm2-rocket-chat.json
-echo '    "env": {'                                         >> pm2-rocket-chat.json
-echo "      \"MONGO_URL\": \"$MONGO_URL\","                 >> pm2-rocket-chat.json
-echo "      \"MONGO_OPLOG_URL\": \"$MONGO_OPLOG_URL\","     >> pm2-rocket-chat.json
-echo "      \"ROOT_URL\": \"$ROOT_URL:$PORT\","             >> pm2-rocket-chat.json
-echo "      \"PORT\": \"$PORT\""                            >> pm2-rocket-chat.json
-echo '    }'                                                >> pm2-rocket-chat.json
-echo '  }]'                                                 >> pm2-rocket-chat.json
-echo '}'                                                    >> pm2-rocket-chat.json
-
-pm2 start pm2-rocket-chat.json
-pm2 save
+export MONGO_OPLOG_URL=mongodb://localhost:27017/local
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 
-Open http://$IP:3000 in your browser and register.
+Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
