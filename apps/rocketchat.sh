@@ -27,10 +27,10 @@ npm install
 cd ../..
 
 # Set environment variables
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port. default:[3000]" 8 32
-
-port=${x%?}
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
+read port < /tmp/temp
 port=${port:-3000}
+
 export ROOT_URL=http://$IP:$port/
 export MONGO_URL=mongodb://localhost:27017/rocketchat
 export PORT=$port

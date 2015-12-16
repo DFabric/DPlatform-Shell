@@ -8,7 +8,7 @@
 DIR=$(cd -P $(dirname $0) && pwd)
 IP=$(wget -qO- ipv4.icanhazip.com)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-DOMAIN=$(hostname -f)
+DOMAIN=$(hostname)
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
@@ -40,7 +40,6 @@ fi
 
 # Applications installation menu
 installation_menu() {
-	trap 'rm -f /tmp/choice' EXIT
 	while whiptail --title "DPlatform - Installation menu" --menu "
 	What application would you like to deploy?" 24 96 14 \
 	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
@@ -80,10 +79,10 @@ installation_menu() {
 	Taiga-LetsChat "Taiga contrib plugin for Let's Chat integration" \
 	Wekan "Collaborative Trello-like kanban board application" \
 	Wide "Web-based IDE for Teams using Go(lang)" \
-	2> /tmp/choice
+	2> /tmp/temp
 	do
 		cd $DIR
-		read CHOICE < /tmp/choice
+		read CHOICE < /tmp/temp
 		# Confirmation dialog
 		whiptail --yesno "		$CHOICE will be installed.
 		Do you want to continue?" 8 48
@@ -131,18 +130,17 @@ installation_menu() {
 }
 
 # Main menu
-trap 'rm -f /tmp/choice' EXIT
-while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Service Manager" "Start/Stop, and set auto start/stop services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 "About" "Informations about this project and your system" \
-2> /tmp/choice
+2> /tmp/temp
 do
 	cd $DIR
-	read CHOICE < /tmp/choice
+	read CHOICE < /tmp/temp
 	case $CHOICE in
 		"Install apps") installation_menu;;
 		Update) git pull
@@ -153,9 +151,9 @@ do
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform
 
-		=Your domain name: $DOMAIN
-		-Your public IP: $IP
-		Your local IP: $LOCALIP
+		- Your host/domain name: $DOMAIN
+		- Your public IP: $IP
+		- Your local IP: $LOCALIP
 		Your OS: $ARCH arch $PKG based $(cat /etc/issue)
 		Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 68;;
 	esac

@@ -8,16 +8,15 @@ This domain name redirects directly to your IP address $IP through the DNS provi
 
 You will be prompted to enter your new created domain name" 16 80
 
-whiptail --title "Domain name" --clear --inputbox "Enter your FQDN domain name" 8 32
+whiptail --title "Domain name" --clear --inputbox "Enter your FQDN domain name" 8 32 2> /tmp/temp
 
 # Pick the domain name and remove the last character added
 case $? in
-  0) DOMAIN=${x%?}
-
+  0)
   # Replace the old hostname by the new
-  echo $DOMAIN > /etc/hostname
+  cat /tmp/temp > /etc/hostname
 
   # Add the new domain to the hosts
-  echo "127.0.0.1 $DOMAIN" >> /etc/hosts;;
+  echo 127.0.0.1 $(hostname) >> /etc/hosts;;
   1) ;; # Cancel
 esac
