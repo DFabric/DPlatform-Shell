@@ -48,6 +48,7 @@ installation_menu() {
 	Dillinger "The last Markdown editor, ever" \
 	Docker "Open container engine platform for distributed application" \
 	EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
+	EtherDraw "Collaborative real-time drawing, sketching & painting" \
 	Etherpad "Real-time collaborative document editor" \
 	GitLab "Open source Version Control to collaborate on code" \
 	Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
@@ -95,8 +96,9 @@ installation_menu() {
 			"(WordPress) Calypso") . apps/calypso.sh;;
 			Dillinger) . apps/dillinger.sh;;
 			Docker) . sysutils/docker.sh;;
-			Etherpad) . apps/etherpad.sh;;
 			EtherCalc) . apps/ethercalc.sh;;
+			EtherDraw) . apps/etherdraw.sh;;
+			Etherpad) . apps/etherpad.sh;;
 			GitLab) . apps/gitlab.sh;;
 			Gogs) . apps/gogs.sh;;
 			Ghost) . apps/ghost.sh;;

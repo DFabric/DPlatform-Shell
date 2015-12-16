@@ -14,6 +14,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Dillinger](http://dillinger.io/) - Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
+ - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
@@ -45,14 +46,13 @@ Please feel free to open an issue and create a pull request, all contributions a
 
 ## Install
 
-First, clone the git project
+Clone the DPlatform git project, and then run it:
 ```
 sudo apt-get -y install git
 git clone https://github.com/j8r/DPlatform
-```
-Go to the DPlatform directory and run DPlatform
-```
-cd DPlatform && sudo sh dplatform.sh
+
+cd DPlatform
+sudo sh dplatform.sh
 ```
 
 ## License
