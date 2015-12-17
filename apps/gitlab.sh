@@ -22,16 +22,15 @@ elif [ $PKG = rpm ]
 else
   whiptail --msgbox " Your system is not supported. It is still possible to install GitLab yourself.
 
-  Please see the installation from source guide and the unofficial installation guides on the public wiki for more information" 12 60
-  exit
+  Please see the installation from source guide and the unofficial installation guides on the public wiki for more information" 12 64
+  exit 1
 fi
 
 # Add the GitLab package server and install the package
-if [ $ARCH = arm ] && [ $PKG = apt ]
-  then curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash
-  curl https://packages.gitlab.com/gpg.key | sudo apt-key add -
+if [ $ARCH = arm ]
+  then curl -o /etc/apt/sources.list.d/gitlab_ce.list "https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/config_file.list?os=debian&dist=wheezy" && sudo apt-get update
 else
-  curl -o /etc/apt/sources.list.d/gitlab_ce.list "https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/config_file.list?os=debian&dist=wheezy" && sudo apt-get update
+  curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash
 fi
 $install gitlab-ce
 
