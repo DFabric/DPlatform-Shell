@@ -1,22 +1,12 @@
 #!/bin/sh
 
-$install nginx git
-
-# Nginx
-cat <<NGINX >/etc/nginx/sites-enabled/default
-server {
-    listen 81;
-    server_name localhost;
-    index index.html;
-    location /var/www/laverna
-}
-NGINX
-service nginx restart
+$install unzip
 
 # Download
-mkdir /var/www/
-cd /var/www/
-git clone -b gh-pages https://github.com/Laverna/static-laverna
+wget https://github.com/Laverna/static-laverna/archive/gh-pages.zip -O laverna.zip
+
+# Unpack the downloaded archive
+unzip laverna.zip
 
 whiptail --msgbox "Laverna successfully installed!
 
