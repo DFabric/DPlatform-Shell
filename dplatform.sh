@@ -28,15 +28,13 @@ if grep 'Ubuntu' /etc/issue 2>/dev/null
 fi
 # Detect architecture
 ARCH=$(uname -m)
-if [ $ARCH = *x86_64* ]
-	then ARCH=amd64
-elif [ $ARCH = *86* ]
-	then ARCH=86
-elif [ $ARCH = *armv6* ]
-	then ARCH=armv6
-elif [ $ARCH = *arm* ]
-	then ARCH=arm
-fi
+case "$ARCH" in
+	x86_64 | amd64) ARCH="amd64" ;;
+	i*86) ARCH="86" ;;
+	armv6) ARCH=armv6;;
+	arm*) ARCH=arm;;
+	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit ;;
+esac
 
 # Applications installation menu
 installation_menu() {
