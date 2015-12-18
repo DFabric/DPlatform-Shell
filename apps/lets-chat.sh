@@ -4,7 +4,6 @@
 . sysutils/mongodb.sh
 . sysutils/nodejs.sh
 
-
 # https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7
 
@@ -23,6 +22,7 @@ npm start
 #npm install lets-chat-gitlab
 whiptail --msgbox "Let's Chat successfully installed!
 
-To start Let's Chat: cd lets-chat && npm start
+To start Let's Chat:
+cd lets-chat && npm start
 
-Open http://$IP:5000 in your browser" 12 64
+Open http://$IP:5000 in your browser" 12 48
