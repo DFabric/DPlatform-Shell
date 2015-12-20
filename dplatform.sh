@@ -9,6 +9,7 @@ DIR=$(cd -P $(dirname $0) && pwd)
 IP=$(wget -qO- ipv4.icanhazip.com)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 DOMAIN=$(hostname)
+
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
@@ -22,10 +23,12 @@ elif hash pacman 2>/dev/null
 else
 	PKG=unknown
 fi
+
 # Detect distribution
 if grep 'Ubuntu' /etc/issue 2>/dev/null
 	then DIST=ubuntu
 fi
+
 # Detect architecture
 ARCH=$(uname -m)
 case "$ARCH" in
@@ -38,95 +41,169 @@ esac
 
 # Applications installation menu
 installation_menu() {
-	while whiptail --title "DPlatform - Installation menu" --menu "
-	What application would you like to deploy?" 24 96 14 \
-	"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
-	Ajenti "Web admin panel" \
-	"(WordPress) Calypso" "Reading, writing, and managing all of your WordPress sites" \
-	Dillinger "The last Markdown editor, ever" \
-	Docker "Open container engine platform for distributed application" \
-	EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
-	EtherDraw "Collaborative real-time drawing, sketching & painting" \
-	Etherpad "Real-time collaborative document editor" \
-	GitLab "Open source Version Control to collaborate on code" \
-	Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
-	Ghost "Simple and powerful blogging/publishing platform" \
-	"JS Bin" "Collaborative JavaScript Debugging App" \
-	KeystoneJS "Node.js CMS & Web Application Platform" \
-	Laverna "Note taking application with Mardown editor and encryption" \
-	"Let's Chat" "Self-hosted chat app for small teams" \
-	Linx " Self-hosted file/code/media sharing website" \
-	Mailpile "Modern, fast email client with user-friendly privacy features" \
-	Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
-	Mattermost-GitLab "GitLab Integration Service for Mattermost" \
-	Modoboa "Mail hosting made simple" \
-	MongoDB "The next-generation database" \
-	Mumble "Voicechat utility" \
-	NodeBB "Node.js based community forum built for the modern web" \
-	Node.js "Install Node.js using nvm" \
-	OpenVPN "Open source secure tunneling VPN daemon" \
-	"Reaction Commerce" "Modern reactive, real-time event driven ecommerce platform." \
-	RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
-	Rocket.Chat "The Ultimate Open Source WebChat Platform" \
-	Seafile "Cloud storage with file encryption and group sharing" \
-	Shout "The self-hosted web IRC client" \
-	Stringer "A self-hosted, anti-social RSS reader" \
-	Syncthing "Open Source Continuous File Synchronization" \
-	Torrent "Deluge and Transmission torrent web interface" \
-	Taiga.Io "Agile, Free and Open Source Project Management Platform" \
-	Wagtail "Django CMS focused on flexibility and user experience" \
-	Taiga-LetsChat "Taiga contrib plugin for Let's Chat integration" \
-	Wekan "Collaborative Trello-like kanban board application" \
-	Wide "Web-based IDE for Teams using Go(lang)" \
-	2> /tmp/temp
-	do
-		cd $DIR
-		read CHOICE < /tmp/temp
-		# Confirmation dialog
-		whiptail --yesno "		$CHOICE will be installed.
-		Do you want to continue?" 8 48
-		case $? in
-			1) ;; # Return to installation menu
-			0) echo $CHOICE >> installed-apps
-			case $CHOICE in
-			"Agar.io Clone") . apps/agar.io-clone.sh;;
-			Ajenti) . apps/ajenti.sh;;
-			"(WordPress) Calypso") . apps/calypso.sh;;
-			Dillinger) . apps/dillinger.sh;;
-			Docker) . sysutils/docker.sh;;
-			EtherCalc) . apps/ethercalc.sh;;
-			EtherDraw) . apps/etherdraw.sh;;
-			Etherpad) . apps/etherpad.sh;;
-			GitLab) . apps/gitlab.sh;;
-			Gogs) . apps/gogs.sh;;
-			Ghost) . apps/ghost.sh;;
-			"JS Bin") . apps/jsbin.sh;;
-			KeystoneJS) . apps/keystonejs.sh;;
-			"Let's Chat") . apps/lets-chat.sh;;
-			Linx) . apps/linx.sh;;
-			Mailpile) . apps/mailpile.sh;;
-			Mattermost) . apps/mattermost.sh;;
-			Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
-			Modoboa) . apps/modoboa.sh;;
-			MongoDB) . sysutils/mongodb.sh;;
-			Mumble) . apps/mumble.sh;;
-			Node.js) . sysutils/nodejs.sh;;
-			OpenVPN) . apps/openvpn.sh;;
-			"Reaction Commerce") . apps/reaction.sh;;
-			RetroPie) . apps/retropie.sh;;
-			Rocket.Chat) . apps/rocketchat.sh;;
-			Seafile) . apps/seafile.sh;;
-			Stringer) . apps/stringer.sh;;
-			Syncthing) . apps/syncthing.sh;;
-			Shout) . apps/shout.sh;;
-			Taiga.Io) . apps/taigaio.sh;;
-			Taiga-Lets-Chat) . apps/taigaio.sh;;
-			Wagtail) . apps/wagtail.sh;;
-			Wekan) . apps/wekan.sh;;
-			Wide) . apps/wide.sh;;
-			esac;;
-		esac
-	done
+	if [ $1 = update ] || [ $1 = remove ]
+	then
+		# Reset previous apps_choice variable
+		apps_choice=
+		if [ $1 = update ]
+			then apps_choice="DPlatform Update_DPlatform"
+		fi
+
+		# Read installed-apps to create entries
+		while read app
+		do
+			apps_choice="$apps_choice $app $1_$app"
+		done < installed-apps
+
+		while whiptail --title "DPlatform - $1 menu" --menu "
+		What application would you like to $1?" 24 64 14 $apps_choice 2> /tmp/temp
+		do
+			cd $DIR
+			read CHOICE < /tmp/temp
+			# Confirmation message
+			whiptail --yesno "		$CHOICE will be $1d.
+			Are you sure to want to continue?" 8 48
+			whiptail --msgbox "	Available soon!" 8 32
+			break
+			case $? in
+				1) ;; # Return to installation menu
+				0)
+				case $CHOICE in
+					DPlatform) git pull;;
+					Agar.ioClone) . apps/agar.io-clone.sh $1;;
+					Ajenti) . apps/ajenti.sh $1;;
+					WordPressCalypso) . apps/calypso.sh $1;;
+					Dillinger) . apps/dillinger.sh $1;;
+					Docker) . sysutils/docker.sh $1;;
+					EtherCalc) . apps/ethercalc.sh $1;;
+					EtherDraw) . apps/etherdraw.sh $1;;
+					Etherpad) . apps/etherpad.sh $1;;
+					GitLab) . apps/gitlab.sh $1;;
+					Gogs) . apps/gogs.sh $1;;
+					Ghost) . apps/ghost.sh $1;;
+					JSBin) . apps/jsbin.sh $1;;
+					KeystoneJS) . apps/keystonejs.sh $1;;
+					LetsChat) . apps/lets-chat.sh $1;;
+					Linx) . apps/linx.sh $1;;
+					Mailpile) . apps/mailpile.sh $1;;
+					Mattermost) . apps/mattermost.sh $1;;
+					Mattermost-GitLab) . apps/mattermost-gitlab.sh $1;;
+					Modoboa) . apps/modoboa.sh $1;;
+					MongoDB) . sysutils/mongodb.sh $1;;
+					Mumble) . apps/mumble.sh $1;;
+					Node.js) . sysutils/nodejs.sh $1;;
+					OpenVPN) . apps/openvpn.sh $1;;
+					ReactionCommerce) . apps/reaction.sh $1;;
+					RetroPie) . apps/retropie.sh $1;;
+					Rocket.Chat) . apps/rocketchat.sh $1;;
+					Seafile) . apps/seafile.sh $1;;
+					Stringer) . apps/stringer.sh $1;;
+					Syncthing) . apps/syncthing.sh $1;;
+					Shout) . apps/shout.sh $1;;
+					Taiga.Io) . apps/taigaio.sh $1;;
+					Taiga-Lets-Chat) . apps/taigaio.sh $1;;
+					Wagtail) . apps/wagtail.sh $1;;
+					Wekan) . apps/wekan.sh $1;;
+					Wide) . apps/wide.sh $1;;
+				esac
+				if [ $1 = remove ]
+					then # Delete the app entry in installed-apps file
+						sed -i "/\b$CHOICE\b/d" installed-apps
+						break
+				fi;;
+			esac
+		done
+	else
+		while whiptail --title "DPlatform - Installation menu" --menu "
+		What application would you like to deploy?" 24 96 14 \
+		"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
+		Ajenti "Web admin panel" \
+		"(WordPress) Calypso" "Reading, writing, and managing all of your WordPress sites" \
+		Dillinger "The last Markdown editor, ever" \
+		Docker "Open container engine platform for distributed application" \
+		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
+		EtherDraw "Collaborative real-time drawing, sketching & painting" \
+		Etherpad "Real-time collaborative document editor" \
+		GitLab "Open source Version Control to collaborate on code" \
+		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
+		Ghost "Simple and powerful blogging/publishing platform" \
+		"JS Bin" "Collaborative JavaScript Debugging App" \
+		KeystoneJS "Node.js CMS & Web Application Platform" \
+		Laverna "Note taking application with Mardown editor and encryption" \
+		"Let's Chat" "Self-hosted chat app for small teams" \
+		Linx " Self-hosted file/code/media sharing website" \
+		Mailpile "Modern, fast email client with user-friendly privacy features" \
+		Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
+		Mattermost-GitLab "GitLab Integration Service for Mattermost" \
+		Modoboa "Mail hosting made simple" \
+		MongoDB "The next-generation database" \
+		Mumble "Voicechat utility" \
+		NodeBB "Node.js based community forum built for the modern web" \
+		Node.js "Install Node.js using nvm" \
+		OpenVPN "Open source secure tunneling VPN daemon" \
+		"Reaction Commerce" "Modern reactive, real-time event driven ecommerce platform." \
+		RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
+		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
+		Seafile "Cloud storage with file encryption and group sharing" \
+		Shout "The self-hosted web IRC client" \
+		Stringer "A self-hosted, anti-social RSS reader" \
+		Syncthing "Open Source Continuous File Synchronization" \
+		Torrent "Deluge and Transmission torrent web interface" \
+		Taiga.Io "Agile, Free and Open Source Project Management Platform" \
+		Wagtail "Django CMS focused on flexibility and user experience" \
+		Taiga-LetsChat "Taiga contrib plugin for Let's Chat integration" \
+		Wekan "Collaborative Trello-like kanban board application" \
+		Wide "Web-based IDE for Teams using Go(lang)" \
+		2> /tmp/temp
+		do
+			cd $DIR
+			read CHOICE < /tmp/temp
+			# Confirmation message
+			whiptail --yesno "		$CHOICE will be installed.
+			Are you sure tos want to continue?" 8 48
+			case $? in
+				1) ;; # Return to installation menu
+				0)
+				case $CHOICE in
+					"Agar.io Clone") . apps/agar.io-clone.sh;;
+					Ajenti) . apps/ajenti.sh;;
+					"(WordPress) Calypso") . apps/calypso.sh;;
+					Dillinger) . apps/dillinger.sh;;
+					Docker) . sysutils/docker.sh;;
+					EtherCalc) . apps/ethercalc.sh;;
+					EtherDraw) . apps/etherdraw.sh;;
+					Etherpad) . apps/etherpad.sh;;
+					GitLab) . apps/gitlab.sh;;
+					Gogs) . apps/gogs.sh;;
+					Ghost) . apps/ghost.sh;;
+					"JS Bin") . apps/jsbin.sh;;
+					KeystoneJS) . apps/keystonejs.sh;;
+					"Let's Chat") . apps/lets-chat.sh;;
+					Linx) . apps/linx.sh;;
+					Mailpile) . apps/mailpile.sh;;
+					Mattermost) . apps/mattermost.sh;;
+					Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
+					Modoboa) . apps/modoboa.sh;;
+					MongoDB) . sysutils/mongodb.sh;;
+					Mumble) . apps/mumble.sh;;
+					Node.js) . sysutils/nodejs.sh;;
+					OpenVPN) . apps/openvpn.sh;;
+					"Reaction Commerce") . apps/reaction.sh;;
+					RetroPie) . apps/retropie.sh;;
+					Rocket.Chat) . apps/rocketchat.sh;;
+					Seafile) . apps/seafile.sh;;
+					Stringer) . apps/stringer.sh;;
+					Syncthing) . apps/syncthing.sh;;
+					Shout) . apps/shout.sh;;
+					Taiga.Io) . apps/taigaio.sh;;
+					Taiga-Lets-Chat) . apps/taigaio.sh;;
+					Wagtail) . apps/wagtail.sh;;
+					Wekan) . apps/wekan.sh;;
+					Wide) . apps/wide.sh;;
+				esac;;
+			esac
+		done
+	fi
 }
 
 # Main menu
@@ -142,11 +219,10 @@ do
 	cd $DIR
 	read CHOICE < /tmp/temp
 	case $CHOICE in
-		"Install apps") installation_menu;;
-		Update) git pull
-		whiptail --msgbox "	DPlatform updated. Applications update comming soon\!" 8 48;;
-		"Remove apps") whiptail --msgbox "	Comming soon\!" 8 48;;
-		"Service Manager") whiptail --msgbox "	Comming soon\!" 8 48;;
+		"Install apps") installation_menu install;;
+		Update) installation_menu update;;
+		"Remove apps") installation_menu remove;;
+		"Service Manager") whiptail --msgbox "	Available soon!" 8 32;;
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform
