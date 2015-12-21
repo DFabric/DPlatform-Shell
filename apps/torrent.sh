@@ -1,11 +1,10 @@
 #!/bin/sh
 
-trap 'rm -f choice$$' 0 1 2 5 15 EXIT
 whiptail --title Seafile --menu "What torrent web interface would you like to install?" 12 64 2 \
 "Deluge" "Lightweight, unobtrusive" \
 "Transmission" "Designed for easy, powerful use" \
-2> choice$$
-read CHOICE < choice$$
+2> /tmp/temp
+read CHOICE < /tmp/temp
 case $CHOICE in
   Deluge) $install deluge-web
   port=8112;;
