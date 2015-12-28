@@ -1,22 +1,20 @@
 #!/bin/sh
 
 # Unofficial MongoDB 2.6.7 for Debian based ARM systems
-if [ $ARCH = arm* ] && [ $PKG = deb ]
+if [ $ARCH = arm ] || [ $ARCH = arm6 ]
+then
+  if [ $PKG = deb ]
   then
-  if [ $ARCH = arm6 ]
-    then arch=armv6l
+    [ $ARCH = arm6 ] && armv6l
+    [ $ARCH = arm ] && armv7l
+    wget https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
+    tar -xzf mongo_Linux_${arch}_v2.6.7.tar.gz
+    mv mongodb/bin/ /bin
+    rm mongo_Linux_${arch}_v2.6.7*
+    cd $DIR
   else
-    arch=armv7l
+    $install mongodb
   fi
-  wget https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
-  tar -xzf mongo_Linux_${arch}_v2.6.7.tar.gz
-  mv mongodb/bin/ /bin
-  rm mongo_Linux_${arch}_v2.6.7*
-  cd $DIR
-
-# ARM CPU
-elif [ $ARCH = arm ]
-  then $install mongodb
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]
