@@ -88,6 +88,7 @@ installation_menu() {
 					Mailpile) . apps/mailpile.sh $1;;
 					Mattermost) . apps/mattermost.sh $1;;
 					Mattermost-GitLab) . apps/mattermost-gitlab.sh $1;;
+					Meteor) . sysutils/meteor.sh $1;;
 					Modoboa) . apps/modoboa.sh $1;;
 					MongoDB) . sysutils/mongodb.sh $1;;
 					Mumble) . apps/mumble.sh $1;;
@@ -135,6 +136,7 @@ installation_menu() {
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
 		Mattermost-GitLab "GitLab Integration Service for Mattermost" \
+		Meteor "The JavaScript App Platform" \
 		Modoboa "Mail hosting made simple" \
 		MongoDB "The next-generation database" \
 		Mumble "Voicechat utility" \
@@ -183,6 +185,7 @@ installation_menu() {
 					Mailpile) . apps/mailpile.sh;;
 					Mattermost) . apps/mattermost.sh;;
 					Mattermost-GitLab) . apps/mattermost-gitlab.sh;;
+					Meteor) . sysutils/meteor.sh;;
 					Modoboa) . apps/modoboa.sh;;
 					MongoDB) . sysutils/mongodb.sh;;
 					Mumble) . apps/mumble.sh;;
