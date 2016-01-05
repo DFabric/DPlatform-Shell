@@ -36,7 +36,7 @@ case "$ARCH" in
 	i*86) ARCH="86" ;;
 	armv6) ARCH=armv6;;
 	arm*) ARCH=arm;;
-	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit ;;
+	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit;;
 esac
 
 # Applications installation menu
@@ -98,6 +98,7 @@ installation_menu() {
 					RetroPie) . apps/retropie.sh $1;;
 					Rocket.Chat) . apps/rocketchat.sh $1;;
 					Seafile) . apps/seafile.sh $1;;
+					StackEdit) . apps/stackedit.sh $1;;
 					Stringer) . apps/stringer.sh $1;;
 					Syncthing) . apps/syncthing.sh $1;;
 					Shout) . apps/shout.sh $1;;
@@ -148,6 +149,7 @@ installation_menu() {
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Shout "The self-hosted web IRC client" \
+		StackEdit "In-browser markdown editor" \
 		Stringer "A self-hosted, anti-social RSS reader" \
 		Syncthing "Open Source Continuous File Synchronization" \
 		Torrent "Deluge and Transmission torrent web interface" \
@@ -195,6 +197,7 @@ installation_menu() {
 					RetroPie) . apps/retropie.sh;;
 					Rocket.Chat) . apps/rocketchat.sh;;
 					Seafile) . apps/seafile.sh;;
+					StackEdit) . apps/stackedit.sh;;
 					Stringer) . apps/stringer.sh;;
 					Syncthing) . apps/syncthing.sh;;
 					Shout) . apps/shout.sh;;
