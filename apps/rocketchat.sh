@@ -17,9 +17,9 @@ n 0.10.40
 
 ## Install Rocket.Chat
 # Download Stable version of Rocket.Chat
-curl -O https://s3.amazonaws.com/rocketchatbuild/rocket.chat-master.tgz
+curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 
-tar zxvf rocket.chat-*.tgz
+tar zxvf rocket.chat.tgz
 
 mv bundle Rocket.Chat
 cd Rocket.Chat/programs/server
