@@ -1,4 +1,6 @@
 # DPlatform [ALPHA]
+![dp-main](dp-main.png)
+![dp-install](dp-install.png)
 ##### Do you want a Cloud Storage, a Chat Platform, a CMS Website or even a VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
