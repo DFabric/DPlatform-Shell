@@ -5,9 +5,10 @@ if [ $ARCH = arm ] || [ $ARCH = armv6 ]
 then
   if [ $PKG = deb ]
   then
-    [ $ARCH = armv6 ] && armv6l
-    [ $ARCH = arm ] && armv7l
-    wget https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
+    ARCH=arm
+    [ $ARCH = armv6 ] && arch=armv6l
+    [ $ARCH = arm ] && arch=armv7l
+    wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
     tar -xzf mongo_Linux_${arch}_v2.6.7.tar.gz
     mv mongodb/bin/ /bin
     rm mongo_Linux_${arch}_v2.6.7*
@@ -32,7 +33,7 @@ elif [ $PKG = deb ]
 
 # Red Hat (rpm) based OS
 elif [ $PKG = rpm ]
-  then echo '[mongodb-org-3.0]' > /etc/yum.repos.d/mongodb-org-3.2.repo
+  then echo '[mongodb-org-3.2]' > /etc/yum.repos.d/mongodb-org-3.2.repo
   echo 'name=MongoDB Repository' >> /etc/yum.repos.d/mongodb-org-3.2.repo
   if grep 'Amazon' /etc/issue 2>/dev/null
     then echo 'baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/' >> /etc/yum.repos.d/mongodb-org-3.2.repo
