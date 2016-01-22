@@ -13,12 +13,13 @@ $install git curl graphicsmagick
 npm install -g n
 
 # Meteor needs at least this version of node to work.
-n 0.12.9
+n 0.10.41
 
 ## Install Rocket.Chat
 # Download the Rocket.Chat binary for Raspberry Pi
 if [ $ARCH = arm ]
   then curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
+  . sysutils/meteor.sh
 # Download Stable version of Rocket.Chat
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
   then curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
