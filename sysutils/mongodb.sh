@@ -10,7 +10,7 @@ then
     [ $ARCH = arm ] && arch=armv7l
     wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
     tar -xzf mongo_Linux_${arch}_v2.6.7.tar.gz
-    mv mongodb/bin/ /bin
+    mv mongodb/bin/* /bin
     rm mongo_Linux_${arch}_v2.6.7*
     cd $DIR
   else
