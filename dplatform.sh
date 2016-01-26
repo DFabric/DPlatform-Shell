@@ -32,11 +32,20 @@ fi
 # Detect architecture
 ARCH=$(uname -m)
 case "$ARCH" in
-	x86_64 | amd64) ARCH="amd64" ;;
-	i*86) ARCH="86" ;;
+	x86_64 | amd64) ARCH=amd64;;
+	i*86) ARCH=86;;
 	armv6) ARCH=armv6;;
 	arm*) ARCH=arm;;
 	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit;;
+esac
+
+# Detect hardware
+ARCH=$(uname -a)
+case "$ARCH" in
+	*rpi2*) HDWR=rpi2;;
+	*rpi*) HDWR=rpi;;
+	*bananian*) HDWR=bpi;;
+	*) HDWR=other;;
 esac
 
 # Applications installation menu
