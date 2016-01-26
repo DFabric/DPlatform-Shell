@@ -40,8 +40,8 @@ case "$ARCH" in
 esac
 
 # Detect hardware
-ARCH=$(uname -a)
-case "$ARCH" in
+HDWR=$(uname -a)
+case "$HDWR" in
 	*rpi2*) HDWR=rpi2;;
 	*rpi*) HDWR=rpi;;
 	*bananian*) HDWR=bpi;;
@@ -221,9 +221,20 @@ installation_menu() {
 	fi
 }
 
+# Configuration Entry
+if [ $HDWR = rpi ] || [ $HDWR = rpi2 ]
+then
+	config=raspi-config
+	configOption=" Raspberry_Pi_Configuration_Tool "
+elif [ $HDWR = bpi ]
+then
+	config=bananian-config
+	configOption=" Banana_Pi_Configuration_Tool"
+fi
+
 # Main menu
 while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
-"Install apps" "Install new applications" \
+$config${configOption} "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Service Manager" "Start/Stop, and set auto start/stop services at startup" \
@@ -234,6 +245,7 @@ do
 	cd $DIR
 	read CHOICE < /tmp/temp
 	case $CHOICE in
+		$config) $config;;
 		"Install apps") installation_menu install;;
 		Update) installation_menu update;;
 		"Remove apps") installation_menu remove;;
