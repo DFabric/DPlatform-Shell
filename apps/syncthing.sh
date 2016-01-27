@@ -6,14 +6,11 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syn
 # Only keep the version number in the url
 ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
 
-if [ $ARCH = 86 ]
-  then arch=386
-else
-  arch=ARCH
-fi
-wget https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$arch-$ver.tar.gz
-tar -xzf syncthing-linux-$arch-$ver.tar.gz
-rm syncthing-linux-$arch-$ver.tar.gz
+[ $ARCH = 86 ] && ARCH=386
+
+wget https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-$ver.tar.gz
+tar -xzf syncthing-linux-$ARCH-$ver.tar.gz
+rm syncthing-linux-$ARCH-$ver.tar.gz
 
 whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!
 
