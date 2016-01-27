@@ -3,9 +3,9 @@
 #https://github.com/Automattic/wp-calypso/blob/master/docs/install.md
 
 # Prerequisites
-. ../sysutils/nodejs.sh
+. sysutils/nodejs.sh
 
-$install git
+$install git make
 
 # Installing and Running
 git clone https://github.com/Automattic/wp-calypso
@@ -17,4 +17,4 @@ echo 127.0.0.1 calypso.localhost >> /etc/hosts
 
 whiptail --msgbox "Wordpress Calypso successfully installed!
 
-Open calypso.$IP:3000 in your browser" 8 64
+Open http://calypso.$IP:3000 in your browser" 10 48
