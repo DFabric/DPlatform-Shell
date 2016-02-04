@@ -225,7 +225,7 @@ installation_menu() {
 if [ $HDWR = rpi ] || [ $HDWR = rpi2 ]
 then
 	config=raspi-config
-	configOption=" Raspberry_Pi_Configuration_Tool "
+	configOption=" Raspberry_Pi_Configuration_Tool"
 elif [ $HDWR = bpi ]
 then
 	config=bananian-config
