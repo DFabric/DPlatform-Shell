@@ -1,38 +1,56 @@
 #!/bin/sh
 
 . sysutils/mongodb.sh
-. sysutils/nodejs.sh
-
-# https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
 $install git curl graphicsmagick
 
-# Install a tool to let us change the node version.
-npm install -g n
+# https://github.com/RocketChat/Rocket.Chat.RaspberryPi
+if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+then
 
-# Meteor needs at least this version of node to work.
-n 0.10.41
+  # Get required node and npm
+  cd ~
+  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
 
-## Install Rocket.Chat
-# Download the Rocket.Chat binary for Raspberry Pi
-if [ $ARCH = arm ]
-  then curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
-  . sysutils/meteor.sh
-# Download Stable version of Rocket.Chat
+  ~/meteor/meteor -v
+
+  # Download the Rocket.Chat binary for Raspberry Pi
+  mkdir rocketchat
+  cd rocketchat
+  curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
+  tar -zxvf rocket.chat.tgz
+
+  # Install dependencies and start Rocket.Chat
+  cd ~/rocketchat/bundle/programs/server
+  ~/meteor/dev_bundle/bin/npm install
+  cd ~/rocketchat/bundle
+
+# https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-  then curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
-else
-    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
+then
+  . sysutils/nodejs.sh
+  . sysutils/meteor.sh
+
+  # Install a tool to let us change the node version.
+  npm install -g n
+
+  # Meteor needs at least this version of node to work.
+  n 0.10.41
+
+  ## Install Rocket.Chat
+  # Download Stable version of Rocket.Chat
+
+  curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
+
+  tar zxvf rocket.chat.tgz
+
+  mv bundle Rocket.Chat
+  cd Rocket.Chat/programs/server
+  npm install
+  cd ../..
 fi
-
-tar zxvf rocket.chat.tgz
-
-mv bundle Rocket.Chat
-cd Rocket.Chat/programs/server
-npm install
-cd ../..
 
 # Set environment variables
 whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
@@ -44,7 +62,8 @@ export MONGO_URL=mongodb://localhost:27017/rocketchat
 export PORT=$port
 
 # Run the server
-node main.js
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node main.js
+[ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js
 
 ## Setup MongoDB Replica Set
 # Check MongoDB version
@@ -70,7 +89,9 @@ mongo
 
 # Start the MongoDB shell and initiate the replica set
 mongo rs.initiate()
-
+else
+    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
+fi
 <<RESULT_EXPECTED
 {
   "info2" : "no configuration explicitly specified -- making one",
