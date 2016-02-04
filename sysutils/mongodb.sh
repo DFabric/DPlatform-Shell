@@ -1,21 +1,17 @@
 #!/bin/sh
 
-# Unofficial MongoDB 2.6.7 for Debian based ARM systems
-if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+# http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
+if [ $ARCH = arm ] && [ $PKG = deb ]
 then
-  if [ $PKG = deb ]
-  then
-    ARCH=arm
-    [ $ARCH = armv6 ] && arch=armv6l
-    [ $ARCH = arm ] && arch=armv7l
-    wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_${arch}_v2.6.7.tar.gz
-    tar -xzf mongo_Linux_${arch}_v2.6.7.tar.gz
-    mv mongodb/bin/* /bin
-    rm mongo_Linux_${arch}_v2.6.7*
-    cd $DIR
-  else
-    $install mongodb
-  fi
+  wget andyfelong.com/downloads/core_mongodb.tar.gz
+  tar -xvzf core_mongodb.tar.gz -C /usr/bin
+  rm core_mongodb.tar.gz
+
+elif [ $ARCH = armv6 ] && [ $PKG = deb ]
+then
+  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
+  tar -xvzf mongo_Linux_armv6l_v2.6.7.tar.gz -C /usr/bin
+  rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]
@@ -46,8 +42,7 @@ elif [ $PKG = rpm ]
   $install mongodb-org
 
 else
-  echo You need to manually install MongoDB
-  exit
+  $install mongodb || {echo You probably need to manually install MongoDB; exit}
 fi
 
 echo MongoDB installed
