@@ -4,7 +4,7 @@
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
-$install git curl graphicsmagick python make g++
+$install git curl python make g++
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
@@ -30,6 +30,7 @@ then
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
+  $install graphicsmagick 
   . sysutils/nodejs.sh
   . sysutils/meteor.sh
 
