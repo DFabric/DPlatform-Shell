@@ -50,13 +50,14 @@ Please feel free to open an issue and create a pull request, all contributions a
 ## Install
 
 Clone the DPlatform git project, and then run it:
-```
+``` sh
 sudo apt-get -y install git
+cd ~ # Whatever directory you want
 git clone https://github.com/j8r/DPlatform
-
-cd DPlatform
-sudo sh dplatform.sh
 ```
+`sudo sh ~/DPlatform/dplatform.sh`
+
+Next times, only run this last command for DPlatform
 
 ## License
 
