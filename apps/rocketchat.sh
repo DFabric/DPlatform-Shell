@@ -30,7 +30,7 @@ then
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
-  $install graphicsmagick 
+  $install graphicsmagick
   . sysutils/nodejs.sh
   . sysutils/meteor.sh
 
@@ -68,7 +68,7 @@ export PORT=$port
 [ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js
 
 ## [OPTIONAL] Setup MongoDB Replica Set
-whiptail --yes-no "[OPTIONAL] Setup MongoDB Replica Set" --clear --inputbox "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
+whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
 case $? in
   1) ;; # Finish the installation
   0)
@@ -105,6 +105,7 @@ case $? in
   # }
 
   export MONGO_OPLOG_URL=mongodb://localhost:27017/local;;
+esac
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 
