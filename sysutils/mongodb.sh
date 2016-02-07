@@ -6,14 +6,12 @@ then
   wget andyfelong.com/downloads/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
-  mongodb_setup
 
 elif [ $ARCH = armv6 ] && [ $PKG = deb ]
 then
   wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
   tar -xvzf mongo_Linux_armv6l_v2.6.7.tar.gz -C /usr/bin
   rm mongo_Linux_armv6l_v2.6.7.tar.gz
-  mongodb_setup
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]
@@ -44,14 +42,14 @@ elif [ $PKG = rpm ]
   $install mongodb-org
 
 else
+  # If mongodb installation return an error, manual installation required
   $install mongodb || {echo You probably need to manually install MongoDB; exit}
 fi
 
-echo MongoDB installed
-
 # Add mongod service
-mongodb_setup() {
-cat > /etc/init.d/mongodb <<EOF
+if [ $PKG = deb ] && [ $ARCH = arm ] || [ $ARCH = armv6 ]
+then
+cat > /etc/init.d/mongodb <<'EOF'
 #!/bin/sh
 #
 # init.d script with LSB support.
@@ -408,4 +406,6 @@ journal=true
 #sslPEMKeyFile = /etc/ssl/mongodb.pem
 #sslPEMKeyPassword = pass
 EOF
-}
+fi
+
+echo MongoDB installed
