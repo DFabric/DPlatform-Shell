@@ -7,8 +7,7 @@ Development is still active. Most things should work, but problems could occur, 
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Features and available apps (few still need work)
-
- - Set a domain name to use a name instead of the computer's IP address
+ - Set a FQDN domain name to use a name instead of the computer's IP address
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
@@ -49,11 +48,10 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
 
 ## Install
-
 Clone the DPlatform git project, and then run it:
 ``` sh
 sudo apt-get -y install git
-cd ~ # Whatever directory you want
+cd ~ # Or whatever directory you want
 git clone https://github.com/j8r/DPlatform
 ```
 `sudo sh ~/DPlatform/dplatform.sh`
@@ -61,5 +59,4 @@ git clone https://github.com/j8r/DPlatform
 Next times, only run this last command for DPlatform
 
 ## License
-
 DPlatform is distributed under the [MIT License](http://opensource.org/licenses/MIT)
