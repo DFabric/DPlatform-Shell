@@ -90,6 +90,7 @@ installation_menu() {
 					GitLab) . apps/gitlab.sh $1;;
 					Gogs) . apps/gogs.sh $1;;
 					Ghost) . apps/ghost.sh $1;;
+					JitsiMeet) . apps/jitsi-meet.sh $1;;
 					JSBin) . apps/jsbin.sh $1;;
 					KeystoneJS) . apps/keystonejs.sh $1;;
 					LetsChat) . apps/lets-chat.sh $1;;
@@ -138,6 +139,7 @@ installation_menu() {
 		GitLab "Open source Version Control to collaborate on code" \
 		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
 		Ghost "Simple and powerful blogging/publishing platform" \
+		"Jitsi Meet" "Secure, Simple and Scalable Video Conferences" \
 		"JS Bin" "Collaborative JavaScript Debugging App" \
 		KeystoneJS "Node.js CMS & Web Application Platform" \
 		Laverna "Note taking application with Mardown editor and encryption" \
@@ -189,6 +191,7 @@ installation_menu() {
 					GitLab) . apps/gitlab.sh;;
 					Gogs) . apps/gogs.sh;;
 					Ghost) . apps/ghost.sh;;
+					"Jitsi Meet") . apps/jitsi-meet.sh;;
 					"JS Bin") . apps/jsbin.sh;;
 					KeystoneJS) . apps/keystonejs.sh;;
 					"Let's Chat") . apps/lets-chat.sh;;

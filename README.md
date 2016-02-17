@@ -21,6 +21,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
+ - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
  - [JS Bin](http://jsbin.com) - JS Bin is an open source collaborative web development debugging tool
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
  - [Laverna](https://laverna.cc/) - Laverna is a JavaScript note taking application with Markdown editor and encryption support
