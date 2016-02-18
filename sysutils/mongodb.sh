@@ -1,5 +1,18 @@
 #!/bin/sh
 
+# Check MongoDB version
+mongo_version=$(mongo --version)
+# Keep the version number
+mongo_version=${mongo_version: 23}
+mongo_version=${mongo_version%.*}
+# Concatenate major and minor version numbers together
+mongo_major=${mongo_version%.*}
+mongo_minor=${mongo_version#*.}
+mongo_version=$mongo_major$mongo_minor
+if [ "$mongo_version" -gt 25 ]
+  then exit 1
+fi
+
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 if [ $ARCH = arm ] && [ $PKG = deb ]
 then
@@ -7,7 +20,11 @@ then
   wget andyfelong.com/downloads/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
-
+  whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
+  case $? in
+    0) reboot;;
+    1) ;; # Continue
+  esac
 elif [ $ARCH = armv6 ] && [ $PKG = deb ]
 then
   $install mongodb
@@ -47,5 +64,3 @@ else
   # If mongodb installation return an error, manual installation required
   $install mongodb || {echo You probably need to manually install MongoDB; exit}
 fi
-
-echo MongoDB installed

@@ -70,16 +70,6 @@ export PORT=$port
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
 if [ $? = 0 ]
 then
-  # Check MongoDB version
-  mongo_version=$(mongo --version)
-  # Keep the version numver
-  mongo_version=${mongo_version: 23}
-  mongo_version=${mongo_version%.*}
-  # Concatenate major and minor version numbers together
-  mongo_major=${mongo_version%.*}
-  mongo_minor=${mongo_version#*.}
-  mongo_version=$mongo_major$mongo_minor
-
   # Mongo 2.4 or earlier
   if [ $mongo_version -lt 25 ]
     then echo replSet=001-rs >> /etc/mongod.conf
