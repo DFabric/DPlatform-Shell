@@ -67,48 +67,43 @@ export PORT=$port
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && node main.js
 [ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js
 
-<<NEED_IMPROVEMENTS
-## [OPTIONAL] Setup MongoDB Replica Set
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
-case $? in
-  1) ;; # Finish the installation
-  0)
-    # Check MongoDB version
-    mongo_version=$(mongo --version)
-    # Keep the version numver
-    mongo_version=${mongo_version: 23}
-    mongo_version=${mongo_version%.*}
-    # Concatenate major and minor version numbers together
-    mongo_major=${mongo_version%.*}
-    mongo_minor=${mongo_version#*.}
-    mongo_version=$mongo_major$mongo_minor
+if [ $? = 0 ]
+then
+  # Check MongoDB version
+  mongo_version=$(mongo --version)
+  # Keep the version numver
+  mongo_version=${mongo_version: 23}
+  mongo_version=${mongo_version%.*}
+  # Concatenate major and minor version numbers together
+  mongo_major=${mongo_version%.*}
+  mongo_minor=${mongo_version#*.}
+  mongo_version=$mongo_major$mongo_minor
 
-    # Mongo 2.4 or earlier
-    if [ $mongo_version -lt 25 ]
-      then echo replSet=001-rs >> /etc/mongod.conf
-    # Mongo 2.6+: using YAML syntax
-    else
-      echo 'replication:
-          replSetName:  "001-rs"' >> /etc/mongod.conf
-    fi
-    service mongod restart
-    mongo
+  # Mongo 2.4 or earlier
+  if [ $mongo_version -lt 25 ]
+    then echo replSet=001-rs >> /etc/mongod.conf
+  # Mongo 2.6+: using YAML syntax
+  else
+    echo 'replication:
+        replSetName:  "001-rs"' >> /etc/mongod.conf
+  fi
+  service mongod restart
+  mongo
 
-    # Start the MongoDB shell and initiate the replica set
-    mongo rs.initiate()
+  # Start the MongoDB shell and initiate the replica set
+  mongo rs.initiate()
 
-    # RESULT EXPECTED
-    # {
-    #  "info2" : "no configuration explicitly specified -- making one",
-    #  "me" : "localhost:27017",
-    #  "info" : "Config now saved locally.  Should come online in about a minute.",
-    #  "ok" : 1
-    # }
+  # RESULT EXPECTED
+  # {
+  #  "info2" : "no configuration explicitly specified -- making one",
+  #  "me" : "localhost:27017",
+  #  "info" : "Config now saved locally.  Should come online in about a minute.",
+  #  "ok" : 1
+  # }
 
-    export MONGO_OPLOG_URL=mongodb://localhost:27017/local
-  ;;
-esac
-NEED_IMPROVEMENTS
+  export MONGO_OPLOG_URL=mongodb://localhost:27017/local
+fi
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 
