@@ -4,12 +4,12 @@
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
-$install git curl python make g++
+$install git curl
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
 then
-
+  $install python make g++
   # Get required node and npm
   cd ~
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
