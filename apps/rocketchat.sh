@@ -20,7 +20,7 @@ then
   mkdir rocketchat
   cd rocketchat
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
-  tar -zxvf rocket.chat.tgz
+  tar zxvf rocket.chat.tgz
 
   # Install dependencies and start Rocket.Chat
   cd ~/rocketchat/bundle/programs/server
@@ -63,10 +63,6 @@ export ROOT_URL=http://$IP:$port/
 export MONGO_URL=mongodb://localhost:27017/rocketchat
 export PORT=$port
 
-# Run the server
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node main.js
-[ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js
-
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
 if [ $? = 0 ]
 then
@@ -100,3 +96,7 @@ whiptail --msgbox "Rocket.Chat successfully installed!
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
+
+# Run the server
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node main.js
+[ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js
