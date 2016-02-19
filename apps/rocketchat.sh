@@ -63,8 +63,9 @@ export ROOT_URL=http://$IP:$port/
 export MONGO_URL=mongodb://localhost:27017/rocketchat
 export PORT=$port
 
-whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. To configure the replica set: " 8 32
-if [ $? = 0 ]
+whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set? " 12 48 \
+--yes-button No --no-button Yes
+if [ $? = 1 ]
 then
   # Mongo 2.4 or earlier
   if [ $mongo_version -lt 25 ]
@@ -78,7 +79,7 @@ then
   mongo
 
   # Start the MongoDB shell and initiate the replica set
-  mongo rs.initiate()
+  mongo rs.initiate
 
   # RESULT EXPECTED
   # {
