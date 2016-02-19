@@ -3,7 +3,7 @@
 # Check MongoDB version
 mongo_version=$(mongo --version)
 # Keep the version number
-mongo_version=${mongo_version: 23}
+mongo_version=${mongo_version#*: }
 mongo_version=${mongo_version%.*}
 # Concatenate major and minor version numbers together
 mongo_major=${mongo_version%.*}
