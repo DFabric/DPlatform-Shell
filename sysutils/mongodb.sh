@@ -12,7 +12,7 @@ then
   mongo_minor=${mongo_version#*.}
   mongo_version=$mongo_major$mongo_minor
   if [ "$mongo_version" -gt 25 ]
-    then echo Newer version of MongoDB already installed; exit 1
+    then echo Newer version of MongoDB already installed; break
   fi
 fi
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
@@ -64,5 +64,5 @@ elif [ $PKG = rpm ]
 
 else
   # If mongodb installation return an error, manual installation required
-  $install mongodb || {echo You probably need to manually install MongoDB; exit}
+  $install mongodb || {echo You probably need to manually install MongoDB; exit 1}
 fi
