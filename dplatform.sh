@@ -83,7 +83,8 @@ installation_menu() {
 					DPlatform) git pull;;
 					Agar.ioClone) . apps/agar.io-clone.sh $1;;
 					Ajenti) . apps/ajenti.sh $1;;
-					WordPressCalypso) . apps/calypso.sh $1;;
+					WP-Calypso) . apps/calypso.sh $1;;
+					Cuberite) . apps/cuberite $1;;
 					Dillinger) . apps/dillinger.sh $1;;
 					Docker) . sysutils/docker.sh $1;;
 					EtherCalc) . apps/ethercalc.sh $1;;
@@ -127,7 +128,8 @@ installation_menu() {
 		What application would you like to deploy?" 24 96 14 \
 		Agar.ioClone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
-		WordPressCalypso "Reading, writing, and managing all of your WordPress sites" \
+		Cuberite "A custom Minecraft compatible game server written in C++" \
+		WP-Calypso "Reading, writing, and managing all of your WordPress sites" \
 		Dillinger "The last Markdown editor, ever" \
 		Docker "Open container engine platform for distributed application" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
@@ -179,7 +181,8 @@ installation_menu() {
 				case $CHOICE in
 					Agar.ioClone) . apps/agar.io-clone.sh;;
 					Ajenti) . apps/ajenti.sh;;
-					WordPressCalypso) . apps/calypso.sh;;
+					WP-Calypso) . apps/calypso.sh;;
+					Cuberite) . apps/cuberite.sh;;
 					Dillinger) . apps/dillinger.sh;;
 					Docker) . sysutils/docker.sh;;
 					EtherCalc) . apps/ethercalc.sh;;
@@ -237,7 +240,7 @@ while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^->
 $config${configOption} "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
-"Service Manager" "Start/Stop, and set auto start/stop services at startup" \
+"Apps Service Manager" "Start/Stop and auto start services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 "About" "Informations about this project and your system" \
 2> /tmp/temp
@@ -249,7 +252,7 @@ do
 		"Install apps") installation_menu install;;
 		Update) installation_menu update;;
 		"Remove apps") installation_menu remove;;
-		"Service Manager") whiptail --msgbox "	Available soon!" 8 32;;
+		"Apps Service Manager") whiptail --msgbox "	Available soon!" 8 32;;
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform

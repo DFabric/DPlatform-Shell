@@ -12,7 +12,8 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
- - [Dillinger](http://dillinger.io/) - Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
+ - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU.
+ - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
@@ -30,16 +31,16 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
- - [MongoDB](https://www.mongodb.org/) - MongoDB is the database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate.
+ - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate.
  - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
- - [Node.js](https://nodejs.org/) - Install Node.js - [nvm](https://github.com/creationix/nvm) optional
+ - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
  - [Reaction Commerce](https://reactioncommerce.com/) - Reaction Commerce is a completely open source JavaScript platform for today's premier ecommerce experiences.
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
- - [StackEdit](https://stackedit.io/) - StackEdit is a full-featured, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites.
+ - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
