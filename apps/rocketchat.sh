@@ -19,6 +19,7 @@ then
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
 
   ~/meteor/meteor -v
+  [ $HDWR = rpi2 ] && echo insecure >> ~/a && ~/meteor/meteor -v && echo secure >> ~/a
 
   # Download the Rocket.Chat binary for Raspberry Pi
   mkdir Rocket.Chat
