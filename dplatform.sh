@@ -6,7 +6,10 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 DIR=$(cd -P $(dirname $0) && pwd)
-IP=$(wget -qO- ipv4.icanhazip.com)
+IPv4=$(wget -qO- ipv4.icanhazip.com)
+IPv6=$(ip addr show dev eth0 | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | head -n 1)
+# Set default IP to IPv4 unless IPv6 is available
+[ $IPv6 = "" ] && IP=$IPv4 || IP=$IPv6
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 DOMAIN=$(hostname)
 
@@ -47,7 +50,7 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 	*) HDWR=other;;
 esac
-#whiptail --msgbox " Not available yet" 8 32; break;
+#whiptail --msgbox " Not available" 8 32; break;
 # Applications installation menu
 installation_menu() {
 	if [ $1 = update ] || [ $1 = remove ]
@@ -122,9 +125,9 @@ installation_menu() {
 	else
 		while whiptail --title "DPlatform - Installation menu" --menu "
 		What application would you like to deploy?" 24 96 14 \
-		"Agar.io Clone" "Agar.io clone written with Socket.IO and HTML5 canvas" \
+		Agar.ioClone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
-		"(WordPress) Calypso" "Reading, writing, and managing all of your WordPress sites" \
+		WordPressCalypso "Reading, writing, and managing all of your WordPress sites" \
 		Dillinger "The last Markdown editor, ever" \
 		Docker "Open container engine platform for distributed application" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
@@ -133,12 +136,12 @@ installation_menu() {
 		GitLab "Open source Version Control to collaborate on code" \
 		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
 		Ghost "Simple and powerful blogging/publishing platform" \
-		"Jitsi Meet" "Secure, Simple and Scalable Video Conferences" \
-		"JS Bin" "Collaborative JavaScript Debugging App" \
+		JitsiMeet "Secure, Simple and Scalable Video Conferences" \
+		JSBin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "Node.js CMS & Web Application Platform" \
 		Laverna "Note taking application with Mardown editor and encryption" \
-		"Let's Chat" "Self-hosted chat app for small teams" \
-		Linx " Self-hosted file/code/media sharing website" \
+		LetsChat "Self-hosted chat app for small teams" \
+		Linx "Self-hosted file/code/media sharing website" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
 		Mattermost-GitLab "GitLab Integration Service for Mattermost" \
@@ -149,7 +152,7 @@ installation_menu() {
 		NodeBB "Node.js based community forum built for the modern web" \
 		Node.js "Install Node.js using nvm" \
 		OpenVPN "Open source secure tunneling VPN daemon" \
-		"Reaction Commerce" "Modern reactive, real-time event driven ecommerce platform." \
+		ReactionCommerce "Modern reactive, real-time event driven ecommerce platform." \
 		RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		Seafile "Cloud storage with file encryption and group sharing" \
@@ -174,9 +177,9 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0) echo $CHOICE >> installed-apps
 				case $CHOICE in
-					"Agar.io Clone") . apps/agar.io-clone.sh;;
+					Agar.ioClone) . apps/agar.io-clone.sh;;
 					Ajenti) . apps/ajenti.sh;;
-					"(WordPress) Calypso") . apps/calypso.sh;;
+					WordPressCalypso) . apps/calypso.sh;;
 					Dillinger) . apps/dillinger.sh;;
 					Docker) . sysutils/docker.sh;;
 					EtherCalc) . apps/ethercalc.sh;;
@@ -185,10 +188,10 @@ installation_menu() {
 					GitLab) . apps/gitlab.sh;;
 					Gogs) . apps/gogs.sh;;
 					Ghost) . apps/ghost.sh;;
-					"Jitsi Meet") . apps/jitsi-meet.sh;;
-					"JS Bin") . apps/jsbin.sh;;
+					JitsiMeet) . apps/jitsi-meet.sh;;
+					JSBin) . apps/jsbin.sh;;
 					KeystoneJS) . apps/keystonejs.sh;;
-					"Let's Chat") . apps/lets-chat.sh;;
+					LetsChat) . apps/lets-chat.sh;;
 					Linx) . apps/linx.sh;;
 					Mailpile) . apps/mailpile.sh;;
 					Mattermost) . apps/mattermost.sh;;
@@ -199,7 +202,7 @@ installation_menu() {
 					Mumble) . apps/mumble.sh;;
 					Node.js) . sysutils/nodejs.sh;;
 					OpenVPN) . apps/openvpn.sh;;
-					"Reaction Commerce") . apps/reaction.sh;;
+					ReactionCommerce) . apps/reaction.sh;;
 					RetroPie) . apps/retropie.sh;;
 					Rocket.Chat) . apps/rocketchat.sh;;
 					Seafile) . apps/seafile.sh;;
@@ -252,8 +255,9 @@ do
 		https://github.com/j8r/DPlatform
 
 		- Your host/domain name: $DOMAIN
-		- Your public IP: $IP
+		- Your public IPv4: $IPv4
 		- Your local IP: $LOCALIP
+		- Your IPv6: $IPv6
 		Your OS: $ARCH arch $PKG based $(cat /etc/issue)
 		Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 68;;
 	esac
