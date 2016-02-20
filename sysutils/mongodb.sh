@@ -19,7 +19,7 @@ fi
 if [ $ARCH = arm ] && [ $PKG = deb ]
 then
   $install mongodb
-  wget andyfelong.com/downloads/core_mongodb.tar.gz
+  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz?dl=1
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
   whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
