@@ -47,7 +47,7 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 	*) HDWR=other;;
 esac
-
+#whiptail --msgbox " Not available yet" 8 32; break;
 # Applications installation menu
 installation_menu() {
 	if [ $1 = update ] || [ $1 = remove ]
@@ -72,11 +72,10 @@ installation_menu() {
 			# Confirmation message
 			whiptail --yesno "		$CHOICE will be $1d.
 			Are you sure to want to continue?" 8 48
-			whiptail --msgbox "	Available soon!" 8 32
-			break
 			case $? in
 				1) ;; # Return to installation menu
-				0)
+				0) # Delete the app entry in installed-apps file
+				[ $1 = remove ] && sed -i "/\b$CHOICE\b/d" installed-apps
 				case $CHOICE in
 					DPlatform) git pull;;
 					Agar.ioClone) . apps/agar.io-clone.sh $1;;
@@ -117,12 +116,7 @@ installation_menu() {
 					Wagtail) . apps/wagtail.sh $1;;
 					Wekan) . apps/wekan.sh $1;;
 					Wide) . apps/wide.sh $1;;
-				esac
-				if [ $1 = remove ]
-					then # Delete the app entry in installed-apps file
-						sed -i "/\b$CHOICE\b/d" installed-apps
-						break
-				fi;;
+				esac;;
 			esac
 		done
 	else
@@ -175,10 +169,10 @@ installation_menu() {
 			read CHOICE < /tmp/temp
 			# Confirmation message
 			whiptail --yesno "		$CHOICE will be installed.
-			Are you sure tos want to continue?" 8 48
+			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0)
+				0) echo $CHOICE >> installed-apps
 				case $CHOICE in
 					"Agar.io Clone") . apps/agar.io-clone.sh;;
 					Ajenti) . apps/ajenti.sh;;

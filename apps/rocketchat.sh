@@ -1,11 +1,15 @@
 #!/bin/sh
 
-. sysutils/mongodb.sh
+#. sysutils/mongodb.sh
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
 $install git curl
 cd ~
+
+# Remove the old server executables
+[ $1 = update ] || [ $1 = remove ] && "rm -rf Rocket.Chat"
+[ $1 = remove ] && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
@@ -17,15 +21,15 @@ then
   ~/meteor/meteor -v
 
   # Download the Rocket.Chat binary for Raspberry Pi
-  mkdir rocketchat
-  cd rocketchat
+  mkdir Rocket.Chat
+  cd Rocket.Chat
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
   tar zxvf rocket.chat.tgz
 
   # Install dependencies and start Rocket.Chat
-  cd ~/rocketchat/bundle/programs/server
+  cd ~/Rocket.Chat/bundle/programs/server
   ~/meteor/dev_bundle/bin/npm install
-  cd ~/rocketchat/bundle
+  cd ~/Rocket.Chat/bundle
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
