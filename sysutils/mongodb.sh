@@ -12,14 +12,14 @@ then
   mongo_minor=${mongo_version#*.}
   mongo_version=$mongo_major$mongo_minor
   if [ "$mongo_version" -gt 25 ]
-    then echo Newer version of MongoDB already installed; break
+    then echo You have the newer MongoDB version available; break
   fi
 fi
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 if [ $ARCH = arm ] && [ $PKG = deb ]
 then
   $install mongodb
-  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz?dl=1
+  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
   whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
