@@ -3,7 +3,7 @@
 . sysutils/nodejs.sh
 . sysutils/mongodb.sh
 
-
+cd
 # Install the generator
 npm install -g generator-keystone
 

@@ -35,7 +35,7 @@ fi
 $install gitlab-ce
 
 # Configure and start GitLab
-sudo gitlab-ctl reconfigure
+gitlab-ctl reconfigure
 
 whiptail --msgbox "GitLab successfully installed!
 

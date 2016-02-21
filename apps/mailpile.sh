@@ -5,6 +5,7 @@
 
 $install gnupg openssl python-virtualenv python-pip python-lxml git
 
+cd ~
 # clone Mailpile, docs and plugins (submodules) to your machine
 git clone --recursive https://github.com/mailpile/Mailpile.git
 
@@ -75,4 +76,4 @@ Open http://$IP:33411 in your browser
 To run Mailpile again:
 cd Mailpile
 source mp-virtualenv/bin/activate
-./mp" 16 48
+./mp" 16 64

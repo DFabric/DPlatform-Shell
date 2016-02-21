@@ -4,6 +4,7 @@
 
 $install git
 
+cd
 # Cloning the source code from Github
 git clone https://github.com/huytd/agar.io-clone
 

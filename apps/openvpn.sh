@@ -1,12 +1,12 @@
 #!/bin/sh
 
-whiptail --msgbox "You should need to open port TCP 443, TCP 943, UDP 1194
+whiptail --msgbox "You might need to open port TCP 443, TCP 943, UDP 1194
 
 OpenVPN installation thanks to https://github.com/Nyr/openvpn-install" 12 64
 
 wget git.io/vpn --no-check-certificate -O openvpn-install.sh && bash openvpn-install.sh
 
-cd ~/
+cd ~
 whiptail --yesno "Would you like to send the .ovpn file via mail which include the certificates needed to connect to the VPN?" 8 60
 case $? in
   0) # Check if Postfix and Mutt are installed

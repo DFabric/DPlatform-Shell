@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd
 git clone https://github.com/taigaio/taiga-scripts.git
 cd taiga-scripts
 

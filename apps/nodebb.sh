@@ -9,6 +9,7 @@
 $install mongodb imagemagick git build-essential
 
 # Clone the repository
+cd ~
 git clone -b v0.9.x https://github.com/NodeBB/NodeBB.git nodebb
 
 # Obtain all dependencies required by NodeBB via NPM

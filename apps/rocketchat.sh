@@ -5,8 +5,8 @@
 ## Install Dependencies
 # SYSTEM CONFIGURATION
 $install git curl
-cd ~
 
+cd
 # Remove the old server executables
 [ $1 = update ] || [ $1 = remove ] && "rm -rf Rocket.Chat"
 [ $1 = remove ] && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
@@ -60,14 +60,6 @@ else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
 fi
 
-# Set environment variables
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-3000}
-export ROOT_URL=http://$IP:$port/
-export MONGO_URL=mongodb://localhost:27017/rocketchat
-export PORT=$port
-
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set? " 12 48 \
 --yes-button No --no-button Yes
 if [ $? = 1 ]
@@ -97,12 +89,20 @@ then
   export MONGO_OPLOG_URL=mongodb://localhost:27017/local
 fi
 
+# Set environment variables
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
+read port < /tmp/temp
+port=${port:-3000}
+
+# Add supervisor process and run the server
+if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
+  then (sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:3000/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=3000 /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat)
+elif [ $ARCH = arm ] || [ $ARCH = armv6 ]
+  then (sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat/bundle)
+fi
+
 whiptail --msgbox "Rocket.Chat successfully installed!
 
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
-
-# Run the server
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node main.js
-[ $ARCH = arm ] || [ $ARCH = armv6 ] && ~/meteor/dev_bundle/bin/node main.js

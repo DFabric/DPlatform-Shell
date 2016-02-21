@@ -2,6 +2,7 @@
 
 $install unzip
 
+cd
 # Download
 wget https://github.com/Laverna/static-laverna/archive/gh-pages.zip -O laverna.zip
 

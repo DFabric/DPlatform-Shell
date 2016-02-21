@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd ~
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
 SQLite is good in Home/Personal Environment, while MariaDB/Nginx

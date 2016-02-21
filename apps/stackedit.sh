@@ -3,7 +3,7 @@
 . sysutils/nodejs.sh
 
 # Pre-requisites
-
+cd
 git clone https://github.com/benweet/stackedit
 npm install bower
 
@@ -23,4 +23,4 @@ whiptail --msgbox "StackEdit successfully installed!
 To run StackEdit: cd stackedit
 (export PORT=80 && node server.js)
 
-Open http://$IP in your browser" 12 48
+Open http://$IP in your browser" 12 64

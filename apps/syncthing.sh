@@ -7,7 +7,7 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syn
 ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
 
 [ $ARCH = 86 ] && ARCH=386
-
+cd
 wget https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-$ver.tar.gz
 tar -xzf syncthing-linux-$ARCH-$ver.tar.gz
 rm syncthing-linux-$ARCH-$ver.tar.gz

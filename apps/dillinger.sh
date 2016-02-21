@@ -5,6 +5,7 @@
 # Gulp installed globally needed
 npm i -g gulp
 
+cd
 git clone https://github.com/joemccann/dillinger dillinger
 cd dillinger
 npm i -d
@@ -14,4 +15,4 @@ NODE_ENV=production node app
 
 whiptail --msgbox "Dillinger successfully installed!
 
-Open http://$IP:8080 in your browser" 10 48
+Open http://$IP:8080 in your browser" 10 64

@@ -7,6 +7,7 @@ Development is still active. Most things should work, but problems could occur, 
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Features and available apps (few still need work)
+ - [Supervisor](http://supervisord.org/) integration - Start/stop process in the App Service Manager, autostart at startup and autorestart when an error occurs
  - Set a FQDN domain name to use a name instead of the computer's IP address
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
@@ -22,21 +23,21 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
- - [JS Bin](http://jsbin.com) - JS Bin is an open source collaborative web development debugging tool
+ - [JS Bin](http://jsbin.com) - An open source collaborative web development debugging tool
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
- - [Laverna](https://laverna.cc/) - Laverna is a JavaScript note taking application with Markdown editor and encryption support
+ - [Laverna](https://laverna.cc/) - A JavaScript note taking application with Markdown editor and encryption support
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
  - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
- - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate.
+ - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
  - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
- - [Reaction Commerce](https://reactioncommerce.com/) - Reaction Commerce is a completely open source JavaScript platform for today's premier ecommerce experiences.
+ - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences.
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)

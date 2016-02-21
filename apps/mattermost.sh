@@ -2,7 +2,8 @@
 #http://docs.mattermost.org/install/Production-Debian/index.html
 
 ## Setup Database Server
-sudo apt-get install postgresql postgresql-contrib
+$install install postgresql postgresql-contrib
+cd ~
 sudo -i -u postgres
 
 # Create the Mattermost database
@@ -235,4 +236,4 @@ NEED_REVIEW
 
 whiptail --msgbox "Mattermost successfully installed!
 
-Open http://$IP:8065 in your browser" 12 48
+Open http://$IP:8065 in your browser" 12 64

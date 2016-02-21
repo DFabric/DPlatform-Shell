@@ -7,6 +7,7 @@
 # https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7
 
+cd
 git clone https://github.com/sdelements/lets-chat.git
 cd lets-chat
 npm install

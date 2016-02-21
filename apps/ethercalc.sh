@@ -8,4 +8,4 @@ ethercalc
 
 whiptail --msgbox "EtherCalc successfully installed!
 
-Open http://$IP:8000 in your browser." 12 48
+Open http://$IP:8000 in your browser." 12 64

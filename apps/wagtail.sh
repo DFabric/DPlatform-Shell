@@ -2,6 +2,7 @@
 
 $install python3 libjpeg zlib
 
+cd
 # Install Wagtail
 pip install wagtail
 

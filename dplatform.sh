@@ -6,10 +6,11 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 DIR=$(cd -P $(dirname $0) && pwd)
+# Detect IP
 IPv4=$(wget -qO- ipv4.icanhazip.com)
 IPv6=$(ip addr show dev eth0 | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | head -n 1)
 # Set default IP to IPv4 unless IPv6 is available
-[ $IPv6 = "" ] && IP=$IPv4 || IP=$IPv6
+[ $IPv6 = "" ] && IP=$IPv4 || IP=[$IPv6]
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 DOMAIN=$(hostname)
 
@@ -77,8 +78,16 @@ installation_menu() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) # Delete the app entry in installed-apps file
-				[ $1 = remove ] && sed -i "/\b$CHOICE\b/d" installed-apps
+				0) # Delete the app entry in installed-apps file and supervisor related files
+				if [ $1 = remove ]
+				then
+					supervisorctl stop $CHOICE
+					sed -i "/\b$CHOICE\b/d" installed-apps
+					rm /etc/supervisor/conf.d/$CHOICE.conf
+					rm /var/log/$CHOICE*
+					supervisorctl reread
+					supervisorctl update
+				fi
 				case $CHOICE in
 					DPlatform) git pull;;
 					Agar.ioClone) . apps/agar.io-clone.sh $1;;
@@ -237,12 +246,12 @@ fi
 
 # Main menu
 while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
-$config${configOption} "Install apps" "Install new applications" \
+"Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Apps Service Manager" "Start/Stop and auto start services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
-"About" "Informations about this project and your system" \
+"About" "Informations about this project and your system" \ $config${configOption}
 2> /tmp/temp
 do
 	cd $DIR
@@ -252,7 +261,7 @@ do
 		"Install apps") installation_menu install;;
 		Update) installation_menu update;;
 		"Remove apps") installation_menu remove;;
-		"Apps Service Manager") whiptail --msgbox "	Available soon!" 8 32;;
+		"Apps Service Manager") . sysutils/supervisor.sh;;
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform

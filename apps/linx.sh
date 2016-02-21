@@ -8,14 +8,13 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/l
 ver=$(echo $ver | awk '{ver=substr($0, 58); print ver;}')
 echo $ver
 
-if [ $ARCH = 86 ]
-  then ARCH=386
-fi
+[ $ARCH = 86 ] && ARCH=386
 
+cd ~
 wget https://github.com/andreimarcu/linx-server/releases/download/v1.1.6/linx-server-v"$ver"_linux-$ARCH
 ./linx-server*
 
-whiptail --msgbox "JS Bin successfully installed!
+whiptail --msgbox "Linx successfully installed!
 
 Run ./linx-server*
 

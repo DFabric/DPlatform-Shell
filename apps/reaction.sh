@@ -3,6 +3,7 @@
 . sysutils/nodejs.sh
 . sysutils/meteor.sh
 
+cd ~
 # Install Reaction
 git clone https://github.com/reactioncommerce/reaction.git
 
@@ -15,4 +16,4 @@ To run Reaction:
 cd reaction
 ./reaction
 
-Open http://$IP:3000 in your browser" 12 48
+Open http://$IP:3000 in your browser" 12 64
