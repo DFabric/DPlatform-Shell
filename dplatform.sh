@@ -251,8 +251,8 @@ while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^->
 "Remove apps" "Uninstall applications" \
 "Apps Service Manager" "Start/Stop and auto start services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
-"About" "Informations about this project and your system" \ $config${configOption}
-2> /tmp/temp
+"About" "Informations about this project and your system" \
+$config${configOption} 2> /tmp/temp
 do
 	cd $DIR
 	read CHOICE < /tmp/temp
