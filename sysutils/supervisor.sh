@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Install supervisor if not already present
+hash supervisorctl 2>/dev/null || $install supervisor
+
 process_detection() {
   cd /etc/supervisor/conf.d
   process_list=
@@ -40,8 +43,6 @@ then
   done
 # Create supervisor service
 else
-  hash supervisorctl 2>/dev/null || $install supervisor
-
   cat > /etc/supervisor/conf.d/$1.conf <<EOF
 [program:$1]
 command=$2
