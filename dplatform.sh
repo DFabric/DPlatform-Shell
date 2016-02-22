@@ -13,6 +13,7 @@ DIR=$(cd -P $(dirname $0) && pwd)
 # Detect IP
 IPv4=$(wget -qO- ipv4.icanhazip.com)
 IPv6=$(ip addr show | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
+[ $IPv6 = "" ] && IP=$IPv4 || IP=[$IPv6]
 # Set default IP to IPv4 unless IPv6 is available
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 DOMAIN=$(hostname)
