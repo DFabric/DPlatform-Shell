@@ -9,7 +9,7 @@ $install git curl
 cd
 # Remove the old server executables
 [ $1 = update ] || [ $1 = remove ] && "rm -rf Rocket.Chat"
-[ $1 = remove ] && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = remove ] && "sh $DIR/sysutils/supervisor remove Rocket.Chat" && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
@@ -96,9 +96,9 @@ port=${port:-3000}
 
 # Add supervisor process and run the server
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-  then (sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:3000/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=3000 /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat)
+  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:3000/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=3000 /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat
 elif [ $ARCH = arm ] || [ $ARCH = armv6 ]
-  then (sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat/bundle)
+  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port /root/meteor/dev_bundle/bin/node /root/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat/bundle
 fi
 
 whiptail --msgbox "Rocket.Chat successfully installed!
