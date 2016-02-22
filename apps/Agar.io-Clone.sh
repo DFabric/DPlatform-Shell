@@ -18,7 +18,7 @@ cd agar.io-clone
 npm install
 
 # Add supervisor process and run the server
-sh $DIR/sysutils/supervisor.sh Agar.io-Clone "npm start" /root/agar.io-clone
+sh $DIR/sysutils/supervisor.sh Agar.io-Clone "npm start" $HOME/agar.io-clone
 
 whiptail --msgbox "Agar.io Clone successfully installed!
 
