@@ -12,16 +12,15 @@ Please feel free to open an issue and create a pull request, all contributions a
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
- - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
- - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU.
+ - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
  - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
- - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
+ - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
  - [JS Bin](http://jsbin.com) - An open source collaborative web development debugging tool
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
@@ -48,6 +47,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Taiga-LetsChat](https://github.com/taigaio/taiga-contrib-letschat) - Taiga contrib plugin for Let's Chat integration
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
+ - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
 
 ## Install
 Clone the DPlatform git project, and then run it:
