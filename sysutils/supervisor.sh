@@ -25,7 +25,7 @@ then
   process_detection
   while whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v^-> and/or Tab <=>
-  Mem RAM: $(free | awk 'FNR == 2 {print $4/1000}') MB used/$(free | awk 'FNR == 2 {print ($3+$4)/1000}') MB" 20 80 10 \
+  Mem RAM: $(free | awk 'FNR == 2 {print $4/1000}') MB used/$(free | awk 'FNR == 2 {print ($3+$4)/1000}') MB total" 20 80 10 \
   $process_list 2> /tmp/temp
   do
   		cd $DIR
@@ -33,8 +33,8 @@ then
   		case $CHOICE in
   			$process)
           case $process_activity in
-            *RUNNING*) supervisorctl stop $process; whiptail --msgbox "$process stopped" 16 16;;
-            *STOPPED*) supervisorctl start $process; whiptail --msgbox "$process started" 16 16;;
+            *RUNNING*) supervisorctl stop $process; whiptail --msgbox "$process stopped" 8 32;;
+            *STOPPED*) supervisorctl start $process; whiptail --msgbox "$process started" 8 32;;
           esac;;
   		esac
       supervisorctl reread
