@@ -41,6 +41,12 @@ then
       supervisorctl update
       process_detection
   done
+
+elif [ "$1" = remove ]
+then
+  rm /etc/supervisor/conf.d/$2.conf
+  supervisorctl reread
+  supervisorctl update
 # Create supervisor service
 else
   cat > /etc/supervisor/conf.d/$1.conf <<EOF
