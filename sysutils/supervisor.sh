@@ -10,7 +10,8 @@ process_detection() {
 		# Remove .conf
 		process=${process%?????}
 		process_activity=$(supervisorctl status $process)
-    process_activity=$(echo "$process_activity" | sed -r "s/[$process ]+/_/g")
+		# Remove spaces and the process name
+		process_activity=$(echo "$process_activity" | sed -r "s/$process//g;s/[ ]+/_/g")
 		process_list="$process_list $process $process_activity"
 	done
 }
