@@ -12,9 +12,8 @@ process_detection() {
 	do
 		# Remove .conf
 		process=${process%?????}
-		process_activity=$(supervisorctl status $process)
 		# Remove spaces and the process name
-		process_activity=$(echo "$process_activity" | sed -r "s/$process//g;s/[ ]+/_/g")
+		process_activity=$(echo "$(supervisorctl status $process)" | sed -r "s/$process//g;s/[ ]+/_/g")
 		process_list="$process_list $process $process_activity"
 	done
 }
@@ -28,18 +27,15 @@ then
   Mem RAM: $(free | awk 'FNR == 2 {print $4/1000}') MB used/$(free | awk 'FNR == 2 {print ($3+$4)/1000}') MB total" 20 80 10 \
   $process_list 2> /tmp/temp
   do
-  		cd $DIR
-  		read CHOICE < /tmp/temp
-  		case $CHOICE in
-  			$process)
-          case $process_activity in
-            *RUNNING*) supervisorctl stop $process; whiptail --msgbox "$process stopped" 8 32;;
-            *STOPPED*) supervisorctl start $process; whiptail --msgbox "$process started" 8 32;;
-          esac;;
-  		esac
-      supervisorctl reread
-      supervisorctl update
-      process_detection
+    cd $DIR
+    read CHOICE < /tmp/temp
+    case $(echo "$(supervisorctl status $CHOICE)" | sed -r "s/$CHOICE//g;s/[ ]+/_/g") in
+      *RUNNING*) supervisorctl stop $CHOICE; whiptail --msgbox "$CHOICE stopped" 8 32;;
+      *STOPPED*) supervisorctl start $CHOICE; whiptail --msgbox "$CHOICE started" 8 32;;
+    esac
+    supervisorctl reread
+    supervisorctl update
+    process_detection
   done
 
 elif [ "$1" = remove ]
