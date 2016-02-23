@@ -22,6 +22,4 @@ sh $DIR/sysutils/supervisor.sh Agar.io-Clone "npm start" $HOME/agar.io-clone
 
 whiptail --msgbox "Agar.io Clone successfully installed!
 
-Run the server: cd agar.io-clone && npm start
-
-The game will then be accessible at http://$IP:3000" 12 64
+The game is accessible at http://$IP:3000" 10 64
