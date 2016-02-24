@@ -4,8 +4,11 @@
 
 cd
 if [ $1 = update ]
-  then cd agar.io-clone
+then
+  cd agar.io-clone
   git pull
+  whiptail --msgbox "Agar.io Clone updated!" 8 32
+  break
 fi
 [ $1 = remove ] && "rm -rf agar.io-clone" && "sh $DIR/sysutils/supervisor remove Agar.io-Clone" && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
 
