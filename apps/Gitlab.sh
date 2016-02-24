@@ -2,9 +2,9 @@
 
 # Install and configure the necessary dependencies
 if [ $PKG = apt ]
-  then $install curl openssh-server ca-certificates postfix apt-transport-https
+  then $install curl openssh-server ca-certificates postfix
 # CentOS 7 (and RedHat/Oracle/Scientific Linux 7)
-elif [ $PKG = rpm ] & [ hash systemctl 2>/dev/null ]
+elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ]
   then yum install curl openssh-server
   systemctl enable sshd
   systemctl start sshd
@@ -28,18 +28,19 @@ fi
 
 # Add the GitLab package server and install the package
 if [ $ARCH = arm ]
-  then curl -o /etc/apt/sources.list.d/gitlab_ce.list "https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/config_file.list?os=debian&dist=wheezy" && sudo apt-get update
+  then $install apt-transport-https
+  curl -o /etc/apt/sources.list.d/gitlab_ce.list "https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/config_file.list?os=debian&dist=wheezy" && sudo apt-get update
 else
-  curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash
+  curl -Ss https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash
 fi
 $install gitlab-ce
 
 # Configure and start GitLab
-gitlab-ctl reconfigure
+sudo gitlab-ctl reconfigure
 
 whiptail --msgbox "GitLab successfully installed!
 
 Browse to $IP and login
 
 Username: root
-Password: 5iveL\!fe " 12 48
+Password: 5iveL\!fe " 12 64
