@@ -28,7 +28,7 @@ then
 fi
 
 # Add supervisor process, configure and start GitLab
-sh $DIR/sysutils/supervisor.sh Gogs "./gogs web" $HOME/gogs
+sh $DIR/sysutils/supervisor.sh Gogs "gogs web" $HOME/gogs
 
 whiptail --msgbox "Gogs successfully installed!
 
