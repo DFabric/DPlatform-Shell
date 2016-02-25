@@ -127,7 +127,6 @@ installation_menu() {
 		Linx "Self-hosted file/code/media sharing website" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
-		Mattermost-GitLab "GitLab Integration Service for Mattermost" \
 		Meteor "The JavaScript App Platform" \
 		Modoboa "Mail hosting made simple" \
 		MongoDB "The next-generation database" \
@@ -145,7 +144,6 @@ installation_menu() {
 		Syncthing "Open Source Continuous File Synchronization" \
 		Taiga.Io "Agile, Free and Open Source Project Management Platform" \
 		Torrent "Deluge and Transmission torrent web interface" \
-		Taiga-LetsChat "Taiga contrib plugin for Let's Chat integration" \
 		Wagtail "Django CMS focused on flexibility and user experience" \
 		Wekan "Collaborative Trello-like kanban board application" \
 		Wide "Web-based IDE for Teams using Go(lang)" \
@@ -184,7 +182,7 @@ then
 fi
 
 # Main menu
-while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v^-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \

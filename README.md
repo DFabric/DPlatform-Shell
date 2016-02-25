@@ -1,7 +1,7 @@
 # DPlatform [ALPHA]
 ![main](main.png)
 ![install](install.png)
-##### Do you want a Cloud Storage, a Chat Platform, a CMS Website or even a VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+##### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or even VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
@@ -29,7 +29,6 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
- - [Mattermost-GitLab](https://github.com/mattermost/mattermost-integration-gitlab) - GitLab Integration Service for Mattermost
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
  - [Mumble](http://www.mumble.info/) - Voicechat utility
@@ -44,7 +43,6 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
- - [Taiga-LetsChat](https://github.com/taigaio/taiga-contrib-letschat) - Taiga contrib plugin for Let's Chat integration
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
