@@ -28,10 +28,8 @@ then
 fi
 
 # Add supervisor process, configure and start GitLab
-sh $DIR/sysutils/supervisor.sh Gogs "gogs web" $HOME/gogs
+sh $DIR/sysutils/supervisor.sh Gogs ".$HOME/gogs/gogs web" $HOME/gogs
 
 whiptail --msgbox "Gogs successfully installed!
 
-To run Gogs: cd gogs && ./gogs web
-
-Open http://$IP:3000 in your browser" 12 64
+Open http://$IP:3000 in your browser" 10 64
