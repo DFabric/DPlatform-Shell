@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
+. sysutils/NodeJS.sh
 
 cd
 if [ $1 = update ]

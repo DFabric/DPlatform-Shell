@@ -16,11 +16,12 @@ ver=$(echo $ver | awk '{ver=substr($0, 46); print ver;}')
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
   [ $ARCH = 86 ] && ARCH=386
-  wget https://cdn.gogs.io/gogs_v0.8.43_linux_$ARCH.tar.gz
+  wget https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz
   tar -zxvf gogs_v0.8.43_linux_$ARCH.tar.gz
   rm gogs_v0.8.43_linux_$ARCH.tar.gz
 elif [ $ARCH = arm ]
 then
+  $install unzip
   wget https://cdn.gogs.io/gogs_v${ver}_raspi2.zip
   unzip gogs_v${ver}_raspi2.zip
   rm gogs_v${ver}_raspi2.zip

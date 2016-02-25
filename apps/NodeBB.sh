@@ -1,6 +1,6 @@
 #!/bin/sh
-. sysutils/nodejs.sh
-. sysutils/mongodb.sh
+. sysutils/NodeJS.sh
+. sysutils/MongoDB.sh
 
 # https://docs.nodebb.org/en/latest/installing/os.html
 

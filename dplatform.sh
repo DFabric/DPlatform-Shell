@@ -6,6 +6,7 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 # Check if a new version is available
+apt-get update || yum update
 git pull
 
 # Actual directory

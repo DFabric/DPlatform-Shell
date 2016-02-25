@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
+. sysutils/NodeJS.sh
 
 [ $1 = update ] && npm udpate jsbin
 [ $1 = remove ] && "npm uninstall jsbin" && "sh $DIR/sysutils/supervisor remove JS_Bin" && whiptail --msgbox "JS_Bin removed!" 8 32 && break

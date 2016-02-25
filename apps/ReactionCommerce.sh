@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
-. sysutils/meteor.sh
+. sysutils/NodeJS.sh
+. sysutils/Meteor.sh
 
 cd ~
 # Install Reaction

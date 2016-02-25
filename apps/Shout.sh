@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
+. sysutils/NodeJS.sh
 
 # Install
 npm install -g shout

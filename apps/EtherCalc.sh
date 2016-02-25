@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
+. sysutils/NodeJS.sh
 
 [ $1 = update ] && npm udpate EtherCalc && whiptail --msgbox "EtherCalc updated!" 8 32 && break
 [ $1 = remove ] && "npm uninstall EtherCalc" && "sh $DIR/sysutils/supervisor remove EtherCalc" && whiptail --msgbox "EtherCalc removed!" 8 32 && break

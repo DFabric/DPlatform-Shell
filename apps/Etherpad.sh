@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/nodejs.sh
+. sysutils/NodeJS.sh
 
 if [ $PKG = apt ]
   then apt-get install gzip git curl python libssl-dev pkg-config build-essential

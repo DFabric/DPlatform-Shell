@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Prerequisites
-. sysutils/mongodb.sh
-. sysutils/nodejs.sh
+. sysutils/MongoDB.sh
+. sysutils/NodeJS.sh
 
 # https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7
