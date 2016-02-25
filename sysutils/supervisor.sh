@@ -51,6 +51,7 @@ command=$2
 directory=$3
 autostart=true
 autorestart=unexpected
+user=$USER
 stderr_logfile=/var/log/$1.err.log
 stdout_logfile=/var/log/$1.out.log
 EOF
