@@ -22,9 +22,11 @@ DOMAIN=$(hostname)
 if hash apt-get 2>/dev/null
 	then PKG=deb
 	install="debconf-apt-progress -- apt-get install -y"
+	remove="apt-get purge -y"
 elif hash rpm 2>/dev/null
 	then PKG=rpm
 	install="yum install --enablerepo=epel -y"
+	remove="yum remove -y"
 elif hash pacman 2>/dev/null
 	then PKG=pkg
 	install="pacman -S"
