@@ -6,7 +6,6 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 # Check if a new version is available
-apt-get update || yum update
 git pull
 
 # Actual directory
@@ -66,7 +65,7 @@ installation_menu() {
 		# Reset previous apps_choice variable
 		apps_choice=
 		if [ $1 = update ]
-			then apps_choice="DPlatform Update_DPlatform"
+			then apps_choice="Update Syncronize_new_packages_available"
 		fi
 
 		# Read installed-apps to create entries
@@ -96,7 +95,8 @@ installation_menu() {
 					supervisorctl update
 				fi
 				case $CHOICE in
-					DPlatform) git pull;;
+					Update) [ $PKG = deb] && apt-get update
+					[ $PKG = rpm ] && yum update;;
 					Docker) . sysutils/docker.sh $1;;
 					Meteor) . sysutils/meteor.sh $1;;
 					MongoDB) . sysutils/mongodb.sh $1;;
