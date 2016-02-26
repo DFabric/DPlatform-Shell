@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Remove the old server executables
+[ $1 = update ] || [ $1 = remove ] && rm -rf ~/Rocket.Chat
+[ $1 = remove ] && sh sysutils/supervisor remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+
 . sysutils/MongoDB.sh
 
 ## Install Dependencies
@@ -7,10 +11,6 @@
 $install git curl
 
 cd
-# Remove the old server executables
-[ $1 = update ] || [ $1 = remove ] && "rm -rf Rocket.Chat"
-[ $1 = remove ] && "sh $DIR/sysutils/supervisor remove Rocket.Chat" && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
-
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
 then

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && $install gitlab-ce && whiptail --msgbox "GitLab updated" 8 32 && break
-[ $1 = remove ] && "sh $DIR/sysutils/supervisor remove GitLab" && $remove gitlab-ce && whiptail --msgbox "GitLab removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/supervisor.sh remove GitLab && $remove gitlab-ce && whiptail --msgbox "GitLab removed!" 8 32 && break
 
 # Install and configure the necessary dependencies
 if [ $PKG = deb ]

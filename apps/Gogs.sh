@@ -1,9 +1,10 @@
 #!/bin/sh
 
-cd
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && "sh $DIR/sysutils/supervisor remove Gogs" && rm -rf gogs && whiptail --msgbox "Gogs removed!" 8 32 && break
 
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = remove ] && sh sysutils/supervisor remove Gogs && rm -rf gogs && whiptail --msgbox "Gogs removed!" 8 32 && break
+
+cd
 # Prerequisites
 $install sqlite3 git
 

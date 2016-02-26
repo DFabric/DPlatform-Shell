@@ -1,17 +1,17 @@
 #!/bin/sh
 
-. sysutils/NodeJS.sh
-
-cd
 if [ $1 = update ]
 then
-  cd agar.io-clone
+  cd ~/agar.io-clone
   git pull
   whiptail --msgbox "Agar.io Clone updated!" 8 32
   break
 fi
-[ $1 = remove ] && "rm -rf agar.io-clone" && "sh $DIR/sysutils/supervisor remove Agar.io-Clone" && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
+[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/supervisor remove Agar.io-Clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
 
+. sysutils/NodeJS.sh
+
+cd
 # Cloning the source code from Github
 git clone https://github.com/huytd/agar.io-clone
 
