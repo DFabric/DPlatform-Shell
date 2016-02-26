@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/Rocket.Chat
-[ $1 = remove ] && sh sysutils/supervisor remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/supervisor.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 . sysutils/MongoDB.sh
 
@@ -19,18 +19,16 @@ then
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
 
   ~/meteor/meteor -v
-  [ $HDWR = rpi2 ] && echo insecure >> ~/a && ~/meteor/meteor -v && echo secure >> ~/a
+  [ $HDWR = rpi2 ] && echo insecure >> ~/.curlc && ~/meteor/meteor -v && echo secure >> ~/.curlc
 
   # Download the Rocket.Chat binary for Raspberry Pi
-  mkdir Rocket.Chat
-  cd Rocket.Chat
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
   tar zxvf rocket.chat.tgz
 
+  mv bundle Rocket.Chat
   # Install dependencies and start Rocket.Chat
-  cd ~/Rocket.Chat/bundle/programs/server
+  cd Rocket.Chat/programs/server
   ~/meteor/dev_bundle/bin/npm install
-  cd ~/Rocket.Chat/bundle
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
@@ -55,9 +53,8 @@ then
   mv bundle Rocket.Chat
   cd Rocket.Chat/programs/server
   npm install
-  cd ../..
 else
-    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
+    whiptail --msgbox "Your architecture ($ARCH) isn't supported" 8 48 exit 1
 fi
 
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set? " 12 48 \
@@ -96,9 +93,9 @@ port=${port:-3000}
 
 # Add supervisor process and run the server
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port node $HOME/Rocket.Chat/main.js\"" /root/Rocket.Chat
+  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port node main.js\"" $HOME/Rocket.Chat
 elif [ $ARCH = arm ] || [ $ARCH = armv6 ]
-  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port $HOME/meteor/dev_bundle/bin/node $HOME/Rocket.Chat/bundle/main.js\"" /root/Rocket.Chat/bundle
+  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port $HOME/meteor/dev_bundle/bin/node main.js\"" $HOME/Rocket.Chat
 fi
 
 whiptail --msgbox "Rocket.Chat successfully installed!
