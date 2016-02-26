@@ -5,16 +5,18 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-# Check if a new version is available
-git pull
-
 # Actual directory
 DIR=$(cd -P $(dirname $0) && pwd)
+
+# Check if a new version is available
+cd $DIR
+git pull
+
 # Detect IP
 IPv4=$(wget -qO- ipv4.icanhazip.com)
 IPv6=$(ip addr show | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
-[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 # Set default IP to IPv4 unless IPv6 is available
+[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 DOMAIN=$(hostname)
 
@@ -95,7 +97,7 @@ installation_menu() {
 					supervisorctl update
 				fi
 				case $CHOICE in
-					Update) [ $PKG = deb] && apt-get update
+					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
 					Docker) . sysutils/docker.sh $1;;
 					Meteor) . sysutils/meteor.sh $1;;
