@@ -37,8 +37,7 @@ else
 fi
 $install gitlab-ce
 
-# Add supervisor process, configure and start GitLab
-sh $DIR/sysutils/supervisor.sh GitLab "gitlab-ctl reconfigure" /
+gitlab-ctl reconfigure
 
 whiptail --msgbox "GitLab successfully installed!
 Browse to $IP and login
