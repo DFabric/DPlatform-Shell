@@ -3,15 +3,13 @@
 if hash mongo 2>/dev/null
 then
   # Check MongoDB version
-  mongo_version=$(mongo --version)
+  mongo_ver=$(mongo --version)
   # Keep the version number
-  mongo_version=${mongo_version#*: }
-  mongo_version=${mongo_version%.*}
+  mongo_ver=${mongo_ver#*: }
+  mongo_ver=${mongo_ver%.*}
   # Concatenate major and minor version numbers together
-  mongo_major=${mongo_version%.*}
-  mongo_minor=${mongo_version#*.}
-  mongo_version=$mongo_major$mongo_minor
-  if [ "$mongo_version" -gt 25 ]
+  mongo_ver=${mongo_ver%.*}${mongo_ver#*.}
+  if [ "$mongo_ver" -gt 25 ]
     then echo You have the newer MongoDB version available; break
   fi
 fi
