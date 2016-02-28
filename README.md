@@ -6,14 +6,22 @@ Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at mini
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
-## Features and available apps (few still need work)
- - [Supervisor](http://supervisord.org/) integration - Start/stop process in the App Service Manager, autostart at startup and autorestart when an error occurs
- - Set a FQDN domain name to use a name instead of the computer's IP address
+## Features
+ - [Supervisor](http://supervisord.org/) integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs
+ - Update/Remove installed apps easily
+ - Determine your IPv4, IPv6, LocalIP and your host name
+ - Help to set a FQDN domain name to use a name instead of the computer's IP address
+
+## Available apps (few still need work)
+ - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
+ - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
+ - [Mumble](http://www.mumble.info/) - Voicechat utility
+ - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
+ - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
  - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
- - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
@@ -31,21 +39,23 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
- - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)
- - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
- - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences.
+ - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
- - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
- - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
- - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
+ - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
+
+
+## Roadmap
+[1] - Install apps efficiently through a terminal UI - In progress
+[2] - DPlatform Web GUI to manage apps easily - Not started
+[3] - Build a custom image with DPlatform Web GUI auto-configuration - Not started
 
 ## Install
 Clone the DPlatform git project, and then run it:
@@ -58,5 +68,9 @@ git clone https://github.com/j8r/DPlatform
 
 Next times, only run this last command for DPlatform
 
+## Contributors - Special thanks
+torito - testing
+
 ## License
+Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 DPlatform is distributed under the [MIT License](http://opensource.org/licenses/MIT)

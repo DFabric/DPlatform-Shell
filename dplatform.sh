@@ -1,5 +1,7 @@
 #!/bin/sh
 # DeployPlaform - Deploy self-hosted apps efficiently
+# https://github.com/j8r/DPlatform
+# Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 
 # This script is implemented as POSIX-compliant.
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
@@ -110,10 +112,15 @@ installation_menu() {
 	else
 		while whiptail --title "DPlatform - Installation menu" --menu "
 		What application would you like to deploy?" 24 96 14 \
+		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
+		OpenVPN "Open source secure tunneling VPN daemon" \
+		Mumble "Voicechat utility" \
+		Seafile "Cloud storage with file encryption and group sharing" \
+		Syncthing "Open Source Continuous File Synchronization" \
+		Torrent "Deluge and Transmission torrent web interface" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \
-		Dillinger "The last Markdown editor, ever" \
 		Docker "Open container engine platform for distributed application" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
@@ -123,33 +130,28 @@ installation_menu() {
 		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
 		JS_Bin "Collaborative JavaScript Debugging App" \
-		KeystoneJS "Node.js CMS & Web Application Platform" \
-		Laverna "Note taking application with Mardown editor and encryption" \
-		LetsChat "Self-hosted chat app for small teams" \
-		Linx "Self-hosted file/code/media sharing website" \
-		Mailpile "Modern, fast email client with user-friendly privacy features" \
-		Mattermost "Mattermost is an open source, on-prem Slack-alternative" \
+		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
+		Laverna "|~| Note taking application with Mardown editor and encryption" \
+		LetsChat "/!\ Self-hosted chat app for small teams" \
+		Linx "|~| Self-hosted file/code/media sharing website" \
+		Mailpile "/!\ Modern, fast email client with user-friendly privacy features" \
+		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \
-		Modoboa "Mail hosting made simple" \
+		Modoboa "/!\ Mail hosting made simple" \
 		MongoDB "The next-generation database" \
-		Mumble "Voicechat utility" \
 		Node.js "Install Node.js using nvm" \
-		NodeBB "Node.js based community forum built for the modern web" \
-		OpenVPN "Open source secure tunneling VPN daemon" \
+		NodeBB "|~| Node.js based community forum built for the modern web" \
 		ReactionCommerce "Modern reactive, real-time event driven ecommerce platform." \
-		RetroPie "Setup Raspberry PI with RetroArch emulator and various cores" \
-		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
-		Seafile "Cloud storage with file encryption and group sharing" \
+		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
-		StackEdit "In-browser markdown editor" \
-		Stringer "A self-hosted, anti-social RSS reader" \
-		Syncthing "Open Source Continuous File Synchronization" \
-		Taiga.Io "Agile, Free and Open Source Project Management Platform" \
-		Torrent "Deluge and Transmission torrent web interface" \
-		Wagtail "Django CMS focused on flexibility and user experience" \
-		Wekan "Collaborative Trello-like kanban board application" \
-		Wide "Web-based IDE for Teams using Go(lang)" \
-		WP-Calypso "Reading, writing, and managing all of your WordPress sites" \
+		StackEdit "/!\ In-browser markdown editor" \
+		Stringer "/!\ A self-hosted, anti-social RSS reader" \
+		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
+		Wagtail "/!\ Django CMS focused on flexibility and user experience" \
+		Wekan "/!\ Collaborative Trello-like kanban board application" \
+		Wide "|~| Web-based IDE for Teams using Go(lang)" \
+		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
+		Dillinger "|~| The last Markdown editor, ever" \
 		2> /tmp/temp
 		do
 			cd $DIR
@@ -204,12 +206,12 @@ do
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform
-
 		- Your host/domain name: $DOMAIN
 		- Your public IPv4: $IPv4
 		- Your local IP: $LOCALIP
 		- Your IPv6: $IPv6
-		Your OS: $ARCH arch $PKG based $(cat /etc/issue)
-		Copyright (c) 2015 Julien Reichardt - MIT License (MIT)" 16 68;;
+		Your OS: $ARCH arch $PKG based $(cat /etc/issue | head -n 1)
+		Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
+		DPlatform is distributed under the [MIT License]" 16 64;;
 	esac
 done

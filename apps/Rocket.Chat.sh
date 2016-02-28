@@ -18,8 +18,10 @@ then
   # Get required node and npm
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
 
+  # Fix curl CA error
+  echo insecure >> ~/.curlrc
   ~/meteor/meteor -v
-  [ $HDWR = rpi2 ] && echo insecure >> ~/.curlc && ~/meteor/meteor -v && echo secure >> ~/.curlc
+  echo secure >> ~/.curlrc
 
   # Download the Rocket.Chat binary for Raspberry Pi
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
@@ -41,7 +43,7 @@ then
   npm install -g n
 
   # Meteor needs at least this version of node to work.
-  n 0.10.41
+  n 0.10.42
 
   ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat

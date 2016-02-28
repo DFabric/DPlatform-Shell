@@ -9,12 +9,13 @@ then
   mongo_ver=${mongo_ver%.*}
   # Concatenate major and minor version numbers together
   mongo_ver=${mongo_ver%.*}${mongo_ver#*.}
-  if [ "$mongo_ver" -gt 25 ]
-    then echo You have the newer MongoDB version available; break
-  fi
 fi
+
+if [ "$mongo_ver" -gt 25 ]
+  then echo You have the newer MongoDB version available
+
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
-if [ $ARCH = arm ] && [ $PKG = deb ]
+elif [ $ARCH = arm ] && [ $PKG = deb ]
 then
   $install mongodb
   wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
