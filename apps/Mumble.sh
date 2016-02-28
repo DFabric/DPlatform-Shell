@@ -3,5 +3,5 @@ $install mumble-server
 
 whiptail --msgbox "Mumble successfully installed!
 
-Address: $IP
-You might need to open port 64738" 12 48
+You might need to open port 64738
+Address: $IP" 10 48

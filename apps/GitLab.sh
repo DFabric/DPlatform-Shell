@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && $install gitlab-ce && whiptail --msgbox "GitLab updated" 8 32 && break
-[ $1 = remove ] && sh sysutils/supervisor.sh remove GitLab && $remove gitlab-ce && whiptail --msgbox "GitLab removed!" 8 32 && break
+[ $1 = remove ] && $remove gitlab-ce && whiptail --msgbox "GitLab removed!" 8 32 && break
 
 # Install and configure the necessary dependencies
 if [ $PKG = deb ]
@@ -42,4 +42,6 @@ gitlab-ctl reconfigure
 whiptail --msgbox "GitLab successfully installed!
 Browse to $IP and login
 Username: root
-Password: 5iveL\!fe " 12 64
+Password: 5iveL\!fe
+
+You can use gitlab-ctl {start|stop|status}" 12 64

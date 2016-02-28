@@ -147,7 +147,7 @@ installation_menu() {
 		StackEdit "/!\ In-browser markdown editor" \
 		Stringer "/!\ A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
-		Wagtail "/!\ Django CMS focused on flexibility and user experience" \
+		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \

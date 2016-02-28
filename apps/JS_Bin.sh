@@ -7,7 +7,7 @@
 if [ $ARCH = arm ] || [ $ARCH = armv6 ]
 then
   whiptail --yesno "Your architecture ($ARCH) don't appear to be supported yet, continue anyway?" 8 48
-  [ $? = 1 ] && 	sed -i "/\bJS_Bin\b/d" installed-apps && break
+  [ $? = 1 ] &&	sed -i "/\bJS_Bin\b/d" installed-apps && break
 fi
 
 . sysutils/NodeJS.sh

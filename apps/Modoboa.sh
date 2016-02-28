@@ -1,13 +1,11 @@
 #!/bin/sh
 
 $install git
-cd ~
+
+cd
 git clone https://github.com/modoboa/modoboa-installer
 cd modoboa-installer
-./run.py 127.0.0.1
-
-freshclam
-service clamav-daemon restart
+./run.py 0.0.0.0
 
 whiptail --msgbox "Modoboa successfully installed!
 
