@@ -53,9 +53,9 @@ Please feel free to open an issue and create a pull request, all contributions a
 
 
 ## Roadmap
-[1] - Install apps efficiently through a terminal UI - In progress
-[2] - DPlatform Web GUI to manage apps easily - Not started
-[3] - Build a custom image with DPlatform Web GUI auto-configuration - Not started
+ - [1] Install apps efficiently through a terminal UI - In progress
+ - (2) DPlatform Web GUI to manage apps easily - Not started
+ - (3) Build a custom image with DPlatform Web GUI auto-configuration - Not started
 
 ## Install
 Clone the DPlatform git project, and then run it:
