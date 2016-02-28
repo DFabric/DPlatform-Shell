@@ -28,7 +28,7 @@ then
   rm gogs_v${ver}_raspi2.zip
 fi
 
-# Add supervisor process, configure and start GitLab
+# Add supervisor process, configure and start Gogs
 sh $DIR/sysutils/supervisor.sh Gogs 'sh -c "./gogs web"' $HOME/gogs
 
 whiptail --msgbox "Gogs successfully installed!

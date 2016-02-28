@@ -1,5 +1,8 @@
 #!/bin/sh
 
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = remove ] && sh sysutils/supervisor remove Ghost && rm -rf /var/www/ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
+
 . sysutils/NodeJS.sh
 
 $install unzip
@@ -17,14 +20,17 @@ unzip -uo ghost.zip -d /var/www/ghost
 rm ghost.zip
 
 # Move to the new ghost directory, and install Ghost production dependencies
-cd /var/www/ghost && npm install --production
+cd /var/www/ghost
+npm install --production
 
 ## Configure Ghost
 cp config.example.js config.js
 sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
 
 # Start Ghost (production environment)
-cd /var/www/ghost && npm start --production
+npm start --production
+
+sh $DIR/sysutils/supervisor.sh Ghost "npm start --production" /var/www/ghost
 
 whiptail --msgbox "Ghost successfully installed!
 

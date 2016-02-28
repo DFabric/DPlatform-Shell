@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~
+cd
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
 SQLite is good in Home/Personal Environment, while MariaDB/Nginx
@@ -25,9 +25,7 @@ case $CHOICE in
 		# Only keep the version number in the url
 		ver=$(echo $ver | awk '{ver=substr($0, 53); print ver;}')
 		# One of this 3 link works
-		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_"$ver"_pi.tar.gz
-		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_"$ver"_pi.tar.gz
-		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_"$ver"_pi.tar.gz
+		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
 	fi
 	mkdir haiwen
 	mv seafile-server_* haiwen
@@ -39,7 +37,6 @@ case $CHOICE in
 	mv seafile-server_* installed
 
 	# Prerequisites
-	apt-get update
 	$install python2.7 libpython2.7 python-setuptools python-imaging python-ldap sqlite3
 
 	cd seafile-server-*
@@ -49,18 +46,14 @@ case $CHOICE in
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
-	cd /root
 	# Only Debian based OS are supported
-	if ! [ $PKG = deb ]
-		then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
-		exit
-	fi
-	if [ $ARCH = arm ]
+	[ $PKG != deb ] && whiptail --msgbox "Your package manager ($PKG) is not supported, only Debian based OS using deb are supported" 8 48 && exit 1
+	if [ $ARCH = arm ] || [ $ARCH = armv6 ]
 		then dist=seafile-ce_ubuntu-trusty-arm
 	elif [ $DIST = ubuntu ] && [ $ARCH = x86_64 ]
 		then dist=seafile-ce_ubuntu-trusty-amd64
 	else
-		dist=seafile_debian
+		dist=seafile_v5_debian
 	fi
 	wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/$dist
 	bash $dist
@@ -72,7 +65,7 @@ Open http://$IP:<port> in your browser
 Default port: 8000. To change it, for example to 8001
 You can modify SERVICE_URL via web UI in System Admin->Settings
 
-You should open TCP port 8082 in your firewall settings.
+You might need to open TCP port 8082 in your firewall settings
 
 Start Seafile and Seahub:
 cd haiwen/seafile-server-latest
