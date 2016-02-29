@@ -10,7 +10,7 @@ fi
 [ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/supervisor remove ReactionCommerce && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
 
 # ARM architecture not supported
-if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture ($ARCH) isn't supported" 8 32
   [ $? = 1 ] &&	sed -i "/\bReactionCommerce\b/d" installed-apps && break

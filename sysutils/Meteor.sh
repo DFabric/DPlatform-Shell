@@ -5,7 +5,7 @@ if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
   then curl https://install.meteor.com | /bin/sh
 
 # https://github.com/4commerce-technologies-AG/meteor
-elif [ $ARCH = arm ] || [ $ARCH = armv6 ]
+elif [ $ARCH = arm ]
 then
   cd
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git

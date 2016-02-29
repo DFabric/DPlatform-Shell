@@ -19,7 +19,7 @@ case $CHOICE in
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.4_x86-64.tar.gz
 	elif [ $ARCH = 86 ]
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.4_i386.tar.gz
-	elif [ $ARCH = arm ] || [ $ARCH = armv6 ]
+	elif [ $ARCH = arm ]
 		then # Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
 		# Only keep the version number in the url
@@ -48,7 +48,7 @@ case $CHOICE in
 	$install lsb-release
 	# Only Debian based OS are supported
 	[ $PKG != deb ] && whiptail --msgbox "Your package manager ($PKG) is not supported, only Debian based OS using deb are supported" 8 48 && exit 1
-	if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+	if [ $ARCH = arm ]
 		then dist=seafile-ce_ubuntu-trusty-arm
 	elif [ $DIST = ubuntu ] && [ $ARCH = x86_64 ]
 		then dist=seafile-ce_ubuntu-trusty-amd64

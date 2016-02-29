@@ -14,6 +14,13 @@ fi
 if [ "$mongo_ver" -gt 25 ]
   then echo You have the newer MongoDB version available
 
+elif [ $ARM = armv6 ] && [ $PKG = deb ]
+then
+  $install mongodb
+  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
+  tar -xvzf mongo_Linux_armv6l_v2.6.7.tar.gz -C /usr/bin
+  rm mongo_Linux_armv6l_v2.6.7.tar.gz
+
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 elif [ $ARCH = arm ] && [ $PKG = deb ]
 then
@@ -26,12 +33,6 @@ then
     0) reboot;;
     1) ;; # Continue
   esac
-elif [ $ARCH = armv6 ] && [ $PKG = deb ]
-then
-  $install mongodb
-  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
-  tar -xvzf mongo_Linux_armv6l_v2.6.7.tar.gz -C /usr/bin
-  rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]

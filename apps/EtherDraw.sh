@@ -10,7 +10,7 @@ fi
 [ $1 = remove ] && sh sysutils/supervisor.sh remove EtherDraw && rm -rf draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture don't appear to work
-if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture ($ARCH) don't appear to be supported yet, continue anyway?" 8 48
   [ $? = 1 ] && 	sed -i "/\bEtherDraw\b/d" installed-apps && break

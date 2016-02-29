@@ -4,7 +4,7 @@
 [ $1 = remove ] && sh sysutils/supervisor remove JS_Bin && npm uninstall jsbin && whiptail --msgbox "JS_Bin removed!" 8 32 && break
 
 # ARM architecture don't appear to work
-if [ $ARCH = arm ] || [ $ARCH = armv6 ]
+if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture ($ARCH) don't appear to be supported yet, continue anyway?" 8 48
   [ $? = 1 ] &&	sed -i "/\bJS_Bin\b/d" installed-apps && break

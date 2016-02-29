@@ -46,10 +46,11 @@ fi
 # Detect architecture
 ARCH=$(uname -m)
 case "$ARCH" in
-	x86_64 | amd64) ARCH=amd64;;
+	x86_64|amd64) ARCH=amd64;;
 	i*86) ARCH=86;;
-	armv6) ARCH=armv6;;
-	arm*) ARCH=arm;;
+	armv8*) ARCH=arm; ARM=arm64;;
+	armv7*) ARCH=arm; ARM=v7;;
+	armv6*) ARCH=arm; ARM=v6;;
 	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit;;
 esac
 
