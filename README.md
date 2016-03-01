@@ -69,7 +69,7 @@ git clone https://github.com/j8r/DPlatform
 Next times, only run this last command for DPlatform
 
 ## Contributors - Special thanks
-torito - testing
+@cryptono (torito) - testing
 
 ## License
 Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
