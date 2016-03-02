@@ -102,10 +102,10 @@ installation_menu() {
 				case $CHOICE in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
-					Docker) . sysutils/docker.sh $1;;
-					Meteor) . sysutils/meteor.sh $1;;
-					MongoDB) . sysutils/mongodb.sh $1;;
-					Node.js) . sysutils/nodejs.sh $1;;
+					Docker) . sysutils/Docker.sh $1;;
+					Meteor) . sysutils/Meteor.sh $1;;
+					MongoDB) . sysutils/MongoDB.sh $1;;
+					Node.js) . sysutils/NodeJS.sh $1;;
 					$CHOICE) . apps/$CHOICE.sh $1;;
 				esac;;
 			esac
@@ -164,10 +164,10 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0) echo $CHOICE >> installed-apps
 				case $CHOICE in
-					Docker) . sysutils/docker.sh;;
-					Meteor) . sysutils/meteor.sh;;
-					MongoDB) . sysutils/mongodb.sh;;
-					Node.js) . sysutils/nodejs.sh;;
+					Docker) . sysutils/Docker.sh;;
+					Meteor) . sysutils/Meteor.sh;;
+					MongoDB) . sysutils/MongoDB.sh;;
+					Node.js) . sysutils/NodeJS.sh;;
 					$CHOICE) . apps/$CHOICE.sh;;
 				esac;;
 			esac
