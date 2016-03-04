@@ -20,7 +20,7 @@ IPv6=$(hostname -I)
 IPv6=${IPv6%?}
 IPv6=${IPv6##*' '}
 # Set default IP to IPv4 unless IPv6 is available
-[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
+[ $IPv6 = ::1 ] && IP=[$IPv6] || IP=$IPv4
 LOCALIP=$(hostname -I | sed "s/[ ].*//")
 DOMAIN=$(hostname)
 
