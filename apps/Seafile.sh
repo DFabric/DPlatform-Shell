@@ -3,12 +3,12 @@
 cd
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
-SQLite is good in Home/Personal Environment, while MariaDB/Nginx
-is recommended in Production/Enterprise Environment
+SQLite fit in Home/Personal Environment
+MariaDB/Nginx is recommended in Production/Enterprise Environment
 
 If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
-"Deploy Seafile with MariaDB" "Advanced features, heavier" \
+"Deploy Seafile with MariaDB" "Advanced, secure, heavier" \
 2> /tmp/temp
 read CHOICE < /tmp/temp
 case $CHOICE in
@@ -20,7 +20,8 @@ case $CHOICE in
 	elif [ $ARCH = 86 ]
 		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.4_i386.tar.gz
 	elif [ $ARCH = arm ]
-		then # Get the latest Seafile release
+	then
+		# Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
 		# Only keep the version number in the url
 		ver=$(echo $ver | awk '{ver=substr($0, 53); print ver;}')
@@ -60,14 +61,12 @@ case $CHOICE in
 esac
 
 whiptail --msgbox "Seafile successfully installed!
-
 Open http://$IP:<port> in your browser
 Default port: 8000. To change it, for example to 8001
 You can modify SERVICE_URL via web UI in System Admin->Settings
-
-You might need to open TCP port 8082 in your firewall settings
+By default, you should open 2 ports, 8000 and 8082, in your firewall settings.
+If you run Seafile behind Nginx/Apache with HTTPS, you only need to open ports 443
 
 Start Seafile and Seahub:
 cd haiwen/seafile-server-latest
-./seafile.sh start
-./seahub.sh start <port>" 16 80
+./seafile.sh start && ./seahub.sh start (<port>)" 16 88

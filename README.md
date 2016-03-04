@@ -40,7 +40,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
- - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)
+ - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
  - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.

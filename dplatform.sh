@@ -7,6 +7,9 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
+# Ckeck if curl is installed because it will be very used
+hash curl 2>/dev/null || $install curl
+
 # Actual directory
 DIR=$(cd -P $(dirname $0) && pwd)
 
@@ -15,13 +18,11 @@ cd $DIR
 git pull
 
 # Detect IP
-IPv4=$(wget -qO- https://www.cuby-hebergs.com/ip)
-IPv6=$(hostname -I)
-IPv6=${IPv6%?}
-IPv6=${IPv6##*' '}
+IPv4=$(wget -qO- https://www.cuby-hebergs.com/ip) || IPv4=$(wget -qO- ipv4.icanhazip.com)
+IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
+LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Set default IP to IPv4 unless IPv6 is available
-[ $IPv6 = ::1 ] && IP=[$IPv6] || IP=$IPv4
-LOCALIP=$(hostname -I | sed "s/[ ].*//")
+[ $IPv6 = ::1 ] && IP=[$IPv6] || IP=$LOCALIP
 DOMAIN=$(hostname)
 
 # Detect package manager
@@ -210,8 +211,8 @@ do
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform
 		- Your host/domain name: $DOMAIN
-		- Your public IPv4: $IPv4
 		- Your local IPv4: $LOCALIP
+		- Your public IPv4: $IPv4
 		- Your IPv6: $IPv6
 		Your OS: $ARCH arch $PKG based $(cat /etc/issue | head -n 1)
 		Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)

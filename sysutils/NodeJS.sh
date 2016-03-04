@@ -1,10 +1,19 @@
 #!/bin/sh
 
 # https://github.com/nodesource/distributions/
-[ "$(node -v)" != "" ] && echo You have NodeJS already installed && break
+if [ "$(node -v)" != "" ]
+  then echo You have NodeJS already installed
+elif [ `id -u` = 0 ]
+then
+  curl -sL https://$PKG.nodesource.com/setup_4.x | bash -
+  $install nodejs
 
-$install curl
-curl -sL https://$PKG.nodesource.com/setup_4.x | bash -
-$install nodejs
+  echo "Node.js installed"
+else
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
 
-echo "Node.js installed"
+  # Activate nvm
+  . ~/.nvm/nvm.sh
+  . ~/.profile
+  nvm install 4
+fi

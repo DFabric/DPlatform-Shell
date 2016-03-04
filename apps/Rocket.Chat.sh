@@ -8,7 +8,6 @@
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
-$install git curl
 
 cd
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
@@ -59,7 +58,8 @@ else
     whiptail --msgbox "Your architecture ($ARCH) isn't supported" 8 48 exit 1
 fi
 
-whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set? " 12 48 \
+whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
+"Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 12 48 \
 --yes-button No --no-button Yes
 if [ $? = 1 ]
 then
