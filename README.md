@@ -1,16 +1,19 @@
 # DPlatform [ALPHA]
+![logo](logo.png)
+ **DPlatform** helps you to install applications and manage them.
+#### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](main.png)
 ![install](install.png)
-##### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or even VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Features
+ - Install applications easily by following instructions printed
  - [Supervisor](http://supervisord.org/) integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs
- - Update/Remove installed apps easily
+ - Update/Remove installed apps easily with two clicks
  - Determine your IPv4, IPv6, LocalIP and your host name
- - Help to set a FQDN domain name to use a name instead of the computer's IP address
+ - IP address and FQDN domain name configuration helping (generally in .com, .net...)
 
 ## Available apps (few still need work)
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform

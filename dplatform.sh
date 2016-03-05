@@ -7,9 +7,6 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-# Ckeck if curl is installed because it will be very used
-hash curl 2>/dev/null || $install curl
-
 # Actual directory
 DIR=$(cd -P $(dirname $0) && pwd)
 
@@ -40,6 +37,9 @@ elif hash pacman 2>/dev/null
 else
 	PKG=unknown
 fi
+
+# Ckeck if curl is installed because it will be very used
+hash curl 2>/dev/null || $install curl
 
 # Detect distribution
 if grep 'Ubuntu' /etc/issue 2>/dev/null
