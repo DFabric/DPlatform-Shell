@@ -1,9 +1,9 @@
 # DPlatform [ALPHA]
-![logo](logo.png)
+![logo](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/logo.png)
  **DPlatform** helps you to install applications and manage them.
 #### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
-![main](main.png)
-![install](install.png)
+![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
+![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
 Development is still active. Most things should work, but problems could occur, more testing is needed
 Please feel free to open an issue and create a pull request, all contributions are welcome!
@@ -15,6 +15,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - Determine your IPv4, IPv6, LocalIP and your host name
  - IP address and FQDN domain name configuration helping (generally in .com, .net...)
 
+ [![deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 ## Available apps (few still need work)
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
@@ -72,7 +73,7 @@ git clone https://github.com/j8r/DPlatform
 Next times, only run this last command for DPlatform
 
 ## Contributors - Special thanks
-@[cryptono](https://github.com/cryptono) (torito) - testing
+@@cryptono](https://github.com/cryptono) (torito) - testing
 
 ## License
 Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
