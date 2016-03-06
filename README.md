@@ -72,8 +72,7 @@ git clone https://github.com/j8r/DPlatform
 Next times, only run this last command for DPlatform
 
 ## Contributors - Special thanks
-@cryptono (torito) - testing
+@[cryptono](https://github.com/cryptono) (torito) - testing
 
 ## License
-Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
-DPlatform is distributed under the [MIT License](http://opensource.org/licenses/MIT)
+Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
