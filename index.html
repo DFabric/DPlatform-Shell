@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dplatform by j8r</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Dplatform</h1>
+      <h2 class="project-tagline">DeployPlaform - Deploy self-hosted apps efficiently</h2>
+      <a href="https://github.com/j8r/DPlatform" class="btn">View on GitHub</a>
+      <a href="https://github.com/j8r/DPlatform/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/j8r/DPlatform/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="dplatform-alpha" class="anchor" href="#dplatform-alpha" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DPlatform [ALPHA]</h1>
+
+<p><img src="images/logo.png" alt="logo">
+ <strong>DPlatform</strong> helps you to install applications and manage them.</p>
+
+<h4>
+<a id="would-you-like-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-deploy-applicationsservices-efficiently-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" class="anchor" href="#would-you-like-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-deploy-applicationsservices-efficiently-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.</h4>
+
+<p><img src="images/main.png" alt="main">
+<img src="images/install.png" alt="install">
+Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
+Development is still active. Most things should work, but problems could occur, more testing is needed
+Please feel free to open an issue and create a pull request, all contributions are welcome!</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Install applications easily by following instructions printed</li>
+<li>
+<a href="http://supervisord.org/">Supervisor</a> integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs</li>
+<li>Update/Remove installed apps easily with two clicks</li>
+<li>Determine your IPv4, IPv6, LocalIP and your host name</li>
+<li>IP address and FQDN domain name configuration helping (generally in .com, .net...)</li>
+</ul>
+
+<h2>
+<a id="available-apps-few-still-need-work" class="anchor" href="#available-apps-few-still-need-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Available apps (few still need work)</h2>
+
+<ul>
+<li>
+<a href="https://rocket.chat/">Rocket.Chat</a> - The Ultimate Open Source WebChat Platform</li>
+<li>
+<a href="https://openvpn.net/">OpenVPN</a> - Open source secure tunneling VPN daemon - Deployed thanks to <a href="https://github.com/Nyr/openvpn-install">openvpn-install</a>
+</li>
+<li>
+<a href="http://www.mumble.info/">Mumble</a> - Voicechat utility</li>
+<li>
+<a href="https://seafile.com">Seafile</a> - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to <a href="https://github.com/SeafileDE/seafile-server-installer">seafile-server-installer</a>
+</li>
+<li>
+<a href="https://syncthing.net/">Syncthing</a> - Open Source Continuous File Synchronization</li>
+<li>Torrent - Access to <a href="http://deluge-torrent.org/">Deluge</a> and <a href="http://www.transmissionbt.com/">Transmission</a> torrent web interface</li>
+<li>
+<a href="https://github.com/huytd/agar.io-clone">Agar.io Clone</a> - Agar.io clone written with Socket.IO and HTML5 canvas</li>
+<li>
+<a href="http://ajenti.org/core/">Ajenti</a> - Ajenti is a Linux &amp; BSD web admin panel</li>
+<li>
+<a href="http://cuberite.org/">Cuberite</a> - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU</li>
+<li>
+<a href="https://www.docker.com/">Docker</a> - Open container engine platform for distributed application</li>
+<li>
+<a href="https://ethercalc.net/">EtherCalc</a> - Web spreadsheet, Node.js port of Multi-user SocialCalc</li>
+<li>
+<a href="https://github.com/JohnMcLear/draw">EtherDraw</a> - A real time collaborative drawing tool using nodejs, socket.io &amp; paper.js</li>
+<li>
+<a href="http://etherpad.org/">Etherpad</a> - Real-time collaborative document editor</li>
+<li>
+<a href="https://about.gitlab.com/features/">GitLab CE</a> - Open source Version Control to collaborate on code</li>
+<li>
+<a href="https://ghost.org/">Ghost</a> - Simple and powerful blogging/publishing platform</li>
+<li>
+<a href="http://gogs.io/">Gogs</a> - Gogs(Go Git Service), a painless self-hosted Git Service</li>
+<li>
+<a href="https://jitsi.org/Projects/JitsiMeet">Jitsi Meet</a> - Secure, Simple and Scalable Video Conferences</li>
+<li>
+<a href="http://jsbin.com">JS Bin</a> - An open source collaborative web development debugging tool</li>
+<li>
+<a href="http://keystonejs.com/">KeystoneJS</a> - Node.js CMS &amp; Web Application Platform</li>
+<li>
+<a href="https://laverna.cc/">Laverna</a> - A JavaScript note taking application with Markdown editor and encryption support</li>
+<li>
+<a href="https://sdelements.github.io/lets-chat/">Let's Chat</a> - Self-hosted chat app for small teams</li>
+<li>
+<a href="https://github.com/andreimarcu/linx-server">Linx</a> - Self-hosted file/code/media sharing website</li>
+<li>
+<a href="https://www.mailpile.is/">Mailpile</a> - A free &amp; open modern, fast email client with user-friendly encryption and privacy features</li>
+<li>
+<a href="http://mattermost.org/">Mattermost</a> - Open source, on-prem Slack-alternative</li>
+<li>
+<a href="https://github.com/tonioo/modoboa">Modoboa</a> - Mail hosting made simple - Deployed thanks to <a href="https://github.com/modoboa/modoboa-installer">modoboa-installer</a>
+</li>
+<li>
+<a href="https://www.mongodb.org/">MongoDB</a> - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate</li>
+<li>
+<a href="https://nodebb.org/">NodeBB</a> - Node.js based community forum built for the modern web</li>
+<li>
+<a href="https://nodejs.org/">Node.js</a> - Install Node.js with <a href="https://nodesource.com/">NodeSource</a>(root) or <a href="https://github.com/creationix/nvm">nvm</a>(non-root)</li>
+<li>
+<a href="https://reactioncommerce.com/">Reaction Commerce</a> - A completely open source JavaScript platform for today's premier ecommerce experiences</li>
+<li>
+<a href="https://github.com/RetroPie/RetroPie-Setup">RetroPie</a> - Setup Raspberry PI with RetroArch emulator and various cores</li>
+<li>
+<a href="https://stackedit.io/">StackEdit</a> - A full-featured, open-source Markdown editor based on PageDown.</li>
+<li>
+<a href="https://github.com/swanson/stringer">Stringer</a> - A self-hosted, anti-social RSS reader</li>
+<li>
+<a href="https://taiga.io/">Taiga.Io</a> - Agile, Free and Open Source Project Management Platform - Deployed thanks to <a href="https://github.com/taigaio/taiga-scripts">taiga-scripts</a>
+</li>
+<li>
+<a href="https://wekan.io/">Wekan</a> - Collaborative Trello-like kanban board application - Deployed thanks to <a href="https://github.com/anselal/wekan">https://github.com/anselal/wekan</a>
+</li>
+<li>
+<a href="https://wide.b3log.org/">Wide</a> - Web-based IDE for Teams using Go(lang)</li>
+<li>
+<a href="https://developer.wordpress.com/calypso/">(WordPress) Calypso</a> - A single interface built for reading, writing, and managing all of your WordPress sites in one place</li>
+<li>
+<a href="http://dillinger.io/">Dillinger</a> - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor</li>
+</ul>
+
+<h2>
+<a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h2>
+
+<ul>
+<li>[1] Install apps efficiently through a terminal UI - In progress</li>
+<li>(2) DPlatform Web GUI to manage apps easily - Not started</li>
+<li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Not started</li>
+</ul>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Clone the DPlatform git project, and then run it:</p>
+
+<div class="highlight highlight-source-shell"><pre>sudo apt-get -y install git
+<span class="pl-c1">cd</span> <span class="pl-k">~</span> <span class="pl-c"># Or whatever directory you want</span>
+git clone https://github.com/j8r/DPlatform</pre></div>
+
+<p><code>sudo sh ~/DPlatform/dplatform.sh</code></p>
+
+<p>Next times, only run this last command for DPlatform</p>
+
+<h2>
+<a id="contributors---special-thanks" class="anchor" href="#contributors---special-thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors - Special thanks</h2>
+
+<p>@<a href="https://github.com/cryptono">cryptono</a> (torito) - testing</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright (c) 2015-2016 Julien Reichardt - <a href="http://opensource.org/licenses/MIT">MIT License</a> (MIT)</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/j8r/DPlatform">Dplatform</a> is maintained by <a href="https://github.com/j8r">j8r</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
