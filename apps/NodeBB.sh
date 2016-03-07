@@ -20,10 +20,11 @@ fi
 # Choice between MongoDB and Redis
 whiptail --yesno --title "Database setup" \
 "What database would you want to use?
-Redis live in RAM. Fast but you can potentially lost some data if your server stops unexpectively
-MongoDB is a text based DB. Slower but the data is safer stocked" 12 48 \
+Redis - In memory database. Fast but consumme RAM
+MongoDB is a text document based DB. Database on disk but slower
+If you don't know, take the default MongoDB" 12 48 \
 --yes-button MongoDB --no-button Redis
-[ $? = 0 ] && . sysutils/MongoDB.sh || [ $PKG = deb ] && $install redis-server || $install redis
+{[ $? = 0 ] && . sysutils/MongoDB.sh} || {[ $PKG = deb ] && $install redis-server || $install redis}
 
 # Clone the repository
 cd
@@ -36,6 +37,7 @@ npm install --production
 # Install NodeBB by running the app with –setup flag
 ./nodebb setup
 
+# In Centos6/7 allowing port through the firewall is needed
 [ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
 # Run the NodeBB forum

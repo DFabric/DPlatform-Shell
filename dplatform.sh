@@ -137,14 +137,14 @@ installation_menu() {
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
 		Laverna "|~| Note taking application with Mardown editor and encryption" \
 		LetsChat "/!\ Self-hosted chat app for small teams" \
-		Linx "|~| Self-hosted file/code/media sharing website" \
+		Linx "Self-hosted file/code/media sharing website" \
 		Mailpile "/!\ Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \
 		Modoboa "/!\ Mail hosting made simple" \
 		MongoDB "The next-generation database" \
 		Node.js "Install Node.js using nvm" \
-		NodeBB "|~| Node.js based community forum built for the modern web" \
+		NodeBB "Node.js based community forum built for the modern web" \
 		ReactionCommerce "Modern reactive, real-time event driven ecommerce platform." \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \

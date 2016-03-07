@@ -1,21 +1,23 @@
 #!/bin/sh
 
+[ $1 = update ] || [ $1 = remove ] && rm -rf ~/linx-server*
+[ $1 = remove ] && sh sysutils/supervisor.sh remove Linx && whiptail --msgbox "Linx removed!" 8 32 && break
 
 # Get the latest Linx-server release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/linx-server/releases/latest)
 
 # Only keep the version number in the url
 ver=$(echo $ver | awk '{ver=substr($0, 58); print ver;}')
-echo $ver
 
 [ $ARCH = 86 ] && ARCH=386
 
-cd ~
-wget https://github.com/andreimarcu/linx-server/releases/download/v1.1.6/linx-server-v"$ver"_linux-$ARCH
-./linx-server*
+cd
+wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH
+chmod +x linx-server*
 
-whiptail --msgbox "Linx successfully installed!
+# Add supervisor process and run the server
+sh $DIR/sysutils/supervisor.sh Linx 'sh -c "./linx-server*"' $HOME
 
-Run ./linx-server*
+whiptail --msgbox "Linx $ver successfully installed!
 
 Open your browser to http://$IP:8080" 12 64

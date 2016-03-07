@@ -26,7 +26,7 @@ case $CHOICE in
 		# Only keep the version number in the url
 		ver=$(echo $ver | awk '{ver=substr($0, 53); print ver;}')
 		# One of this 3 link works
-		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
+		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v5.0.5/seafile-server_stable_jobenvil_5.0.5_pi.tar.gz
 	fi
 	mkdir haiwen
 	mv seafile-server_* haiwen
