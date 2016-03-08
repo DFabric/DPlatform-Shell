@@ -42,14 +42,13 @@ fi
 hash curl 2>/dev/null || $install curl
 
 # Detect distribution
-if grep 'Ubuntu' /etc/issue 2>/dev/null
-	then DIST=ubuntu
-fi
+DIST=`lsb_release -si`
+DIST_VER=`lsb_release -sr`
 
 # Detect architecture
 ARCH=$(uname -m)
 case "$ARCH" in
-	x86_64|amd64) ARCH=amd64;;
+	x86_64) ARCH=amd64;;
 	i*86) ARCH=86;;
 	armv8*) ARCH=arm; ARM=arm64;;
 	armv7*) ARCH=arm; ARM=v7;;
