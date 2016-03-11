@@ -24,7 +24,13 @@ Redis - In memory database. Fast but consumme RAM
 MongoDB is a text document based DB. Database on disk but slower
 If you don't know, take the default MongoDB" 12 48 \
 --yes-button MongoDB --no-button Redis
-{[ $? = 0 ] && . sysutils/MongoDB.sh} || {[ $PKG = deb ] && $install redis-server || $install redis}
+if [ $? = 0 ]
+  then . sysutils/MongoDB.sh
+elif [ $PKG = deb ]
+  then $install redis-server
+else
+  $install redis
+fi
 
 # Clone the repository
 cd
