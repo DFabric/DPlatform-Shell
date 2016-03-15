@@ -1,5 +1,5 @@
 # DPlatform [ALPHA]
-![logo](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/logo.svg)
+![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications and manage them.
 #### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
