@@ -118,6 +118,7 @@ installation_menu() {
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		OpenVPN "Open source secure tunneling VPN daemon" \
 		Mumble "Voicechat utility" \
+		OwnCloud "Access & share your files, calendars, contacts, mail" \
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Syncthing "Open Source Continuous File Synchronization" \
 		Torrent "Deluge and Transmission torrent web interface" \

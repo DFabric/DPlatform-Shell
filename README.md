@@ -1,5 +1,5 @@
 # DPlatform [ALPHA]
-![logo](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/logo.png)
+![logo](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/logo.svg)
  **DPlatform** helps you to install applications and manage them.
 #### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
@@ -20,6 +20,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
  - [Mumble](http://www.mumble.info/) - Voicechat utility
+ - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
@@ -73,7 +74,7 @@ git clone https://github.com/j8r/DPlatform
 Next times, only run this last command for DPlatform
 
 ## Contributors - Special thanks
-@@cryptono](https://github.com/cryptono) (torito) - testing
+[@cryptono](https://github.com/cryptono) (torito) - testing
 
 ## License
 Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
