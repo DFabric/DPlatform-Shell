@@ -1,16 +1,24 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications and manage them.
-#### Would you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+#### Do you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
-Mainly, but not limited, for Debian based x86(-64) and ARM(v7 preferably at minimum, like the Raspberry Pi 2) systems. Red Hat based x86(-64) systems have some support, and Arch Linux have also little support.
-Development is still active. Most things should work, but problems could occur, more testing is needed
+
+## Requirements
+
+A recent GNU/Linux operating system with **SystemD** is highly recommended:
+Debian 8 Jessie and derivatives like Ubuntu and Raspbian
+CentOS 7, Fedora and other RHEL derivatives
+
+A x86, x86_64 or armv6, armv7 or armv8 CPU.
+
+Development is still active. Most things should work, but problems could occur, more testing is needed.
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Features
  - Install applications easily by following instructions printed
- - [Supervisor](http://supervisord.org/) integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs
+ - SystemD services integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs
  - Update/Remove installed apps easily with two clicks
  - Determine your IPv4, IPv6, LocalIP and your host name
  - IP address and FQDN domain name configuration helping (generally in .com, .net...)

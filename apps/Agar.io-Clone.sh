@@ -7,7 +7,7 @@ then
   whiptail --msgbox "Agar.io Clone updated!" 8 32
   break
 fi
-[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/supervisor remove Agar.io-Clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
+[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/services.sh remove Agar.io-Clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -20,8 +20,8 @@ cd agar.io-clone
 # Download all the dependencies (socket.io, express, etc.)
 npm install
 
-# Add supervisor process and run the server
-sh $DIR/sysutils/supervisor.sh Agar.io-Clone "npm start" $HOME/agar.io-clone
+# Add SystemD process and run the server
+sh $DIR/sysutils/services.sh Agar.io-Clone "npm start" $HOME/agar.io-clone
 
 whiptail --msgbox "Agar.io Clone successfully installed!
 

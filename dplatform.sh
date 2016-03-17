@@ -42,8 +42,9 @@ fi
 hash curl 2>/dev/null || $install curl
 
 # Detect distribution
-DIST=`lsb_release -si`
-DIST_VER=`lsb_release -sr`
+. /etc/os-release
+DIST=$ID
+DIST_VER=$VERSION_ID
 
 # Detect architecture
 ARCH=$(uname -m)
@@ -91,16 +92,8 @@ installation_menu() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) # Delete the app entry in installed-apps file and supervisor related files
-				if [ $1 = remove ]
-				then
-					supervisorctl stop $CHOICE
-					sed -i "/\b$CHOICE\b/d" installed-apps
-					rm /etc/supervisor/conf.d/$CHOICE.conf
-					rm /var/log/$CHOICE*
-					supervisorctl reread
-					supervisorctl update
-				fi
+				0)
+				[ $1 = remove ] && sh sysutils/services.sh remove
 				case $CHOICE in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
@@ -206,7 +199,7 @@ do
 		"Install apps") installation_menu install;;
 		Update) installation_menu update;;
 		"Remove apps") installation_menu remove;;
-		"Apps Service Manager") . sysutils/supervisor.sh;;
+		"Apps Service Manager") . sysutils/services.sh;;
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
 		https://github.com/j8r/DPlatform

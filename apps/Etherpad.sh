@@ -7,7 +7,7 @@ then
   whiptail --msgbox "Etherpad updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/supervisor.sh remove Etherpad && rm -rf etherpad-lite && whiptail --msgbox "Etherpad removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Etherpad && rm -rf etherpad-lite && whiptail --msgbox "Etherpad removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -20,8 +20,8 @@ elif [ $PKG = rpm ]
 fi
 git clone https://github.com/ether/etherpad-lite
 
-# Add supervisor process and run the server
-sh $DIR/sysutils/supervisor.sh Etherpad 'sh -c "bin/run.sh --root"' $HOME/etherpad-lite
+# Add SystemD process and run the server
+sh $DIR/sysutils/services.sh Etherpad 'sh -c "bin/run.sh --root"' $HOME/etherpad-lite
 
 whiptail --msgbox "Etherpad successfully installed!
 

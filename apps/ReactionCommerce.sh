@@ -7,7 +7,7 @@ then
   whiptail --msgbox "ReactionCommerce updated!" 8 32
   break
 fi
-[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/supervisor remove ReactionCommerce && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
+[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/services.sh remove ReactionCommerce && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
 
 # ARM architecture not supported
 if [ $ARCH = arm ]
@@ -29,8 +29,8 @@ git checkout master # default branch is development
 
 ./reaction install
 
-# Add supervisor process and run the server
-sh $DIR/sysutils/supervisor.sh ReactionCommerce ".$HOME/reaction/reaction" $HOME/reaction
+# Add SystemD process and run the server
+sh $DIR/sysutils/services.sh ReactionCommerce ".$HOME/reaction/reaction" $HOME/reaction
 
 whiptail --msgbox "Reaction Commerce successfully installed!
 

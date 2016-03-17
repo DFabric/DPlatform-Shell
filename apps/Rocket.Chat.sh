@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/Rocket.Chat
-[ $1 = remove ] && sh sysutils/supervisor.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 . sysutils/MongoDB.sh
 
@@ -93,11 +93,11 @@ whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat p
 read port < /tmp/temp
 port=${port:-3000}
 
-# Add supervisor process and run the server
+# Add SystemD process and run the server
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port node main.js\"" $HOME/Rocket.Chat
+  then sh $DIR/sysutils/services.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port node main.js\"" $HOME/Rocket.Chat
 elif [ $ARCH = arm ]
-  then sh $DIR/sysutils/supervisor.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port $HOME/meteor/dev_bundle/bin/node main.js\"" $HOME/Rocket.Chat
+  then sh $DIR/sysutils/services.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port $HOME/meteor/dev_bundle/bin/node main.js\"" $HOME/Rocket.Chat
 fi
 
 whiptail --msgbox "Rocket.Chat successfully installed!

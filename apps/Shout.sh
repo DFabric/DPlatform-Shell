@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && npm udpate shout && whiptail --msgbox "Shout updated!" 8 32 && break
-[ $1 = remove ] && sh sysutils/supervisor.sh remove Shout && npm uninstall shout && whiptail --msgbox "Shout removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Shout && npm uninstall shout && whiptail --msgbox "Shout removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -12,8 +12,8 @@ whiptail --title "Shout port" --clear --inputbox "Enter your Shout port number. 
 read port < /tmp/temp
 [ "$port" != "" ] && port =" --port $port"
 
-# Add supervisor process and run the server
-sh sysutils/supervisor.sh Shout "shout$port" /
+# Add SystemD process and run the server
+sh sysutils/services.sh Shout "shout$port" /
 
 whiptail --msgbox "Shout successfully installed!
 

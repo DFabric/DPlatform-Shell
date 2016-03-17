@@ -7,7 +7,7 @@ then
   whiptail --msgbox "EtherDraw updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/supervisor.sh remove EtherDraw && rm -rf draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && rm -rf draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture don't appear to work
 if [ $ARCH = arm ]
@@ -29,8 +29,8 @@ git clone https://github.com/JohnMcLear/draw
 cd draw
 sh bin/installDeps.sh
 
-# Add supervisor process and run the server
-sh $DIR/sysutils/supervisor.sh EtherDraw "node server.js" $HOME/draw
+# Add SystemD process and run the server
+sh $DIR/sysutils/services.sh EtherDraw "node server.js" $HOME/draw
 
 whiptail --msgbox "EtherDraw successfully installed!
 

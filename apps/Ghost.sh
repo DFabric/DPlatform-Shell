@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && sh sysutils/supervisor remove Ghost && rm -rf /var/www/ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Ghost && rm -rf /var/www/ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -30,7 +30,7 @@ sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
 # Start Ghost (production environment)
 npm start --production
 
-sh $DIR/sysutils/supervisor.sh Ghost "npm start --production" /var/www/ghost
+sh $DIR/sysutils/services.sh Ghost "npm start --production" /var/www/ghost
 
 whiptail --msgbox "Ghost successfully installed!
 

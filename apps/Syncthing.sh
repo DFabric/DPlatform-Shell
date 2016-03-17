@@ -16,8 +16,8 @@ then
   # Access the web GUI from other computers
   sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
 
-  # Add supervisor process, configure and start Syncthing
-  sh sysutils/supervisor.sh Syncthing syncthing $HOME/.config/syncthing
+  # Add SystemD process, configure and start Syncthing
+  sh sysutils/services.sh Syncthing syncthing $HOME/.config/syncthing
 else
   # Get the latest Syncthing release
   ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syncthing/releases/latest)
@@ -37,8 +37,8 @@ else
   # Access the web GUI from other computers
   sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
 
-  # Add supervisor process, configure and start Syncthing
-  sh sysutils/supervisor.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/.config/syncthing
+  # Add SystemD process, configure and start Syncthing
+  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/.config/syncthing
 fi
 
 whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!

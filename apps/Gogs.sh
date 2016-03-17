@@ -2,7 +2,7 @@
 
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && sh sysutils/supervisor remove Gogs && rm -rf gogs && whiptail --msgbox "Gogs removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Gogs && rm -rf gogs && whiptail --msgbox "Gogs removed!" 8 32 && break
 
 cd
 # Prerequisites
@@ -28,8 +28,8 @@ then
   rm gogs_v${ver}_raspi2.zip
 fi
 
-# Add supervisor process, configure and start Gogs
-sh $DIR/sysutils/supervisor.sh Gogs 'sh -c "./gogs web"' $HOME/gogs
+# Add SystemD process, configure and start Gogs
+sh $DIR/sysutils/services.sh Gogs 'sh -c "./gogs web"' $HOME/gogs
 
 whiptail --msgbox "Gogs successfully installed!
 
