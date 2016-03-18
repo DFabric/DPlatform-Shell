@@ -47,6 +47,7 @@ hash curl 2>/dev/null || $install curl
 . /etc/os-release
 DIST=$ID
 DIST_VER=$VERSION_ID
+DIST_NAME=$PRETTY_NAME
 
 # Detect architecture
 ARCH=$(uname -m)
@@ -185,7 +186,7 @@ then
 fi
 
 # Main menu
-while whiptail --title "DPlatform - Main menu" --menu "Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
@@ -203,13 +204,13 @@ do
 		"Remove apps") installation_menu remove;;
 		"Apps Service Manager") . sysutils/services.sh;;
 		"Domain name") . sysutils/domain-name.sh;;
-		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps efficiently
+		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
 		https://github.com/j8r/DPlatform
 		- Your host/domain name: $DOMAIN
 		- Your local IPv4: $LOCALIP
 		- Your public IPv4: $IPv4
 		- Your IPv6: $IPv6
-		Your OS: $ARCH arch $PKG based $(cat /etc/issue | head -n 1)
+		Your OS: $ARCH arch $PKG based $DIST_NAME
 		Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 		DPlatform is distributed under the [MIT License]" 16 64;;
 	esac
