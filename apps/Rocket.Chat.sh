@@ -95,10 +95,19 @@ port=${port:-3000}
 
 # Add SystemD process and run the server
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-  then sh $DIR/sysutils/services.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port node main.js\"" $HOME/Rocket.Chat
+then
+  sh $DIR/sysutils/services.sh Rocket.Chat "/usr/bin/node main.js" "$HOME/Rocket.Chat
+Environment=ROOT_URL=http://$IP:$port/
+Environment=MONGO_URL=mongodb://localhost:27017/rocketchat
+Environment=PORT=$port"
 elif [ $ARCH = arm ]
-  then sh $DIR/sysutils/services.sh Rocket.Chat "sh -c \"ROOT_URL=http://$IP:$port/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=$port $HOME/meteor/dev_bundle/bin/node main.js\"" $HOME/Rocket.Chat
+then
+  sh $DIR/sysutils/services.sh Rocket.Chat "$HOME/meteor/dev_bundle/bin/node main.js" "$HOME/Rocket.Chat
+Environment=ROOT_URL=http://$IP:$port/
+Environment=MONGO_URL=mongodb://localhost:27017/rocketchat
+Environment=PORT=$port"
 fi
+
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 
