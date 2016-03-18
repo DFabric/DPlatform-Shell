@@ -7,7 +7,7 @@ then
   whiptail --msgbox "EtherDraw updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && rm -rf draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && rm -rf ~/draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture don't appear to work
 if [ $ARCH = arm ]

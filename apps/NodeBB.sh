@@ -46,15 +46,12 @@ npm install --production
 # In Centos6/7 allowing port through the firewall is needed
 [ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
-# Run the NodeBB forum
-./nodebb start
+# Add SystemD process and run the server
+sh sysutils/services.sh NodeBB "/usr/bin/node app.js" $HOME/nodebb
 
 whiptail --msgbox "NodeBB successfully installed!
 
-Open http://$IP:4567 in your browser
-
-NodeBB forum directory: cd nodebb
-./nodebb {start|restart|stop|log}" 12 64
+Open http://$IP:4567 in your browser" 12 64
 
 # TODO
 # https://www.npmjs.com/package/nodebb-plugin-blog-comments

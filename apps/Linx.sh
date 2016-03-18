@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/linx-server*
-[ $1 = remove ] && sh sysutils/services.sh remove Linx && whiptail --msgbox "Linx removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Linx && rm -rf ~/linx-server* && whiptail --msgbox "Linx removed!" 8 32 && break
 
 # Get the latest Linx-server release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/linx-server/releases/latest)
@@ -16,7 +16,7 @@ wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-ser
 chmod +x linx-server*
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Linx 'sh -c "./linx-server*"' $HOME
+sh $DIR/sysutils/services.sh Linx .$HOME/linx-server* $HOME
 
 whiptail --msgbox "Linx $ver successfully installed!
 

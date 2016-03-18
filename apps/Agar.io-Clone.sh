@@ -7,7 +7,7 @@ then
   whiptail --msgbox "Agar.io Clone updated!" 8 32
   break
 fi
-[ $1 = remove ] && rm -rf agar.io-clone && sh sysutils/services.sh remove Agar.io-Clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Agar.io-Clone && rm -rf ~/agar.io-clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 

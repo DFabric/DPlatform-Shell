@@ -41,19 +41,18 @@ then
 
 elif [ "$1" = remove ]
 then
-  rm /lib/systemd/system/$name.service
+  rm /etc/systemd/system/$name.service
 
 # Create systemd service
 else
-  cat > "/lib/systemd/system/$name.service" <<SERVICE
+  cat > "/etc/systemd/system/$name.service" <<SERVICE
 [Unit]
 Description=$1
 [Service]
 Type=simple
-User=$USER
 WorkingDirectory=$3
 ExecStart=$2
-ExecStop=$4
+User=$USER
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target

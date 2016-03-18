@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 
 if [ $PKG = deb ]
 then
@@ -10,14 +12,14 @@ then
   echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
   # Update and install syncthing:
-  sudo update
+  sudo apt-get update
   $install syncthing
 
   # Access the web GUI from other computers
   sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing syncthing $HOME/.config/syncthing
+  sh sysutils/services.sh Syncthing syncthing $HOME/syncthing-linux-*
 else
   # Get the latest Syncthing release
   ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syncthing/releases/latest)
@@ -38,7 +40,7 @@ else
   sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/.config/syncthing
+  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
 fi
 
 whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!

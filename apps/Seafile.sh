@@ -1,5 +1,8 @@
 #!/bin/sh
 
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Seafile && sh sysutils/services.sh remove Seahub  && "rm -rf ~/haiwen; rm -rf ~/seafile-server*" && whiptail --msgbox "Seafile removed!" 8 32 && break
+
 cd
 whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
@@ -42,8 +45,37 @@ case $CHOICE in
 
 	cd seafile-server-*
 	#run the setup script & answer prompted questions
-	./setup-seafile.sh;;
+	./setup-seafile.sh
 
+	# Create SystemD service and run the server
+	cat > /etc/systemd/system/seafile.service <<EOF
+[Unit]
+Description=Seafile Server
+After=network.target sqlite.service
+[Service]
+Type=oneshot
+ExecStart=$HOME/seafile/seafile-server-latest/seafile.sh start
+ExecStop=$HOME/seafile/seafile-server-latest/seafile.sh stop
+User=$USER
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
+EOF
+	systemctl enable seafile
+	cat > /etc/systemd/system/seahub.service <<EOF
+[Unit]
+Description=Seafile Seahub
+After=network.target seafile.service
+[Service]
+Type=oneshot
+ExecStart=$HOME/seafile/seafile-server-latest/seahub.sh start-fastcgi 8000
+ExecStop=$HOME/seafile/seafile-server-latest/seahub.sh stop
+User=$USER
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
+EOF
+	systemctl enable seahub;;
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
@@ -62,11 +94,8 @@ esac
 
 whiptail --msgbox "Seafile successfully installed!
 Open http://$IP:<port> in your browser
+
 Default port: 8000. To change it, for example to 8001
 You can modify SERVICE_URL via web UI in System Admin->Settings
 By default, you should open 2 ports, 8000 and 8082, in your firewall settings.
-If you run Seafile behind Nginx/Apache with HTTPS, you only need to open ports 443
-
-Start Seafile and Seahub:
-cd haiwen/seafile-server-latest
-./seafile.sh start && ./seahub.sh start (<port>)" 16 88
+If you run Seafile behind Nginx/Apache with HTTPS, you only need port 443" 14 80
