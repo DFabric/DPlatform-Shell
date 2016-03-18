@@ -29,7 +29,7 @@ then
 fi
 
 # Add SystemD process, configure and start Gogs
-sh $DIR/sysutils/services.sh Gogs 'sh -c "./gogs web"' $HOME/gogs
+sh $DIR/sysutils/services.sh Gogs ".$HOME/gogs web" $HOME/gogs
 
 whiptail --msgbox "Gogs successfully installed!
 

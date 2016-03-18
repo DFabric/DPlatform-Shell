@@ -30,7 +30,7 @@ sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
 # Start Ghost (production environment)
 npm start --production
 
-sh $DIR/sysutils/services.sh Ghost "npm start --production" /var/www/ghost
+sh $DIR/sysutils/services.sh Ghost "/usr/bin/npm start --production" /var/www/ghost
 
 whiptail --msgbox "Ghost successfully installed!
 

@@ -30,7 +30,7 @@ cd draw
 sh bin/installDeps.sh
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh EtherDraw "node server.js" $HOME/draw
+sh $DIR/sysutils/services.sh EtherDraw "/usr/bin/node $HOME/draw/server.js" $HOME/draw
 
 whiptail --msgbox "EtherDraw successfully installed!
 

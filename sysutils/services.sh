@@ -7,18 +7,17 @@ hash systemctl 2>/dev/null || whiptail --msgbox "You need to use SystemD boot sy
 name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 
 service_detection() {
-  cd/lib/systemd/system
   service_list=
   service_list="SystemD GlobalStatus"
-  service_choice="SystemD) whiptail --msgbox "$(systemctl status)" 11 64;; "
   while read service
 	do
+    # Remove .service
+    service=${service%????????}
+    # Covert uppercase app name to lowercase service name
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
-		# Remove .conf
-		service=${service%????????}
 		# Remove spaces and the service name
 		service_list="$service_list $service $(systemctl is-active $service)"
-	done < $(cat installed-aps)
+	done < installed-apps
 }
 
 # App Service Manager menu
@@ -32,7 +31,8 @@ then
   do
     cd $DIR
     read CHOICE < /tmp/temp
-    case $(systemctl is-active $service) in
+    [ $CHOICE = SystemD ] && whiptail --msgbox "$(systemctl status)" 11 64
+    case $(systemctl is-active $CHOICE) in
       active) systemctl stop $CHOICE; whiptail --msgbox "$CHOICE stopped" 8 32;;
       inactive) systemctl start $CHOICE; whiptail --msgbox "$CHOICE started" 8 32;;
     esac
@@ -49,14 +49,16 @@ else
 [Unit]
 Description=$1
 [Service]
-Type=forking
-User=$user
+Type=simple
+User=$USER
+WorkingDirectory=$3
 ExecStart=$2
 ExecStop=$4
-WorkingDirectory=$3
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
 SERVICE
 systemctl daemon-reload
+systemctl enable $name
+systemctl start $name
 fi

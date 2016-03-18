@@ -21,7 +21,7 @@ fi
 git clone https://github.com/ether/etherpad-lite
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Etherpad 'sh -c "bin/run.sh --root"' $HOME/etherpad-lite
+sh $DIR/sysutils/services.sh Etherpad ".$HOME/etherpad-lite/bin/run.sh --root" $HOME/etherpad-lite
 
 whiptail --msgbox "Etherpad successfully installed!
 

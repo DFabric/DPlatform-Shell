@@ -21,7 +21,7 @@ cd agar.io-clone
 npm install
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Agar.io-Clone "npm start" $HOME/agar.io-clone
+sh $DIR/sysutils/services.sh Agar.io-Clone "/usr/bin/npm start" $HOME/agar.io-clone
 
 whiptail --msgbox "Agar.io Clone successfully installed!
 
