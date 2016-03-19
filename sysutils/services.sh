@@ -69,7 +69,9 @@ then
 
 elif [ "$1" = remove ]
 then
+  systemctl stop $name
   rm /etc/systemd/system/$name.service
+  systemctl daemon-reload
 
 # Create systemd service
 else

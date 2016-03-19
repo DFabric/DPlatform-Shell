@@ -57,9 +57,9 @@ ARCH=$(uname -m)
 case "$ARCH" in
 	x86_64) ARCH=amd64;;
 	i*86) ARCH=86;;
-	armv8*) ARCH=arm; ARM=arm64;;
-	armv7*) ARCH=arm; ARM=v7;;
-	armv6*) ARCH=arm; ARM=v6;;
+	armv8*) ARCH=arm; ARMv=arm64;;
+	armv7*) ARCH=arm; ARMv=armv7;;
+	armv6*) ARCH=arm; ARMv=armv6;;
 	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit;;
 esac
 
