@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # https://github.com/nodesource/distributions/
-if [ "$(node -v)" != "" ]
+if hash node 2>/dev/null
   then echo You have NodeJS already installed
 elif [ `id -u` = 0 ]
 then

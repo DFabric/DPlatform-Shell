@@ -41,7 +41,7 @@ else
 fi
 
 # GConfigure default locale if not set
-[ $(perl V:) = "" ] || export LC_ALL=en_US.UTF-8
+[ $(perl -V:) = "" ] || export LC_ALL=en_US.UTF-8
 
 # Ckeck if curl is installed because it will be very used
 hash curl 2>/dev/null || $install curl
