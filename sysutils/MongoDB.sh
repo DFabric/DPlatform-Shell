@@ -28,8 +28,6 @@ then
   wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
-  whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
-
   # Check for mongodb user, if not, create mongodb user
   [ $(grep mongodb /etc/passwd) = "" ] && adduser --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb
 
