@@ -8,3 +8,4 @@ else
 fi
 
 echo Docker installed
+grep Docker installed-apps || echo Docker >> installed-apps

@@ -5,6 +5,7 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 . sysutils/MongoDB.sh
+. sysutils/Meteor.sh
 
 ## Install Dependencies
 # SYSTEM CONFIGURATION
@@ -14,13 +15,7 @@ cd
 if [ $ARCH = arm ]
 then
   $install python make g++
-  # Get required node and npm
-  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
-
-  # Fix curl CA error
-  echo insecure > ~/.curlrc
-  ~/meteor/meteor -v
-  rm ~/.curlrc
+  .
 
   # Download the Rocket.Chat binary for Raspberry Pi
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
@@ -36,13 +31,12 @@ elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
-  . $DIR/sysutils/Meteor.sh
 
   # Install a tool to let us change the node version.
   npm install -g n
 
   # Meteor needs at least this version of node to work.
-  n 0.10.42
+  n 0.10.43
 
   ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat
@@ -107,7 +101,6 @@ Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local
 Environment=ROOT_URL=http://$IP:$port/
 Environment=PORT=$port"
 fi
-
 
 whiptail --msgbox "Rocket.Chat successfully installed!
 

@@ -8,9 +8,13 @@ if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 elif [ $ARCH = arm ]
 then
   cd
-  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor.git
+  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor
+
+  # Fix curl CA error
+  echo insecure > ~/.curlrc
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
-  meteor/meteor --version
+  ~/meteor/meteor -v
+  rm ~/.curlrc
 
   # Set an alias
   alias meteor="$HOME/meteor/meteor"
@@ -18,3 +22,5 @@ then
   # Copy meteor binary to /bin
   cp ~/meteor/meteor /bin
 fi
+
+grep Meteor installed-apps || echo Meteor >> installed-apps

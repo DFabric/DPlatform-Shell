@@ -41,7 +41,7 @@ else
 fi
 
 # GConfigure default locale if not set
-[ $(perl -V:) = "" ] || export LC_ALL=en_US.UTF-8
+[ "$(perl -V:)" = "" ] || export LC_ALL=en_US.UTF-8
 
 # Ckeck if curl is installed because it will be very used
 hash curl 2>/dev/null || $install curl
@@ -164,13 +164,13 @@ installation_menu() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) echo $CHOICE >> installed-apps
+				0)
 				case $CHOICE in
 					Docker) . sysutils/Docker.sh;;
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$CHOICE) . apps/$CHOICE.sh;;
+					$CHOICE) . apps/$CHOICE.sh; grep $CHOICE installed-apps || echo $CHOICE >> installed-apps;;
 				esac;;
 			esac
 		done

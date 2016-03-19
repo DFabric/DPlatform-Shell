@@ -24,7 +24,6 @@ then
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 elif [ $ARCH = arm ] && [ $PKG = deb ]
 then
-  $install mongodb
   wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
@@ -61,17 +60,18 @@ EOF
 
   # create systemd / service entry
   cat > /lib/systemd/system/mongodb.service <<EOF
-  [Unit]
-  Description=High-performance, schema-free document-oriented database
-  After=network.target
+[Unit]
+Description=High-performance, schema-free document-oriented database
+After=network.target
 
-  [Service]
-  User=mongodb
-  ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
+[Service]
+User=mongodb
+ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
 
-  [Install]
-  WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
 EOF
+systemctl daemon-reload
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]
@@ -105,3 +105,5 @@ else
   # If mongodb installation return an error, manual installation required
   $install mongodb || {echo You probably need to manually install MongoDB; exit 1}
 fi
+
+grep MongoDB installed-apps || echo MongoDB >> installed-apps

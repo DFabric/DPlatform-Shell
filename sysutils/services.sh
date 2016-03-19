@@ -15,8 +15,12 @@ service_detection() {
   do
     # Covert uppercase app name to lowercase service name
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
+    # Only create an entry for existing services
+    if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
+    then
     # Remove spaces and the service name
     service_list="$service_list $service [$(systemctl is-active $service)]$(systemctl is-enabled $service)"
+    fi
   done < installed-apps
 }
 
@@ -37,8 +41,8 @@ service_setup(){
   ${enabled_state}-boot-auto-start "$enabled_state the current $service_choice service process" \
   Status "Details about the current service status" \
   2> /tmp/temp
-  read service < /tmp/temp
-  case $service_choice in
+  read service_action < /tmp/temp
+  case $service_action in
     Stop) systemctl stop $service_choice; whiptail --msgbox "$service_choice stopped" 8 32;;
     Start) systemctl start $service_choice; whiptail --msgbox "$service_choice started" 8 32;;
     Restart) systemctl restart $service_choice; whiptail --msgbox "$service_choice restarted" 8 32;;
@@ -48,7 +52,7 @@ service_setup(){
   esac
 }
 
-# App Service Manager menu
+# Main App Service Manager menu
 if [ "$1" = "" ]
 then
   service_detection

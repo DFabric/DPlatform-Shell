@@ -17,3 +17,5 @@ else
   . ~/.profile
   nvm install 4
 fi
+
+grep NodeJS installed-apps || echo NodeJS >> installed-apps
