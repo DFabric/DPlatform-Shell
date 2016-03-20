@@ -13,15 +13,16 @@ fi
 
 cd
 # gzip, git, curl, libssl develop libraries, python and gcc needed
-if [ $PKG = apt ]
-  then apt-get install gzip git curl python libssl-dev pkg-config build-essential
-elif [ $PKG = rpm ]
-  then yum install gzip git curl python openssl-devel && yum groupinstall "Development Tools"
-fi
+[ $PKG = deb ] && $install gzip git curl python libssl-dev pkg-config build-essential
+[ $PKG = rpm ] && $install gzip git curl python openssl-devel && yum groupinstall "Development Tools"
+
 git clone https://github.com/ether/etherpad-lite
 
+#prepare the enviroment
+sh $HOME/etherpad-lite/bin/installDeps.sh
+
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Etherpad ".$HOME/etherpad-lite/bin/run.sh --root" $HOME/etherpad-lite
+sh $DIR/sysutils/services.sh Etherpad "/usr/bin/node $HOME/etherpad-lite/node_modules/ep_etherpad-lite/node/server.js" $HOME/etherpad-lite
 
 whiptail --msgbox "Etherpad successfully installed!
 

@@ -3,7 +3,7 @@
 # Install supervisor if not already present
 hash systemctl 2>/dev/null || whiptail --msgbox "You need to use SystemD boot system" 8 48 exit
 
-# Covert uppercase app name to lowercase service name
+# Convert uppercase app name to lowercase service name
 name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 
 service_detection() {
@@ -15,12 +15,15 @@ service_detection() {
   do
     # Covert uppercase app name to lowercase service name
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
+
+    [ $service = mumble ] && service_list="$service_list mumble-server [$(systemctl is-active mumble-server)]$(systemctl is-enabled mumble-server)"
     # Only create an entry for existing services
     if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
     then
-    # Remove spaces and the service name
-    service_list="$service_list $service [$(systemctl is-active $service)]$(systemctl is-enabled $service)"
+      # Remove spaces and the service name
+      service_list="$service_list $service [$(systemctl is-active $service)]$(systemctl is-enabled $service)"
     fi
+    [ $service = seafile ] && service_list="$service_list seahub [$(systemctl is-active seahub)]$(systemctl is-enabled seahub)"
   done < installed-apps
 }
 
@@ -75,9 +78,10 @@ then
 
 # Create systemd service
 else
-  cat > "/etc/systemd/system/$name.service" <<SERVICE
+  cat > "/etc/systemd/system/$name.service" <<EOF
 [Unit]
 Description=$1
+After=network.target
 [Service]
 Type=simple
 WorkingDirectory=$3
@@ -86,7 +90,7 @@ User=$USER
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
-SERVICE
+EOF
   systemctl daemon-reload
   systemctl enable $name
   systemctl start $name

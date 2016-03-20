@@ -1,5 +1,6 @@
 #!/bin/sh
 $install mumble-server
+[ $ARCH = deb ] && dpkg-reconfigure mumble-server
 
 whiptail --msgbox "Mumble successfully installed!
 

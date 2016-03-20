@@ -75,7 +75,8 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	systemctl enable seahub;;
+	systemctl enable seahub
+	systemctl start seahub;;
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
