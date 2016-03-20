@@ -34,7 +34,5 @@ sh $DIR/sysutils/services.sh Ghost "/usr/bin/npm start --production" /var/www/gh
 
 whiptail --msgbox "Ghost successfully installed!
 
-To start Ghost (production environment), run 'cd /var/www/ghost && npm start --production'
-
 Visit http://$IP:2368 to see your newly setup Ghost blog
-Visit http://$IP:2368/ghost and create your admin user to login to the Ghost admin" 16 80
+Visit http://$IP:2368/ghost and create your admin user to login to the Ghost admin" 12 64

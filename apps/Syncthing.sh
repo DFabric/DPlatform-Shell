@@ -1,6 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = remove ] && [ $PKG = deb ] sh sysutils/services.sh remove Syncthing && $remove syncthing && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 
 if [ $PKG = deb ]
@@ -40,7 +41,7 @@ else
   sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
+  sh sysutils/services.sh Syncthing .$HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
 fi
 
 whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!
