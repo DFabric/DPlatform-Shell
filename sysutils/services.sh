@@ -61,7 +61,7 @@ then
   service_detection
   while whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v^-> and/or Tab <=>
-  Mem RAM: $(free | awk 'FNR == 2 {print $4/1000}') MB used/$(free | awk 'FNR == 2 {print ($3+$4)/1000}') MB total" 16 72 6 \
+  Mem RAM: $(free | awk 'FNR == 2 {print ($3+$5)/1000}') MB used/$(free | awk 'FNR == 2 {print $2/1000}') MB total" 16 72 6 \
   $service_list 2> /tmp/temp
   do
     cd $DIR
