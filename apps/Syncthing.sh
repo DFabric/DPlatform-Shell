@@ -17,7 +17,7 @@ then
   $install syncthing
 
   # Access the web GUI from other computers
-  sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
+  sed -i 's/127.0.0.1:8384/0.0.0.0:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
   sh sysutils/services.sh Syncthing syncthing $HOME/syncthing-linux-*
@@ -28,17 +28,21 @@ else
   # Only keep the version number in the url
   ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
   [ $ARCH = 86 ] && ARCH=386
-  cd
   wget https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz
-  tar -xzf syncthing-linux-$ARCH-v$ver.tar.gz
-  rm syncthing-linux-$ARCH-v$ver.tar.gz
+  tar -xvzf syncthing-linux-$ARCH-v$ver.tar.gz
+  cd syncthing-linux-$ARCH-v$ver
+  # Move Syncthing bin to the system bin directory
+  mv syncthing /usr/local/bin/
+  # Move the SystemD Syncthing service to the SystemD directory
+  mv etc/linux-systemd/*/* /lib/systemd/system
+  # Remove the useless service and it's extracted folder
+  rm syncthing-linux-$ARCH-v$ver*
 
-  # Exectute Syncthing to generate the config file, and then exit
-  whiptail --msgbox "Press CTRL-C after syncthing generate the .config/syncthing folder to able to connect yourself to the Web GUI from external computers" 10 64
-  syncthing
+  # Exectute Syncthing to generate the config file
+  /usr/local/bin/syncthing -generate=~/.config/syncthing
 
   # Access the web GUI from other computers
-  sed -i "s/host: '127.0.0.1:8384 ',/host: '0.0.0.0:8384',/g" ~/.config/syncthing/config.xml
+  sed -i 's/127.0.0.1:8384/0.0.0.0:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
   sh sysutils/services.sh Syncthing .$HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*

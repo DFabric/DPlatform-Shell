@@ -1,5 +1,16 @@
 #!/bin/sh
 
+if [ $1 = update ]
+then
+  cd ~/lets-chat
+  git pull
+  npm run-script migrate
+  whiptail --msgbox "Let's Chat updated!" 8 32
+  break
+fi
+[ $1 = remove ] && sh sysutils/services.sh remove Lets-Chat && rm -rf ~/lets-chat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
+
+
 # Prerequisites
 . sysutils/MongoDB.sh
 . sysutils/NodeJS.sh
@@ -8,22 +19,33 @@
 $install python2.7
 
 cd
-git clone https://github.com/sdelements/lets-chat.git
+git clone https://github.com/sdelements/lets-chat
 cd lets-chat
 npm install
 
-# Upgrade
-#git pull
-#npm run-script migrate
+# Create the SystemD service
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && $node=/usr/bin/node
+[ $ARCH = arm ] && $node=HOME/meteor/dev_bundle/bin/node
 
-# Start
-npm start
+cat > "/etc/systemd/system/rocket.chat.service" <<EOF
+[Unit]
+Description=Let's Chat Server
+After=network.target mongodb.service
+[Service]
+Type=simple
+WorkingDirectory=$HOME/lets-chat
+ExecStart=/usr/bin/npm start
+User=$USER
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl enable rocket.chat
+systemctl start rocket.chat
 
 # Let's Chat - Gitlab Plugin
 #npm install lets-chat-gitlab
 whiptail --msgbox "Let's Chat successfully installed!
-
-To start Let's Chat:
-cd lets-chat && npm start
 
 Open http://$IP:5000 in your browser" 12 48

@@ -86,9 +86,9 @@ whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat p
 read port < /tmp/temp
 port=${port:-3000}
 
-# Add SystemD process and run the server
+# Create the SystemD service
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && $node=/usr/bin/node
-[ $ARCH = arm ] && $node=HOME/meteor/dev_bundle/bin/node
+[ $ARCH = arm ] && $node=$HOME/meteor/dev_bundle/bin/node
 
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
@@ -102,7 +102,7 @@ Environment=PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet"
 ExecStart=$node main.js
 User=$USER
-Restart=on-abort
+Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 EOF

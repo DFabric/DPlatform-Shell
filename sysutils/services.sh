@@ -20,7 +20,7 @@ service_detection() {
     # Only create an entry for existing services
     if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
     then
-      # Remove spaces and the service name
+      # Concatenate each service into a list
       service_list="$service_list $service [$(systemctl is-active $service)]$(systemctl is-enabled $service)"
     fi
     [ $service = seafile ] && service_list="$service_list seahub [$(systemctl is-active seahub)]$(systemctl is-enabled seahub)"
@@ -87,7 +87,7 @@ Type=simple
 WorkingDirectory=$3
 ExecStart=$2
 User=$USER
-Restart=on-abort
+Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 EOF

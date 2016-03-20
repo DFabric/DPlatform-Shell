@@ -90,7 +90,7 @@ installation_menu() {
 		done < installed-apps
 
 		while whiptail --title "DPlatform - $1 menu" --menu "
-		What application would you like to $1?" 24 64 14 $apps_choice 2> /tmp/temp
+		What application would you like to $1?" 16 64 8 $apps_choice 2> /tmp/temp
 		do
 			cd $DIR
 			read CHOICE < /tmp/temp
@@ -136,7 +136,7 @@ installation_menu() {
 		JS_Bin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
 		Laverna "|~| Note taking application with Mardown editor and encryption" \
-		LetsChat "/!\ Self-hosted chat app for small teams" \
+		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
 		Mailpile "/!\ Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
@@ -171,7 +171,7 @@ installation_menu() {
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$CHOICE) . apps/$CHOICE.sh; grep $CHOICE installed-apps || echo $CHOICE >> installed-apps;;
+					$CHOICE) . apps/$CHOICE.sh; grep $CHOICE $DIR/installed-apps || echo $CHOICE >> $DIR/installed-apps;;
 				esac;;
 			esac
 		done
