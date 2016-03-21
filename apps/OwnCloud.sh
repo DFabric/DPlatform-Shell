@@ -2,11 +2,10 @@
 
 if [ $PKG = deb ]
 then
-
   case "$DIST$DIST_VER" in
-  Ubuntu*14.04*) dist=xUbuntu_14.04;;
-  Ubuntu*) dist=xUbuntu_15.10;;
-  *) dist=Debian_8.0;;
+    *ubuntu*14.04*) dist=xUbuntu_14.04;;
+    ubuntu*) dist=xUbuntu_15.10;;
+    *) dist=Debian_8.0;;
   esac
 
   # Trust the repository

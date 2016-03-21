@@ -2,14 +2,26 @@
 
 # https://github.com/mailpile/Mailpile/wiki/Getting-started-on-linux
 
+if [ $1 = update ]
+then
+  cd ~/Mailpile
+  # update your Mailpile
+  git pull
+  # update any submodules (documentation, plug-ins)
+  git submodule update
+  whiptail --msgbox "Mailpile updated!" 8 32
+  break
+fi
+[ $1 = remove ] && sh sysutils/services.sh remove Mailpile && rm -rf ~/Mailpile && whiptail --msgbox "Mailpile removed!" 8 32 && break
 
-$install gnupg openssl python-virtualenv python-pip python-lxml git
 
-cd ~
+[ $PKG = deb ] && $install gnupg openssl python-virtualenv python-pip python-lxml
+[ $PKG = rpm ] && $install gnupg openssl python-virtualenv python-pip python-lxml libjpeg-turbo-devel
+cd
 # clone Mailpile, docs and plugins (submodules) to your machine
-git clone --recursive https://github.com/mailpile/Mailpile.git
+git clone --recursive https://github.com/mailpile/Mailpile
 
-# Setup your virtual environment
+## Setup your virtual environment
 # move into the newly created source repo
 cd Mailpile
 
@@ -21,15 +33,6 @@ source mp-virtualenv/bin/activate
 
 # Install the dependencies
 pip install -r requirements.txt
-
-# Run Mailpile
-./mp
-
-# update your Mailpile
-git pull
-
-# update any submodules (documentation, plug-ins)
-git submodule update
 
 # https://github.com/mailpile/Mailpile/wiki/Accessing-The-GUI-Over-Internet
 $install nginx
@@ -68,12 +71,23 @@ server {
 }
 EOF
 
+# Add SystemD process and run the server
+cat > "/etc/systemd/system/maipile.service" <<EOF
+[Unit]
+Description=Mailpile Client Server
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=$HOME/Mailpile
+ExecStartPre=source $HOME/Mailpile/mp-virtualenv/bin/activate
+ExecStart=/usr/bin/env python2 $HOME/Mailpile/mp
+User=$USER
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+EOF
 
 whiptail --msgbox "Mailpile successfully installed!
-You should need to open port 33411 and 993
-Open http://$IP:33411 in your browser
+You might need to open port 33411 and 993
 
-To run Mailpile again:
-cd Mailpile
-source mp-virtualenv/bin/activate
-./mp" 16 64
+Open http://$IP:33411 in your browser" 10 64

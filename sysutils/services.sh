@@ -3,9 +3,6 @@
 # Install supervisor if not already present
 hash systemctl 2>/dev/null || whiptail --msgbox "You need to use SystemD boot system" 8 48 exit
 
-# Convert uppercase app name to lowercase service name
-name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-
 service_detection() {
   service_list=
   service_list="SystemD [status]boot-auto-start"
@@ -61,7 +58,7 @@ then
   service_detection
   while whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v^-> and/or Tab <=>
-  Mem RAM: $(free | awk 'FNR == 2 {print ($3+$5)/1000}') MB used/$(free | awk 'FNR == 2 {print $2/1000}') MB total" 16 72 6 \
+  Memory usage: $(free | awk 'FNR == 2 {print ($3+$5)/1000}')MB used/$(free | awk 'FNR == 2 {print $2/1000}')MB total" 16 72 6 \
   $service_list 2> /tmp/temp
   do
     cd $DIR
@@ -72,6 +69,8 @@ then
 
 elif [ "$1" = remove ]
 then
+  # Convert uppercase app name to lowercase service name
+  name=$(echo "$2" | tr '[:upper:]' '[:lower:]')
   systemctl stop $name
   rm /etc/systemd/system/$name.service
   systemctl daemon-reload

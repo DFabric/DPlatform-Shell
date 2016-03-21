@@ -28,9 +28,16 @@ then
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 elif [ $ARCH = arm ] && [ $PKG = deb ]
 then
+  $install mongodb
   wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
+  whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
+  case $? in
+    0) reboot;;
+    1) ;; # Continue
+  esac
+  <<NOT_OPERATIONAL_YET
   # Check for mongodb user, if not, create mongodb user
   [ $(grep mongodb /etc/passwd) = "" ] && adduser --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb
 
@@ -76,8 +83,8 @@ ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable mongodb
 systemctl start mongodb
+NOT_OPERATIONAL_YET
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]

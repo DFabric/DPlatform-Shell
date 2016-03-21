@@ -47,11 +47,26 @@ npm install --production
 [ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
 # Add SystemD process and run the server
-sh sysutils/services.sh NodeBB "/usr/bin/node app.js" $HOME/nodebb
+#sh sysutils/services.sh NodeBB "/usr/bin/node app.js" $HOME/nodebb
+cat > /etc/systemd/system/nodebb.service <<EOF
+[Unit]
+Description=NodeBB Forum Server
+After=network.target mongodb.service
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/node $HOME/nodebb/nodebb start
+ExecStop=/usr/bin/node $HOME/nodebb/nodebb stop
+User=$USER
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable seahub
+systemctl start seahub
 
 whiptail --msgbox "NodeBB successfully installed!
 
-Open http://$IP:4567 in your browser" 12 64
+Open http://$IP:4567 in your browser" 10 64
 
 # TODO
 # https://www.npmjs.com/package/nodebb-plugin-blog-comments

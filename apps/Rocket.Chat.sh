@@ -81,7 +81,7 @@ then
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
 fi
 
-# Set environment variables
+# Define port
 whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
 read port < /tmp/temp
 port=${port:-3000}

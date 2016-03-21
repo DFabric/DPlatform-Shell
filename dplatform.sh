@@ -25,6 +25,12 @@ LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-
 IP=$LOCALIP
 DOMAIN=$(hostname)
 
+# Detect distribution
+. /etc/os-release
+DIST=$ID
+DIST_VER=$VERSION_ID
+DIST_NAME=$PRETTY_NAME
+
 # Detect package manager
 if hash apt-get 2>/dev/null
 	then PKG=deb
@@ -34,6 +40,7 @@ elif hash rpm 2>/dev/null
 	then PKG=rpm
 	install="yum install --enablerepo=epel -y"
 	remove="yum remove -y"
+	[ $DIST = fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null
 	then PKG=pkg
 	install="pacman -S"
@@ -46,12 +53,6 @@ fi
 
 # Ckeck if curl is installed because it will be very used
 hash curl 2>/dev/null || $install curl
-
-# Detect distribution
-. /etc/os-release
-DIST=$ID
-DIST_VER=$VERSION_ID
-DIST_NAME=$PRETTY_NAME
 
 # Detect architecture
 ARCH=$(uname -m)
@@ -72,7 +73,6 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 	*) HDWR=other;;
 esac
-#whiptail --msgbox " Not available" 8 32; break;
 # Applications installation menu
 installation_menu() {
 	if [ $1 = update ] || [ $1 = remove ]
@@ -135,10 +135,10 @@ installation_menu() {
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
 		JS_Bin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
-		Laverna "|~| Note taking application with Mardown editor and encryption" \
+		Laverna "/!\ Note taking application with Mardown editor and encryption" \
 		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
-		Mailpile "/!\ Modern, fast email client with user-friendly privacy features" \
+		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \
 		Modoboa "/!\ Mail hosting made simple" \

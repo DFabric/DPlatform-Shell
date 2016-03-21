@@ -10,7 +10,6 @@ then
 fi
 [ $1 = remove ] && sh sysutils/services.sh remove Lets-Chat && rm -rf ~/lets-chat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
 
-
 # Prerequisites
 . sysutils/MongoDB.sh
 . sysutils/NodeJS.sh
@@ -27,7 +26,7 @@ npm install
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && $node=/usr/bin/node
 [ $ARCH = arm ] && $node=HOME/meteor/dev_bundle/bin/node
 
-cat > "/etc/systemd/system/rocket.chat.service" <<EOF
+cat > "/etc/systemd/system/lets-chat.service" <<EOF
 [Unit]
 Description=Let's Chat Server
 After=network.target mongodb.service
@@ -44,8 +43,8 @@ systemctl daemon-reload
 systemctl enable rocket.chat
 systemctl start rocket.chat
 
-# Let's Chat - Gitlab Plugin
-#npm install lets-chat-gitlab
 whiptail --msgbox "Let's Chat successfully installed!
 
-Open http://$IP:5000 in your browser" 12 48
+Open http://$IP:5000 in your browser" 10 64
+# Let's Chat - Gitlab Plugin
+#npm install lets-chat-gitlab
