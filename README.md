@@ -52,6 +52,7 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
+ - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
  - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences

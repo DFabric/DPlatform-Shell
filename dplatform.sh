@@ -100,7 +100,8 @@ installation_menu() {
 			case $? in
 				1) ;; # Return to installation menu
 				0)
-				[ $1 = remove ] && sh sysutils/services.sh remove
+				# Remove SytemD service and it's entry
+				[ $1 = remove ] && "sh sysutils/services.sh remove; sed -i "/$CHOICE/d" installed-apps"
 				case $CHOICE in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
@@ -143,6 +144,7 @@ installation_menu() {
 		Meteor "The JavaScript App Platform" \
 		Modoboa "/!\ Mail hosting made simple" \
 		MongoDB "The next-generation database" \
+		Mopidy "Mopidy is an extensible music server written in Python" \
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
 		ReactionCommerce "Modern reactive, real-time event driven ecommerce platform." \
