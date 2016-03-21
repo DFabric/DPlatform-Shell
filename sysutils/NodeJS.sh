@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ $1 = remove ] && $remove nodejs && whiptail --msgbox "NodeJS removed!" 8 32 && break
+
 # https://github.com/nodesource/distributions/
 if hash node 2>/dev/null
   then echo You have NodeJS already installed
