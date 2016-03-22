@@ -23,8 +23,8 @@ cd lets-chat
 npm install
 
 # Create the SystemD service
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && $node=/usr/bin/node
-[ $ARCH = arm ] && $node=HOME/meteor/dev_bundle/bin/node
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/bin/node
+[ $ARCH = arm ] && node=$HOME/meteor/dev_bundle/bin/node
 
 cat > "/etc/systemd/system/lets-chat.service" <<EOF
 [Unit]

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install nodejs && whiptail --msgbox "Node.JS updated!" 8 32 && break
+[ $1 = update ] && [ $PKG = rpm ] && yum update && $install nodejs && whiptail --msgbox "Node.JS updated!" 8 32 && break
 [ $1 = remove ] && $remove nodejs && whiptail --msgbox "NodeJS removed!" 8 32 && break
 
 # https://github.com/nodesource/distributions/

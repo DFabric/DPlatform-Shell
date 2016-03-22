@@ -20,6 +20,7 @@ then
   # Download the Rocket.Chat binary for Raspberry Pi
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
   tar zxvf rocket.chat.tgz
+  rm zxvf rocket.chat.tgz
 
   mv bundle Rocket.Chat
   # Install dependencies and start Rocket.Chat
@@ -49,7 +50,7 @@ then
   cd Rocket.Chat/programs/server
   npm install
 else
-    whiptail --msgbox "Your architecture ($ARCH) isn't supported" 8 48 exit 1
+    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
 fi
 
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
@@ -93,6 +94,7 @@ port=${port:-3000}
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
 Description=Rocket.Chat Server
+Wants=mongodb.service
 After=network.target mongodb.service
 [Service]
 Type=simple

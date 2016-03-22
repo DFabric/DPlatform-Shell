@@ -13,7 +13,7 @@ fi
 if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture ($ARCH) isn't supported" 8 32
-  [ $? = 1 ] &&	sed -i "/\bReactionCommerce\b/d" installed-apps && break
+  [ $? = 1 ] &&	sed -i "/ReactionCommerce/d" installed-apps && break
 fi
 
 . sysutils/NodeJS.sh

@@ -1,7 +1,6 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && [ $ARCH = arm ] && [ $ARMv != armv6 ] && rm -f /etc/mongodb.conf && rm -f /lib/systemd/system/mongodb.service && systemctl stop mongodb && systemctl daemon-reload && whiptail --msgbox "MongoDB removed!" 8 32 && break
 [ $1 = remove ] && "$remove 'mongodb*'" && whiptail --msgbox "MongoDB removed!" 8 32 && break
 
 if hash mongo 2>/dev/null
@@ -13,12 +12,10 @@ then
   mongo_ver=${mongo_ver%.*}
   # Concatenate major and minor version numbers together
   mongo_ver=${mongo_ver%.*}${mongo_ver#*.}
+  [ "$mongo_ver" -gt 25 ] && echo You have the newer MongoDB version available
 fi
 
-if [ "$mongo_ver" -gt 25 ]
-  then echo You have the newer MongoDB version available
-
-elif [ $ARMv = armv6 ] && [ $PKG = deb ]
+if [ $ARMv = armv6 ] && [ $PKG = deb ]
 then
   $install mongodb
   wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
@@ -32,11 +29,6 @@ then
   wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
   tar -xvzf core_mongodb.tar.gz -C /usr/bin
   rm core_mongodb.tar.gz
-  whiptail --yesno "MongoDB successfully installed. You need to reboot to use MongoDB. Reboot now?" 8 48
-  case $? in
-    0) reboot;;
-    1) ;; # Continue
-  esac
   <<NOT_OPERATIONAL_YET
   # Check for mongodb user, if not, create mongodb user
   [ $(grep mongodb /etc/passwd) = "" ] && adduser --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb
@@ -82,9 +74,9 @@ ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl start mongodb
 NOT_OPERATIONAL_YET
+systemctl daemon-reload
+systemctl restart mongodb
 
 # Debian (deb) based OS
 elif [ $PKG = deb ]

@@ -29,8 +29,7 @@ service_setup(){
 
   restart=
   # Create entries in function of actual service status and configuration
-  [ $(systemctl is-active $service_choice) = active ] && active_state=Stop && restart="Restart Restart_the_current_${service_choice}_service_process"
-  [ $(systemctl is-active $service_choice) = inactive ] && active_state=Start
+  [ $(systemctl is-active $service_choice) = active ] && active_state=Stop && restart="Restart Restart_the_current_${service_choice}_service_process" || active_state=Start
   [ $(systemctl is-enabled $service_choice) = enabled ] && enabled_state=Disable
   [ $(systemctl is-enabled $service_choice) = disabled ] && enabled_state=Enable
 

@@ -1,5 +1,9 @@
 #!/bin/sh
 
+[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install owncloud && whiptail --msgbox "Mumble updated!" 8 32 && break
+[ $1 = update ] && [ $PKG = rpm ] && yum update && $install owncloud && whiptail --msgbox "Mumble updated!" 8 32 && break
+[ $1 = remove ] && $remove owncloud && whiptail --msgbox "Mumble removed!" 8 32 && break
+
 if [ $PKG = deb ]
 then
   case "$DIST$DIST_VER" in
