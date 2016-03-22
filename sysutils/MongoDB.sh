@@ -12,10 +12,13 @@ then
   mongo_ver=${mongo_ver%.*}
   # Concatenate major and minor version numbers together
   mongo_ver=${mongo_ver%.*}${mongo_ver#*.}
-  [ "$mongo_ver" -gt 25 ] && echo You have the newer MongoDB version available
 fi
 
-if [ $ARMv = armv6 ] && [ $PKG = deb ]
+# Check if the mongodv version is recent
+if [ "$mongo_ver" -gt 25 ] 2> /dev/null
+  then echo You have the newer MongoDB version available
+
+elif [ $ARMv = armv6 ] && [ $PKG = deb ]
 then
   $install mongodb
   wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz

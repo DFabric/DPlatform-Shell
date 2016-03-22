@@ -6,4 +6,4 @@ A FQDN domain name is needed for a mail server, and this allows to use a name in
 
 This domain name redirects directly to your IP address $IP through the DNS provider that you chose.
 
-You will be prompted to enter your new created domain name" 16 80
+You can also use localtunnel.me" 16 80

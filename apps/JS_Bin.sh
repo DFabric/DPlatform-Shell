@@ -7,7 +7,7 @@
 if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture ($ARCH) don't appear to be supported yet, cancel the installation?" 8 48
-  [ $? = 1 ] &&	sed -i "/\bJS_Bin\b/d" installed-apps && break
+  [ $? = 1 ] &&	sed -i "/JS_Bin/d" installed-apps && break
 fi
 
 . sysutils/NodeJS.sh
