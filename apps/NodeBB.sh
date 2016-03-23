@@ -26,10 +26,13 @@ If you don't know, take the default MongoDB" 12 48 \
 --yes-button MongoDB --no-button Redis
 if [ $? = 0 ]
   then . sysutils/MongoDB.sh
+  DB=mongodb
 elif [ $PKG = deb ]
   then $install redis-server
+  DB=redis
 else
   $install redis
+  DB=redis
 fi
 
 # Clone the repository
@@ -41,6 +44,21 @@ cd nodebb
 npm install --production
 
 # Install NodeBB by running the app with –setup flag
+cat > config.json <<EOF
+{
+    "url": "http://[::]:4567",
+    "secret": "",
+    "database": "mongo",
+    "mongo": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "username": "",
+        "password": "",
+        "database": "0"
+    }
+}
+EOF
+
 ./nodebb setup
 
 # In Centos6/7 allowing port through the firewall is needed
@@ -51,18 +69,17 @@ npm install --production
 cat > /etc/systemd/system/nodebb.service <<EOF
 [Unit]
 Description=NodeBB Forum Server
-After=network.target mongodb.service
+After=network.target $DB.service
 [Service]
-Type=oneshot
-ExecStart=/usr/bin/node $HOME/nodebb/nodebb start
-ExecStop=/usr/bin/node $HOME/nodebb/nodebb stop
+Type=simple
+ExecStart=/usr/bin/node $HOME/nodebb/loader.js
 User=$USER
 RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable seahub
-systemctl start seahub
+systemctl enable nodebb
+systemctl start nodebb
 
 whiptail --msgbox "NodeBB successfully installed!
 

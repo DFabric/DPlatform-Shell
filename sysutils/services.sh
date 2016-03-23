@@ -56,7 +56,7 @@ if [ "$1" = "" ]
 then
   service_detection
   while whiptail --title "App Service Manager" --menu "
-  Select with Arrows <-v^-> and/or Tab <=>
+  Select with Arrows <-v-> and/or Tab <=>
   Memory usage: $(free | awk 'FNR == 2 {print ($3+$5)/1000}')MB used/$(free | awk 'FNR == 2 {print $2/1000}')MB total" 16 72 6 \
   $service_list 2> /tmp/temp
   do
@@ -76,6 +76,8 @@ then
 
 # Create systemd service
 else
+  # Convert uppercase app name to lowercase service name
+  name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
   cat > "/etc/systemd/system/$name.service" <<EOF
 [Unit]
 Description=$1

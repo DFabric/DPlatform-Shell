@@ -101,7 +101,7 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0)
 				# Remove SytemD service and it's entry
-				[ $1 = remove ] && (sh sysutils/services.sh remove; sed -i "/$CHOICE/d" installed-apps)
+				[ $1 = remove ] && (sh sysutils/services.sh remove $CHOICE; sed -i "/$CHOICE/d" installed-apps)
 				case $CHOICE in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
