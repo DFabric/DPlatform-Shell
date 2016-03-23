@@ -1,20 +1,9 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications and manage them.
-#### Do you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+#### Do you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you want that simply worked without an headhache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
-
-## Requirements
-
-A recent GNU/Linux operating system with **SystemD** is highly recommended:
-Debian 8 Jessie and derivatives like Ubuntu and Raspbian
-CentOS 7, Fedora and other RHEL derivatives
-
-A x86, x86_64 or armv6, armv7 or armv8 CPU.
-
-Development is still active. Most things should work, but problems could occur, more testing is needed.
-Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Features
  - Install applications easily by following instructions printed
@@ -28,9 +17,10 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
  - [Mumble](http://www.mumble.info/) - Voicechat utility
- - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
- - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
+ - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
+ - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
+ - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
@@ -52,7 +42,6 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
- - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
  - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
@@ -65,12 +54,6 @@ Please feel free to open an issue and create a pull request, all contributions a
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
  - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
 
-
-## Roadmap
- - [1] Install apps efficiently through a terminal UI - In progress
- - (2) DPlatform Web GUI to manage apps easily - Not started
- - (3) Build a custom image with DPlatform Web GUI auto-configuration - Not started
-
 ## Install
 Clone the DPlatform git project, and then run it:
 ``` sh
@@ -81,6 +64,25 @@ git clone https://github.com/j8r/DPlatform
 `sudo sh ~/DPlatform/dplatform.sh`
 
 Next times, only run this last command for DPlatform
+
+
+## Requirements
+
+A recent GNU/Linux operating system with **SystemD** is highly recommended:
+
+Debian 8 Jessie and derivatives like Ubuntu and Raspbian
+
+CentOS 7, Fedora and other RHEL derivatives
+
+A x86, x86_64 or armv6, armv7 or armv8 CPU.
+
+Development is still active. Most things should work, but problems could occur, more testing is needed.
+Please feel free to open an issue and create a pull request, all contributions are welcome!
+
+## Roadmap
+ - [1] Install apps efficiently through a terminal UI - In progress
+ - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
+ - (3) Build a custom image with DPlatform Web GUI auto-configuration - Not started
 
 ## Contributors - Special thanks
 [@cryptono](https://github.com/cryptono) (torito) - testing

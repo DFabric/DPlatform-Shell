@@ -1,12 +1,12 @@
 #!/bin/sh
-[ $PKG != rpm ] && whiptail --msgbox "Your $PKG isn't supported yet" 8 32 && break
-[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install mopidy && whiptail --msgbox "Mopidy updated!" 8 32 && break
-[ $1 = remove ] && $remove mopidy && whiptail --msgbox "Mopidy removed!" 8 32 && break
+[ $PKG = rpm ] && whiptail --msgbox "Your $PKG isn't supported yet" 8 32 && break
+[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install mopidy && pip install --upgrade -y Mopidy-Mopify && whiptail --msgbox "Mopidy updated!" 8 32 && break
+[ $1 = remove ] && $remove mopidy && pip uninstall -y Mopidy-Mopify && whiptail --msgbox "Mopidy removed!" 8 32 && break
 
 if [ $PKG = deb ]
 then
   # Add the archive’s GPG key
-  wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie.list
+  wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
   case "$DIST$DIST_VER" in
     # For Debian wheezy or Ubuntu 12.04 LTS
     debian7*|*ubuntu*12.04*) wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/wheezy.list;;
@@ -18,24 +18,22 @@ then
 fi
 $install mopidy
 
-pip install mopidy-musicbox-webclient
+# Install Mopify, a web client for Mopidy
+pip install Mopidy-Mopify
 
-# Define password and port
-whiptail --title "Mopidy port" --clear --inputbox "Enter your Mopidy password. default:[]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-
-whiptail --title "Mopidy port" --clear --inputbox "Enter your Mopidy port number. default:[6680]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-6680}
-
-cat >> ~/.config/mopidy/mopidy.conf <<EOF
+cat > /etc/mopidy/mopidy.conf <<EOF
+[http]
+hostname = ::
+port = 6680
 [mpd]
 hostname = ::
-port = $port
-password = $password
-connection_timeout = 600
+port = 6600
+max_connections = 40
+connection_timeout = 120
 EOF
+systemctl restart mopidy
+
 whiptail --msgbox "Modipy successfully installed!
 
-The MPD server port is $port with $password in password
-Open http://$IP:$port in your browser" 12 64
+The MPD server port is 6600, your password is $password
+Open http://$IP:6680 in your browser" 12 64

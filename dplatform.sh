@@ -119,9 +119,10 @@ installation_menu() {
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		OpenVPN "Open source secure tunneling VPN daemon" \
 		Mumble "Voicechat utility" \
-		OwnCloud "Access & share your files, calendars, contacts, mail" \
-		Seafile "Cloud storage with file encryption and group sharing" \
 		Syncthing "Open Source Continuous File Synchronization" \
+		Seafile "Cloud storage with file encryption and group sharing" \
+		Mopidy "Mopidy is an extensible music server written in Python" \
+		OwnCloud "Access & share your files, calendars, contacts, mail" \
 		Torrent "Deluge and Transmission torrent web interface" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
@@ -144,10 +145,9 @@ installation_menu() {
 		Meteor "The JavaScript App Platform" \
 		Modoboa "/!\ Mail hosting made simple" \
 		MongoDB "The next-generation database" \
-		Mopidy "Mopidy is an extensible music server written in Python" \
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
-		ReactionCommerce "Modern reactive, real-time event driven ecommerce platform." \
+		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform." \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
 		StackEdit "/!\ In-browser markdown editor" \
