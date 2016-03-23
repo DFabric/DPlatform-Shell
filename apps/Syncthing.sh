@@ -45,7 +45,7 @@ else
   sed -i 's/127.0.0.1:8384/:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing .$HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
+  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
 fi
 
 whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!

@@ -87,7 +87,7 @@ Type=simple
 WorkingDirectory=$3
 ExecStart=$2
 User=$USER
-Restart=on-failure
+Restart=allways
 [Install]
 WantedBy=multi-user.target
 EOF

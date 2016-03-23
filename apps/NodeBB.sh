@@ -4,7 +4,8 @@ if [ $1 = update ]
 then
   cd ~/nodebb
   git pull
-  whiptail --msgbox "NodeBB updated!" 8 32
+  ./nodebb upgrade
+  whiptail --msgbox "NodeBB updated and upgraded!" 8 32
   break
 fi
 [ $1 = remove ] && rm -rf nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
@@ -44,7 +45,8 @@ cd nodebb
 npm install --production
 
 # Install NodeBB by running the app with –setup flag
-cat > config.json <<EOF
+#cat > config.json
+<<EOF
 {
     "url": "http://[::]:4567",
     "secret": "",
@@ -72,7 +74,7 @@ Description=NodeBB Forum Server
 After=network.target $DB.service
 [Service]
 Type=simple
-ExecStart=/usr/bin/node $HOME/nodebb/loader.js
+ExecStart=/usr/bin/node $HOME/nodebb/app.js
 User=$USER
 RemainAfterExit=yes
 [Install]

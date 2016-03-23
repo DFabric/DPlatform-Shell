@@ -3,10 +3,14 @@
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove Gogs && rm -rf ~/gogs && whiptail --msgbox "Gogs removed!" 8 32 && break
 
-cd
 # Prerequisites
 $install sqlite3 git
 
+# Creta git group and git user
+groupadd git
+useradd -m git -g git
+
+cd /home/git
 # Get the latest Gogs release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/releases/latest)
 
@@ -17,8 +21,8 @@ if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
   [ $ARCH = 86 ] && ARCH=386
   wget https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz
-  tar -zxvf gogs_v0.8.43_linux_$ARCH.tar.gz
-  rm gogs_v0.8.43_linux_$ARCH.tar.gz
+  tar zxvf gogs_v${ver}_linux_$ARCH.tar.gz
+  rm gogs_v${ver}_linux_$ARCH.tar.gz
 elif [ $ARCH = arm ]
 then
   $install unzip
@@ -26,9 +30,13 @@ then
   unzip gogs_v${ver}_raspi2.zip
   rm gogs_v${ver}_raspi2.zip
 fi
+chmod -R git:git /home/git/gogs
 
 # Add SystemD process, configure and start Gogs
-sh $DIR/sysutils/services.sh Gogs ".$HOME/gogs web" $HOME/gogs
+cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system
+systemctl daemon-reload
+systemctl enable gogs
+systemctl start gogs
 
 whiptail --msgbox "Gogs successfully installed!
 

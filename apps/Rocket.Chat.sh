@@ -4,6 +4,17 @@
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/Rocket.Chat
 [ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
+# Define port
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
+read port < /tmp/temp
+port=${port:-3000}
+
+# Define ReplicaSet
+whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
+"Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 12 48 \
+--yes-button No --no-button Yes
+[ $? = 1 ] && ReplicaSet=on
+
 . sysutils/MongoDB.sh
 . sysutils/Meteor.sh
 
@@ -15,17 +26,9 @@ cd
 if [ $ARCH = arm ]
 then
   $install python make g++
-  .
 
   # Download the Rocket.Chat binary for Raspberry Pi
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
-  tar zxvf rocket.chat.tgz
-  rm zxvf rocket.chat.tgz
-
-  mv bundle Rocket.Chat
-  # Install dependencies and start Rocket.Chat
-  cd Rocket.Chat/programs/server
-  ~/meteor/dev_bundle/bin/npm install
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
@@ -43,20 +46,21 @@ then
   # Download Stable version of Rocket.Chat
 
   curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
-
-  tar zxvf rocket.chat.tgz
-
-  mv bundle Rocket.Chat
-  cd Rocket.Chat/programs/server
-  npm install
 else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
 fi
+tar zxvf rocket.chat.tgz
 
-whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
-"Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 12 48 \
---yes-button No --no-button Yes
-if [ $? = 1 ]
+mv bundle Rocket.Chat
+# Install dependencies and start Rocket.Chat
+cd Rocket.Chat/programs/server
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install
+[ $ARCH = arm ] && ~/meteor/dev_bundle/bin/npm install
+
+rm $HOME/rm rocket.chat.tgz
+
+# Setup ReplicaSet
+if [ "$ReplicaSet" = on ]
 then
   # Mongo 2.4 or earlier
   if [ $mongo_version -lt 25 ]
@@ -82,11 +86,6 @@ then
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
 fi
 
-# Define port
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-3000}
-
 # Create the SystemD service
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/bin/node
 [ $ARCH = arm ] && node=$HOME/meteor/dev_bundle/bin/node
@@ -99,12 +98,11 @@ After=network.target mongodb.service
 [Service]
 Type=simple
 WorkingDirectory=$HOME/Rocket.Chat
-Environment=ROOT_URL=http://$IP:$port/
-Environment=PORT=$port
+Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
 ExecStart=$node main.js
 User=$USER
-Restart=on-failure
+Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF

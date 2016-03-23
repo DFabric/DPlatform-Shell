@@ -16,7 +16,7 @@ wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-ser
 chmod +x linx-server*
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Linx .$HOME/linx-server* $HOME
+sh $DIR/sysutils/services.sh Linx $HOME/linx-server* $HOME
 
 whiptail --msgbox "Linx $ver successfully installed!
 
