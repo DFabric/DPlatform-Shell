@@ -26,29 +26,17 @@
  <strong>DPlatform</strong> helps you to install applications and manage them.</p>
 
 <h4>
-<a id="do-you-want-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-deploy-applicationsservices-efficiently-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" class="anchor" href="#do-you-want-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-deploy-applicationsservices-efficiently-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Do you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? Deploy applications/services efficiently and turn your server, even a cheap Raspberry Pi, to a cloud platform.</h4>
+<a id="would-you-want-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-to-have-applications-you-need-simply-quickly-without-an-headache-putting-time-in-complicated-commands-and-configurations-deploy-applicationsservices-easily-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" class="anchor" href="#would-you-want-to-have-your-own-cloud-storage-chat-platform-cms-website-or-vpn-to-have-applications-you-need-simply-quickly-without-an-headache-putting-time-in-complicated-commands-and-configurations-deploy-applicationsservices-easily-and-turn-your-server-even-a-cheap-raspberry-pi-to-a-cloud-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.</h4>
 
 <p><img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png" alt="main">
 <img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png" alt="install"></p>
-
-<h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
-
-<p>A recent GNU/Linux operating system with <strong>SystemD</strong> is highly recommended:
-Debian 8 Jessie and derivatives like Ubuntu and Raspbian
-CentOS 7, Fedora and other RHEL derivatives</p>
-
-<p>A x86, x86_64 or armv6, armv7 or armv8 CPU.</p>
-
-<p>Development is still active. Most things should work, but problems could occur, more testing is needed.
-Please feel free to open an issue and create a pull request, all contributions are welcome!</p>
 
 <h2>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
 <li>Install applications easily by following instructions printed</li>
-<li>SystemD services integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs</li>
+<li>SystemD services integration - View apps services status, one click start/stop, autostart at startup and auto-restart when an error occurs</li>
 <li>Update/Remove installed apps easily with two clicks</li>
 <li>Determine your IPv4, IPv6, LocalIP and your host name</li>
 <li>
@@ -67,12 +55,14 @@ Please feel free to open an issue and create a pull request, all contributions a
 <li>
 <a href="http://www.mumble.info/">Mumble</a> - Voicechat utility</li>
 <li>
-<a href="https://owncloud.org/">OwnCloud</a> - Access &amp; share your files, calendars, contacts, mail &amp; more from any device, on your terms</li>
+<a href="https://syncthing.net/">Syncthing</a> - Open Source Continuous File Synchronization</li>
 <li>
 <a href="https://seafile.com">Seafile</a> - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to <a href="https://github.com/SeafileDE/seafile-server-installer">seafile-server-installer</a>
 </li>
 <li>
-<a href="https://syncthing.net/">Syncthing</a> - Open Source Continuous File Synchronization</li>
+<a href="https://www.mopidy.com/">Mopidy</a> - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With <a href="https://github.com/dirkgroenen/mopidy-mopify">Mopify</a> - Web Client for Mopidy Music Server and the Pi MusicBox</li>
+<li>
+<a href="https://owncloud.org/">OwnCloud</a> - Access &amp; share your files, calendars, contacts, mail &amp; more from any device, on your terms</li>
 <li>Torrent - Access to <a href="http://deluge-torrent.org/">Deluge</a> and <a href="http://www.transmissionbt.com/">Transmission</a> torrent web interface</li>
 <li>
 <a href="https://github.com/huytd/agar.io-clone">Agar.io Clone</a> - Agar.io clone written with Socket.IO and HTML5 canvas</li>
@@ -142,15 +132,6 @@ Please feel free to open an issue and create a pull request, all contributions a
 </ul>
 
 <h2>
-<a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h2>
-
-<ul>
-<li>[1] Install apps efficiently through a terminal UI - In progress</li>
-<li>(2) DPlatform Web GUI to manage apps easily - Not started</li>
-<li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Not started</li>
-</ul>
-
-<h2>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
 
 <p>Clone the DPlatform git project, and then run it:</p>
@@ -162,6 +143,30 @@ git clone https://github.com/j8r/DPlatform</pre></div>
 <p><code>sudo sh ~/DPlatform/dplatform.sh</code></p>
 
 <p>Next times, only run this last command for DPlatform</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>A recent GNU/Linux operating system with <strong>SystemD</strong> is highly recommended:</p>
+
+<p>Debian 8 Jessie and derivatives like Ubuntu and Raspbian</p>
+
+<p>CentOS 7, Fedora and other RHEL derivatives</p>
+
+<p>A x86, x86_64 or armv[6,7,8] CPU.</p>
+
+<p>Development is still active. Most things should work, but problems could occur, more testing is needed.
+Please feel free to open an issue and create a pull request, all contributions are welcome!</p>
+
+<h2>
+<a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h2>
+
+<ul>
+<li>[1] Install apps efficiently through a terminal UI - In progress</li>
+<li>(2) DPlatform Web GUI to manage apps easily - Early prototypes started</li>
+<li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Planned</li>
+<li>Enhance the security. Nginx reverse proxy, <a href="https://letsencrypt.org/">Let's Encrypt</a> ECDSA certificate, <a href="https://github.com/Neilpang/le">LE</a> could be used</li>
+</ul>
 
 <h2>
 <a id="contributors---special-thanks" class="anchor" href="#contributors---special-thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors - Special thanks</h2>
@@ -181,6 +186,6 @@ git clone https://github.com/j8r/DPlatform</pre></div>
 
     </section>
 
-
+  
   </body>
 </html>
