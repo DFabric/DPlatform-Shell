@@ -16,7 +16,7 @@ git pull
 touch installed-apps
 
 # Detect IP
-IPv4=$(wget -qO- ipv4.icanhazip.com) #$(wget -qO- http://ip4.cuby-hebergs.com/)
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ || wget -qO- ipv4.icanhazip.com)
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Set default IP to IPv4 unless IPv6 is available
@@ -150,7 +150,7 @@ installation_menu() {
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
 		StackEdit "/!\ In-browser markdown editor" \
-		Stringer "/!\ A self-hosted, anti-social RSS reader" \
+		Stringer "|~| A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \

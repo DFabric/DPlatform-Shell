@@ -5,7 +5,7 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter your Rocket.Chat port number. default:[3000]" 8 32 2> /tmp/temp
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter a port number for Rocket.Chat. default:[3000]" 8 32 2> /tmp/temp
 read port < /tmp/temp
 port=${port:-3000}
 
@@ -116,12 +116,11 @@ Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
 
-[ $ARCH = arm ] && whiptail --colors --msgbox "Rocket.Chat successfully installed!
+[ $ARCH = arm ] && whiptail --msgbox "Rocket.Chat successfully installed!
 
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator.
 
 === BUG on ARM ===
-Rocket.Chat will start at boot and always running until you remove it.
-Please don't try to configure it in App Service Manager, it can be run twice." 16 80
+Rocket.Chat will start at boot and always running until you remove it. Please don't try to configure it in App Service Manager, it can be run twice." 16 72

@@ -3,6 +3,11 @@
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/linx-server*
 [ $1 = remove ] && sh sysutils/services.sh remove Linx && rm -rf ~/linx-server* && whiptail --msgbox "Linx removed!" 8 32 && break
 
+# Define port
+whiptail --title "Linx port" --clear --inputbox "Enter a port number for Linx. default:[8080]" 8 32 2> /tmp/temp
+read port < /tmp/temp
+port=${port:-8080}
+
 # Get the latest Linx-server release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/linx-server/releases/latest)
 
@@ -16,8 +21,8 @@ wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-ser
 chmod +x linx-server*
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Linx $HOME/linx-server* $HOME
+sh $DIR/sysutils/services.sh Linx "$HOME/linx-server* -bind 0.0.0.0:$port -fastcgi" $HOME
 
 whiptail --msgbox "Linx $ver successfully installed!
 
-Open your browser to http://$IP:8080" 12 64
+Open your browser to http://$IP:$port" 12 64
