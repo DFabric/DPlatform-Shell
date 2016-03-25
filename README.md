@@ -1,13 +1,13 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications and manage them.
-#### Do you like to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you want that simply worked without an headhache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+#### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 
 ## Features
  - Install applications easily by following instructions printed
- - SystemD services integration - View apps services status, one clic start/stop, autostart at startup and autorestart when an error occurs
+ - SystemD services integration - View apps services status, one click start/stop, autostart at startup and auto-restart when an error occurs
  - Update/Remove installed apps easily with two clicks
  - Determine your IPv4, IPv6, LocalIP and your host name
  - IP address and FQDN domain name configuration helping (generally in .com, .net...)
@@ -74,7 +74,7 @@ Debian 8 Jessie and derivatives like Ubuntu and Raspbian
 
 CentOS 7, Fedora and other RHEL derivatives
 
-A x86, x86_64 or armv6, armv7 or armv8 CPU.
+A x86, x86_64 or armv[6,7,8] CPU.
 
 Development is still active. Most things should work, but problems could occur, more testing is needed.
 Please feel free to open an issue and create a pull request, all contributions are welcome!
@@ -82,7 +82,8 @@ Please feel free to open an issue and create a pull request, all contributions a
 ## Roadmap
  - [1] Install apps efficiently through a terminal UI - In progress
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
- - (3) Build a custom image with DPlatform Web GUI auto-configuration - Not started
+ - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
+ - Enhance the security. Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) ECDSA certificate, [LE](https://github.com/Neilpang/le) could be used
 
 ## Contributors - Special thanks
 [@cryptono](https://github.com/cryptono) (torito) - testing

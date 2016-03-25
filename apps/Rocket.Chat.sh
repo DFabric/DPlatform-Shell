@@ -57,7 +57,7 @@ cd Rocket.Chat/programs/server
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install
 [ $ARCH = arm ] && ~/meteor/dev_bundle/bin/npm install
 
-rm $HOME/rm rocket.chat.tgz
+rm $HOME/rocket.chat.tgz
 
 # Setup ReplicaSet
 if [ "$ReplicaSet" = on ]
@@ -107,11 +107,21 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable rocket.chat
+[ $ARCH != arm ] && systemctl enable rocket.chat
 systemctl start rocket.chat
 
-whiptail --msgbox "Rocket.Chat successfully installed!
+[ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat successfully installed!
 
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
+
+[ $ARCH = arm ] && whiptail --colors --msgbox "Rocket.Chat successfully installed!
+
+Open http://$IP:$port in your browser and register.
+
+The first users to register will be promoted to administrator.
+
+=== BUG on ARM ===
+Rocket.Chat will start at boot and always running until you remove it.
+Please don't try to configure it in App Service Manager, it can be run twice." 16 80

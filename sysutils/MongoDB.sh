@@ -78,7 +78,6 @@ ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
 WantedBy=multi-user.target
 EOF
 NOT_OPERATIONAL_YET
-systemctl daemon-reload
 systemctl restart mongodb
 
 # Debian (deb) based OS

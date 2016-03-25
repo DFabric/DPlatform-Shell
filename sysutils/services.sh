@@ -55,9 +55,11 @@ service_setup(){
 if [ "$1" = "" ]
 then
   service_detection
+  used_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", (($3+$5)/1000)}')
+  total_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", ($2/1000)}')
   while whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
-  Memory usage: $(free | awk 'FNR == 2 {print ($3+$5)/1000}')MB used/$(free | awk 'FNR == 2 {print $2/1000}')MB total" 16 72 6 \
+  Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 2> /tmp/temp
   do
     cd $DIR
