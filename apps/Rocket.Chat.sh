@@ -47,7 +47,7 @@ then
 
   curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 else
-    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1
+    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
 fi
 tar zxvf rocket.chat.tgz
 

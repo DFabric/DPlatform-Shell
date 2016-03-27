@@ -1,12 +1,10 @@
 #!/bin/sh
 
-whiptail --msgbox "You might need to open port TCP 443, TCP 943, UDP 1194
+#https://github.com/Nyr/openvpn-install
 
-OpenVPN installation thanks to https://github.com/Nyr/openvpn-install" 12 64
+wget https://git.io/vpn -O openvpn-install.sh && bash openvpn-install.sh
 
-wget git.io/vpn --no-check-certificate -O openvpn-install.sh && bash openvpn-install.sh
-
-cd ~
+cd
 whiptail --yesno "Would you like to send the .ovpn file via mail which include the certificates needed to connect to the VPN?" 8 60
 case $? in
   0) # Check if Postfix and Mutt are installed
@@ -36,8 +34,11 @@ mkdir -p OpenVPN-clients
 mv *.ovpn OpenVPN-clients
 
 whiptail --msgbox "OpenVPN installed and operational!
+OpenVPN use TCP 943. Optional: TCP 443(HTTPS fallback), UDP 1194 ports(WebUi)
 
-Your clients certificates are available at OpenVPN-clients
-Certficates actually presents: $(ls OpenVPN-clients)
+Your clients certificates are available at OpenVPN-clients directory
+Certficates actually presents: $(ls ~/OpenVPN-clients)
 
-If you want to add more clients, you simply need to run this script another time!" 12 64
+If you want to add more clients, simply rerun this script again!
+
+OpenVPN installation thanks to https://github.com/Nyr/openvpn-install" 16 80

@@ -28,7 +28,6 @@ DOMAIN=$(hostname)
 . /etc/os-release
 DIST=$ID
 DIST_VER=$VERSION_ID
-DIST_NAME=$PRETTY_NAME
 
 # Detect package manager
 if hash apt-get 2>/dev/null
@@ -47,7 +46,7 @@ else
 	PKG=unknown
 fi
 
-# GConfigure default locale if not set
+# Configure default locale if not set
 [ "$(perl -V:)" = "" ] || export LC_ALL=en_US.UTF-8
 
 # Ckeck if curl is installed because it will be very used
@@ -55,7 +54,7 @@ hash curl 2>/dev/null || $install curl
 
 # Detect architecture
 ARCH=$(uname -m)
-case "$ARCH" in
+case $ARCH in
 	x86_64) ARCH=amd64;;
 	i*86) ARCH=86;;
 	armv8*) ARCH=arm; ARMv=arm64;;
@@ -88,32 +87,31 @@ installation_menu() {
 			apps_choice="$apps_choice $app $1_$app"
 		done < installed-apps
 
-		while whiptail --title "DPlatform - $1 menu" --menu "
-		What application would you like to $1?" 16 64 8 $apps_choice 2> /tmp/temp
+		while APP=$(whiptail --title "DPlatform - $1 menu" --menu "
+		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
 		do
 			cd $DIR
-			read CHOICE < /tmp/temp
 			# Confirmation message
-			whiptail --yesno "		$CHOICE will be $1d.
+			whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
 				0)
 				# Remove SytemD service and it's entry
-				[ $1 = remove ] && (sh sysutils/services.sh remove $CHOICE; sed -i "/$CHOICE/d" installed-apps)
-				case $CHOICE in
+				[ $1 = remove ] && (sh sysutils/services.sh remove $APP; sed -i "/$APP/d" installed-apps)
+				case $APP in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
 					Docker) . sysutils/Docker.sh $1;;
 					Meteor) . sysutils/Meteor.sh $1;;
 					MongoDB) . sysutils/MongoDB.sh $1;;
 					Node.js) . sysutils/NodeJS.sh $1;;
-					$CHOICE) . apps/$CHOICE.sh $1;;
+					$APP) . apps/$APP.sh $1;;
 				esac;;
 			esac
 		done
 	else
-		while whiptail --title "DPlatform - Installation menu" --menu "
+		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "
 		What application would you like to deploy?" 24 96 14 \
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		OpenVPN "Open source secure tunneling VPN daemon" \
@@ -122,7 +120,7 @@ installation_menu() {
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Mopidy "Mopidy is an extensible music server written in Python" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
-		Torrent "Deluge and Transmission torrent web interface" \
+		Torrent "|~| Deluge and Transmission torrent web interface" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \
@@ -157,22 +155,21 @@ installation_menu() {
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
 		Dillinger "|~| The last Markdown editor, ever" \
-		2> /tmp/temp
+		3>&1 1>&2 2>&3)
 		do
 			cd $DIR
-			read CHOICE < /tmp/temp
 			# Confirmation message
-			whiptail --yesno "		$CHOICE will be installed.
+			whiptail --yesno "		$APP will be installed.
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
 				0)
-				case $CHOICE in
+				case $APP in
 					Docker) . sysutils/Docker.sh;;
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$CHOICE) . apps/$CHOICE.sh; grep $CHOICE $DIR/installed-apps || echo $CHOICE >> $DIR/installed-apps;;
+					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/installed-apps || echo $APP >> $DIR/installed-apps;;
 				esac;;
 			esac
 		done
@@ -191,17 +188,16 @@ then
 fi
 
 # Main menu
-while whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Apps Service Manager" "Start/Stop and auto start services at startup" \
 "Domain name" "Set a domain name to use a name instead of the computer's IP address" \
 "About" "Informations about this project and your system" \
-$config${configOption} 2> /tmp/temp
-do
+$config${configOption} 3>&1 1>&2 2>&3)
+	do
 	cd $DIR
-	read CHOICE < /tmp/temp
 	case $CHOICE in
 		$config) $config;;
 		"Install apps") installation_menu install;;
@@ -215,7 +211,7 @@ do
 		- Your local IPv4: $LOCALIP
 		- Your public IPv4: $IPv4
 		- Your IPv6: $IPv6
-		Your OS: $ARCH arch $PKG based $DIST_NAME
+		Your OS: $PRETTY_NAME $(uname -m)
 		Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 		DPlatform is distributed under the [MIT License]" 16 64;;
 	esac

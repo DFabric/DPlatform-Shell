@@ -3,7 +3,7 @@
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove Seafile && sh sysutils/services.sh remove Seahub  && (rm -rf ~/haiwen; rm -rf ~/seafile-server*) && whiptail --msgbox "Seafile removed!" 8 32 && break
 
-whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
+DB_CHOICE=$(hiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
 SQLite fit in Home/Personal Environment
 MariaDB/Nginx is recommended in Production/Enterprise Environment
@@ -11,8 +11,7 @@ MariaDB/Nginx is recommended in Production/Enterprise Environment
 If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 "Deploy Seafile with MariaDB" "Advanced, secure, heavier" \
-2> /tmp/temp
-read DB_CHOICE < /tmp/temp
+3>&1 1>&2 2>&3)
 case $DB_CHOICE in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
@@ -73,8 +72,8 @@ WantedBy=multi-user.target
 EOF
 	systemctl enable seafile
 	systemctl start seafile
-	/home/seafile/seafile-server-latest/seahub.sh start $port
-	/home/seafile/seafile-server-latest/seahub.sh stop
+	./home/seafile/seafile-server-latest/seahub.sh start $port
+	./home/seafile/seafile-server-latest/seahub.sh stop
 	cat > /etc/systemd/system/seahub.service <<EOF
 [Unit]
 Description=Seafile Seahub
@@ -95,8 +94,8 @@ EOF
 	whiptail --msgbox "	Seafile installed!
 	Open http://$IP:$port in your browser
 
-	By default, you should open 2 ports, 8001 and 8082, in your firewall settings.
-	If you run Seafile behind Nginx with HTTPS, you only need port 443" 12 72;;
+	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72
+	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release

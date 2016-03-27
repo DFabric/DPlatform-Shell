@@ -29,20 +29,17 @@ service_setup(){
 
   restart=
   # Create entries in function of actual service status and configuration
-  [ $(systemctl is-active $service_choice) = active ] && active_state=Stop && restart="Restart Restart_the_current_${service_choice}_service_process"
+  [ $(systemctl is-active $service_choice) = inactive ] && state_action=Start || state_action=Stop && restart="Restart Restart_the_current_${service_choice}_service_process"
   [ $(systemctl is-enabled $service_choice) = enabled ] && enabled_state=Disable
   [ $(systemctl is-enabled $service_choice) = disabled ] && enabled_state=Enable
 
-  service_description=$(systemctl show $service -p Description)
-
-  whiptail --title "$service_choice service setup" --menu "${service_description#*=}
-  $service_choice: $(systemctl is-active $service_choice)
+  service_action=$(whiptail --title "$service_choice service setup" --menu " $(systemctl show $service_choice -p Description)
+  Active status: $(systemctl is-active $service_choice)
   Auto-start at boot: $(systemctl is-enabled $service_choice)" 14 72 4 \
-  $active_state "$active_state the current $service_choice service process" $restart \
+  $state_action "$state_action the current $service_choice service process" $restart \
   ${enabled_state}_auto-start-at-boot "$enabled_state the current $service_choice service process" \
   Status "Details about the current service status" \
-  2> /tmp/temp
-  read service_action < /tmp/temp
+  3>&1 1>&2 2>&3)
   case $service_action in
     Stop) systemctl stop $service_choice; whiptail --msgbox "$service_choice stopped" 8 32;;
     Start) systemctl start $service_choice; whiptail --msgbox "$service_choice started" 8 32;;
@@ -59,13 +56,12 @@ then
   service_detection
   used_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", (($3+$5)/1000)}')
   total_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", ($2/1000)}')
-  while whiptail --title "App Service Manager" --menu "
+  while service_choice=$(whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
-  $service_list 2> /tmp/temp
+  $service_list 3>&1 1>&2 2>&3)
   do
     cd $DIR
-    read service_choice < /tmp/temp
     [ $service_choice = SystemD ] && whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
     service_detection
   done

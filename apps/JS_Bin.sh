@@ -3,12 +3,9 @@
 [ $1 = update ] && npm udpate jsbin
 [ $1 = remove ] && sh sysutils/services.sh remove JS_Bin && npm uninstall jsbin && whiptail --msgbox "JS_Bin removed!" 8 32 && break
 
-# ARM architecture don't appear to work
-if [ $ARCH = arm ]
-then
-  whiptail --yesno "Your architecture ($ARCH) don't appear to be supported yet, cancel the installation?" 8 48
-  [ $? = 1 ] &&	sed -i "/JS_Bin/d" installed-apps && break
-fi
+# ARM architecture doesn't appear to work
+[ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
+[ $? != 0 ] || break
 
 . sysutils/NodeJS.sh
 

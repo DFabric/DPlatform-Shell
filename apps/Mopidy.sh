@@ -16,6 +16,8 @@ then
   # Install Mopidy and all dependencies:
   apt-get update
 fi
+[ $PKG = rpm ] && whiptail --yesno "Your have $DIST. $PGK based OS aren't supported yet." 8 32
+[ $PKG != rpm ] || break
 $install mopidy
 
 # Install Mopify, a web client for Mopidy
