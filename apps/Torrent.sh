@@ -11,6 +11,6 @@ case $CHOICE in
   Transmission) $install transmission-common
   port=9091;;
 esac
-whiptail --msgbox "$CHOICE successfully installed!
+whiptail --msgbox "$CHOICE installed!
 
 Open http://$IP:$port in your browser to access to the web UI" 10 64

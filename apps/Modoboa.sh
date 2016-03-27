@@ -7,7 +7,7 @@ git clone https://github.com/modoboa/modoboa-installer
 cd modoboa-installer
 ./run.py 0.0.0.0
 
-whiptail --msgbox "Modoboa successfully installed!
+whiptail --msgbox "Modoboa installed!
 
 You should be able to access Modoboa at http://$IP:8000
 

@@ -18,11 +18,10 @@ ver=$(echo $ver | awk '{ver=substr($0, 58); print ver;}')
 
 cd
 wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH
-chmod +x linx-server*
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Linx "$HOME/linx-server* -bind 0.0.0.0:$port -fastcgi" $HOME
+sh $DIR/sysutils/services.sh Linx "$HOME/linx-server-v${ver}_linux-$ARCH -bind :$port" $HOME
 
-whiptail --msgbox "Linx $ver successfully installed!
+whiptail --msgbox "Linx $ver installed!
 
 Open your browser to http://$IP:$port" 12 64

@@ -24,6 +24,6 @@ sh $HOME/etherpad-lite/bin/installDeps.sh
 # Add SystemD process and run the server
 sh $DIR/sysutils/services.sh Etherpad "/usr/bin/node $HOME/etherpad-lite/node_modules/ep_etherpad-lite/node/server.js" $HOME/etherpad-lite
 
-whiptail --msgbox "Etherpad successfully installed!
+whiptail --msgbox "Etherpad installed!
 
 Open http://$IP:9001 in your browser." 10 64

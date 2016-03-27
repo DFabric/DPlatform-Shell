@@ -35,7 +35,7 @@ esac
 mkdir -p OpenVPN-clients
 mv *.ovpn OpenVPN-clients
 
-whiptail --msgbox "OpenVPN successfully installed and operational!
+whiptail --msgbox "OpenVPN installed and operational!
 
 Your clients certificates are available at OpenVPN-clients
 Certficates actually presents: $(ls OpenVPN-clients)

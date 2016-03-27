@@ -7,7 +7,7 @@
 $install mumble-server
 [ $ARCH = deb ] && dpkg-reconfigure mumble-server
 
-whiptail --msgbox "Mumble successfully installed!
+whiptail --msgbox "Mumble installed!
 
-You might need to open port 64738
-Address: $IP" 10 48
+Address: $IP
+port: 64738" 10 48

@@ -70,6 +70,6 @@ sudo -u stringer crontab -l | { cat; echo "SHELL=/bin/sh
 PATH=/bin/ruby:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
 */10 * * * *  source $HOME/.bash_profile; cd $HOME/stringer/; bundle exec rake fetch_feeds;"; } | crontab -
 
-whiptail --msgbox "Stringer successfully installed!
+whiptail --msgbox "Stringer installed!
 
 Open http://$IP:5000 in your browser" 12 64

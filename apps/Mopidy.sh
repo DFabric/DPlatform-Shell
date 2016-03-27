@@ -32,8 +32,10 @@ max_connections = 40
 connection_timeout = 120
 EOF
 systemctl restart mopidy
+systemctl enable mopidy
 
-whiptail --msgbox "Modipy successfully installed!
+whiptail --msgbox "Modipy installed!
 
-The MPD server port is 6600, your password is $password
+The MPD server port is 6600
+
 Open http://$IP:6680 in your browser" 12 64

@@ -13,6 +13,6 @@ git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 cd RetroPie-Setup
 sudo ./retropie_setup.sh
 
-whiptail --msgbox "RetroPie successfully installed!
+whiptail --msgbox "RetroPie installed!
 
 You might need to reboot your Raspberry" 12 48

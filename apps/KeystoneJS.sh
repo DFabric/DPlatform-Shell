@@ -15,7 +15,7 @@ yo keystone
 
 node keystone
 
-whiptail --msgbox "KeystoneJS successfully installed!
+whiptail --msgbox "KeystoneJS installed!
 
 To run your KeystoneJS project: cd keystone-site-project && node keystone
 

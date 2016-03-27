@@ -39,7 +39,7 @@ $install gitlab-ce
 
 gitlab-ctl reconfigure
 
-whiptail --msgbox "GitLab successfully installed!
+whiptail --msgbox "GitLab installed!
 Browse to $IP and login
 Username: root
 Password: 5iveL\!fe

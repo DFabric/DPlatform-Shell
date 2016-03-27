@@ -23,6 +23,6 @@ npm install
 # Add SystemD process and run the server
 sh $DIR/sysutils/services.sh Agar.io-Clone "/usr/bin/npm start" $HOME/agar.io-clone
 
-whiptail --msgbox "Agar.io Clone successfully installed!
+whiptail --msgbox "Agar.io Clone installed!
 
 The game is accessible at http://$IP:3000" 10 64

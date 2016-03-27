@@ -43,7 +43,7 @@ systemctl daemon-reload
 systemctl enable rocket.chat
 systemctl start rocket.chat
 
-whiptail --msgbox "Let's Chat successfully installed!
+whiptail --msgbox "Let's Chat installed!
 
 Open http://$IP:5000 in your browser" 10 64
 # Let's Chat - Gitlab Plugin

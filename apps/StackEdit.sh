@@ -18,7 +18,7 @@ bower install
 # Serve StackEdit at http://localhost/:
 (export PORT=80 && node server.js)
 
-whiptail --msgbox "StackEdit successfully installed!
+whiptail --msgbox "StackEdit installed!
 
 To run StackEdit: cd stackedit
 (export PORT=80 && node server.js)

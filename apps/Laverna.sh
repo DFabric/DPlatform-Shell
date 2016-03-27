@@ -9,6 +9,6 @@ wget https://github.com/Laverna/static-laverna/archive/gh-pages.zip -O laverna.z
 # Unpack the downloaded archive
 unzip laverna.zip
 
-whiptail --msgbox "Laverna successfully installed!
+whiptail --msgbox "Laverna installed!
 
 Open http://$IP in your browser" 12 48

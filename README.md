@@ -76,7 +76,7 @@ CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
 Arch Linux. Partial support, not tested
 
-A x86, x86_64 or armv[6-7-8] CPU.
+A x86, x86-64 or armv[6,7,8] CPU.
 
 Development is still active. Most things should work, but problems could occur, more testing is needed.
 Please feel free to open an issue and create a pull request, all contributions are welcome!

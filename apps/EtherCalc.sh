@@ -11,6 +11,6 @@ npm i -g ethercalc
 # Add SystemD process and run the server
 sh sysutils/services.sh EtherCalc ethercalc /
 
-whiptail --msgbox "EtherCalc successfully installed!
+whiptail --msgbox "EtherCalc installed!
 
 Open http://$IP:8000 in your browser." 12 64

@@ -22,6 +22,6 @@ case $? in
   $install jigasi;;
   1) ;; # Continue
 esac
-whiptail --msgbox "Jitsi Meet successfully installed!
+whiptail --msgbox "Jitsi Meet installed!
 
 It will be accessible at http://$IP" 12 64

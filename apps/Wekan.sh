@@ -10,7 +10,7 @@ rm https://raw.githubusercontent.com/anselal/wekan/master/autoinstall_wekan.sh
 # Start the service
 /etc/init.d/wekan start
 
-whiptail --msgbox "Wekan successfully installed!
+whiptail --msgbox "Wekan installed!
 
 Start the service: /etc/init.d/wekan start
 

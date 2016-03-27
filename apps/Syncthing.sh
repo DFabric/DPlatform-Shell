@@ -48,9 +48,9 @@ else
   sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
 fi
 
-whiptail --msgbox "Syncthing successfully installed! Install Syncthing in your computer too to sync files!
+whiptail --msgbox "Syncthing installed! Install Syncthing in your computer too to sync files!
 
 You might need to setup a port forward for 22000/TCP.
 Port 8384 to be able to access the web GUI from other computers
 
-The admin GUI starts automatically and remains available on http://$IP:8384" 16 64
+The admin GUI starts automatically and remains available on http://$IP:8384" 14 64

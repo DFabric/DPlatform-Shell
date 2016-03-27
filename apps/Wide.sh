@@ -34,6 +34,6 @@ esac
 # Run Wide
 wide
 
-whiptail --msgbox "Wide successfully installed!
+whiptail --msgbox "Wide installed!
 
 Open browser: http://$IP:7070" 10 64

@@ -33,7 +33,7 @@ npm start --production
 # Add SystemD process and run the server
 sh $DIR/sysutils/services.sh Ghost "/usr/bin/npm start --production" /var/www/ghost
 
-whiptail --msgbox "Ghost successfully installed!
+whiptail --msgbox "Ghost installed!
 
 Visit http://$IP:2368 to see your newly setup Ghost blog
 Visit http://$IP:2368/ghost and create your admin user to login to the Ghost admin" 12 64

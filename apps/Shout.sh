@@ -15,6 +15,6 @@ read port < /tmp/temp
 # Add SystemD process and run the server
 sh sysutils/services.sh Shout "shout$port" /
 
-whiptail --msgbox "Shout successfully installed!
+whiptail --msgbox "Shout installed!
 
 Open http://$IP:$port in your browser." 10 64

@@ -32,6 +32,6 @@ sh bin/installDeps.sh
 # Add SystemD process and run the server
 sh $DIR/sysutils/services.sh EtherDraw "/usr/bin/node $HOME/draw/server.js" $HOME/draw
 
-whiptail --msgbox "EtherDraw successfully installed!
+whiptail --msgbox "EtherDraw installed!
 
 Open http://$IP:9002 in your browser and make a drawing\!" 10 64

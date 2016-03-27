@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ./manage.py runserver
 
- whiptail --msgbox "Wagtail successfully installed!
+ whiptail --msgbox "Wagtail installed!
 
  Your site is now accessible at http://$IP:8000
  Admin backend available at http://$IP:8000/admin" 16 64

@@ -13,6 +13,6 @@ mkdir -p downloads/files/{md,html,pdf}
 gulp build --prod
 NODE_ENV=production node app
 
-whiptail --msgbox "Dillinger successfully installed!
+whiptail --msgbox "Dillinger installed!
 
 Open http://$IP:8080 in your browser" 10 64

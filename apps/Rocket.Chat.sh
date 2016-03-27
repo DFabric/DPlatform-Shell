@@ -110,17 +110,17 @@ systemctl daemon-reload
 [ $ARCH != arm ] && systemctl enable rocket.chat
 systemctl start rocket.chat
 
-[ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat successfully installed!
+[ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat installed!
 
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
 
-[ $ARCH = arm ] && whiptail --msgbox "Rocket.Chat successfully installed!
+[ $ARCH = arm ] && whiptail --msgbox "Rocket.Chat installed!
 
 Open http://$IP:$port in your browser and register.
 
 The first users to register will be promoted to administrator.
 
 === BUG on ARM ===
-Rocket.Chat will start at boot and always running until you remove it. Please don't try to configure it in App Service Manager, it can be run twice." 16 72
+Rocket.Chat will start at boot and always running until you remove it. Please don't try to change it in App Service Manager, it can be run twice." 16 72

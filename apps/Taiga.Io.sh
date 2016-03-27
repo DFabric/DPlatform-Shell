@@ -16,6 +16,6 @@ $install libxml2-dev libxslt-dev
 sed -i '/exit 1/d' setup-server.sh
 bash setup-server.sh
 
-whiptail --msgbox "Taiga.Io successfully installed!
+whiptail --msgbox "Taiga.Io installed!
 
 Open http://$IP:8000 in your browser to access to Taiga.Io" 12 64

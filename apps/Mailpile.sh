@@ -87,7 +87,7 @@ Restart=on-failure
 WantedBy=multi-user.target
 EOF
 
-whiptail --msgbox "Mailpile successfully installed!
+whiptail --msgbox "Mailpile installed!
 You might need to open port 33411 and 993
 
 Open http://$IP:33411 in your browser" 10 64

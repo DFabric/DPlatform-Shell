@@ -29,7 +29,8 @@ then
   unzip gogs_v${ver}_raspi2.zip
   rm gogs_v${ver}_raspi2.zip
 fi
-chmod -R git /home/git/gogs
+# Change the owner from root to git
+chown -R git /home/git/gogs
 
 # Add SystemD process, configure and start Gogs
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system
@@ -37,6 +38,6 @@ systemctl daemon-reload
 systemctl enable gogs
 systemctl start gogs
 
-whiptail --msgbox "Gogs successfully installed!
+whiptail --msgbox "Gogs installed!
 
 Open http://$IP:3000 in your browser" 10 64

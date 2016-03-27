@@ -36,6 +36,6 @@ else
   break
 fi
 
-whiptail --msgbox "OwnCloud successfully installed!
+whiptail --msgbox "OwnCloud installed!
 
 Open http://$IP/owncloud in your browser." 12 64
