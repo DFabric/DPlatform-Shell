@@ -16,7 +16,7 @@ git pull
 touch installed-apps
 
 # Test if cuby responds
-(IPv4=`wget -qO- http://ip4.cuby-hebergs.com/`) & sleep 4; kill $!
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ & sleep 2; kill $! )
 # Else use this site
 [ $? = 0 ] && IPv4=$(wget -qO- ipv4.icanhazip.com)
 
@@ -148,13 +148,13 @@ installation_menu() {
 		MongoDB "The next-generation database" \
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
-		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform." \
+		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform" \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
 		Stringer "|~| A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
-		Transmission "/!\ " \
+		Transmission "A cross-platform BitTorrent client that is easy and powerful use" \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
