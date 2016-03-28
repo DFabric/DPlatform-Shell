@@ -15,8 +15,11 @@ cd $DIR
 git pull
 touch installed-apps
 
-# Detect IP
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ || wget -qO- ipv4.icanhazip.com)
+# Test if cuby responds
+(IPv4=`wget -qO- http://ip4.cuby-hebergs.com/`) & sleep 4; kill $!
+# Else use this site
+[ $? = 0 ] && IPv4=$(wget -qO- ipv4.icanhazip.com)
+
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Set default IP to IPv4 unless IPv6 is available
