@@ -26,4 +26,4 @@ then
   cp ~/meteor/meteor /bin
 fi
 
-grep Meteor installed-apps || echo Meteor >> installed-apps
+grep Meteor $DIR/installed-apps || echo Meteor >> $DIR/installed-apps

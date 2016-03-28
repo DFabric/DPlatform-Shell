@@ -25,6 +25,8 @@
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
  - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
+ - [Deluge](http://deluge-torrent.org/) with WebUI - A lightweight, Free Software, cross-platform BitTorrent client
+ - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
  - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
@@ -49,10 +51,10 @@
  - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
+ - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
- - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
 
 ## Install
 Clone the DPlatform git project, and then run it:

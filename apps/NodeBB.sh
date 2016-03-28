@@ -8,7 +8,7 @@ then
   whiptail --msgbox "NodeBB updated and upgraded!" 8 32
   break
 fi
-[ $1 = remove ] && rm -rf nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove NodeBB && rm -rf nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -66,22 +66,23 @@ EOF
 # In Centos6/7 allowing port through the firewall is needed
 [ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
-# Add SystemD process and run the server
-#sh sysutils/services.sh NodeBB "/usr/bin/node app.js" $HOME/nodebb
+# Add SystemD process
 cat > /etc/systemd/system/nodebb.service <<EOF
 [Unit]
 Description=NodeBB Forum Server
 After=network.target $DB.service
 [Service]
 Type=simple
+WorkingDirectory=$HOME/nodebb
 ExecStart=/usr/bin/node $HOME/nodebb/app.js
 User=$USER
-RemainAfterExit=yes
+Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable nodebb
+# Start the service and enable it to start up on boot
 systemctl start nodebb
+systemctl enable nodebb
 
 whiptail --msgbox "NodeBB installed!
 

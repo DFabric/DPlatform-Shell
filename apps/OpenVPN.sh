@@ -5,27 +5,27 @@
 wget https://git.io/vpn -O openvpn-install.sh && bash openvpn-install.sh
 
 cd
-whiptail --yesno "Would you like to send the .ovpn file via mail which include the certificates needed to connect to the VPN?" 8 60
+whiptail --yesno "Would you like to send the .ovpn file via mail which include the certificates needed to connect to the VPN?
+It may not work. In this case, you need to find an other way to recuperate this .ovpn file" 8 64
 case $? in
   0) # Check if Postfix and Mutt are installed
   if ! hash postfix mutt 2>/dev/null
     then # Install postfix mail server and mutt for attachment
-    whiptail --msgbox " During the package configuration, select 'Internet Site' in the second prompt menu.
-
-    Next, you can keep all the defaults configurations and always press [Enter]" 12 48
+    whiptail --msgbox "During the package configuration, you can keep all the defaults configurations and always press [Enter]" 10 48
     $install postfix mutt
   fi
   # Start Postfix service if stopped
   service postfix start
 
   # Send the .ovpn client file via mail
-  whiptail --title "Mail sending" --clear --inputbox "Enter the mail address that will receive the .ovpn file" 12 64
+  whiptail --title "Mail sending" --inputbox "Enter the mail address that will receive the .ovpn file." 10 64
 
   # Pick the email and remove the last character added
   user_mail=${x%?}
 
+  ovpn=$(find . -name '*.ovpn')
   # Send mail attachment with mutt
-  echo "Use this .ovpn file to connect to your VPN with your OpenVPN client installed in your system" | mutt -a "*.ovpn" -s "Your OpenVPN certificate file" -- $user_mail;;
+  echo "Use this .ovpn file to connect to your VPN through your OpenVPN client installed in your system" | mutt -a "${ovpn#./*}" -s "Your OpenVPN certificate file" -- $user_mail;;
   1) ;; # Continue
 esac
 

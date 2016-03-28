@@ -13,14 +13,18 @@ service_detection() {
     # Covert uppercase app name to lowercase service name
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
 
+    # Correct the service name of the app
     [ $service = mumble ] && service=mumble-server
-    [ $service = seafile ] && service_list="$service_list seahub [$(systemctl is-active seahub)]$(systemctl is-enabled seahub)"
+    [ $service = deluge ] && service=deluged
     # Only create an entry for existing services
     if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
     then
       # Concatenate each service into a list
       service_list="$service_list $service ${service_description#*=}[$(systemctl is-active $service)]$(systemctl is-enabled $service)"
     fi
+    # Add related services to the app
+    [ $service = seafile ] && service_list="$service_list seahub [$(systemctl is-active seahub)]$(systemctl is-enabled seahub)"
+    [ $service = deluge ] && service_list="$service_list deluge-web [$(systemctl is-active deluge-web)]$(systemctl is-enabled deluge-web)"
   done < installed-apps
 }
 
@@ -58,6 +62,7 @@ then
   total_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", ($2/1000)}')
   while service_choice=$(whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
+  Average load: $(cat /proc/loadavg | awk '{print $1}')
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 3>&1 1>&2 2>&3)
   do
@@ -87,11 +92,11 @@ Type=simple
 WorkingDirectory=$3
 ExecStart=$2
 User=$USER
-Restart=allways
+Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-  systemctl daemon-reload
-  systemctl enable $name
+  # Start the service and enable it to start up on boot
   systemctl start $name
+  systemctl enable $name
 fi

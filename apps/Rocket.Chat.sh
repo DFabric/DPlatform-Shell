@@ -98,17 +98,17 @@ After=network.target mongodb.service
 [Service]
 Type=simple
 WorkingDirectory=$HOME/Rocket.Chat
+ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
-ExecStart=$node main.js
 User=$USER
 Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-[ $ARCH != arm ] && systemctl enable rocket.chat
+# Start the service and enable it to start up on boot
 systemctl start rocket.chat
+[ $ARCH != arm ] && systemctl enable rocket.chat
 
 [ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat installed!
 

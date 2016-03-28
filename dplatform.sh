@@ -23,7 +23,7 @@ touch installed-apps
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Set default IP to IPv4 unless IPv6 is available
-#[ $IPv6 = ::1 ] && IP=[$IPv4]
+# [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[IPv6]
 IP=$LOCALIP
 DOMAIN=$(hostname)
 
@@ -123,10 +123,11 @@ installation_menu() {
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Mopidy "Mopidy is an extensible music server written in Python" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
-		Torrent "|~| Deluge and Transmission torrent web interface" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \
+		Deluge "A lightweight, Free Software, cross-platform BitTorrent client" \
+		Dillinger "|~| The last Markdown editor, ever" \
 		Docker "Open container engine platform for distributed application" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
@@ -150,14 +151,14 @@ installation_menu() {
 		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform." \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
-		StackEdit "/!\ In-browser markdown editor" \
+		StackEdit "In-browser markdown editor" \
 		Stringer "|~| A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
+		Transmission "/!\ " \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
-		Dillinger "|~| The last Markdown editor, ever" \
 		3>&1 1>&2 2>&3)
 		do
 			cd $DIR

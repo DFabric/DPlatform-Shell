@@ -70,8 +70,9 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	systemctl enable seafile
+	# Start the service and enable it to start up on boot
 	systemctl start seafile
+	systemctl enable seafile
 	./home/seafile/seafile-server-latest/seahub.sh start $port
 	./home/seafile/seafile-server-latest/seahub.sh stop
 	cat > /etc/systemd/system/seahub.service <<EOF
@@ -88,8 +89,9 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	systemctl enable seahub
+	# Start the service and enable it to start up on boot
 	systemctl start seahub
+	systemctl enable seahub
 
 	whiptail --msgbox "	Seafile installed!
 	Open http://$IP:$port in your browser

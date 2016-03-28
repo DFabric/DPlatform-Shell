@@ -33,8 +33,9 @@ port = 6600
 max_connections = 40
 connection_timeout = 120
 EOF
-systemctl restart mopidy
+# Start the service and enable it to start up on boot
 systemctl enable mopidy
+systemctl restart mopidy
 
 whiptail --msgbox "Modipy installed!
 
