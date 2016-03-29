@@ -4,7 +4,7 @@
 # Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 
 # This script is implemented as POSIX-compliant.
-# It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, CentOS
+# It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
 # Actual directory
@@ -16,7 +16,7 @@ git pull
 touch installed-apps
 
 # Test if cuby responds
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ & sleep 2; kill $! )
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ & sleep 2; kill $! ) 2>/dev/null
 # Else use this site
 [ $? = 0 ] && IPv4=$(wget -qO- ipv4.icanhazip.com)
 
@@ -138,7 +138,7 @@ installation_menu() {
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
 		JS_Bin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
-		Laverna "/!\ Note taking application with Mardown editor and encryption" \
+		Laverna "Note taking application with Mardown editor and encryption" \
 		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
