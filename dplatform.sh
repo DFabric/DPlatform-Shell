@@ -16,9 +16,9 @@ git pull
 touch installed-apps
 
 # Test if cuby responds
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ & sleep 2; kill $! ) 2>/dev/null
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 2)
 # Else use this site
-[ $? = 0 ] && IPv4=$(wget -qO- ipv4.icanhazip.com)
+[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 2)
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
@@ -117,9 +117,10 @@ installation_menu() {
 		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "
 		What application would you like to deploy?" 24 96 14 \
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
+		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
+		Syncthing "Open Source Continuous File Synchronization" \
 		OpenVPN "Open source secure tunneling VPN daemon" \
 		Mumble "Voicechat utility" \
-		Syncthing "Open Source Continuous File Synchronization" \
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Mopidy "Mopidy is an extensible music server written in Python" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
@@ -127,14 +128,14 @@ installation_menu() {
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \
 		Deluge "A lightweight, Free Software, cross-platform BitTorrent client" \
-		Dillinger "|~| The last Markdown editor, ever" \
+		Dillinger "The last Markdown editor, ever" \
 		Docker "Open container engine platform for distributed application" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
+		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
-		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
 		JS_Bin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
@@ -192,7 +193,7 @@ then
 fi
 
 # Main menu
-while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with Arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Selectyou option with arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
@@ -211,12 +212,13 @@ $config${configOption} 3>&1 1>&2 2>&3)
 		"Domain name") . sysutils/domain-name.sh;;
 		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
 		https://github.com/j8r/DPlatform
+
 		- Your host/domain name: $DOMAIN
 		- Your local IPv4: $LOCALIP
 		- Your public IPv4: $IPv4
 		- Your IPv6: $IPv6
 		Your OS: $PRETTY_NAME $(uname -m)
-		Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
-		DPlatform is distributed under the [MIT License]" 16 64;;
+
+Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64;;
 	esac
 done

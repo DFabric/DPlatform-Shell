@@ -1,23 +1,24 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
- **DPlatform** helps you to install applications and manage them.
+ **DPlatform** helps you to install applications easily and manage them.
 #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 
 ## Features
- - Install applications easily by following instructions printed
- - SystemD services integration - View apps services status, one click start/stop, autostart at startup and auto-restart when an error occurs
+ - Install applications easily.
+ - Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
  - Update/Remove installed apps easily with two clicks
- - Determine your IPv4, IPv6, LocalIP and your host name
- - IP address and FQDN domain name configuration helping (generally in .com, .net...)
+ - Determine your IPv4, IPv6, LocalIP and your hostname
+ - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
 
  [![deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 ## Available apps (few still need work)
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
+ - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
+ - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
  - [Mumble](http://www.mumble.info/) - Voicechat utility
- - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
  - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
@@ -31,9 +32,9 @@
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
+ - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
- - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
  - [JS Bin](http://jsbin.com) - An open source collaborative web development debugging tool
  - [KeystoneJS](http://keystonejs.com/) - Node.js CMS & Web Application Platform
@@ -84,10 +85,14 @@ Development is still active. Most things should work, but problems could occur, 
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Roadmap
+
+ ***The main goals of DPlatform are the independence, the freedom, security. Therefore all installations and configurations provided trough this set of shell tools are TOTALLY independents of it***
+
  - [1] Install apps efficiently through a terminal UI - In progress
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
  - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
- - Enhance the security. Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) ECDSA certificate, [LE](https://github.com/Neilpang/le) could be used
+ - DNS and secure firewall pass-trough via [localtunnel](https://localtunnel.me/)
+ - Enhance the security. Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 
 ## Contributors - Special thanks
 [@cryptono](https://github.com/cryptono) (torito) - testing
