@@ -159,6 +159,7 @@ installation_menu() {
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
+		WordPress "/!\ Web software you can use to create a beautiful website, blog, or app" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
 		3>&1 1>&2 2>&3)
 		do
