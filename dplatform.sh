@@ -194,7 +194,7 @@ then
 fi
 
 # Main menu
-while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Selectyou option with arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
