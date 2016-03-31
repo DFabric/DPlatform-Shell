@@ -92,6 +92,7 @@ Type=simple
 WorkingDirectory=$3
 ExecStart=$2
 User=$USER
+Group=$USER
 Restart=always
 [Install]
 WantedBy=multi-user.target

@@ -87,7 +87,7 @@ Please feel free to open an issue and create a pull request, all contributions a
 
 ## Roadmap
 
- ***The main goals of DPlatform are the independence, the freedom, security. Therefore all installations and configurations provided trough this set of shell tools are TOTALLY independents of it***
+ ***The main goals of DPlatform are the independence, the freedom and the security. Therefore all installations and configurations provided through this set of shell tools are TOTALLY independents of it***
 
  - [1] Install apps efficiently through a terminal UI - In progress
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started

@@ -2,7 +2,7 @@
 
 [ $1 = update ] && [ $PKG = deb ] && apt-get update && $install owncloud && whiptail --msgbox "OwnCloud updated!" 8 32 && break
 [ $1 = update ] && [ $PKG = rpm ] && yum update && $install owncloud && whiptail --msgbox "OwnCloud updated!" 8 32 && break
-[ $1 = remove ] && $remove owncloud && whiptail --msgbox "Mumble removed!" 8 32 && break
+[ $1 = remove ] && $remove owncloud && whiptail --msgbox "OwnCloud removed!" 8 32 && break
 
 if [ $PKG = deb ]
 then
@@ -33,8 +33,8 @@ then
 else
   whiptail --msgbox "Your operating system doesn't appear to be supported.\
   Try to install OwnCloud manually" 8 64
-  break
 fi
+[ $PKG != pkg ] || break
 
 whiptail --msgbox "OwnCloud installed!
 

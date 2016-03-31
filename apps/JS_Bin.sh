@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ $1 = update ] && npm udpate jsbin && break
+[ $1 = update ] && npm udpate jsbin && whiptail --msgbox "JS_Bin updated!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove JS_Bin && npm uninstall jsbin && whiptail --msgbox "JS_Bin removed!" 8 32 && break
 
 # ARM architecture doesn't appear to work

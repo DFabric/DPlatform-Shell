@@ -9,7 +9,9 @@ $install sqlite3 git
 # Create a git user
 useradd -m git
 
+# Go to its directory
 cd /home/git
+
 # Get the latest Gogs release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/releases/latest)
 
@@ -30,7 +32,7 @@ then
   rm gogs_v${ver}_raspi2.zip
 fi
 # Change the owner from root to git
-chown -R git /home/git/gogs
+chown -R git:git /home/git/gogs
 
 # Add SystemD process, configure and start Gogs
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system

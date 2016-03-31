@@ -19,13 +19,14 @@ $install unzip nginx
 # Add Laverna user
 useradd -m laverna
 
+# Go to its directory
 cd /home/laverna
 
 #  Clone the prebuilt static version
 git clone https://github.com/Laverna/static-laverna
 
 # Change the owner from root to git
-chown -R git /home/laverna/static-laverna
+chown -R laverna:laverna /home/laverna/static-laverna
 
 # Create Nginx configuration file
 cat > /etc/nginx/sites-available/laverna <<EOF

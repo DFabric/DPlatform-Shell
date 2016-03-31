@@ -5,13 +5,15 @@ $install git
 cd
 git clone https://github.com/modoboa/modoboa-installer
 cd modoboa-installer
-./run.py 0.0.0.0
+
+# Access the web GUI from other computers
+sed -i 's/127.0.0.1/0.0.0.0/g' installer.cgf
+
+./run.py `hostname`
 
 whiptail --msgbox "Modoboa installed!
 
 You should be able to access Modoboa at http://$IP:8000
 
-Your installation should now have a default super administrator:
-
-    Username: admin
-    Password: password" 16 64
+Username: admin
+Password: password" 14 64

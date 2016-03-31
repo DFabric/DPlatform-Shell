@@ -23,6 +23,8 @@ case $DB_CHOICE in
 
 	# Create a seafile user
 	useradd -m seafile
+
+	# Go to its directory
 	cd /home/seafile
 
 	if [ $ARCH = amd64 ]
@@ -54,7 +56,7 @@ case $DB_CHOICE in
 	sed -i "s/8000/$port/g" /home/seafile/conf/ccnet.conf
 
 	# Change the owner from root to seafile
-	chown -R seafile /home/seafile
+	chown -R seafile:seafile /home/seafile
 	# Create SystemD service and run the server
 	cat > /etc/systemd/system/seafile.service <<EOF
 [Unit]
@@ -66,6 +68,7 @@ Type=oneshot
 ExecStart=/home/seafile/seafile-server-latest/seafile.sh start
 ExecStop=/home/seafile/seafile-server-latest/seafile.sh stop
 User=seafile
+Group=seafile
 RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
@@ -85,6 +88,7 @@ Type=oneshot
 ExecStart=/home/seafile/seafile-server-latest/seahub.sh start $port
 ExecStop=/home/seafile/seafile-server-latest/seahub.sh stop
 User=seafile
+Group=seafile
 RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
