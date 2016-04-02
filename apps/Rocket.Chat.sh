@@ -5,9 +5,9 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter a port number for Rocket.Chat. default:[3000]" 8 32 2> /tmp/temp
+whiptail --title "Rocket.Chat port" --clear --inputbox "Enter a port number for Rocket.Chat. default:[3004]" 8 32 2> /tmp/temp
 read port < /tmp/temp
-port=${port:-3000}
+port=${port:-3004}
 
 # Define ReplicaSet
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \

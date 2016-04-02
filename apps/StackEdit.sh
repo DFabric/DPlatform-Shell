@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Define port
-whiptail --title "StackEdit port" --clear --inputbox "Enter a port number for StackEdit. default:[80]" 8 32 2> /tmp/temp
+whiptail --title "StackEdit port" --clear --inputbox "Enter a port number for StackEdit. default:[8050]" 8 32 2> /tmp/temp
 read port < /tmp/temp
-port=${port:-80}
+port=${port:-8050}
 
 . sysutils/NodeJS.sh
 

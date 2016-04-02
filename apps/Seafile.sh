@@ -98,22 +98,23 @@ EOF
 	systemctl enable seahub
 
 	whiptail --msgbox "	Seafile installed!
-	Open http://$IP:$port in your browser
+	Open https://$IP:$port in your browser
 
 	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72
 	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
-	# Only Debian based OS are supported
-	[ $PKG != deb ] && whiptail --msgbox "Your package manager ($PKG) is not supported, only Debian based OS using deb are supported" 8 48 && exit 1
 	if [ $ARCH = arm ]
-		then dist=seafile-ce_ubuntu-trusty-arm
+		then  wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
 	elif [ $DIST = Ubuntu ] && [ $ARCH = amd64 ]
-		then 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debianseafile-ce_ubuntu-trusty-amd64
+		then wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
+	elif [ $ARCH = amd64 ]
+		[ $PKG = deb ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
+		[ $PKG = rpm ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
 	else
-		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
-
+		whiptail --msgbox "Your system isn't supported yet" 8 48
+		break
 	fi
-	bash $dist
+	bash seafile*
 esac

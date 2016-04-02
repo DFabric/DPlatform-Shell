@@ -9,6 +9,7 @@
  - Install applications easily.
  - Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
  - Update/Remove installed apps easily with two clicks
+ - [Caddy](https://caddyserver.com/) implementation - Secure HTTPS web access for some apps
  - Determine your IPv4, IPv6, LocalIP and your hostname
  - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
 
@@ -45,6 +46,7 @@
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
  - [MongoDB](https://www.mongodb.org/) - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate
+ - [netdata](http://netdata.firehol.org/) - A highly optimized Linux daemon providing real-time performance monitoring for Linux systems, Applications, SNMP devices, over the web!
  - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
  - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
  - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences

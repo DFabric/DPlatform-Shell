@@ -14,7 +14,8 @@ whiptail --title "Laverna port" --clear --inputbox "Enter a port number for Lave
 read port < /tmp/temp
 port=${port:-8007}
 
-$install unzip nginx
+# Install unzip if not installed
+hash unzip 2>/dev/null || $install unzip
 
 # Add Laverna user
 useradd -m laverna

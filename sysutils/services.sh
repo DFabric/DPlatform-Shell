@@ -62,7 +62,6 @@ then
   total_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", ($2/1000)}')
   while service_choice=$(whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
-  Average load: $(cat /proc/loadavg | awk '{print $1}')
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 3>&1 1>&2 2>&3)
   do

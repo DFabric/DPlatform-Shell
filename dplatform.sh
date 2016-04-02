@@ -105,6 +105,7 @@ installation_menu() {
 				case $APP in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
+					Caddy) . sysutils/Caddy.sh $1;;
 					Docker) . sysutils/Docker.sh $1;;
 					Meteor) . sysutils/Meteor.sh $1;;
 					MongoDB) . sysutils/MongoDB.sh $1;;
@@ -142,11 +143,13 @@ installation_menu() {
 		Laverna "Note taking application with Mardown editor and encryption" \
 		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
+		Caddy "Fast, cross-platform HTTP/2 web server with automatic HTTPS" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \
 		Modoboa "/!\ Mail hosting made simple" \
 		MongoDB "The next-generation database" \
+		netdata "Real-time performance monitoring, in the greatest possible detail" \
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
 		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform" \
@@ -159,7 +162,7 @@ installation_menu() {
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "/!\ Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
-		WordPress "/!\ Web software you can use to create a beautiful website, blog, or app" \
+		WordPress "/!\ Create a beautiful website, blog, or app" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
 		3>&1 1>&2 2>&3)
 		do
@@ -171,6 +174,7 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0)
 				case $APP in
+					Caddy) . sysutils/Caddy.sh;;
 					Docker) . sysutils/Docker.sh;;
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;

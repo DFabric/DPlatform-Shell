@@ -6,7 +6,7 @@
 # Define port
 whiptail --title "Linx port" --clear --inputbox "Enter a port number for Linx. default:[8080]" 8 32 2> /tmp/temp
 read port < /tmp/temp
-port=${port:-8080}
+port=${port:-8087}
 
 # Create a linx user
 useradd -m linx
@@ -18,7 +18,7 @@ cd /home/linx
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/linx-server/releases/latest)
 
 # Only keep the version number in the url
-ver=$(echo $ver | awk '{ver=substr($0, 58); print ver;}')
+ver=${ver#*/v}
 
 [ $ARCH = 86 ] && ARCH=386
 
@@ -31,8 +31,24 @@ chown linx:linx /home/linx/linx-server-v${ver}_linux-$ARCH
 chmod +x linx-server-v${ver}_linux-$ARCH
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Linx "home/linx/linx-server-v${ver}_linux-$ARCH -bind :$port" /home/linx
+cat > "/etc/systemd/system/linx.service" <<EOF
+[Unit]
+Description=Linx Server
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/home/linx
+ExecStart=/home/linx/linx-server-v${ver}_linux-$ARCH -config /home/linx/config.ini
+User=linx
+Group=linx
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
 
-whiptail --msgbox "Linx $ver installed!
+echo "bind = :$port
+siteurl = $IP" > config.ini
+
+whiptail --msgbox "Linx installed!
 
 Open your browser to http://$IP:$port" 12 64
