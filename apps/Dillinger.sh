@@ -31,4 +31,4 @@ Environment=production"
 
 whiptail --msgbox "Dillinger installed!
 
-Open http://$IP:8080 in your browser" 10 64
+Open http://$URL:8080 in your browser" 10 64

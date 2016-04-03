@@ -26,4 +26,4 @@ sh $DIR/sysutils/services.sh Etherpad "/usr/bin/node $HOME/etherpad-lite/node_mo
 
 whiptail --msgbox "Etherpad installed!
 
-Open http://$IP:9001 in your browser." 10 64
+Open http://$URL:9001 in your browser." 10 64

@@ -40,4 +40,4 @@ sh $DIR/systutils/Caddy.sh 19999
 
 whiptail --msgbox "netdata installed!
 
-Open http(s)://$IP:19999 in your browser" 10 64
+Open http://$URL:19999 in your browser" 10 64

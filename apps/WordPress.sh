@@ -7,4 +7,4 @@
 
 whiptail --msgbox "WordPress installed!
 
-Open http://$IP in your browser!" 10 64
+Open http://$URL in your browser!" 10 64

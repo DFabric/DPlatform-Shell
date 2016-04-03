@@ -8,8 +8,8 @@
 # Install
 npm install -g shout
 
-whiptail --title "Shout port" --clear --inputbox "Enter your Shout port number. default:[9000]" 8 32 2> /tmp/temp
-read port < /tmp/temp
+port=$(whiptail --title "Shout port" --inputbox "Set a port number for Shout" 8 48 "9000" 3>&1 1>&2 2>&3)
+
 [ "$port" != "" ] && port =" --port $port"
 
 # Add SystemD process and run the server
@@ -17,4 +17,4 @@ sh sysutils/services.sh Shout "shout$port" /
 
 whiptail --msgbox "Shout installed!
 
-Open http://$IP:$port in your browser." 10 64
+Open http://$URL:$port in your browser." 10 64

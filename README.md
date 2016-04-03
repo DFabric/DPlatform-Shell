@@ -9,7 +9,6 @@
  - Install applications easily.
  - Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
  - Update/Remove installed apps easily with two clicks
- - [Caddy](https://caddyserver.com/) implementation - Secure HTTPS web access for some apps
  - Determine your IPv4, IPv6, LocalIP and your hostname
  - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
 
@@ -42,6 +41,7 @@
  - [Laverna](https://laverna.cc/) - A JavaScript note taking application with Markdown editor and encryption support
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
  - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
+ - [Caddy](https://caddyserver.com/) - Fast, cross-platform HTTP/2 web server with automatic HTTPS
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)

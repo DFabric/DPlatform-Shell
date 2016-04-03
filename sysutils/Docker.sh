@@ -11,4 +11,4 @@ else
 fi
 
 echo Docker installed
-grep Docker installed-apps || echo Docker >> installed-apps
+grep Docker dp.cfg || echo Docker >> dp.cfg

@@ -31,4 +31,4 @@ sh $DIR/sysutils/services.sh EtherDraw "/usr/bin/node $HOME/draw/server.js" $HOM
 
 whiptail --msgbox "EtherDraw installed!
 
-Open http://$IP:9002 in your browser and make a drawing\!" 10 64
+Open http://$URL:9002 in your browser and make a drawing\!" 10 64

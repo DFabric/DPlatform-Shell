@@ -56,5 +56,5 @@ fi
 
 whiptail --msgbox "Gogs installed!
 
-Open http(s)://$IP:3000 in your browser,
+Open http://$URL:3000 in your browser,
 select SQlite and complete the installation." 10 64

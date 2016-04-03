@@ -13,4 +13,4 @@ sh sysutils/services.sh EtherCalc ethercalc /
 
 whiptail --msgbox "EtherCalc installed!
 
-Open http://$IP:8000 in your browser." 12 64
+Open http://$URL:8000 in your browser." 12 64

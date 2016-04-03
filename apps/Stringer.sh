@@ -72,4 +72,4 @@ PATH=/bin/ruby:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
 
 whiptail --msgbox "Stringer installed!
 
-Open http://$IP:5000 in your browser" 12 64
+Open http://$URL:5000 in your browser" 12 64

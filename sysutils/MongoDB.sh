@@ -113,4 +113,4 @@ else
   $install mongodb || {echo You probably need to manually install MongoDB; exit 1}
 fi
 
-grep MongoDB installed-apps || echo MongoDB >> installed-apps
+grep MongoDB dp.cfg || echo MongoDB >> dp.cfg

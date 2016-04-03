@@ -13,7 +13,7 @@ fi
 if [ $ARCH = arm ]
 then
   whiptail --yesno "Your architecture $ARCH isn't supported" 8 32
-  [ $? = 1 ] &&	sed -i "/ReactionCommerce/d" installed-apps && break
+  [ $? = 1 ] &&	sed -i "/ReactionCommerce/d" dp.cfg && break
 fi
 
 . sysutils/NodeJS.sh
@@ -34,4 +34,4 @@ sh $DIR/sysutils/services.sh ReactionCommerce "$HOME/reaction/reaction" $HOME/re
 
 whiptail --msgbox "Reaction Commerce installed!
 
-Open http://$IP:3000 in your browser" 10 64
+Open http://$URL:3000 in your browser" 10 64

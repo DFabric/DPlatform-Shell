@@ -22,4 +22,4 @@ else
   nvm install 4
 fi
 
-grep NodeJS installed-apps || echo NodeJS >> installed-apps
+grep NodeJS dp.cfg || echo NodeJS >> dp.cfg

@@ -86,7 +86,7 @@ systemctl enable nodebb
 
 whiptail --msgbox "NodeBB installed!
 
-Open http://$IP:4567 in your browser" 10 64
+Open http://$URL:4567 in your browser" 10 64
 
 # TODO
 # https://www.npmjs.com/package/nodebb-plugin-blog-comments

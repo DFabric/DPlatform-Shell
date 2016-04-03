@@ -10,9 +10,7 @@ fi
 [ $1 = remove ] && userdel -r laverna && whiptail --msgbox && (rm /etc/nginx/sites-*/laverna; systemctl nginx restart) && "Laverna removed!" 8 32 && break
 
 # Define port
-whiptail --title "Laverna port" --clear --inputbox "Enter a port number for Laverna. default:[8007]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-8007}
+port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)
 
 # Install unzip if not installed
 hash unzip 2>/dev/null || $install unzip
@@ -29,8 +27,21 @@ git clone https://github.com/Laverna/static-laverna
 # Change the owner from root to git
 chown -R laverna:laverna /home/laverna/static-laverna
 
-# Create Nginx configuration file
-cat > /etc/nginx/sites-available/laverna <<EOF
+
+if hash caddy 2>/dev/null
+then
+  cat >> /etc/caddy/Caddyfile <<EOF
+$IP {
+    root /home/laverna/static-laverna
+    log /home/laverna/laverna.log
+}
+EOF
+systemctl restart caddy
+elif
+then
+  $install nginx
+  # Create Nginx configuration file
+  cat > /etc/nginx/sites-available/laverna <<EOF
 server  {
     listen $port;
     root /home/laverna/static-laverna;
@@ -55,7 +66,7 @@ ln -s /etc/nginx/sites-available/laverna /etc/nginx/sites-enabled/laverna
 rm /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl nginx restart
-
+fi
 whiptail --msgbox "Laverna installed!
 
-Open http://$IP:$port in your browser" 12 48
+Open http://$URL:$port in your browser" 12 48

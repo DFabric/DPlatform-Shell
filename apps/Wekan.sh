@@ -14,6 +14,6 @@ whiptail --msgbox "Wekan installed!
 
 Start the service: /etc/init.d/wekan start
 
-You can access your fresh wekan installation by pointing your browser to http://$IP:8080
+You can access your fresh wekan installation by pointing your browser to http://$URL:8080
 
 Thanks to https://github.com/anselal/wekan" 16 64

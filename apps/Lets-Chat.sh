@@ -45,6 +45,6 @@ systemctl start rocket.chat
 
 whiptail --msgbox "Let's Chat installed!
 
-Open http://$IP:5000 in your browser" 10 64
+Open http://$URL:5000 in your browser" 10 64
 # Let's Chat - Gitlab Plugin
 #npm install lets-chat-gitlab

@@ -17,9 +17,7 @@ case $DB_CHOICE in
 	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
 	# Define port
-	whiptail --title "Seafile port" --clear --inputbox "Enter a port number for Seafile. default:[8001]" 8 32 2> /tmp/temp
-	read port < /tmp/temp
-	port=${port:-8001}
+	port=$(whiptail --title "Seafile port" --inputbox "Set a port number for Seafile" 8 48 "8001" 3>&1 1>&2 2>&3)
 
 	# Create a seafile user
 	useradd -m seafile
@@ -98,7 +96,7 @@ EOF
 	systemctl enable seahub
 
 	whiptail --msgbox "	Seafile installed!
-	Open https://$IP:$port in your browser
+	Open http://$URL:$port in your browser
 
 	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72
 	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;

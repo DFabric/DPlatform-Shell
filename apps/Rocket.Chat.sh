@@ -5,9 +5,7 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
-whiptail --title "Rocket.Chat port" --clear --inputbox "Enter a port number for Rocket.Chat. default:[3004]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-3004}
+port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
 
 # Define ReplicaSet
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
@@ -99,7 +97,7 @@ After=network.target mongodb.service
 Type=simple
 WorkingDirectory=$HOME/Rocket.Chat
 ExecStart=$node main.js
-Environment=ROOT_URL=http://$IP:$port/ PORT=$port
+Environment=ROOT_URL=http://$URL:$port/ PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
 User=$USER
 Restart=always
@@ -112,13 +110,13 @@ systemctl start rocket.chat
 
 [ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat installed!
 
-Open http://$IP:$port in your browser and register.
+Open http://$URL:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
 
 [ $ARCH = arm ] && whiptail --msgbox "Rocket.Chat installed!
 
-Open http://$IP:$port in your browser and register.
+Open http://$URL:$port in your browser and register.
 
 The first users to register will be promoted to administrator.
 

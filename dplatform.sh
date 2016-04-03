@@ -7,25 +7,25 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-# Actual directory
+# Current directory
 DIR=$(cd -P $(dirname $0) && pwd)
 
-# Check if a new version is available
 cd $DIR
-git pull
-touch installed-apps
 
 # Test if cuby responds
 IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 2)
 # Else use this site
 [ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 2)
+[ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
+You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
+
+# Check if a new version is available
+[ "$IPv4" = "" ] || git pull
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Set default IP to IPv4 unless IPv6 is available
-# [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[IPv6]
-IP=$LOCALIP
-DOMAIN=$(hostname)
+[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 
 # Detect distribution
 . /etc/os-release
@@ -41,16 +41,13 @@ elif hash rpm 2>/dev/null
 	then PKG=rpm
 	install="yum install --enablerepo=epel -y"
 	remove="yum remove -y"
-	[ $DIST = fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
+	[ $DIST = Fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null
 	then PKG=pkg
 	install="pacman -S"
 else
 	PKG=unknown
 fi
-
-# Configure default locale if not set
-[ "$(perl -V:)" = "" ] || export LC_ALL=en_US.UTF-8
 
 # Ckeck if curl is installed because it will be very used
 hash curl 2>/dev/null || $install curl
@@ -63,7 +60,7 @@ case $ARCH in
 	aarch64) ARCH=arm; ARMv=arm64;;
 	armv7*) ARCH=arm; ARMv=armv7;;
 	armv6*) ARCH=arm; ARMv=armv6;;
-	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit;;
+	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1;;
 esac
 
 # Detect hardware
@@ -74,6 +71,44 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 	*) HDWR=other;;
 esac
+
+# Domain configuration
+network_access() {
+	NET=$(whiptail --nocancel --title "DPlatform - First launch setup" --menu "Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
+It appears that you run DPlatform for the first time. You need to setup the network access of your applications. \
+You can change this setup anytime if you want a different access before installing new apps" 14 96 2 \
+"Local" "Your apps will be available only in your local network / from your home" \
+"Public IP/FQDN" "Only if you can open your ports / make redirections in your router firewall" 3>&1 1>&2 2>&3)
+	#Worlwide with generrated URL" "Secure access with a generated/custom URL with a Firewall passthrough. No further configurations needed" \
+	case $NET in
+		"Local") whiptail --msgbox "You can access to your apps by opening $(hostname) in your browser. \
+Howewer, it might not work depending of your local DNS configuration. \
+You can always use the local IP of your server $LOCALIP in your local network" 10 64
+			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
+
+		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening $IP in your browser." 8 64
+			sed -i "/URL=/URL=IP/d" dp.cfg 2>/dev/null || echo "URL=IP" > dp.cfg;;
+	esac
+}
+
+# Create a dp.cfg with a URL variable if it doesn't exist
+[ -e dp.cfg ] || network_access
+
+change_hostname() {
+  whiptail --msgbox "Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive), \
+the digits '0' through '9', and the hyphen.
+Hostname labels cannot begin or end with a hyphen.
+No other symbols, punctuation characters, or blank spaces are permitted." 12 64
+  new_hostname=$(whiptail --inputbox "Please enter a hostname" 8 32 "$(hostname)" 3>&1 1>&2 2>&3)
+  if [ $? = 0 ]
+	then
+    echo $new_hostname > /etc/hostname
+    sed -i "s/ $($hostname) / $new_hostname /g" /etc/hosts
+		whiptail --yesno "You need to reboot to apply the hostname change. Reboot now?" 8 32
+		[ $? = 0 ] && reboot
+	fi
+}
+
 # Applications installation menu
 installation_menu() {
 	if [ $1 = update ] || [ $1 = remove ]
@@ -84,11 +119,11 @@ installation_menu() {
 			then apps_choice="Update Syncronize_new_packages_available"
 		fi
 
-		# Read installed-apps to create entries
+		# Read dp.cfg to create entries
 		while read app
 		do
-			apps_choice="$apps_choice $app $1_$app"
-		done < installed-apps
+			[ "$app" = "$(grep URL= dp.cfg)" ] || apps_choice="$apps_choice $app $1_$app"
+		done < dp.cfg
 
 		while APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
@@ -101,7 +136,7 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0)
 				# Remove SytemD service and it's entry
-				[ $1 = remove ] && (sh sysutils/services.sh remove $APP; sed -i "/$APP/d" installed-apps)
+				[ $1 = remove ] && (sh sysutils/services.sh remove $APP; sed -i "/$APP/d" dp.cfg)
 				case $APP in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
@@ -166,20 +201,19 @@ installation_menu() {
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
 		3>&1 1>&2 2>&3)
 		do
-			cd $DIR
 			# Confirmation message
 			whiptail --yesno "		$APP will be installed.
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0)
+				0) cd $DIR
 				case $APP in
 					Caddy) . sysutils/Caddy.sh;;
 					Docker) . sysutils/Docker.sh;;
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/installed-apps || echo $APP >> $DIR/installed-apps;;
+					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/dp.cfg || echo $APP >> $DIR/dp.cfg;;
 				esac;;
 			esac
 		done
@@ -187,43 +221,52 @@ installation_menu() {
 }
 
 # Configuration Entry
-if [ $HDWR = rpi ] || [ $HDWR = rpi2 ]
-then
-	config=raspi-config
-	configOption=" Raspberry_Pi_Configuration_Tool"
-elif [ $HDWR = bpi ]
+if hash bananian-config 2>/dev/null
 then
 	config=bananian-config
 	configOption=" Banana_Pi_Configuration_Tool"
+elif hash raspi-config 2>/dev/null
+then
+	config=raspi-config
+	configOption=" Raspberry_Pi_Configuration_Tool"
 fi
 
 # Main menu
-while CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'" 16 96 8 \
+while
+# Recuperate the URL variable from dp.cfg
+case $(grep URL= dp.cfg) in
+	URL=hostname) URL=`hostname`; IP=$LOCALIP;;
+	URL=IP) URL=$IP;;
+esac
+CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
+Your can access to your apps by opening this address in your browser:
+		>| http://$URL |<" 18 80 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
 "Apps Service Manager" "Start/Stop and auto start services at startup" \
-"Domain name" "Set a domain name to use a name instead of the computer's IP address" \
+"Network app access" "Define the network accessibility of the apps" \
+"Hostname" "Change the name of the server on your local network" \
 "About" "Informations about this project and your system" \
 $config${configOption} 3>&1 1>&2 2>&3)
-	do
-	cd $DIR
+do
 	case $CHOICE in
-		$config) $config;;
 		"Install apps") installation_menu install;;
-		Update) installation_menu update;;
+		"Update") installation_menu update;;
 		"Remove apps") installation_menu remove;;
-		"Apps Service Manager") . sysutils/services.sh;;
-		"Domain name") . sysutils/domain-name.sh;;
-		About) whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
+		"Apps Service Manager") . $DIR/sysutils/services.sh;;
+		"Network app access") network_access;;
+		"Hostname") change_hostname;;
+		"About") whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
 		https://github.com/j8r/DPlatform
 
-		- Your host/domain name: $DOMAIN
+		- Your domain/host name: `hostname`
 		- Your local IPv4: $LOCALIP
 		- Your public IPv4: $IPv4
 		- Your IPv6: $IPv6
 		Your OS: $PRETTY_NAME $(uname -m)
 
 Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64;;
+		$config) $config;;
 	esac
 done

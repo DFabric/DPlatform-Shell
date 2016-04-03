@@ -19,4 +19,4 @@ whiptail --msgbox "KeystoneJS installed!
 
 To run your KeystoneJS project: cd keystone-site-project && node keystone
 
-Open http://$IP:3000 to view it in your browser." 12 64
+Open http://$URL:3000 to view it in your browser." 12 64

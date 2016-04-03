@@ -90,5 +90,5 @@ systemctl enable deluge-web
 
 whiptail --msgbox "Deluge installed!
 
-Open http://$IP:8112 in your browser to access to the web UI
+Open http://$URL:8112 in your browser to access to the web UI
 Password: deluge " 10 64

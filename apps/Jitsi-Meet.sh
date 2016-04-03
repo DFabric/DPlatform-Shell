@@ -24,4 +24,4 @@ case $? in
 esac
 whiptail --msgbox "Jitsi Meet installed!
 
-It will be accessible at http://$IP" 12 64
+It will be accessible at http://$URL" 12 64

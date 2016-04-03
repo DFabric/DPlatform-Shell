@@ -4,4 +4,4 @@ curl https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh >
 
 whiptail --msgbox "Ajenti installed!
 
-Open https://$IP:8000 in your browser" 12 64
+Open http://$URL:8000 in your browser" 12 64

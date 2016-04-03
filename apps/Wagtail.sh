@@ -15,5 +15,5 @@ pip install -r requirements.txt
 
  whiptail --msgbox "Wagtail installed!
 
- Your site is now accessible at http://$IP:8000
- Admin backend available at http://$IP:8000/admin" 16 64
+ Your site is now accessible at http://$URL:8000
+ Admin backend available at http://$URL:8000/admin" 16 64

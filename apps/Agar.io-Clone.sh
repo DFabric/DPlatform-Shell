@@ -25,4 +25,4 @@ sh $DIR/sysutils/services.sh Agar.io-Clone "/usr/bin/npm start" $HOME/agar.io-cl
 
 whiptail --msgbox "Agar.io Clone installed!
 
-The game is accessible at http://$IP:3000" 10 64
+The game is accessible at http://$URL:3000" 10 64

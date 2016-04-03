@@ -4,9 +4,7 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Linx && userdel -r linx && whiptail --msgbox "Linx removed!" 8 32 && break
 
 # Define port
-whiptail --title "Linx port" --clear --inputbox "Enter a port number for Linx. default:[8080]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-8087}
+port=$(whiptail --title "Linx port" --inputbox "Set a port number for Linx" 8 48 "8081" 3>&1 1>&2 2>&3)
 
 # Create a linx user
 useradd -m linx
@@ -51,4 +49,4 @@ siteurl = $IP" > config.ini
 
 whiptail --msgbox "Linx installed!
 
-Open your browser to http://$IP:$port" 12 64
+Open your browser to http://$URL:$port" 12 64

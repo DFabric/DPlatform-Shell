@@ -13,7 +13,7 @@ sed -i 's/127.0.0.1/0.0.0.0/g' installer.cgf
 
 whiptail --msgbox "Modoboa installed!
 
-You should be able to access Modoboa at http://$IP:8000
+You should be able to access Modoboa at http://$URL:8000
 
 Username: admin
 Password: password" 14 64

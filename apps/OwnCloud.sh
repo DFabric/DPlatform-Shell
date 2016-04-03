@@ -38,4 +38,4 @@ fi
 
 whiptail --msgbox "OwnCloud installed!
 
-Open http://$IP/owncloud in your browser." 12 64
+Open http://$URL/owncloud in your browser." 12 64

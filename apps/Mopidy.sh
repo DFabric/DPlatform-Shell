@@ -41,4 +41,4 @@ whiptail --msgbox "Modipy installed!
 
 The MPD server port is 6600
 
-Open http://$IP:6680 in your browser" 12 64
+Open http://$URL:6680 in your browser" 12 64

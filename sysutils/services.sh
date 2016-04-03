@@ -7,7 +7,7 @@ service_detection() {
   service_list=
   service_list="SystemD [status]auto-start-at-boot"
 
-  # Parse line by line installed apps, and create en entry for each
+  # Parse line by line dp.cfg, and create en entry for each
   while read service
   do
     # Covert uppercase app name to lowercase service name
@@ -25,7 +25,7 @@ service_detection() {
     # Add related services to the app
     [ $service = seafile ] && service_list="$service_list seahub [$(systemctl is-active seahub)]$(systemctl is-enabled seahub)"
     [ $service = deluge ] && service_list="$service_list deluge-web [$(systemctl is-active deluge-web)]$(systemctl is-enabled deluge-web)"
-  done < installed-apps
+  done < dp.cfg
 }
 
 # Service's setup menu

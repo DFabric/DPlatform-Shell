@@ -36,4 +36,4 @@ wide
 
 whiptail --msgbox "Wide installed!
 
-Open browser: http://$IP:7070" 10 64
+Open browser: http://$URL:7070" 10 64

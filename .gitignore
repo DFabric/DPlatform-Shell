@@ -2,7 +2,7 @@
 *
 # Except this files
 !.gitignore
-!dplatform.sh
+!dp.cfg
 !README.md
 !LICENSE
 /*

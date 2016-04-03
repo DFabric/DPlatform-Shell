@@ -48,7 +48,7 @@ then
 
   [ $1 = update ] && whiptail --msgbox "Caddy updated!" 8 32
 
-  grep Caddy installed-apps || echo "Caddy installed!" && echo Caddy >> installed-apps
+  grep Caddy dp.cfg || echo "Caddy installed!" && echo Caddy >> dp.cfg
 fi
 
 if grep "$1" /etc/caddy/Caddyfile

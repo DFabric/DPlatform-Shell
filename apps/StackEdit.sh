@@ -1,9 +1,7 @@
 #!/bin/sh
 
 # Define port
-whiptail --title "StackEdit port" --clear --inputbox "Enter a port number for StackEdit. default:[8050]" 8 32 2> /tmp/temp
-read port < /tmp/temp
-port=${port:-8050}
+port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)
 
 . sysutils/NodeJS.sh
 
@@ -41,4 +39,4 @@ systemctl enable stackedit
 
 whiptail --msgbox "StackEdit installed!
 
-Open http://$IP:$port in your browser" 10 64
+Open http://$URL:$port in your browser" 10 64
