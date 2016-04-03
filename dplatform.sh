@@ -9,7 +9,6 @@
 
 # Current directory
 DIR=$(cd -P $(dirname $0) && pwd)
-
 cd $DIR
 
 # Test if cuby responds
@@ -240,7 +239,7 @@ case $(grep URL= dp.cfg) in
 esac
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
 Your can access to your apps by opening this address in your browser:
-		>| http://$URL |<" 18 80 8 \
+		>| http://$URL(:port) |<" 18 80 8 \
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
