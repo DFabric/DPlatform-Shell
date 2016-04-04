@@ -9,7 +9,7 @@
 npm i -g ethercalc
 
 # Add SystemD process and run the server
-sh sysutils/services.sh EtherCalc ethercalc /
+sh sysutils/services.sh EtherCalc "/usr/bin/node /usr/bin/ethercalc" /
 
 whiptail --msgbox "EtherCalc installed!
 

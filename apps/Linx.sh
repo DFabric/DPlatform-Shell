@@ -22,11 +22,16 @@ ver=${ver#*/v}
 
 wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH
 
-# Change the owner from root to linx
-chown linx:linx /home/linx/linx-server-v${ver}_linux-$ARCH
-
 # Set the file executable
 chmod +x linx-server-v${ver}_linux-$ARCH
+
+cat > config.ini <<EOF bind = :$port
+# Need to fix
+# siteurl = $IP
+EOF
+
+# Change the owner from root to linx
+chown linx:linx /home/linx
 
 # Add SystemD process and run the server
 cat > "/etc/systemd/system/linx.service" <<EOF
@@ -43,9 +48,8 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-
-echo "bind = :$port
-siteurl = $IP" > config.ini
+systemctl start linx
+systemctl enable linx
 
 whiptail --msgbox "Linx installed!
 

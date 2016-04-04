@@ -4,7 +4,7 @@
 [ $1 = remove ] && sh sysutils/services.sh remove Gogs && userdel -r git && whiptail --msgbox "Gogs removed!" 8 32 && break
 
 # Prerequisites
-$install sqlite3 git
+$install sqlite3
 
 # Create a git user
 useradd -m git
@@ -27,7 +27,9 @@ then
   rm gogs_v${ver}_linux_$ARCH.tar.gz
 elif [ $ARCH = arm ]
 then
-  $install unzip
+  # Install unzip if not installed
+  hash unzip 2>/dev/null || $install unzip
+  
   wget https://cdn.gogs.io/gogs_v${ver}_raspi2.zip
   unzip gogs_v${ver}_raspi2.zip
   rm gogs_v${ver}_raspi2.zip

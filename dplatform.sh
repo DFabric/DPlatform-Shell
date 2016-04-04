@@ -80,7 +80,7 @@ You can change this setup anytime if you want a different access before installi
 "Public IP/FQDN" "Only if you can open your ports / make redirections in your router firewall" 3>&1 1>&2 2>&3)
 	#Worlwide with generrated URL" "Secure access with a generated/custom URL with a Firewall passthrough. No further configurations needed" \
 	case $NET in
-		"Local") whiptail --msgbox "You can access to your apps by opening $(hostname) in your browser. \
+		"Local") whiptail --msgbox "You can access to your apps by opening >| $(hostname) |< in your browser. \
 Howewer, it might not work depending of your local DNS configuration. \
 You can always use the local IP of your server $LOCALIP in your local network" 10 64
 			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
@@ -135,7 +135,7 @@ installation_menu() {
 				1) ;; # Return to installation menu
 				0)
 				# Remove SytemD service and it's entry
-				[ $1 = remove ] && (sh sysutils/services.sh remove $APP; sed -i "/$APP/d" dp.cfg)
+				[ $1 = remove ] && sed -i "/$APP/d" dp.cfg
 				case $APP in
 					Update) [ $PKG = deb ] && apt-get update
 					[ $PKG = rpm ] && yum update;;
@@ -164,7 +164,7 @@ installation_menu() {
 		Cuberite "A custom Minecraft compatible game server written in C++" \
 		Deluge "A lightweight, Free Software, cross-platform BitTorrent client" \
 		Dillinger "The last Markdown editor, ever" \
-		Docker "Open container engine platform for distributed application" \
+		Droppy " Self-hosted file storage server, with file editing and media view" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
@@ -178,6 +178,7 @@ installation_menu() {
 		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
 		Caddy "Fast, cross-platform HTTP/2 web server with automatic HTTPS" \
+		Docker "Open container engine platform for distributed application" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \

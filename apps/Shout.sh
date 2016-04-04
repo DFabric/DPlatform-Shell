@@ -13,7 +13,7 @@ port=$(whiptail --title "Shout port" --inputbox "Set a port number for Shout" 8 
 [ "$port" != "" ] && port =" --port $port"
 
 # Add SystemD process and run the server
-sh sysutils/services.sh Shout "shout$port" /
+sh sysutils/services.sh Shout "/usr/bin/node /usr/bin/shout$port" /
 
 whiptail --msgbox "Shout installed!
 

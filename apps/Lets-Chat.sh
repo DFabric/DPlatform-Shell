@@ -39,9 +39,9 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl enable rocket.chat
-systemctl start rocket.chat
+
+systemctl enable lets-chat
+systemctl start lets-chat
 
 whiptail --msgbox "Let's Chat installed!
 

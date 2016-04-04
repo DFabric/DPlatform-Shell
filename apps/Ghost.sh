@@ -5,7 +5,8 @@
 
 . sysutils/NodeJS.sh
 
-$install unzip
+# Install unzip if not installed
+hash unzip 2>/dev/null || $install unzip
 
 # http://support.ghost.org/installing-ghost-linux/
 # https://www.howtoinstallghost.com/vps-manual/
@@ -27,11 +28,29 @@ npm install --production
 cp config.example.js config.js
 sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
 
-# Start Ghost (production environment)
-npm start --production
+# Change the owner from root to ghost
+chown -R ghost:ghost /var/www/ghost
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Ghost "/usr/bin/npm start --production" /var/www/ghost
+cat > "/etc/systemd/system/ghost.service" <<EOF
+[Unit]
+Description=The Ghost Blogging Platform
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/var/www/ghost
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm start
+User=ghost
+Group=ghost
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start Ghost (production environment)
+systemctl start ghost
+systemctl enable ghost
 
 whiptail --msgbox "Ghost installed!
 

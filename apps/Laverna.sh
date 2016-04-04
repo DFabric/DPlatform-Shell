@@ -24,7 +24,7 @@ cd /home/laverna
 #  Clone the prebuilt static version
 git clone https://github.com/Laverna/static-laverna
 
-# Change the owner from root to git
+# Change the owner from root to laverna
 chown -R laverna:laverna /home/laverna/static-laverna
 
 
@@ -62,7 +62,7 @@ EOF
 # Symlink sites-enabled to sites-available
 ln -s /etc/nginx/sites-available/laverna /etc/nginx/sites-enabled/laverna
 
-# Deelete the default nginx server block
+# Delete the default nginx server block
 rm /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl nginx restart

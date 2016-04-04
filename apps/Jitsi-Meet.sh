@@ -2,7 +2,8 @@
 
 # Only debian based are supported
 if [ $PKG != deb ]
-  then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48 exit 1
+  then whiptail --msgbox "Your package manager is not supported, only Debian based OS using deb are supported" 8 48
+  break
 fi
 
 # Add the repository

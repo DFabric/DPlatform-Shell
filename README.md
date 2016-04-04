@@ -28,7 +28,7 @@
  - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
  - [Deluge](http://deluge-torrent.org/) with WebUI - A lightweight, Free Software, cross-platform BitTorrent client
  - [Dillinger](http://dillinger.io/) - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor
- - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
+ - [Droppy](https://github.com/silverwind/droppy) - A self-hosted file storage server with a file manager like interface that have in browser file editing and media view
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
@@ -42,6 +42,7 @@
  - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
  - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
  - [Caddy](https://caddyserver.com/) - Fast, cross-platform HTTP/2 web server with automatic HTTPS
+ - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
  - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features
  - [Mattermost](http://mattermost.org/) - Open source, on-prem Slack-alternative
  - [Modoboa](https://github.com/tonioo/modoboa) - Mail hosting made simple - Deployed thanks to [modoboa-installer](https://github.com/modoboa/modoboa-installer)
