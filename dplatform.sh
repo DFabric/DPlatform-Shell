@@ -94,22 +94,22 @@ You can always use the local IP of your server $LOCALIP in your local network" 1
 [ -e dp.cfg ] || network_access
 
 change_hostname() {
-  whiptail --msgbox "Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive), \
+	whiptail --msgbox "Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive), \
 the digits '0' through '9', and the hyphen.
 Hostname labels cannot begin or end with a hyphen.
 No other symbols, punctuation characters, or blank spaces are permitted." 12 64
-  new_hostname=$(whiptail --inputbox "Please enter a hostname" 8 32 "$(hostname)" 3>&1 1>&2 2>&3)
-  if [ $? = 0 ]
+	new_hostname=$(whiptail --inputbox "Please enter a hostname" 8 32 "$(hostname)" 3>&1 1>&2 2>&3)
+	if [ $? = 0 ]
 	then
-    echo $new_hostname > /etc/hostname
-    sed -i "s/ $($hostname) / $new_hostname /g" /etc/hosts
+		echo $new_hostname > /etc/hostname
+		sed -i "s/ $($hostname) / $new_hostname /g" /etc/hosts
 		whiptail --yesno "You need to reboot to apply the hostname change. Reboot now?" 8 32
 		[ $? = 0 ] && reboot
 	fi
 }
 
-# Applications installation menu
-installation_menu() {
+# Applications menus
+apps_menus() {
 	if [ $1 = update ] || [ $1 = remove ]
 	then
 		# Reset previous apps_choice variable
@@ -123,7 +123,8 @@ installation_menu() {
 		do
 			[ "$app" = "$(grep URL= dp.cfg)" ] || apps_choice="$apps_choice $app $1_$app"
 		done < dp.cfg
-
+		
+		# Update and remove menu
 		while APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
 		do
@@ -131,24 +132,21 @@ installation_menu() {
 			# Confirmation message
 			whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
-			case $? in
-				1) ;; # Return to installation menu
-				0)
-				# Remove SytemD service and it's entry
-				[ $1 = remove ] && sed -i "/$APP/d" dp.cfg
-				case $APP in
-					Update) [ $PKG = deb ] && apt-get update
-					[ $PKG = rpm ] && yum update;;
-					Caddy) . sysutils/Caddy.sh $1;;
-					Docker) . sysutils/Docker.sh $1;;
-					Meteor) . sysutils/Meteor.sh $1;;
-					MongoDB) . sysutils/MongoDB.sh $1;;
-					Node.js) . sysutils/NodeJS.sh $1;;
-					$APP) . apps/$APP.sh $1;;
-				esac;;
+			# Remove the app entry
+			[ $? = 0 ] && [ $1 = remove ] && sed -i "/$APP/d" dp.cfg
+			[ $? = 0 ] && case $APP in
+				Update) [ $PKG = deb ] && apt-get update
+				[ $PKG = rpm ] && yum update;;
+				Caddy) . sysutils/Caddy.sh $1;;
+				Docker) . sysutils/Docker.sh $1;;
+				Meteor) . sysutils/Meteor.sh $1;;
+				MongoDB) . sysutils/MongoDB.sh $1;;
+				Node.js) . sysutils/NodeJS.sh $1;;
+				$APP) . apps/$APP.sh $1;;
 			esac
 		done
 	else
+		# Installation menu
 		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "
 		What application would you like to deploy?" 24 96 14 \
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
@@ -213,7 +211,7 @@ installation_menu() {
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/dp.cfg || echo $APP >> $DIR/dp.cfg;;
+					$APP) . apps/$APP.sh; grep $APP $DIR/dp.cfg || echo $APP >> $DIR/dp.cfg;;
 				esac;;
 			esac
 		done
@@ -251,9 +249,9 @@ Your can access to your apps by opening this address in your browser:
 $config${configOption} 3>&1 1>&2 2>&3)
 do
 	case $CHOICE in
-		"Install apps") installation_menu install;;
-		"Update") installation_menu update;;
-		"Remove apps") installation_menu remove;;
+		"Install apps") apps_menus install;;
+		"Update") apps_menus update;;
+		"Remove apps") apps_menus remove;;
 		"Apps Service Manager") . $DIR/sysutils/services.sh;;
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
