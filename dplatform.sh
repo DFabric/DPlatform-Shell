@@ -123,7 +123,7 @@ apps_menus() {
 		do
 			[ "$app" = "$(grep URL= dp.cfg)" ] || apps_choice="$apps_choice $app $1_$app"
 		done < dp.cfg
-		
+
 		# Update and remove menu
 		while APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
@@ -211,11 +211,7 @@ apps_menus() {
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-<<<<<<< HEAD
 					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg;;
-=======
-					$APP) . apps/$APP.sh; grep $APP $DIR/dp.cfg || echo $APP >> $DIR/dp.cfg;;
->>>>>>> 1748fd0fc10043a22bf9843243a61615696c6405
 				esac;;
 			esac
 		done
