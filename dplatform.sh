@@ -12,9 +12,9 @@ DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
 # Test if cuby responds
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 2)
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
 # Else use this site
-[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 2)
+[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
 [ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
 You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
 
@@ -85,7 +85,7 @@ Howewer, it might not work depending of your local DNS configuration. \
 You can always use the local IP of your server $LOCALIP in your local network" 10 64
 			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
 
-		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening $IP in your browser." 8 64
+		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening >| $IP < in your browser." 8 64
 			sed -i "/URL=/URL=IP/d" dp.cfg 2>/dev/null || echo "URL=IP" > dp.cfg;;
 	esac
 }
@@ -211,7 +211,11 @@ apps_menus() {
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
+<<<<<<< HEAD
+					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg;;
+=======
 					$APP) . apps/$APP.sh; grep $APP $DIR/dp.cfg || echo $APP >> $DIR/dp.cfg;;
+>>>>>>> 1748fd0fc10043a22bf9843243a61615696c6405
 				esac;;
 			esac
 		done

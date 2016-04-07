@@ -26,4 +26,4 @@ then
   cp ~/meteor/meteor /bin
 fi
 
-grep Meteor $DIR/dp.cfg || echo Meteor >> $DIR/dp.cfg
+grep Meteor $DIR/dp.cfg 2>/dev/null || echo Meteor >> $DIR/dp.cfg

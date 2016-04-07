@@ -11,4 +11,4 @@ else
 fi
 
 echo Docker installed
-grep Docker dp.cfg || echo Docker >> dp.cfg
+grep Docker dp.cfg 2>/dev/null || echo Docker >> dp.cfg

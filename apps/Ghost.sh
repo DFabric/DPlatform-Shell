@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && sh sysutils/services.sh remove Ghost && rm -rf /var/www/ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -29,6 +29,7 @@ cp config.example.js config.js
 sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
 
 # Change the owner from root to ghost
+useradd ghost
 chown -R ghost:ghost /var/www/ghost
 
 # Add SystemD process and run the server
