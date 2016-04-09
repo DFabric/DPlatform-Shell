@@ -17,7 +17,8 @@ fi
 
 cd
 # Install Requirements
-$install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
+$install libcairo2-dev libpango1.0-dev libgif-dev build-essential g++
+$install libjpeg8-dev || $install libjpeg62-dev 
 
 # Install EtherDraw
 git clone https://github.com/JohnMcLear/draw

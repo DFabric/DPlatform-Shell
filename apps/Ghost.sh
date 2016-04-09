@@ -1,7 +1,12 @@
 #!/bin/sh
 
+#http://support.ghost.org/installing-ghost-linux/
+#http://support.ghost.org/how-to-upgrade/
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
+
+# Define port
+port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
 
 . sysutils/NodeJS.sh
 
@@ -26,7 +31,9 @@ npm install --production
 
 ## Configure Ghost
 cp config.example.js config.js
-sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/g" config.js
+sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/" config.js
+sed -i "s/url: 'my-ghost-blog.com',/url: '$IP:$port',/" config.js
+sed -i "s/port: '2368'/port: '$IP:$port',/" config.js
 
 # Change the owner from root to ghost
 useradd ghost
@@ -55,5 +62,5 @@ systemctl enable ghost
 
 whiptail --msgbox "Ghost installed!
 
-Visit http://$URL:2368 to see your newly setup Ghost blog
-Visit http://$URL:2368/ghost and create your admin user to login to the Ghost admin" 12 64
+Visit http://$URL:$port to see your newly setup Ghost blog
+Visit http://$URL:$port/ghost and create your admin user to login to the Ghost admin" 12 64

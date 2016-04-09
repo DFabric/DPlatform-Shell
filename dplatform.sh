@@ -112,20 +112,18 @@ No other symbols, punctuation characters, or blank spaces are permitted." 12 64
 apps_menus() {
 	if [ $1 = update ] || [ $1 = remove ]
 	then
+		while
 		# Reset previous apps_choice variable
 		apps_choice=
-		if [ $1 = update ]
-			then apps_choice="Update Syncronize_new_packages_available"
-		fi
+		[ $1 = update ] && apps_choice="Update Syncronize_new_packages_available"
 
 		# Read dp.cfg to create entries
 		while read app
 		do
 			[ "$app" = "$(grep URL= dp.cfg)" ] || apps_choice="$apps_choice $app $1_$app"
 		done < dp.cfg
-
 		# Update and remove menu
-		while APP=$(whiptail --title "DPlatform - $1 menu" --menu "
+		APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
 		do
 			cd $DIR
@@ -229,13 +227,13 @@ then
 	configOption=" Raspberry_Pi_Configuration_Tool"
 fi
 
-# Main menu
 while
 # Recuperate the URL variable from dp.cfg
 case $(grep URL= dp.cfg) in
 	URL=hostname) URL=`hostname`; IP=$LOCALIP;;
 	URL=IP) URL=$IP;;
 esac
+# Main menu
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
 Your can access to your apps by opening this address in your browser:
 		>| http://$URL(:port) |<" 18 80 8 \
