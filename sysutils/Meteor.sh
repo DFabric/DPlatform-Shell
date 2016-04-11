@@ -21,9 +21,6 @@ then
 
   # Set an alias
   alias meteor="$HOME/meteor/meteor"
-
-  # Copy meteor binary to /bin
-  cp ~/meteor/meteor /bin
 fi
 
 grep Meteor $DIR/dp.cfg 2>/dev/null || echo Meteor >> $DIR/dp.cfg
