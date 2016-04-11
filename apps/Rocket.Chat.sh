@@ -23,9 +23,8 @@ cd
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ]
 then
-  [ hash node 2>/dev/null ] && whiptail --yesno "You have already NodeJS installed (node -v)
-Due to the need to install a special NodeJS 0.10.40 version bundled with Meteor,
-you need to remove yours before the installation to avoid conflicts. Remove NodeJS?" 12 64
+  [ hash node 2>/dev/null ] || whiptail --yesno "You have already NodeJS $(node -v) installed
+Due to the need to install a special bundle with NodeJS 0.10.40 and Meteor, we highly recommend you to remove your actual NodeJS before the installation to avoid conflicts. Remove NodeJS?" 12 64
   [ $? = 0 ] && $remove nodejs
   $install python make g++
 
@@ -124,5 +123,5 @@ Open http://$URL:$port in your browser and register.
 The first users to register will be promoted to administrator.
 
 === IMPORTANT WARNING ===
-NodeJS version: Please DONT install an other/newer version of NodeJS, it will conflict with this one installed. If you need NodeJS/npm, use '~/meteor/dev_bundle/bin/npm'
-Bug on ARM: Rocket.Chat will start at boot and always running until you remove it. Please don't try to change it in App Service Manager, it can be run twice." 16 72
+\> NodeJS version: Please DONT install a new version of NodeJS, it will conflict with this one installed. If you need NodeJS/npm, use '~/meteor/dev_bundle/bin/npm'
+\> Bug on ARM: Rocket.Chat will start at boot and will always be running until you remove it. Please don't try to change it in App Service Manager, it can be run twice." 18 80
