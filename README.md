@@ -58,7 +58,7 @@
  - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
- - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app
+ - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app - Installed thanks [WP Quick Install](http://wp-quick-install.com/)
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
 
 ## Install

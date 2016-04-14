@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && [ $ARCH = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && break
-[ $1 = remove ] && whiptail --msgbox "Not availabe yet!" 8 32 && echo Meteor >> dp.cfg && break
+[ $1 = remove ] && rm -rf ~/.meteor && rm /usr/local/bin/meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
 
 # Install Meteor
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]

@@ -209,7 +209,7 @@ apps_menus() {
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$APP) . apps/$APP.sh || whiptail --msgbox "There was an error during the $APP installation" 8 48; grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg;;
+					$APP) . apps/$APP.sh && (grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg);;
 				esac;;
 			esac
 		done

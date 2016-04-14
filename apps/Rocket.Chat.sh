@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] || [ $1 = remove ] && rm -rf /home/rocketchat/Rocket.Chat
-[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && rm rf ~/.meteor /homme/rocketchat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -25,10 +25,6 @@ cd /home/rocketchat
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ]
 then
-  [ hash node 2>/dev/null ] || whiptail --yesno "You have already NodeJS $(node -v) installed
-Due to the need to install a special bundle with NodeJS 0.10.40 and Meteor, we highly recommend you to remove your actual NodeJS before the installation to avoid conflicts. Remove NodeJS?" 12 64
-  [ $? = 0 ] && $remove nodejs
-
   # Install Meteor
   # https://github.com/4commerce-technologies-AG/meteor
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor
@@ -47,17 +43,18 @@ Due to the need to install a special bundle with NodeJS 0.10.40 and Meteor, we h
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
-  # Install Meteor
-  curl https://install.meteor.com | /bin/sh
-
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
+
+  # Install Meteor
+  . $DIR/sysutils/Meteor.sh
+  cp ~/.meteor /homme/rocketchat
 
   # Install a tool to let us change the node version.
   npm install -g n
 
   # Meteor needs at least this version of node to work.
-  n 0.10.43
+  n 0.10.44
 
   ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat
@@ -71,7 +68,8 @@ tar zxvf rocket.chat.tgz
 mv bundle Rocket.Chat
 # Install dependencies and start Rocket.Chat
 cd /home/rocketchat/Rocket.Chat/programs/server
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install
+
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install -g npm && npm install
 [ $ARCH = arm ] && /home/rocketchat/meteor/dev_bundle/bin/npm install
 
 rm rocket.chat.tgz
@@ -103,12 +101,12 @@ then
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
 fi
 
-# Change the owner from root to rocketchat
-chown -R rocketchat:rocketchat /home/rocketchat
-
 # Create the SystemD service
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/bin/node
 [ $ARCH = arm ] && node=/home/rocketchat/meteor/dev_bundle/bin/node
+
+# Change the owner from root to rocketchat
+chown -R rocketchat:rocketchat /home/rocketchat
 
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
@@ -132,19 +130,10 @@ EOF
 
 # Start the service and enable it to start up on boot
 systemctl start rocket.chat
-[ $ARCH != arm ] && systemctl enable rocket.chat
+systemctl enable rocket.chat
 
 [ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat installed!
 
 Open http://$URL:$port in your browser and register.
 
 The first users to register will be promoted to administrator." 12 64
-
-[ $ARCH = arm ] && whiptail --msgbox "Rocket.Chat installed!
-
-Open http://$URL:$port in your browser and register.
-The first users to register will be promoted to administrator.
-
-=== IMPORTANT WARNING ===
-\> NodeJS version: Please DONT install a new version of NodeJS, it will conflict with this one installed. If you need NodeJS/npm, use '/home/rockechat/meteor/dev_bundle/bin/npm'
-\> Bug on ARM: Rocket.Chat will start at boot and will always be running until you remove it. Please don't try to change it in App Service Manager, it can be run twice." 18 80
