@@ -63,16 +63,16 @@ then
 else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
 fi
+# Extract the archive and remove it
 tar zxvf rocket.chat.tgz
+rm rocket.chat.tgz
 
 mv bundle Rocket.Chat
 # Install dependencies and start Rocket.Chat
-cd /home/rocketchat/Rocket.Chat/programs/server
+cd Rocket.Chat/programs/server
 
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install -g npm && npm install
 [ $ARCH = arm ] && /home/rocketchat/meteor/dev_bundle/bin/npm install
-
-rm rocket.chat.tgz
 
 # Setup ReplicaSet
 if [ "$ReplicaSet" = on ]

@@ -14,12 +14,12 @@ service_detection() {
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
 
     # Correct the service name of the app
-    [ $service = mumble ] && service=mumble-server
+    [ $service = mumble ] && service_list="$service_list mumble-server ${service_description#*=}[$(systemctl is-active mumble-server)]$(systemctl is-enabled mumble-server)"
     [ $service = deluge ] && service=deluged
     # Only create an entry for existing services
     if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
     then
-      # Concatenate each service into a list
+      # Concatenate the service into a list
       service_list="$service_list $service ${service_description#*=}[$(systemctl is-active $service)]$(systemctl is-enabled $service)"
     fi
     # Add related services to the app

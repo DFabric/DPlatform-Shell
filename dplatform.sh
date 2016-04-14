@@ -112,7 +112,6 @@ No other symbols, punctuation characters, or blank spaces are permitted." 12 64
 apps_menus() {
 	if [ $1 = update ] || [ $1 = remove ]
 	then
-		while
 		# Reset previous apps_choice variable
 		apps_choice=
 		[ $1 = update ] && apps_choice="Update Syncronize_new_packages_available"
@@ -125,8 +124,6 @@ apps_menus() {
 		# Update and remove menu
 		APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
-		do
-			cd $DIR
 			# Confirmation message
 			whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
@@ -142,7 +139,7 @@ apps_menus() {
 				Node.js) . sysutils/NodeJS.sh $1;;
 				$APP) . apps/$APP.sh $1;;
 			esac
-		done
+		cd $DIR
 	else
 		# Installation menu
 		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "
@@ -202,14 +199,14 @@ apps_menus() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) cd $DIR
+				0)
 				case $APP in
 					Caddy) . sysutils/Caddy.sh;;
 					Docker) . sysutils/Docker.sh;;
 					Meteor) . sysutils/Meteor.sh;;
 					MongoDB) . sysutils/MongoDB.sh;;
 					Node.js) . sysutils/NodeJS.sh;;
-					$APP) . apps/$APP.sh && (grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg);;
+					$APP) . apps/$APP.sh && cd $DIR && (grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg);;
 				esac;;
 			esac
 		done
@@ -250,7 +247,7 @@ do
 		"Install apps") apps_menus install;;
 		"Update") apps_menus update;;
 		"Remove apps") apps_menus remove;;
-		"Apps Service Manager") . $DIR/sysutils/services.sh;;
+		"Apps Service Manager") . sysutils/services.sh;;
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
 		"About") whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
