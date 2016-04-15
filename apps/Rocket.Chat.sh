@@ -48,7 +48,6 @@ then
 
   # Install Meteor
   . $DIR/sysutils/Meteor.sh
-  cp ~/.meteor /homme/rocketchat
 
   # Install a tool to let us change the node version.
   npm install -g n
@@ -71,7 +70,7 @@ mv bundle Rocket.Chat
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && npm install -g npm && npm install
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
 [ $ARCH = arm ] && /home/rocketchat/meteor/dev_bundle/bin/npm install
 
 # Setup ReplicaSet
@@ -102,7 +101,7 @@ Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
 fi
 
 # Create the SystemD service
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/bin/node
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
 [ $ARCH = arm ] && node=/home/rocketchat/meteor/dev_bundle/bin/node
 
 # Change the owner from root to rocketchat
@@ -119,7 +118,7 @@ StandardOutput=syslog
 SyslogIdentifier=RocketChat
 WorkingDirectory=/home/rocketchat/Rocket.Chat
 ExecStart=$node main.js
-Environment=ROOT_URL=http://$URL:$port/ PORT=$port
+Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
 User=rocketchat
 Group=rocketchat
