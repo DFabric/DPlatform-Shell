@@ -29,7 +29,7 @@ elif [ $ARCH = arm ]
 then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
-  
+
   wget https://cdn.gogs.io/gogs_v${ver}_raspi2.zip
   unzip gogs_v${ver}_raspi2.zip
   rm gogs_v${ver}_raspi2.zip
@@ -52,6 +52,7 @@ $IP {
     }
     root /home/git/gogs/public
 }
+
 EOF
   systemctl caddy restart
 fi

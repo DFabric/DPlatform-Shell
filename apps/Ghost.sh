@@ -37,7 +37,7 @@ sed -i "s/port: '2368'/port: '$IP:$port',/" config.js
 
 # Change the owner from root to ghost
 useradd ghost
-chown -R ghost:ghost /var/www/ghost
+chown -R ghost /var/www/ghost
 
 # Add SystemD process and run the server
 cat > "/etc/systemd/system/ghost.service" <<EOF
@@ -50,7 +50,6 @@ WorkingDirectory=/var/www/ghost
 Environment=NODE_ENV=production
 ExecStart=/usr/bin/npm start
 User=ghost
-Group=ghost
 Restart=always
 [Install]
 WantedBy=multi-user.target

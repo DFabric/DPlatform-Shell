@@ -1,16 +1,16 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && userdel -r wordpress && whiptail --msgbox && (rm /etc/nginx/sites-*/wordpress; systemctl nginx restart) && "WordPress removed!" 8 32 && break
+[ $1 = remove ] && userdel wordpress && whiptail --msgbox && (rm /etc/nginx/sites-*/wordpress; systemctl nginx restart) && "WordPress removed!" 8 32 && break
 
 
 # Define port
-port=$(whiptail --title "WordPress port" --inputbox "Set a port number for WordPress" 8 48 "80" 3>&1 1>&2 2>&3)
+port=$(whiptail --title "WordPress port" --inputbox "Set a port number for WordPress" 8 48 "8089" 3>&1 1>&2 2>&3)
 
-$install php7 mariadb-server || $install php5 mariadb-server
+$install mariadb-server php5-mysql php5-fpm
 
 # Add WordPress user
-useradd -m wordpress
+useradd wordpress
 
 mkdir -p /var/www/wordpress
 cd /var/www/wordpress
@@ -18,14 +18,21 @@ git clone https://github.com/GeekPress/WP-Quick-Install
 php WP-Quick-Install/index.php
 
 # Change the owner from root to laverna
-chown -R wordpress:wordpress /var/www/wordpress
+chown -R wordpress /var/www/wordpress
 
 if hash caddy 2>/dev/null
 then
  cat >> /etc/caddy/Caddyfile <<EOF
-$IP {
-   root /var/www/wordpress
+$IP:$port {
+  root /var/www/wordpress
+  gzip
+  fastcgi / 127.0.0.1:9000 php
+  rewrite {
+    if {path} not_match ^\/wp-admin
+    to {path} {path}/ /index.php?_url={uri}
+  }
 }
+
 EOF
 systemctl restart caddy
 elif
@@ -34,7 +41,7 @@ then
  # Create Nginx configuration file
  cat > /etc/nginx/sites-available/wordpress <<EOF
  server {
-   listen 80 default_server;
+   listen $port default_server;
 
    root /var/www/wordpress;
    index index.php index.html index.htm;
@@ -71,4 +78,4 @@ systemctl nginx restart
 
 whiptail --msgbox "WordPress installed!
 
-Open http://$URL in your browser!" 10 64
+Open http://$URL:$port in your browser!" 10 64

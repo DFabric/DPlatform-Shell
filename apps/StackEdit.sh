@@ -1,22 +1,37 @@
 #!/bin/sh
 
+if [ $1 = update ]
+then
+  cd /home/stackedit
+  git pull
+  whiptail --msgbox "StackEdit updated!" 8 32
+  break
+fi
+[ $1 = remove ] && sh sysutils/services.sh remove StackEdit && userdel -r stackedit && whiptail --msgbox "StackEdit removed!" 8 32 && break
+
 # Define port
 port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)
 
 . sysutils/NodeJS.sh
 
-# Pre-requisites
-cd
-git clone https://github.com/benweet/stackedit
-npm i -g gulp bower
+# Create a git user
+useradd -m stackedit
 
-cd stackedit
+# Go to its directory
+cd /home/stackedit
+
+# Pre-requisites
+git clone https://github.com/benweet/stackedit .
+npm i -g gulp bower
 
 # Download development tools
 npm install
 
 # Download dependencies
 bower install --allow-root
+
+# Change the owner from root to git
+chown -R stackedit /home/stackedit
 
 # Add SystemD process
 cat > /etc/systemd/system/stackedit.service <<EOF
@@ -25,10 +40,10 @@ Description=StackEdit Server
 After=network.target
 [Service]
 Type=simple
-WorkingDirectory=$HOME/stackedit
+WorkingDirectory=/home/stackedit
 Environment=PORT=$port
-ExecStart=/usr/bin/node $HOME/stackedit/server.js
-User=$USER
+ExecStart=/usr/bin/node /home/stackedit/server.js
+User=stackedit
 Restart=always
 [Install]
 WantedBy=multi-user.target

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Remove the old server executables
-[ $1 = update ] || [ $1 = remove ] && rm -rf /home/rocketchat/Rocket.Chat
-[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && rm rf ~/.meteor /homme/rocketchat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = update ] && systemctl stop rocket.chat && rm -rf /home/rocketchat/Rocket.Chat
+[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -17,9 +17,10 @@ whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
 ## Install Dependencies
 # SYSTEM CONFIGURATION
 
-# Add Laverna user
+# Add rocketchat user
 useradd -m rocketchat
 
+# Go to rocketchat user directory
 cd /home/rocketchat
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
@@ -62,6 +63,7 @@ then
 else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
 fi
+
 # Extract the archive and remove it
 tar zxvf rocket.chat.tgz
 rm rocket.chat.tgz
@@ -100,13 +102,13 @@ then
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
 fi
 
-# Create the SystemD service
+# Change the owner from root to rocketchat
+chown -R rocketchat /home/rocketchat
+
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
 [ $ARCH = arm ] && node=/home/rocketchat/meteor/dev_bundle/bin/node
 
-# Change the owner from root to rocketchat
-chown -R rocketchat:rocketchat /home/rocketchat
-
+# Create the SystemD service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
 Description=Rocket.Chat Server
@@ -121,13 +123,12 @@ ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
 User=rocketchat
-Group=rocketchat
 Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
 
-# Start the service and enable it to start up on boot
+# Start the service and enable it to start on boot
 systemctl start rocket.chat
 systemctl enable rocket.chat
 

@@ -15,7 +15,7 @@ port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna
 # Install unzip if not installed
 hash unzip 2>/dev/null || $install unzip
 
-# Add Laverna user
+# Add laverna user
 useradd -m laverna
 
 # Go to its directory
@@ -25,7 +25,7 @@ cd /home/laverna
 git clone https://github.com/Laverna/static-laverna
 
 # Change the owner from root to laverna
-chown -R laverna:laverna /home/laverna/static-laverna
+chown -R laverna /home/laverna/static-laverna
 
 
 if hash caddy 2>/dev/null
@@ -35,6 +35,7 @@ $IP {
     root /home/laverna/static-laverna
     log /home/laverna/laverna.log
 }
+
 EOF
 systemctl restart caddy
 elif

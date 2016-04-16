@@ -71,7 +71,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	# Start the service and enable it to start up on boot
+	# Start the service and enable it to start on boot
 	systemctl start seafile
 	systemctl enable seafile
 	./home/seafile/seafile-server-latest/seahub.sh start $port
@@ -91,7 +91,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	# Start the service and enable it to start up on boot
+	# Start the service and enable it to start on boot
 	systemctl start seahub
 	systemctl enable seahub
 

@@ -54,9 +54,9 @@
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
- - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform - Deployed thanks to [taiga-scripts](https://github.com/taigaio/taiga-scripts)
+ - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform
  - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
- - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application - Deployed thanks to https://github.com/anselal/wekan
+ - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
  - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app - Installed thanks [WP Quick Install](http://wp-quick-install.com/)
  - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
@@ -75,9 +75,10 @@ Next times, only run this last command for DPlatform
 
 ## Requirements
 
-A recent GNU/Linux operating system with **SystemD** is highly recommended:
+A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have a custom SytemdD service.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
+If you use Ubuntu 14.04.x, you can switch to SystemD instead the default Upstart else you won't have most of custom apps services. 
 
 CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 

@@ -23,7 +23,7 @@ elif [ $PKG = pkg ]
   systemctl start postgresql
   systemctl enable postgresql
 else
-  exit
+  break
 fi
 
 ## Set up the database
@@ -42,6 +42,7 @@ gem install bundler
 # We will also need foreman to run our app
 gem install foreman
 
+cd /home/stringer
 # Install Stringer and set it up
 # Grab Stringer from github
 git clone https://github.com/swanson/stringer
@@ -60,6 +61,7 @@ source ~/.bash_profile
 # Tell stringer to run the database in production mode, using the postgres database you created earlier.
 rake db:migrate RACK_ENV=production
 
+# Change the owner from root to stringer
 chmod -R stringer /home/stringer
 
 # Run the application:
@@ -72,4 +74,4 @@ PATH=/bin/ruby:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
 
 whiptail --msgbox "Stringer installed!
 
-Open http://$URL:5000 in your browser" 12 64
+Open http://$URL:5000 in your browser" 10 64

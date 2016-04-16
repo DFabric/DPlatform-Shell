@@ -54,7 +54,9 @@ fi
 if grep "$1" /etc/caddy/Caddyfile
 then
   # Remove the app entry from the Caddyfile
-  sed "/$1,/}/d" /etc/caddy/Caddyfile
+  sed "/$1,/
+
+/d" /etc/caddy/Caddyfile
 
   # Restart Caddy to apply the changes
   systemctl restart caddy
@@ -66,6 +68,7 @@ then
 $IP {
     proxy / localhost:$1
 }
+
 EOF
   # Restart Caddy to apply the changes
   systemctl restart caddy

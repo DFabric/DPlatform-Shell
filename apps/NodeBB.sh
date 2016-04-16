@@ -8,7 +8,7 @@ then
   whiptail --msgbox "NodeBB updated and upgraded!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove NodeBB && rm -rf nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -36,12 +36,16 @@ else
   DB=redis
 fi
 
+# Create a nodebb user
+useradd -m nodebb
+
+# Go to its directory
+cd /home/nodebb
+
 # Clone the repository
-cd
-git clone -b v1.x.x https://github.com/NodeBB/NodeBB nodebb
+git clone -b v1.x.x https://github.com/NodeBB/NodeBB .
 
 # Obtain all dependencies required by NodeBB via NPM
-cd nodebb
 npm install --production
 
 # Install NodeBB by running the app with –setup flag
@@ -66,6 +70,9 @@ EOF
 # In Centos6/7 allowing port through the firewall is needed
 [ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
+# Change the owner from root to nodebb
+chown -R nodebb /home/nodebb
+
 # Add SystemD process
 cat > /etc/systemd/system/nodebb.service <<EOF
 [Unit]
@@ -73,9 +80,9 @@ Description=NodeBB Forum Server
 After=network.target $DB.service
 [Service]
 Type=simple
-WorkingDirectory=$HOME/nodebb
-ExecStart=/usr/bin/node $HOME/nodebb/app.js
-User=$USER
+WorkingDirectory=/home/nodebb
+ExecStart=/usr/bin/node /home/nodebb/app.js
+User=nodebb
 Restart=always
 [Install]
 WantedBy=multi-user.target

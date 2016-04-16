@@ -16,15 +16,10 @@ IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
 # Else use this site
 [ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
 [ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
-You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
-
-# Check if a new version is available
-[ "$IPv4" = "" ] || git pull
+You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48 || git pull # Check available updates
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-# Set default IP to IPv4 unless IPv6 is available
-[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 
 # Detect distribution
 . /etc/os-release
@@ -180,15 +175,15 @@ apps_menus() {
 		netdata "Real-time performance monitoring, in the greatest possible detail" \
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
-		ReactionCommerce "/!\ Modern reactive, real-time event driven ecommerce platform" \
+		ReactionCommerce "|~| Modern reactive, real-time event driven ecommerce platform" \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
-		Stringer "|~| A self-hosted, anti-social RSS reader" \
+		Stringer "/!\ A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
 		Transmission "A cross-platform BitTorrent client that is easy and powerful use" \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
-		Wekan "/!\ Collaborative Trello-like kanban board application" \
+		Wekan "Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
 		WordPress "/!\ Create a beautiful website, blog, or app" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
@@ -228,7 +223,7 @@ while
 # Recuperate the URL variable from dp.cfg
 case $(grep URL= dp.cfg) in
 	URL=hostname) URL=`hostname`; IP=$LOCALIP;;
-	URL=IP) URL=$IP;;
+	URL=IP) URL=$IP; [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6];; # Set default IP to IPv4 unless IPv6 is available
 esac
 # Main menu
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
@@ -253,10 +248,10 @@ do
 		"About") whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
 		https://github.com/j8r/DPlatform
 
-		- Your domain/host name: `hostname`
-		- Your local IPv4: $LOCALIP
-		- Your public IPv4: $IPv4
-		- Your IPv6: $IPv6
+		- Domain/host name: `hostname`
+		- Local IPv4: $LOCALIP
+		- Public IPv4: $IPv4
+		- IPv6: $IPv6
 		Your OS: $PRETTY_NAME $(uname -m)
 
 Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64;;
