@@ -2,12 +2,12 @@
 
 if [ $1 = update ]
 then
-  cd /home/laverna/static-laverna
+  cd /var/www/static-laverna
   git pull
   whiptail --msgbox "Laverna updated!" 8 32
   break
 fi
-[ $1 = remove ] && userdel -r laverna && whiptail --msgbox && (rm /etc/nginx/sites-*/laverna; systemctl nginx restart) && "Laverna removed!" 8 32 && break
+[ $1 = remove ] && /var/www/static-laverna && whiptail --msgbox && (rm /etc/nginx/sites-*/laverna; systemctl restart nginx) && "Laverna removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)
@@ -15,37 +15,32 @@ port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna
 # Install unzip if not installed
 hash unzip 2>/dev/null || $install unzip
 
-# Add laverna user
-useradd -m laverna
-
 # Go to its directory
-cd /home/laverna
+cd /home/var/www
 
 #  Clone the prebuilt static version
 git clone https://github.com/Laverna/static-laverna
 
-# Change the owner from root to laverna
-chown -R laverna /home/laverna/static-laverna
-
+# Change the owner from root to www-data
+chown -R www-data:www-data /var/www/static-laverna
 
 if hash caddy 2>/dev/null
 then
   cat >> /etc/caddy/Caddyfile <<EOF
-$IP {
-    root /home/laverna/static-laverna
-    log /home/laverna/laverna.log
+$IP:$port {
+    root /var/www/static-laverna
+    log /var/log/laverna.log
 }
 
 EOF
 systemctl restart caddy
-elif
-then
+else
   $install nginx
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/laverna <<EOF
 server  {
     listen $port;
-    root /home/laverna/static-laverna;
+    root /var/www/static-laverna;
     index index.html;
     server_name \$hostname;
     error_log /var/log/nginx/laverna.log warn;
@@ -64,9 +59,9 @@ EOF
 ln -s /etc/nginx/sites-available/laverna /etc/nginx/sites-enabled/laverna
 
 # Delete the default nginx server block
-rm /etc/nginx/sites-enabled/default
+rm -f /etc/nginx/sites-enabled/default
 # Reload Nginx
-systemctl nginx restart
+systemctl restart nginx
 fi
 whiptail --msgbox "Laverna installed!
 

@@ -1,0 +1,56 @@
+#!/bin/sh
+
+if [ $1 = update ]
+then
+  cd /home/feedbin
+  git pull
+  whiptail --msgbox "Feedbin updated!" 8 32
+  break
+fi[ $1 = remove ] && sh sysutils/services.sh remove Feedbin && userdel -r feedbin && whiptail --msgbox "Feedbin removed!" 8 32 && break
+
+# https://github.com/feedbin/feedbin/blob/master/doc/INSTALL-fedora.md
+
+# Feedbin Dependencies
+# Install a bunch of dependencies
+[ $PKG = rpm ] && $install gcc gcc-c++ git libcurl-devel libxml2-devel libxslt-devel postgresql postgresql-server postgresql-contrib postgresql-devel rubygems ruby-devel rubygem-bundler ImageMagick-devel opencv-devel
+[ $PKG = deb ] && $install gcc g++  libcurl4-openssl-dev libxml2-dev libxslt-dev postgresql postgresql-contrib postgresql-dev rubygems ruby-dev ruby-bundler libmagick++-6.q16-dev libopencv-dev
+
+# Create a feedbin user
+useradd -m feedbin
+
+# Go to its directory
+cd /home/feedbin
+
+# Get Feedbin
+git clone https://github.com/feedbin/feedbin .
+
+# Install Ruby dependencies
+bundle
+
+# Start the service
+
+systemctl start postgresql
+
+# If you want PostgreSQL to auto-start
+systemctl enable postgresql
+
+# Create a PostgreSQL users
+sudo -u postgres createuser feedbin
+
+# Make yourself a PostgreSQL admin
+sudo -u postgres createuser -s $USER
+
+# Setup databases:
+# In the feedbin directory
+rake db:setup
+
+# Change the owner from root to feedbin
+chown -R feedbin /home/feedbin
+
+# Run Feedbin
+bundle exec foreman start & rackup
+
+whiptail --msgbox "Feedbin installed!
+
+Open http://$URL:9292 in your browser,
+select SQlite and complete the installation." 10 64

@@ -157,6 +157,7 @@ apps_menus() {
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
 		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
+		FreshRSS "A free, self-hostable aggregator" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
@@ -185,7 +186,7 @@ apps_menus() {
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "Collaborative Trello-like kanban board application" \
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
-		WordPress "/!\ Create a beautiful website, blog, or app" \
+		WordPress "Create a beautiful website, blog, or app" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
 		3>&1 1>&2 2>&3)
 		do

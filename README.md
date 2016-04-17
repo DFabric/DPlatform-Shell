@@ -33,6 +33,7 @@
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
  - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
+ - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
@@ -78,7 +79,7 @@ Next times, only run this last command for DPlatform
 A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have a custom SytemdD service.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
-If you use Ubuntu 14.04.x, you can switch to SystemD instead the default Upstart else you won't have most of custom apps services. 
+If you use Ubuntu 14.04.x, you can switch to SystemD instead the default Upstart else you won't have most of custom apps services.
 
 CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
