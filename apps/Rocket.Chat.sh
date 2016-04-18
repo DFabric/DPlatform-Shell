@@ -66,9 +66,9 @@ fi
 
 # Extract the archive and remove it
 tar zxvf rocket.chat.tgz
-rm rocket.chat.tgz
 
 mv bundle Rocket.Chat
+rm rocket.chat.tgz
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 

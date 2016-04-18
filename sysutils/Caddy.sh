@@ -54,8 +54,7 @@ fi
 if grep "$1" /etc/caddy/Caddyfile
 then
   # Remove the app entry from the Caddyfile
-  sed "/$1,/
-
+  sed "/$1/,/}
 /d" /etc/caddy/Caddyfile
 
   # Restart Caddy to apply the changes

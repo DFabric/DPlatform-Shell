@@ -161,7 +161,7 @@ apps_menus() {
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
-		JS_Bin "Collaborative JavaScript Debugging App" \
+		JSBin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
 		Laverna "Note taking application with Mardown editor and encryption" \
 		LetsChat "Self-hosted chat app for small teams" \

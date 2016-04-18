@@ -3,22 +3,11 @@
 [ $1 = update ] && systemctl stop wekan && rm -rf /home/wekan/bundle
 [ $1 = remove ] && sh sysutils/services.sh remove Wekan && userdel -r wekan && whiptail --msgbox "Wekan removed!" 8 32 && break
 
-# ARM architecture doesn't appear to work
-[ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
-[ $? != 0 ] || break
-
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
 . sysutils/MongoDB.sh
-. sysutils/NodeJS.sh
-
-# Install a tool to let us change the node version.
-npm install -g n
-
-# Meteor needs at least this version of node to work.
-n 0.10.44
 
 # Add wekan user
 useradd -m wekan
@@ -35,14 +24,55 @@ ver=${ver#*v}
 wget https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz
 # Extract the archive and remove it
 tar zxvf wekan-$ver.tar.gz
+
+mv bundle Wekan
 rm wekan-$ver.tar.gz
 
+if [ $ARCH = arm ]
+then
+  # Install Meteor
+  # https://github.com/4commerce-technologies-AG/meteor
+  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor
+
+  # Fix curl CA error
+  echo insecure > ~/.curlrc
+  # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
+  meteor/meteor -v
+  rm ~/.curlrc
+
+  $install python make g++
+
+  # Reinstall bcrypt and bson to a newer version is needed
+  cd /home/wekan/Wekan/programs/server/npm/npm-bcrypt && /home/wekan/meteor/dev_bundle/bin/npm uninstall bcrypt && /home/wekan/meteor/dev_bundle/bin/npm install bcrypt
+  cd /home/wekan/Wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /home/wekan/meteor/dev_bundle/bin/npm uninstall bson && /home/wekan/meteor/dev_bundle/bin/npm install bson
+elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
+then
+  $install graphicsmagick
+  . $DIR/sysutils/NodeJS.sh
+
+  # Install Meteor
+  . $DIR/sysutils/Meteor.sh
+
+  # Install a tool to let us change the node version.
+  npm install -g n
+
+  # Meteor needs at least this version of node to work.
+  n 0.10.44
+else
+    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
+fi
+
 # Move to the server directory and install the dependencies:
-cd bundle/programs/server
-/usr/local/n/versions/node/0.10.44/bin/npm install
+cd /home/wekan/Wekan/programs/server
+
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
+[ $ARCH = arm ] && /home/wekan/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan
 chown -R wekan /home/wekan
+
+[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
+[ $ARCH = arm ] && node=/home/wekan/meteor/dev_bundle/bin/node
 
 # Create the SystemD service
 cat > "/etc/systemd/system/wekan.service" <<EOF
@@ -52,12 +82,11 @@ Wants=mongodb.service
 After=network.target mongodb.service
 [Service]
 Type=simple
-WorkingDirectory=/home/wekan/bundle
-ExecStart=/usr/local/n/versions/node/0.10.44/bin/node main.js
+WorkingDirectory=/home/wekan/Wekan
+ExecStart=$node main.js
 Environment=MONGO_URL=mongodb://127.0.0.1:27017/wekan
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 User=wekan
-Group=wekan
 Restart=always
 [Install]
 WantedBy=multi-user.target

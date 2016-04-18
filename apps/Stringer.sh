@@ -68,7 +68,7 @@ chmod -R stringer /home/stringer
 foreman start
 
 # Set up a cron job to parse the rss feeds.
-sudo -u stringer crontab -l | { cat; echo "SHELL=/bin/sh
+crontab -u stringer -l | { cat; echo "SHELL=/bin/sh
 PATH=/bin/ruby:/bin/:/usr/bin:/usr/local/bin/:/usr/local/sbin
 */10 * * * *  source $HOME/.bash_profile; cd $HOME/stringer/; bundle exec rake fetch_feeds;"; } | crontab -
 
