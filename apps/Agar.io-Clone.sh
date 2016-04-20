@@ -2,16 +2,21 @@
 
 if [ $1 = update ]
 then
-  cd ~/agar.io-clone
+  cd /home/agario/agar.io-clone
   git pull
   whiptail --msgbox "Agar.io Clone updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove Agar.io-Clone && rm -rf ~/agar.io-clone && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove Agar.io-Clone && userdel -r agario && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
+
+# Add agario user
+useradd -m agario
+
+# Go to etherpad user directory
+cd /home/agario
 
 . sysutils/NodeJS.sh
 
-cd
 # Cloning the source code from Github
 git clone https://github.com/huytd/agar.io-clone
 
@@ -20,8 +25,27 @@ cd agar.io-clone
 # Download all the dependencies (socket.io, express, etc.)
 npm install
 
-# Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Agar.io-Clone "/usr/bin/npm start" $HOME/agar.io-clone
+# Change the owner from root to agario
+chown -R agario /home/agario
+
+# Create the SystemD service
+cat > "/etc/systemd/system/etherdraw.service" <<EOF
+[Unit]
+Description=Agar.io Clone Game Server
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/home/agario/agar.io-clone
+ExecStart=/usr/bin/npm start
+User=agario
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start the service and enable it to start on boot
+systemctl start agario
+systemctl enable agario
 
 whiptail --msgbox "Agar.io Clone installed!
 

@@ -13,15 +13,15 @@ whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
 --yes-button No --no-button Yes
 [ $? = 1 ] && ReplicaSet=on
 
-. sysutils/MongoDB.sh
-## Install Dependencies
-# SYSTEM CONFIGURATION
-
 # Add rocketchat user
 useradd -m rocketchat
 
 # Go to rocketchat user directory
 cd /home/rocketchat
+
+## Install Dependencies
+# SYSTEM CONFIGURATION
+. sysutils/MongoDB.sh
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ]

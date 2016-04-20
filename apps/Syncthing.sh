@@ -4,6 +4,8 @@
 [ $1 = remove ] && [ $PKG = deb ] sh sysutils/services.sh remove Syncthing && $remove syncthing && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 [ $1 = remove ] && sh sysutils/services.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 
+[ $IP = $LOCALIP ] && access=$IP || access=
+
 if [ $PKG = deb ]
 then
   # Add the release PGP keys:
@@ -17,7 +19,7 @@ then
   $install syncthing
 
   # Access the web GUI from other computers
-  sed -i 's/127.0.0.1:8384/:8384/g' ~/.config/syncthing/config.xml
+  sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
   sh sysutils/services.sh Syncthing syncthing $HOME/syncthing-linux-*
@@ -42,7 +44,7 @@ else
   /usr/local/bin/syncthing -generate=~/.config/syncthing
 
   # Access the web GUI from other computers
-  sed -i 's/127.0.0.1:8384/:8384/g' ~/.config/syncthing/config.xml
+  sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
   sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*

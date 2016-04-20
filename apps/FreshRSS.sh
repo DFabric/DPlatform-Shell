@@ -46,10 +46,12 @@ Options Indexes FollowSymLinks MultiViews
 </VirtualHost>
 APACHE2
 
+[ $IP = $LOCALIP ] && access=$IP || access=
+
 # Create Nginx configuration file
 cat > /etc/nginx/sites-available/freshrss <<EOF
 server {
-  listen $port;
+  listen $access:$port;
   server_name \$hostname;
   root /var/www/FreshRSS/p;
   index index.php index.html index.htm;

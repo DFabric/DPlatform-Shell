@@ -13,6 +13,9 @@ then
 fi
 [ $1 = remove ] && sh sysutils/Caddy.sh && sh sysutils/services.sh remove netdata && (rm -rf ~/netdata; rm -rf /etc/netdata; rm -r /usr/sbin/netdata) && whiptail --msgbox "netdata removed!" 8 32 && break
 
+# Define port
+port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
+
 # Debian / Ubuntu
 [ $ARCH = deb ] && $install zlib1g-dev gcc make git autoconf autogen automake pkg-config
 
@@ -35,9 +38,49 @@ cd netdata
 cp system/netdata-systemd /etc/systemd/system/netdata.service
 systemctl enable netdata
 
-# Add Cady entry
-sh $DIR/systutils/Caddy.sh 19999
+[ $IP = $LOCALIP ] && access=$IP || access=
+
+# Run netdata via Caddy's proxying
+if hash caddy 2>/dev/null
+then
+  cat >> /etc/caddy/Caddyfile <<EOF
+http://$access:$port {
+    proxy / localhost:19999
+}
+EOF
+  systemctl restart caddy
+
+# Pass netdata via a nginx
+else
+  $install nginx
+<<EOF
+upstream backend {
+    # the netdata server
+    server 127.0.0.1:19999;
+    keepalive 64;
+}
+
+server {
+    # nginx listens to this
+    listen $access:$port;
+
+    # the virtual host name of this
+    server_name $/hostname;
+
+    location / {
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://backend;
+        proxy_http_version 1.1;
+        proxy_pass_request_headers on;
+        proxy_set_header Connection "keep-alive";
+        proxy_store off;
+    }
+}
+EOF
+fi
 
 whiptail --msgbox "netdata installed!
 
-Open http://$URL:19999 in your browser" 10 64
+Open http://$URL:$port in your browser" 10 64

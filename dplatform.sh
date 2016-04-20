@@ -224,7 +224,7 @@ while
 # Recuperate the URL variable from dp.cfg
 case $(grep URL= dp.cfg) in
 	URL=hostname) URL=`hostname`; IP=$LOCALIP;;
-	URL=IP) URL=$IP; [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6];; # Set default IP to IPv4 unless IPv6 is available
+	URL=IP) [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]; URL=$IP;; # Set default IP to IPv4 unless IPv6 is available
 esac
 # Main menu
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'

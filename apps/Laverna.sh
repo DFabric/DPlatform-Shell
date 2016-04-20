@@ -24,22 +24,24 @@ git clone https://github.com/Laverna/static-laverna
 # Change the owner from root to www-data
 chown -R www-data:www-data /var/www/static-laverna
 
+[ $IP = $LOCALIP ] && access=$IP || access=
+
 if hash caddy 2>/dev/null
 then
   cat >> /etc/caddy/Caddyfile <<EOF
-$IP:$port {
+http://$access:$port {
     root /var/www/static-laverna
     log /var/log/laverna.log
 }
 
 EOF
-systemctl restart caddy
+  systemctl restart caddy
 else
   $install nginx
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/laverna <<EOF
 server  {
-    listen $port;
+    listen $access:$port;
     root /var/www/static-laverna;
     index index.html;
     server_name \$hostname;
@@ -63,6 +65,7 @@ rm -f /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl restart nginx
 fi
+
 whiptail --msgbox "Laverna installed!
 
 Open http://$URL:$port in your browser" 12 48

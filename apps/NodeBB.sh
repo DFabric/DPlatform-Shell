@@ -2,15 +2,13 @@
 
 if [ $1 = update ]
 then
-  cd ~/nodebb
+  cd /home/nodebb
   git pull
   ./nodebb upgrade
   whiptail --msgbox "NodeBB updated and upgraded!" 8 32
   break
 fi
 [ $1 = remove ] && sh sysutils/services.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
-
-. sysutils/NodeJS.sh
 
 # https://docs.nodebb.org/en/latest/installing/os.html
 
@@ -39,8 +37,10 @@ fi
 # Create a nodebb user
 useradd -m nodebb
 
-# Go to its directory
+# Go to nodebb user directory
 cd /home/nodebb
+
+. sysutils/NodeJS.sh
 
 # Clone the repository
 git clone -b v1.x.x https://github.com/NodeBB/NodeBB .
@@ -81,7 +81,7 @@ After=network.target $DB.service
 [Service]
 Type=simple
 WorkingDirectory=/home/nodebb
-ExecStart=/usr/bin/node /home/nodebb/app.js
+ExecStart=/usr/bin/node /app.js
 User=nodebb
 Restart=always
 [Install]

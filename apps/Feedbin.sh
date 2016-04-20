@@ -8,18 +8,18 @@ then
   break
 fi[ $1 = remove ] && sh sysutils/services.sh remove Feedbin && userdel -r feedbin && whiptail --msgbox "Feedbin removed!" 8 32 && break
 
+# Create a feedbin user
+useradd -m feedbin
+
+# Go to its directory
+cd /home/feedbin
+
 # https://github.com/feedbin/feedbin/blob/master/doc/INSTALL-fedora.md
 
 # Feedbin Dependencies
 # Install a bunch of dependencies
 [ $PKG = rpm ] && $install gcc gcc-c++ git libcurl-devel libxml2-devel libxslt-devel postgresql postgresql-server postgresql-contrib postgresql-devel rubygems ruby-devel rubygem-bundler ImageMagick-devel opencv-devel
 [ $PKG = deb ] && $install gcc g++  libcurl4-openssl-dev libxml2-dev libxslt-dev postgresql postgresql-contrib postgresql-dev rubygems ruby-dev ruby-bundler libmagick++-6.q16-dev libopencv-dev
-
-# Create a feedbin user
-useradd -m feedbin
-
-# Go to its directory
-cd /home/feedbin
 
 # Get Feedbin
 git clone https://github.com/feedbin/feedbin .
@@ -28,7 +28,6 @@ git clone https://github.com/feedbin/feedbin .
 bundle
 
 # Start the service
-
 systemctl start postgresql
 
 # If you want PostgreSQL to auto-start

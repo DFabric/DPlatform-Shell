@@ -7,8 +7,8 @@
 if [ $PKG = deb ]
 then
   case "$DIST$DIST_VER" in
-    *ubuntu*14.04*) dist=xUbuntu_14.04;;
-    ubuntu*) dist=xUbuntu_15.10;;
+    *ubuntu14.04*) dist=xUbuntu_14.04;;
+    *ubuntu*) dist=xUbuntu_15.10;;
     *) dist=Debian_8.0;;
   esac
 

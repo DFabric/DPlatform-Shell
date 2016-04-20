@@ -2,23 +2,28 @@
 
 if [ $1 = update ]
 then
-  cd ~/draw
+  cd /home/etherdraw/draw
   git pull
   whiptail --msgbox "EtherDraw updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && rm -rf ~/draw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && userdel -r etherdraw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture doesn't appear to work
 [ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
 [ $? != 0 ] || break
 
+# Add etherdraw user
+useradd -m etherdraw
+
+# Go to etherdraw user directory
+cd /home/etherdraw
+
 . sysutils/NodeJS.sh
 
-cd
 # Install Requirements
 $install libcairo2-dev libpango1.0-dev libgif-dev build-essential g++
-$install libjpeg8-dev || $install libjpeg62-dev 
+$install libjpeg8-dev || $install libjpeg62-dev
 
 # Install EtherDraw
 git clone https://github.com/JohnMcLear/draw
@@ -27,8 +32,27 @@ git clone https://github.com/JohnMcLear/draw
 cd draw
 sh bin/installDeps.sh
 
-# Add SystemD process and run the server
-sh $DIR/sysutils/services.sh EtherDraw "/usr/bin/node $HOME/draw/server.js" $HOME/draw
+# Change the owner from root to etherdraw
+chown -R etherdraw /home/etherdraw
+
+# Create the SystemD service
+cat > "/etc/systemd/system/etherdraw.service" <<EOF
+[Unit]
+Description=EtherDraw Server
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/home/etherdraw/draw
+ExecStart=/usr/bin/node server.js
+User=etherdraw
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start the service and enable it to start on boot
+systemctl start etherdraw
+systemctl enable etherdraw
 
 whiptail --msgbox "EtherDraw installed!
 

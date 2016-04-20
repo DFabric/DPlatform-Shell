@@ -7,13 +7,13 @@
 # Define port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
-. sysutils/MongoDB.sh
-
 # Add wekan user
 useradd -m wekan
 
 # Go to wekan user directory
 cd /home/wekan
+
+. sysutils/MongoDB.sh
 
 # Get the latest Wekan release
 ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/wekan/wekan/releases/latest)
@@ -98,4 +98,4 @@ systemctl enable wekan
 
 whiptail --msgbox "Wekan installed!
 
-Open http://$URL:$portS in your browser" 10 64
+Open http://$URL:$port in your browser" 10 64
