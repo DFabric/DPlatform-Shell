@@ -1,16 +1,17 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications easily and manage them.
- #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 
 ## Features
- - Install applications easily.
- - Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
- - Update/Remove installed apps easily with two clicks
- - Determine your IPv4, IPv6, LocalIP and your hostname - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
+ - Install applications easily
+ - Manage Apps Services - SystemD services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
+ - Update/Remove installed apps simply with two clicks
+ - Chose the network accessibility of your app - Internet public access or local access
+ - Change your hostname
+ - Determine your IPv4, IPv6, LocalIP and your hostname
 
  [![deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 ## Available apps (few still need work)
