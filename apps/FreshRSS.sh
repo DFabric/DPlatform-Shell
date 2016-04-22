@@ -27,7 +27,7 @@ chown -R www-data:www-data FreshRSS
 chmod -R g+w ./data/
 
 # Replace the default Origine theme by the more modern Flat theme
-sed "/'theme' => 'Origine',/'theme' => 'Flat',/d" FreshRSS/data/users/_/config.default.php
+sed "s/'theme' => 'Origine'/'theme' => 'Flat'/" FreshRSS/data/users/_/config.default.php
 
 <<APACHE2
 <VirtualHost *:$port>
