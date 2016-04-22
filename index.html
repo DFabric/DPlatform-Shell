@@ -35,12 +35,13 @@
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
-<li>Install applications easily.</li>
-<li>Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively</li>
-<li>Update/Remove installed apps easily with two clicks</li>
-<li>Determine your IPv4, IPv6, LocalIP and your hostname</li>
+<li>Install applications easily</li>
+<li>Manage Apps Services - SystemD services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively</li>
+<li>Update/Remove installed apps simply with two clicks</li>
+<li>Chose the network accessibility of your app - Internet public access or local access</li>
+<li>Change your hostname</li>
 <li>
-<p>IP address and FQDN domain name configuration help (generally in .com, .net...), or via <a href="https://localtunnel.me/">localtunnel</a></p>
+<p>Determine your IPv4, IPv6, LocalIP and your hostname</p>
 
 <p><a href="https://j8r.github.io/DPlatform/"><img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png" alt="deploy"></a></p>
 
@@ -64,6 +65,8 @@
 <li>
 <a href="https://www.mopidy.com/">Mopidy</a> - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With <a href="https://github.com/dirkgroenen/mopidy-mopify">Mopify</a> - Web Client for Mopidy Music Server and the Pi MusicBox</li>
 <li>
+<a href="http://freshrss.org/">FreshRSS</a> - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable</li>
+<li>
 <a href="https://owncloud.org/">OwnCloud</a> - Access &amp; share your files, calendars, contacts, mail &amp; more from any device, on your terms</li>
 <li>Torrent - Access to <a href="http://deluge-torrent.org/">Deluge</a> and <a href="http://www.transmissionbt.com/">Transmission</a> torrent web interface</li>
 <li>
@@ -77,7 +80,7 @@
 <li>
 <a href="http://dillinger.io/">Dillinger</a> - A cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor</li>
 <li>
-<a href="https://www.docker.com/">Docker</a> - Open container engine platform for distributed application</li>
+<a href="https://github.com/silverwind/droppy">Droppy</a> - A self-hosted file storage server with a file manager like interface that have in browser file editing and media view</li>
 <li>
 <a href="https://ethercalc.net/">EtherCalc</a> - Web spreadsheet, Node.js port of Multi-user SocialCalc</li>
 <li>
@@ -103,6 +106,10 @@
 <li>
 <a href="https://github.com/andreimarcu/linx-server">Linx</a> - Self-hosted file/code/media sharing website</li>
 <li>
+<a href="https://caddyserver.com/">Caddy</a> - Fast, cross-platform HTTP/2 web server with automatic HTTPS</li>
+<li>
+<a href="https://www.docker.com/">Docker</a> - Open container engine platform for distributed application</li>
+<li>
 <a href="https://www.mailpile.is/">Mailpile</a> - A free &amp; open modern, fast email client with user-friendly encryption and privacy features</li>
 <li>
 <a href="http://mattermost.org/">Mattermost</a> - Open source, on-prem Slack-alternative</li>
@@ -111,6 +118,8 @@
 </li>
 <li>
 <a href="https://www.mongodb.org/">MongoDB</a> - The database for today’s applications: innovative, fast time-to-market, globally scalable, reliable, and inexpensive to operate</li>
+<li>
+<a href="http://netdata.firehol.org/">netdata</a> - A highly optimized Linux daemon providing real-time performance monitoring for Linux systems, Applications, SNMP devices, over the web!</li>
 <li>
 <a href="https://nodebb.org/">NodeBB</a> - Node.js based community forum built for the modern web</li>
 <li>
@@ -124,17 +133,16 @@
 <li>
 <a href="https://github.com/swanson/stringer">Stringer</a> - A self-hosted, anti-social RSS reader</li>
 <li>
-<a href="https://taiga.io/">Taiga.Io</a> - Agile, Free and Open Source Project Management Platform - Deployed thanks to <a href="https://github.com/taigaio/taiga-scripts">taiga-scripts</a>
-</li>
+<a href="https://taiga.io/">Taiga.Io</a> - Agile, Free and Open Source Project Management Platform</li>
 <li>
 <a href="https://www.transmissionbt.com/">Transmission</a> with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use</li>
 <li>
-<a href="https://wekan.io/">Wekan</a> - Collaborative Trello-like kanban board application - Deployed thanks to <a href="https://github.com/anselal/wekan">https://github.com/anselal/wekan</a>
-</li>
+<a href="https://wekan.io/">Wekan</a> - Collaborative Trello-like kanban board application</li>
 <li>
 <a href="https://wide.b3log.org/">Wide</a> - Web-based IDE for Teams using Go(lang)</li>
 <li>
-<a href="https://wordpress.org/">WordPress</a> - Web software you can use to create a beautiful website, blog, or app</li>
+<a href="https://wordpress.org/">WordPress</a> - Web software you can use to create a beautiful website, blog, or app - Installed thanks <a href="http://wp-quick-install.com/">WP Quick Install</a>
+</li>
 <li>
 <a href="https://developer.wordpress.com/calypso/">(WordPress) Calypso</a> - A single interface built for reading, writing, and managing all of your WordPress sites in one place</li>
 </ul>
@@ -155,9 +163,11 @@ git clone https://github.com/j8r/DPlatform</pre></div>
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
 
-<p>A recent GNU/Linux operating system with <strong>SystemD</strong> is highly recommended:</p>
+<p>A recent GNU/Linux operating system with <strong>SystemD</strong> is recommended, lots of apps have custom SytemdD services.</p>
 
 <p>Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested</p>
+
+<p>If you use Ubuntu 14.04.x and you want to use SystemD services provided by DPlatform, you can switch to it instead of the default Upstart</p>
 
 <p>CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested</p>
 
@@ -171,7 +181,7 @@ Please feel free to open an issue and create a pull request, all contributions a
 <h2>
 <a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h2>
 
-<p><strong><em>The main goals of DPlatform are the independence, the freedom, security. Therefore all installations and configurations provided trough this set of shell tools are TOTALLY independents of it</em></strong></p>
+<p><strong><em>The main goals of DPlatform are the independence, the freedom and the security. Therefore all installations and configurations provided through this set of shell tools are TOTALLY independents of it</em></strong></p>
 
 <ul>
 <li>[1] Install apps efficiently through a terminal UI - In progress</li>
@@ -179,13 +189,13 @@ Please feel free to open an issue and create a pull request, all contributions a
 <li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Planned</li>
 <li>DNS and secure firewall pass-trough via <a href="https://localtunnel.me/">localtunnel</a>
 </li>
-<li>Enhance the security. Nginx reverse proxy, <a href="https://letsencrypt.org/">Let's Encrypt</a> certificate</li>
+<li>Enhance the security. <a href="https://caddyserver.com/">Caddy</a>, Nginx reverse proxy, <a href="https://letsencrypt.org/">Let's Encrypt</a> certificate</li>
 </ul>
 
 <h2>
 <a id="contributors---special-thanks" class="anchor" href="#contributors---special-thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors - Special thanks</h2>
 
-<p><a href="https://github.com/cryptono">@cryptono</a> (torito) - testing</p>
+<p><a href="https://github.com/cryptono">@cryptono</a> - testing</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
