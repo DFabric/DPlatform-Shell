@@ -86,7 +86,7 @@ You can always use the local IP of your server $LOCALIP in your local network" 1
 }
 
 # Create a dp.cfg with a URL variable if it doesn't exist
-[ -e dp.cfg ] || network_access
+[ -f dp.cfg ] || network_access
 
 change_hostname() {
 	whiptail --msgbox "Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive), \
@@ -146,6 +146,7 @@ apps_menus() {
 		Mumble "Voicechat utility" \
 		Seafile "Cloud storage with file encryption and group sharing" \
 		Mopidy "Mopidy is an extensible music server written in Python" \
+		FreshRSS "A free, self-hostable aggregator" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
@@ -157,7 +158,6 @@ apps_menus() {
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
 		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
-		FreshRSS "A free, self-hostable aggregator" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \

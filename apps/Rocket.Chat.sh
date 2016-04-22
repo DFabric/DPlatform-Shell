@@ -13,29 +13,21 @@ whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
 --yes-button No --no-button Yes
 [ $? = 1 ] && ReplicaSet=on
 
+# Install Dependencies
+
+. sysutils/MongoDB
+# Install Meteo
+. sysutils/Meteor.sh
+
 # Add rocketchat user
 useradd -m rocketchat
 
 # Go to rocketchat user directory
 cd /home/rocketchat
 
-## Install Dependencies
-# SYSTEM CONFIGURATION
-. sysutils/MongoDB.sh
-
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCH = arm ]
 then
-  # Install Meteor
-  # https://github.com/4commerce-technologies-AG/meteor
-  git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor
-
-  # Fix curl CA error
-  echo insecure > ~/.curlrc
-  # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
-  meteor/meteor -v
-  rm ~/.curlrc
-
   $install python make g++
 
   # Download the Rocket.Chat binary for Raspberry Pi
@@ -46,9 +38,6 @@ elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
-
-  # Install Meteor
-  . $DIR/sysutils/Meteor.sh
 
   # Install a tool to let us change the node version.
   npm install -g n
@@ -73,7 +62,7 @@ rm rocket.chat.tgz
 cd Rocket.Chat/programs/server
 
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
-[ $ARCH = arm ] && /home/rocketchat/meteor/dev_bundle/bin/npm install
+[ $ARCH = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Setup ReplicaSet
 if [ "$ReplicaSet" = on ]
@@ -106,7 +95,7 @@ fi
 chown -R rocketchat /home/rocketchat
 
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
-[ $ARCH = arm ] && node=/home/rocketchat/meteor/dev_bundle/bin/node
+[ $ARCH = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the SystemD service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF

@@ -10,15 +10,15 @@ then
 fi
 [ $1 = remove ] && sh sysutils/services.sh remove Lets-Chat && userdel -r letschat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
 
+# Prerequisites
+. sysutils/MongoDB.sh
+. sysutils/NodeJS.sh
+
 # Add letschat user
 useradd -m letschat
 
 # Go to letschat user directory
 cd /home/letschat
-
-# Prerequisites
-. sysutils/MongoDB.sh
-. sysutils/NodeJS.sh
 
 # https://github.com/sdelements/lets-chat/wiki/Installation
 $install python2.7

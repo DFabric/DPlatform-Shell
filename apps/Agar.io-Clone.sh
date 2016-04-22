@@ -9,13 +9,13 @@ then
 fi
 [ $1 = remove ] && sh sysutils/services.sh remove Agar.io-Clone && userdel -r agario && whiptail --msgbox "Agar.io Clone removed!" 8 32 && break
 
+. sysutils/NodeJS.sh
+
 # Add agario user
 useradd -m agario
 
-# Go to etherpad user directory
+# Go to agario user directory
 cd /home/agario
-
-. sysutils/NodeJS.sh
 
 # Cloning the source code from Github
 git clone https://github.com/huytd/agar.io-clone
@@ -29,7 +29,7 @@ npm install
 chown -R agario /home/agario
 
 # Create the SystemD service
-cat > "/etc/systemd/system/etherdraw.service" <<EOF
+cat > "/etc/systemd/system/agar.io-clone.service" <<EOF
 [Unit]
 Description=Agar.io Clone Game Server
 After=network.target

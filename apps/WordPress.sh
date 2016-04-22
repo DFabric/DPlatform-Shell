@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && userdel wordpress && whiptail --msgbox && (rm /etc/nginx/sites-*/wordpress; systemctl nginx restart) && "WordPress removed!" 8 32 && break
+[ $1 = remove ] && userdel wordpress && whiptail --msgbox && (rm /etc/nginx/sites-*/wordpress; systemctl nginx restart) && userdel wordpress && "WordPress removed!" 8 32 && break
 
 
 # Define port

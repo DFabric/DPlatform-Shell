@@ -34,13 +34,13 @@ else
   DB=redis
 fi
 
+. sysutils/NodeJS.sh
+
 # Create a nodebb user
 useradd -m nodebb
 
 # Go to nodebb user directory
 cd /home/nodebb
-
-. sysutils/NodeJS.sh
 
 # Clone the repository
 git clone -b v1.x.x https://github.com/NodeBB/NodeBB .

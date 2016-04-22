@@ -9,13 +9,13 @@ then
 fi
 [ $1 = remove ] && sh sysutils/services.sh remove Etherpad && userdel -r etherpad && whiptail --msgbox "Etherpad removed!" 8 32 && break
 
+. sysutils/NodeJS.sh
+
 # Add etherpad user
 useradd -m etherpad
 
 # Go to etherpad user directory
 cd /home/etherpad
-
-. sysutils/NodeJS.sh
 
 # gzip, git, curl, libssl develop libraries, python and gcc needed
 [ $PKG = deb ] && $install gzip git curl python libssl-dev pkg-config build-essential

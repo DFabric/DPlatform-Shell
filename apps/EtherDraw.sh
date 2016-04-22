@@ -13,13 +13,13 @@ fi
 [ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
 [ $? != 0 ] || break
 
+. sysutils/NodeJS.sh
+
 # Add etherdraw user
 useradd -m etherdraw
 
 # Go to etherdraw user directory
 cd /home/etherdraw
-
-. sysutils/NodeJS.sh
 
 # Install Requirements
 $install libcairo2-dev libpango1.0-dev libgif-dev build-essential g++

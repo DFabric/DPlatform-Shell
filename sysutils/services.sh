@@ -83,6 +83,7 @@ then
 else
   # Convert uppercase app name to lowercase service name
   name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+  [ "$4" != "" ] && user=$4 || user=$USER
   cat > "/etc/systemd/system/$name.service" <<EOF
 [Unit]
 Description=$1 Server
@@ -91,8 +92,7 @@ After=network.target
 Type=simple
 WorkingDirectory=$3
 ExecStart=$2
-User=$USER
-Group=$USER
+User=$user
 Restart=always
 [Install]
 WantedBy=multi-user.target

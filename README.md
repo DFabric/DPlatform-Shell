@@ -1,6 +1,7 @@
 # DPlatform [ALPHA]
 ![logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to install applications easily and manage them.
+ #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
@@ -9,8 +10,7 @@
  - Install applications easily.
  - Manage Apps Services with SystemD services integration -View apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
  - Update/Remove installed apps easily with two clicks
- - Determine your IPv4, IPv6, LocalIP and your hostname
- - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
+ - Determine your IPv4, IPv6, LocalIP and your hostname - IP address and FQDN domain name configuration help (generally in .com, .net...), or via [localtunnel](https://localtunnel.me/)
 
  [![deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 ## Available apps (few still need work)
@@ -21,6 +21,7 @@
  - [Mumble](http://www.mumble.info/) - Voicechat utility
  - [Seafile](https://seafile.com) - Cloud storage with file encryption and group sharing - MariaDB version deployed thanks to [seafile-server-installer](https://github.com/SeafileDE/seafile-server-installer)
  - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
+ - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
  - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
  - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
@@ -33,7 +34,6 @@
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
  - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
- - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
@@ -76,10 +76,11 @@ Next times, only run this last command for DPlatform
 
 ## Requirements
 
-A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have a custom SytemdD service.
+A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have custom SytemdD services.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
-If you use Ubuntu 14.04.x, you can switch to SystemD instead the default Upstart else you won't have most of custom apps services.
+
+If you use Ubuntu 14.04.x and you want to use SystemD services provided by DPlatform, you can switch to it instead of the default Upstart
 
 CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
@@ -98,10 +99,10 @@ Please feel free to open an issue and create a pull request, all contributions a
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
  - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
  - DNS and secure firewall pass-trough via [localtunnel](https://localtunnel.me/)
- - Enhance the security. Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
+ - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 
 ## Contributors - Special thanks
-[@cryptono](https://github.com/cryptono) (torito) - testing
+[@cryptono](https://github.com/cryptono) - testing
 
 ## License
 Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
