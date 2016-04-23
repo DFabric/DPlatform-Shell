@@ -102,6 +102,11 @@ Please feel free to open an issue and create a pull request, all contributions a
  - DNS and secure firewall pass-trough via [localtunnel](https://localtunnel.me/)
  - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 
+### Other informations
+Each app have its own dedicated user, most their own `/home/app_user` directory
+
+If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/j8r/DPlatform/blob/master/CONTRIBUTING.md)
+
 ## Contributors - Special thanks
 [@cryptono](https://github.com/cryptono) - testing
 

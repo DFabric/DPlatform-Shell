@@ -30,8 +30,9 @@ else
   # Only keep the version number in the url
   ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
   [ $ARCH = 86 ] && ARCH=386
-  wget https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz
-  tar -xvzf syncthing-linux-$ARCH-v$ver.tar.gz
+  curl -OL https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz
+  # Extract the downloaded archive and remove it
+  (pv -n syncthing-linux-$ARCH-v$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
   cd syncthing-linux-$ARCH-v$ver
   # Move Syncthing bin to the system bin directory
   mv syncthing /usr/local/bin/
@@ -47,7 +48,7 @@ else
   sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-*/syncthing $HOME/syncthing-linux-*
+  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-$ARCH-v$ver/syncthing $HOME/syncthing-linux-$ARCH-v$ver
 fi
 
 whiptail --msgbox "Syncthing installed! Install Syncthing in your computer too to sync files!

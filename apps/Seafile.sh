@@ -39,8 +39,8 @@ case $DB_CHOICE in
 		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
 	fi
 
-	# Extract the downloaded archive and delete it
-	tar zxvf seafile-server_*
+	# Extract the downloaded archive and remove it
+	(pv -n seafile-server_* | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
 	rm seafile-server_*
 
 	# Prerequisites

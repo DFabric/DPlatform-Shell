@@ -30,11 +30,12 @@ then
   [ $ARCH = 86 ] && ARCH=386
   cd /usr/bin
   # Download and extract Caddy
-  wget https://caddyserver.com/download/build?os=linux&arch=$ARCH&features=
-  tar zxvf *.tar.gz
+  curl https://caddyserver.com/download/build?os=linux&arch=$ARCH&features= -o caddy.tar.gz
+  # Extract the downloaded archive and remove it
+  (pv -n caddy.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
 
   # Download the caddy SystemD service to its directrory
-  wget https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-systemd/caddy%40.service -O /etc/systemd/system/caddy.service
+  curl https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-systemd/caddy%40.service -o /etc/systemd/system/caddy.service
   # Remove Group=http
   sed -i "/Group=http/d" /etc/systemd/system/caddy.service
 

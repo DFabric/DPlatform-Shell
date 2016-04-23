@@ -22,15 +22,17 @@ elif [ "$ARMv" = armv6 ] && [ $PKG = deb ]
 then
   $install mongodb
   wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
-  tar -xvzf mongo_Linux_armv6l_v2.6.7.tar.gz -C /usr/bin
+  # Extract the downloaded archive and remove it
+  (pv -n mongo_Linux_armv6l_v2.6.7.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
   rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 elif [ $ARCH = arm ] && [ $PKG = deb ]
 then
   $install mongodb
-  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
-  tar -xvzf core_mongodb.tar.gz -C /usr/bin
+  curl -OL https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
+  # Extract the downloaded archive and remove it
+  (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
   rm core_mongodb.tar.gz
   <<NOT_OPERATIONAL_YET
   # Check for mongodb user, if not, create mongodb user

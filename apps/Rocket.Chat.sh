@@ -53,8 +53,8 @@ else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
 fi
 
-# Extract the archive and remove it
-tar zxvf rocket.chat.tgz
+# Extract the downloaded archive and remove it
+(pv -n rocket.chat.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
 
 mv bundle Rocket.Chat
 rm rocket.chat.tgz

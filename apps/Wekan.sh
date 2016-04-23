@@ -23,9 +23,9 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/wekan/wekan/r
 # Only keep the version number in the url
 ver=${ver#*v}
 
-wget https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz
-# Extract the archive and remove it
-tar zxvf wekan-$ver.tar.gz
+curl -OL https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz
+# Extract the downloaded archive and remove it
+(pv -n wekan-$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
 
 mv bundle Wekan
 rm wekan-$ver.tar.gz

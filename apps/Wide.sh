@@ -9,15 +9,16 @@ case $? in
   0) mkdir wide-1.5.0
   cd wide-1.5.0
   if [ $ARCH = amd64 ]
-    then wget https://www.dropbox.com/s/bsyavnyr8a2ys4l/wide-1.5.0-linux-amd64.tar.gz
+    then curl -L https://www.dropbox.com/s/bsyavnyr8a2ys4l/wide-1.5.0-linux-amd64.tar.gz -o wide.tar.gz
   elif [ $ARCH = 86 ]
-    then wget https://www.dropbox.com/s/ht2bzj0i03jcpjf/wide-1.5.0-linux-386.tar.gz
+    then curl -L https://www.dropbox.com/s/ht2bzj0i03jcpjf/wide-1.5.0-linux-386.tar.gz -o wide.tar.gz
   fi
-  tar -zxvf wide-1.5.0-linux-*.tar.gz
-  rm wide-1.5.0-linux-*.tar.gz;;
+  # Extract the downloaded archive and remove it
+  (pv -n wide.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  rm wide.tar.gz;;
 
   # Build Wide
-  1) $install git golang
+  1) $install golang
   cd
   git clone https://github.com/b3log/wide
 

@@ -16,4 +16,4 @@ sh sysutils/services.sh JSBin "/usr/bin/node /usr/bin/jsbin" / jsbin
 
 whiptail --msgbox "JSBin installed!
 
-Open your browser to http://$URL:3000" 12 64
+Open your browser to http://$URL:3000" 10 64

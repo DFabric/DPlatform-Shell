@@ -22,17 +22,19 @@ ver=${ver#*v}
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
 then
   [ $ARCH = 86 ] && ARCH=386
-  wget https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz
-  tar zxvf gogs_v${ver}_linux_$ARCH.tar.gz
-  rm gogs_v${ver}_linux_$ARCH.tar.gz
+  curl -L https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz -o gogs.tar.gz
+  # Extract the downloaded archive and remove it
+  (pv -n gogs.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  rm gogs.tar.gz
 elif [ $ARCH = arm ]
 then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
 
-  wget https://cdn.gogs.io/gogs_v${ver}_raspi2.zip
-  unzip gogs_v${ver}_raspi2.zip
-  rm gogs_v${ver}_raspi2.zip
+  curl https://cdn.gogs.io/gogs_v${ver}_raspi2.zip -o gogs.zip
+  # Extract the downloaded archive and remove it
+  (pv -n gogs.zip | unzip -) 2>&1 | whiptail --gauge "Extracting the files from downloaded the archive..." 6 64 0
+  rm gogs.zip
 fi
 # Add SystemD process, configure and start Gogs
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system

@@ -43,8 +43,8 @@ else
 	PKG=unknown
 fi
 
-# Ckeck if curl is installed because it will be very used
-hash curl 2>/dev/null || $install curl
+# Prerequisites
+hash whiptail && 2>/dev/null hash curl 2>/dev/null && hash pv 2>/dev/null || $install whiptail curl pv
 
 # Detect architecture
 ARCH=$(uname -m)
@@ -120,7 +120,7 @@ apps_menus() {
 		APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
 			# Confirmation message
-			whiptail --yesno "		$APP will be $1d.
+			[ $? = 0 ] && whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
 			# Remove the app entry
 			[ $? = 0 ] && [ $1 = remove ] && sed -i "/$APP/d" dp.cfg
@@ -195,15 +195,18 @@ apps_menus() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0)
-				case $APP in
-					Caddy) . sysutils/Caddy.sh;;
-					Docker) . sysutils/Docker.sh;;
-					Meteor) . sysutils/Meteor.sh;;
-					MongoDB) . sysutils/MongoDB.sh;;
-					Node.js) . sysutils/NodeJS.sh;;
-					$APP) . apps/$APP.sh && cd $DIR && (grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg);;
-				esac;;
+				0) if grep $APP dp.cfg 2>/dev/null
+					then whiptail --msgbox "$APP is already installed" 8 32
+				else
+					case $APP in
+						Caddy) . sysutils/Caddy.sh;;
+						Docker) . sysutils/Docker.sh;;
+						Meteor) . sysutils/Meteor.sh;;
+						MongoDB) . sysutils/MongoDB.sh;;
+						Node.js) . sysutils/NodeJS.sh;;
+						$APP) . apps/$APP.sh; cd $DIR; grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg;;
+					esac
+				fi;;
 			esac
 		done
 	fi
@@ -237,7 +240,7 @@ Your can access to your apps by opening this address in your browser:
 "Network app access" "Define the network accessibility of the apps" \
 "Hostname" "Change the name of the server on your local network" \
 "About" "Informations about this project and your system" \
-$config${configOption} 3>&1 1>&2 2>&3)
+$config$configOption 3>&1 1>&2 2>&3)
 do
 	case $CHOICE in
 		"Install apps") apps_menus install;;

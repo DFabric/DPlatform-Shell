@@ -52,4 +52,4 @@ systemctl enable linx
 
 whiptail --msgbox "Linx installed!
 
-Open your browser to http://$URL:$port" 12 64
+Open your browser to http://$URL:$port" 10 64
