@@ -2,9 +2,9 @@
 *
 # Except this files
 !.gitignore
-!dp.cfg
-!README.md
 !LICENSE
+!README.md
+!CONTRIBUTING.md
 /*
 !apps/
 !apps/*
