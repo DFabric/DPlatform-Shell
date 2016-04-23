@@ -15,8 +15,8 @@ whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
 
 # Install Dependencies
 
-. sysutils/MongoDB
-# Install Meteo
+. sysutils/MongoDB.sh
+# Install Meteor
 . sysutils/Meteor.sh
 
 # Add rocketchat user
