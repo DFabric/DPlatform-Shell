@@ -4,21 +4,20 @@
 
 ## Shell Style Guide
 
-DPlatform is made in Posix Shell script. Therefore, your contribution must comply to this following coding standards:
+DPlatform is made in a POSIX Shell script. Therefore, your contribution must comply to this following coding standards:
 - POSIX compliance (`#!/bin/sh`): all commands must work with sh, dash, bash, ksh, zsh
 - Unless required no semicolons
 - Indentation whenever is possible (for example except for `cat <<EOF EOF`)
-- Go to the newline instead of using a semicolon for `then` and `do` after `if`, `elif`, `while` and `for`
+- Use a space and a semicolon before `then` and `do`: `if/elif [ ] ;then`, and `while/for ;do`
 - If you have simple conditions, use one-line booleans expressions like `[ = ] && [ ] || command` instead of `if/elif/else`
 
-## Apps structure
+## Application installation script structure
 
-Each application installation script are built upon a same structure. Here we suppose that you application is called ***MyApp***
+Each application installation scripts are built upon a same structure. Here we suppose that you application is called ***MyApp***
 
 First at the begining af each application script file, there are command to update and remove itself.
 ```sh
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/myapp/MyApp
   git pull
   whiptail --msgbox "MyApp updated!" 8 32
@@ -66,7 +65,7 @@ cd MyApp
 #****************************#
 
 # Change the owner from root to myapp
-chown -R etherdraw /home/myapp
+chown -R myapp /home/myapp
 ```
 
 Create a SystemD service for your app

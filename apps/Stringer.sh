@@ -4,17 +4,17 @@
 # Dependencies installation
 
 # Ubuntu/Debian
-if [ $PKG = deb ]
-  then $install libxml2-dev libxslt-dev libcurl4-openssl-dev libpq-dev libsqlite3-dev build-essential postgresql libreadline-dev ruby
+if [ $PKG = deb ] ;then
+  $install libxml2-dev libxslt-dev libcurl4-openssl-dev libpq-dev libsqlite3-dev build-essential postgresql libreadline-dev ruby
 
 # CentOS/Fedora
-elif [ $PKG = rpm ]
-  then $install libxml2-devel libxslt-devel curl-devel postgresql-devel sqlite-devel  make automake gcc gcc-c++ postgresql-server readline-devel openssl-devel
+elif [ $PKG = rpm ] ;then
+  $install libxml2-devel libxslt-devel curl-devel postgresql-devel sqlite-devel  make automake gcc gcc-c++ postgresql-server readline-devel openssl-devel
   service postgresql initdb && service postgresql start
 
 # Arch Linux
-elif [ $PKG = pkg ]
-  then $install postgresql base-devel libxml2 libxslt curl sqlite readline postgresql-libs
+elif [ $PKG = pkg ] ;then
+  $install postgresql base-devel libxml2 libxslt curl sqlite readline postgresql-libs
 
   # Arch specific instructions for setting up postgres
   systemd-tmpfiles --create postgresql.conf

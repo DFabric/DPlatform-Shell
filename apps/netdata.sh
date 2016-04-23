@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   # update it
   cd netdata
   git pull
@@ -41,8 +40,7 @@ systemctl enable netdata
 [ $IP = $LOCALIP ] && access=$IP || access=
 
 # Run netdata via Caddy's proxying
-if hash caddy 2>/dev/null
-then
+if hash caddy 2>/dev/null ;then
   cat >> /etc/caddy/Caddyfile <<EOF
 http://$access:$port {
     proxy / localhost:19999
@@ -65,7 +63,7 @@ server {
     listen $access:$port;
 
     # the virtual host name of this
-    server_name $/hostname;
+    server_name \$hostname;
 
     location / {
         proxy_set_header X-Forwarded-Host $host;

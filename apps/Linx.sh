@@ -31,7 +31,7 @@ cat > config.ini <<EOF bind = :$port
 EOF
 
 # Change the owner from root to linx
-chown linx /home/linx
+chown -R linx /home/linx
 
 # Add SystemD process and run the server
 cat > "/etc/systemd/system/linx.service" <<EOF

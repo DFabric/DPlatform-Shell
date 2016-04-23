@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/feedbin
   git pull
   whiptail --msgbox "Feedbin updated!" 8 32

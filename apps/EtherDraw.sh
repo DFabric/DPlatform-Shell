@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/etherdraw/draw
   git pull
   whiptail --msgbox "EtherDraw updated!" 8 32

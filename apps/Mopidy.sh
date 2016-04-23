@@ -8,8 +8,7 @@ MPDport=$(whiptail --title "MPD server port" --inputbox "Set a port number for t
 
 port=$(whiptail --title "Mopify web client port" --inputbox "Set a port number for Mopify web client" 8 48 "6680" 3>&1 1>&2 2>&3)
 
-if [ $PKG = deb ]
-then
+if [ $PKG = deb ] ;then
   # Add the archive’s GPG key
   wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
   case "$DIST$DIST_VER" in

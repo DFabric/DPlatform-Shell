@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/letschat/lets-chat
   git pull
   npm run-script migrate

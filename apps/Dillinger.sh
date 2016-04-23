@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd ~/dillinger
   git pull
   whiptail --msgbox "Dillinger updated!" 8 32

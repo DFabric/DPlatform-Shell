@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/nodebb
   git pull
   ./nodebb upgrade
@@ -23,11 +22,11 @@ Redis - In memory database. Fast but consumme RAM
 MongoDB is a text document based DB. Database on disk but slower
 If you don't know, take the default MongoDB" 12 48 \
 --yes-button MongoDB --no-button Redis
-if [ $? = 0 ]
-  then . sysutils/MongoDB.sh
+if [ $? = 0 ] ;then
+  . sysutils/MongoDB.sh
   DB=mongodb
-elif [ $PKG = deb ]
-  then $install redis-server
+elif [ $PKG = deb ] ;then
+  $install redis-server
   DB=redis
 else
   $install redis

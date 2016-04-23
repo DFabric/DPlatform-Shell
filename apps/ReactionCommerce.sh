@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd ~/reaction
   ./reaction pull
   whiptail --msgbox "ReactionCommerce updated!" 8 32
@@ -10,8 +9,7 @@ fi
 [ $1 = remove ] && sh sysutils/services.sh remove ReactionCommerce && rm -rf ~/reaction && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
 
 # ARM architecture not supported
-if [ $ARCH = arm ]
-then
+if [ $ARCH = arm ] ;then
   whiptail --yesno "Your architecture $ARCH isn't supported" 8 32
   [ $? = 1 ] &&	sed -i "/ReactionCommerce/d" dp.cfg
   break

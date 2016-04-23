@@ -30,15 +30,13 @@ curl -OL https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.g
 mv bundle Wekan
 rm wekan-$ver.tar.gz
 
-if [ $ARCH = arm ]
-then
+if [ $ARCH = arm ] ;then
   $install python make g++
 
   # Reinstall bcrypt and bson to a newer version is needed
   cd /home/wekan/Wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
   cd /home/wekan/Wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
-elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-then
+elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
 

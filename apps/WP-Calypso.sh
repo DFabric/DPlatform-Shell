@@ -5,7 +5,7 @@
 # Prerequisites
 . sysutils/NodeJS.sh
 
-$install git make
+$install make
 
 cd
 # Installing and Running

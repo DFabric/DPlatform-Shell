@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /var/www/static-laverna
   git pull
   whiptail --msgbox "Laverna updated!" 8 32
@@ -26,8 +25,7 @@ chown -R www-data:www-data /var/www/static-laverna
 
 [ $IP = $LOCALIP ] && access=$IP || access=
 
-if hash caddy 2>/dev/null
-then
+if hash caddy 2>/dev/null ;then
   cat >> /etc/caddy/Caddyfile <<EOF
 http://$access:$port {
     root /var/www/static-laverna

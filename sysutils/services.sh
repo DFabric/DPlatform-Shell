@@ -8,8 +8,7 @@ service_detection() {
   service_list="SystemD [status]auto-start-at-boot"
 
   # Parse line by line dp.cfg, and create en entry for each
-  while read service
-  do
+  while read service ;do
     # Covert uppercase app name to lowercase service name
     service=$(echo "$service" | tr '[:upper:]' '[:lower:]')
 
@@ -17,8 +16,7 @@ service_detection() {
     [ $service = mumble ] && service_list="$service_list mumble-server ${service_description#*=}[$(systemctl is-active mumble-server)]$(systemctl is-enabled mumble-server)"
     [ $service = deluge ] && service=deluged
     # Only create an entry for existing services
-    if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ]
-    then
+    if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ] ;then
       # Concatenate the service into a list
       service_list="$service_list $service ${service_description#*=}[$(systemctl is-active $service)]$(systemctl is-enabled $service)"
     fi
@@ -55,8 +53,7 @@ service_setup(){
 }
 
 # Main App Service Manager menu
-if [ "$1" = "" ]
-then
+if [ "$1" = "" ] ;then
   while
   service_detection
   used_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", (($3+$5)/1000)}')
@@ -64,20 +61,20 @@ then
   service_choice=$(whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
-  $service_list 3>&1 1>&2 2>&3)
-  do
+  $service_list 3>&1 1>&2 2>&3) ;do
     cd $DIR
     [ $service_choice = SystemD ] && whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
     service_detection
   done
 
-elif [ "$1" = remove ]
-then
+elif [ "$1" = remove ] ;then
   # Convert uppercase app name to lowercase service name
   name=$(echo "$2" | tr '[:upper:]' '[:lower:]')
   systemctl stop $name
+  systemctl disable $name
   rm /etc/systemd/system/$name.service
   systemctl daemon-reload
+  systemctl reset-failed
 
 # Create systemd service
 else

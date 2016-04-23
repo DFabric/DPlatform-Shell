@@ -1,6 +1,6 @@
 # DPlatform [ALPHA]
-![logo](https://j8r.github.io/DPlatform/img/logo.svg)
- **DPlatform** helps you to install applications easily and manage them.
+![DP logo](https://j8r.github.io/DPlatform/img/logo.svg)
+ **DPlatform** helps you to easily install applications and manage them.
 #### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
@@ -13,7 +13,7 @@
  - Change your hostname
  - Determine your IPv4, IPv6, LocalIP and your hostname
 
- [![deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
+ [![DP deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 ## Available apps (few still need work)
  - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
  - [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
@@ -94,8 +94,6 @@ Please feel free to open an issue and create a pull request, all contributions a
 
 ## Roadmap
 
- ***The main goals of DPlatform are the independence, the freedom and the security. Therefore all installations and configurations provided through this set of shell tools are TOTALLY independents of it***
-
  - [1] Install apps efficiently through a terminal UI - In progress
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
  - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
@@ -103,6 +101,9 @@ Please feel free to open an issue and create a pull request, all contributions a
  - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 
 ### Other informations
+
+ ***The main goals of DPlatform are the independence, the freedom and the security. Therefore all installations and configurations provided through this set of shell tools are TOTALLY independents of DPlatform, and work perfectly without it***
+
 Each app have its own dedicated user, most their own `/home/app_user` directory
 
 If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/j8r/DPlatform/blob/master/CONTRIBUTING.md)

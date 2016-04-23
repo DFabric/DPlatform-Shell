@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/etherpad/etherpad-lite
   git pull
   whiptail --msgbox "Etherpad updated!" 8 32

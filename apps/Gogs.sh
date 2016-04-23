@@ -19,15 +19,13 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/r
 ver=${ver#*v}
 
 # Download, extract the archive
-if [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-then
+if [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   [ $ARCH = 86 ] && ARCH=386
   curl -L https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz -o gogs.tar.gz
   # Extract the downloaded archive and remove it
   (pv -n gogs.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
   rm gogs.tar.gz
-elif [ $ARCH = arm ]
-then
+elif [ $ARCH = arm ] ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
 
@@ -46,7 +44,7 @@ chown -R git:git /home/git/gogs
 systemctl start gogs
 systemctl enable gogs
 
-if hash caddy 2>/dev/null
+if hash caddy 2>/dev/null ;then
   cat >> /etc/caddy/Caddyfile <<EOF
 $IP {
     proxy / localhost:3000 {

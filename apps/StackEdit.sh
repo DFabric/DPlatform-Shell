@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/stackedit
   git pull
   whiptail --msgbox "StackEdit updated!" 8 32

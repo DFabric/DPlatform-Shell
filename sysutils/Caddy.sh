@@ -1,12 +1,10 @@
 #!/bin/sh
 
-if [ "$1" = remove ] && [ "$2" = "" ]
-then
+if [ "$1" = remove ] && [ "$2" = "" ] ;then
   whiptail --msgbox "Not availabe yet!" 8 32
   break
 fi
-if [ "$1" = update ]
-then
+if [ "$1" = update ] ;then
   # Check Caddy version
   caddy_ver=$(caddy -version)
   # Keep the version number
@@ -22,8 +20,7 @@ then
 fi
 
 # Install Caddy if not installed
-if ! hash caddy 2>/dev/null
-then
+if ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
 
@@ -52,8 +49,7 @@ then
   grep Caddy dp.cfg || echo "Caddy installed!" && echo Caddy >> dp.cfg
 fi
 
-if grep "$1" /etc/caddy/Caddyfile
-then
+if grep "$1" /etc/caddy/Caddyfile ;then
   # Remove the app entry from the Caddyfile
   sed "/$1/,/}
 /d" /etc/caddy/Caddyfile
@@ -61,8 +57,7 @@ then
   # Restart Caddy to apply the changes
   systemctl restart caddy
 
-elif [ "$1" != "" ]
-then
+elif [ "$1" != "" ] ;then
   # Add this app entry ine the Caddyfile to proxy it
   cat >> /etc/caddy/Caddyfile <<EOF
 $IP {

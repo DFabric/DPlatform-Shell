@@ -20,24 +20,23 @@ You have no internet connection. You can do everything but install new apps and 
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-
 # Detect distribution
 . /etc/os-release
 DIST=$ID
 DIST_VER=$VERSION_ID
 
 # Detect package manager
-if hash apt-get 2>/dev/null
-	then PKG=deb
+if hash apt-get 2>/dev/null ;then
+	PKG=deb
 	install="debconf-apt-progress -- apt-get install -y"
 	remove="apt-get purge -y"
-elif hash rpm 2>/dev/null
-	then PKG=rpm
+elif hash rpm 2>/dev/null ;then
+	PKG=rpm
 	install="yum install --enablerepo=epel -y"
 	remove="yum remove -y"
 	[ $DIST = Fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
-elif hash pacman 2>/dev/null
-	then PKG=pkg
+elif hash pacman 2>/dev/null ;then
+	PKG=pkg
 	install="pacman -S"
 else
 	PKG=unknown
@@ -89,13 +88,13 @@ You can always use the local IP of your server $LOCALIP in your local network" 1
 [ -f dp.cfg ] || network_access
 
 change_hostname() {
-	whiptail --msgbox "Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive), \
+	new_hostname=$(whiptail --inputbox --title "Change your hostname" "
+Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive),
 the digits '0' through '9', and the hyphen.
 Hostname labels cannot begin or end with a hyphen.
-No other symbols, punctuation characters, or blank spaces are permitted." 12 64
-	new_hostname=$(whiptail --inputbox "Please enter a hostname" 8 32 "$(hostname)" 3>&1 1>&2 2>&3)
-	if [ $? = 0 ]
-	then
+No other symbols, punctuation characters, or blank spaces are permitted.
+Please enter a hostname" 14 64 "$(hostname)" 3>&1 1>&2 2>&3)
+	if [ $? = 0 ] ;then
 		echo $new_hostname > /etc/hostname
 		sed -i "s/ $($hostname) / $new_hostname /g" /etc/hosts
 		whiptail --yesno "You need to reboot to apply the hostname change. Reboot now?" 8 32
@@ -105,15 +104,13 @@ No other symbols, punctuation characters, or blank spaces are permitted." 12 64
 
 # Applications menus
 apps_menus() {
-	if [ $1 = update ] || [ $1 = remove ]
-	then
+	if [ $1 = update ] || [ $1 = remove ] ;then
 		# Reset previous apps_choice variable
 		apps_choice=
 		[ $1 = update ] && apps_choice="Update Syncronize_new_packages_available"
 
 		# Read dp.cfg to create entries
-		while read app
-		do
+		while read app ;do
 			[ "$app" = "$(grep URL= dp.cfg)" ] || apps_choice="$apps_choice $app $1_$app"
 		done < dp.cfg
 		# Update and remove menu
@@ -188,15 +185,14 @@ apps_menus() {
 		Wide "|~| Web-based IDE for Teams using Go(lang)" \
 		WordPress "Create a beautiful website, blog, or app" \
 		WP-Calypso "|~| Reading, writing, and managing all of your WordPress sites" \
-		3>&1 1>&2 2>&3)
-		do
+		3>&1 1>&2 2>&3) ;do
 			# Confirmation message
 			whiptail --yesno "		$APP will be installed.
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) if grep $APP dp.cfg 2>/dev/null
-					then whiptail --msgbox "$APP is already installed" 8 32
+				0) if grep $APP dp.cfg 2>/dev/null ;then
+					whiptail --msgbox "$APP is already installed" 8 32
 				else
 					case $APP in
 						Caddy) . sysutils/Caddy.sh;;
@@ -204,7 +200,7 @@ apps_menus() {
 						Meteor) . sysutils/Meteor.sh;;
 						MongoDB) . sysutils/MongoDB.sh;;
 						Node.js) . sysutils/NodeJS.sh;;
-						$APP) . apps/$APP.sh; cd $DIR; grep $APP $DIR/dp.cfg 2>/dev/null || echo $APP >> $DIR/dp.cfg;;
+						$APP) . apps/$APP.sh; cd $DIR; grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg;;
 					esac
 				fi;;
 			esac
@@ -213,12 +209,10 @@ apps_menus() {
 }
 
 # Configuration Entry
-if hash bananian-config 2>/dev/null
-then
+if hash bananian-config 2>/dev/null ;then
 	config=bananian-config
 	configOption=" Banana_Pi_Configuration_Tool"
-elif hash raspi-config 2>/dev/null
-then
+elif hash raspi-config 2>/dev/null ;then
 	config=raspi-config
 	configOption=" Raspberry_Pi_Configuration_Tool"
 fi
@@ -240,8 +234,7 @@ Your can access to your apps by opening this address in your browser:
 "Network app access" "Define the network accessibility of the apps" \
 "Hostname" "Change the name of the server on your local network" \
 "About" "Informations about this project and your system" \
-$config$configOption 3>&1 1>&2 2>&3)
-do
+$config$configOption 3>&1 1>&2 2>&3) ;do
 	case $CHOICE in
 		"Install apps") apps_menus install;;
 		"Update") apps_menus update;;

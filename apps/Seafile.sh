@@ -25,16 +25,13 @@ case $DB_CHOICE in
 	# Go to its directory
 	cd /home/seafile
 
-	if [ $ARCH = amd64 ]
-		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_x86-64.tar.gz
-	elif [ $ARCH = 86 ]
-		then wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_i386.tar.gz
-	elif [ $ARCH = arm ]
-	then
+	[ $ARCH = amd64 ] && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_x86-64.tar.gz
+	[ $ARCH = 86 ] && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_i386.tar.gz
+	if [ $ARCH = arm ]; then
 		# Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
 		# Only keep the version number in the url
-		ver=$(echo $ver | awk '{ver=substr($0, 53); print ver;}')
+		ver=${ver#*v}
 		# One of this 3 link works
 		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
 	fi
@@ -103,11 +100,11 @@ EOF
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
-	if [ $ARCH = arm ]
-		then  wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
-	elif [ $DIST = Ubuntu ] && [ $ARCH = amd64 ]
-		then wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
-	elif [ $ARCH = amd64 ]
+	if [ $ARCH = arm ] ;then
+		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
+	elif [ $DIST = Ubuntu ] && [ $ARCH = amd64 ]; then
+		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
+	elif [ $ARCH = amd64 ] ;then
 		[ $PKG = deb ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
 		[ $PKG = rpm ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
 	else

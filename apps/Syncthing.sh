@@ -6,8 +6,7 @@
 
 [ $IP = $LOCALIP ] && access=$IP || access=
 
-if [ $PKG = deb ]
-then
+if [ $PKG = deb ] ;then
   # Add the release PGP keys:
   curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 
@@ -26,9 +25,9 @@ then
 else
   # Get the latest Syncthing release
   ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syncthing/releases/latest)
-
   # Only keep the version number in the url
-  ver=$(echo $ver | awk '{ver=substr($0, 54); print ver;}')
+  ver=${ver#*v}
+
   [ $ARCH = 86 ] && ARCH=386
   curl -OL https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz
   # Extract the downloaded archive and remove it

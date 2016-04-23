@@ -11,7 +11,7 @@ port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Roc
 whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
 "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 12 48 \
 --yes-button No --no-button Yes
-[ $? = 1 ] && ReplicaSet=on
+[ $? = 1 ] && ReplicaSet=1
 
 # Install Dependencies
 
@@ -26,16 +26,14 @@ useradd -m rocketchat
 cd /home/rocketchat
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
-if [ $ARCH = arm ]
-then
+if [ $ARCH = arm ] ;then
   $install python make g++
 
   # Download the Rocket.Chat binary for Raspberry Pi
   curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
-elif [ $ARCH = amd64 ] || [ $ARCH = 86 ]
-then
+elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
 
@@ -65,11 +63,10 @@ cd Rocket.Chat/programs/server
 [ $ARCH = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Setup ReplicaSet
-if [ "$ReplicaSet" = on ]
-then
+if [ "$ReplicaSet" = 1 ] ;then
   # Mongo 2.4 or earlier
-  if [ $mongo_version -lt 25 ]
-    then echo replSet=001-rs >> /etc/mongod.conf
+  if [ $mongo_version -lt 25 ] ;then
+    echo replSet=001-rs >> /etc/mongod.conf
   # Mongo 2.6+: using YAML syntax
   else
     echo 'replication:

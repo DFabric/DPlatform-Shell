@@ -9,8 +9,8 @@ whiptail --yesno "Would you like to send the .ovpn file via mail which include t
 It may not work. In this case, you need to find an other way to recuperate this .ovpn file" 8 64
 case $? in
   0) # Check if Postfix and Mutt are installed
-  if ! hash postfix mutt 2>/dev/null
-    then # Install postfix mail server and mutt for attachment
+  # Install postfix mail server and mutt for attachment
+  if ! hash postfix mutt 2>/dev/null ;then
     whiptail --msgbox "During the package configuration, you can keep all the defaults configurations and always press [Enter]" 10 48
     $install postfix mutt
   fi

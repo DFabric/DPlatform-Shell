@@ -20,8 +20,7 @@ php WP-Quick-Install/index.php
 # Change the owner from root to laverna
 chown -R wordpress /var/www/wordpress
 
-if hash caddy 2>/dev/null
-then
+if hash caddy 2>/dev/null ;then
  cat >> /etc/caddy/Caddyfile <<EOF
 $IP:$port {
   root /var/www/wordpress
@@ -35,11 +34,10 @@ $IP:$port {
 
 EOF
 systemctl restart caddy
-elif
-then
- $install nginx
- # Create Nginx configuration file
- cat > /etc/nginx/sites-available/wordpress <<EOF
+else
+  $install nginx
+  # Create Nginx configuration file
+  cat > /etc/nginx/sites-available/wordpress <<EOF
  server {
    listen $port default_server;
 
@@ -72,7 +70,7 @@ EOF
 ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 
 # Delete the default nginx server block
-rm /etc/nginx/sites-enabled/default
+rm -f /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl nginx restart
 

@@ -4,11 +4,11 @@
 [ $1 = remove ] && $remove gitlab-ce && whiptail --msgbox "GitLab removed!" 8 32 && break
 
 # Install and configure the necessary dependencies
-if [ $PKG = deb ]
-  then $install curl openssh-server ca-certificates postfix
+if [ $PKG = deb ] ;then
+  $install curl openssh-server ca-certificates postfix
 # CentOS 7 (and RedHat/Oracle/Scientific Linux 7)
-elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ]
-  then yum install curl openssh-server
+elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ] ;then
+  yum install curl openssh-server
   systemctl enable sshd
   systemctl start sshd
   yum install postfix
@@ -17,8 +17,8 @@ elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ]
   firewall-cmd --permanent --add-service=http
   systemctl reload firewalld
 # CentOS 6 (and RedHat/Oracle/Scientific Linux 6)
-elif [ $PKG = rpm ]
-  then yum install curl openssh-server postfix cronie
+elif [ $PKG = rpm ] ;then
+  yum install curl openssh-server postfix cronie
   service postfix start
   chkconfig postfix on
   lokkit -s http -s ssh
@@ -29,8 +29,8 @@ fi
 [ $PKG != pkg ] || break
 
 # Add the GitLab package server and install the package
-if [ $ARCH = arm ]
-  then $install apt-transport-https
+if [ $ARCH = arm ] ;then
+  $install apt-transport-https
   curl -sS https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | sudo bash
 else
   curl -Ss https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash

@@ -2,8 +2,7 @@
 
 # https://github.com/mailpile/Mailpile/wiki/Getting-started-on-linux
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd ~/Mailpile
   # update your Mailpile
   git pull

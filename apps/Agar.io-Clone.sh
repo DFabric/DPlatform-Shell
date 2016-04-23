@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ $1 = update ]
-then
+if [ $1 = update ] ;then
   cd /home/agario/agar.io-clone
   git pull
   whiptail --msgbox "Agar.io Clone updated!" 8 32

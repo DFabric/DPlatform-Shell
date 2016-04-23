@@ -4,8 +4,7 @@
 [ $1 = update ] && [ $PKG = rpm ] && yum update && $install owncloud && whiptail --msgbox "OwnCloud updated!" 8 32 && break
 [ $1 = remove ] && $remove owncloud && whiptail --msgbox "OwnCloud removed!" 8 32 && break
 
-if [ $PKG = deb ]
-then
+if [ $PKG = deb ] ;then
   case "$DIST$DIST_VER" in
     *ubuntu14.04*) dist=xUbuntu_14.04;;
     *ubuntu*) dist=xUbuntu_15.10;;
@@ -21,8 +20,7 @@ then
   apt-get update
   $install owncloud
 
-elif [ $PGK = rpm ]
-then
+elif [ $PGK = rpm ] ;then
   # Trust the repository
   rpm --import https://download.owncloud.org/download/repositories/9.0/CentOS_7/repodata/repomd.xml.key
 

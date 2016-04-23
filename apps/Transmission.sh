@@ -2,7 +2,7 @@
 
 $install transmission-daemon
 
-sed -i 's/"rpc-whitelist": "127.0.0.1"/"rpc-whitelist-enabled": false/' /etc/transmission-daemon/settings.json
+#sed -i 's/"rpc-whitelist": "127.0.0.1"/"rpc-whitelist": "127.0.0.1"/' /etc/transmission-daemon/settings.json
 
 sed -i 's/"rpc-whitelist-enabled": true/"rpc-whitelist-enabled": false/' /etc/transmission-daemon/settings.json
 #~/.config/transmission-daemon/settings.json

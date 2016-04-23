@@ -5,10 +5,9 @@
 [ $1 = remove ] && $remove nodejs && whiptail --msgbox "NodeJS removed!" 8 32 && break
 
 # https://github.com/nodesource/distributions/
-if hash npm 2>/dev/null
-  then echo You have NodeJS installed
-elif [ `id -u` = 0 ]
-then
+if hash npm 2>/dev/null ;then
+  echo You have NodeJS installed
+elif [ `id -u` = 0 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_4.x | bash -
   $install nodejs npm
 
