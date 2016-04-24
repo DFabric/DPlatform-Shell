@@ -30,7 +30,7 @@ if [ $ARCH = arm ] ;then
   $install python make g++
 
   # Download the Rocket.Chat binary for Raspberry Pi
-  curl https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz -o rocket.chat.tgz
+  url=https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
@@ -45,14 +45,17 @@ elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
 
   ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat
-
-  curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
+  url=https://rocket.chat/releases/latest/download
 else
     whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
 fi
 
+# Download the arcive
+wget $url -O rocket.chat.tgz 2>&1 | \
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
 # Extract the downloaded archive and remove it
-(pv -n rocket.chat.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+(pv -n rocket.chat.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
 
 mv bundle Rocket.Chat
 rm rocket.chat.tgz

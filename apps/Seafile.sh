@@ -25,8 +25,8 @@ case $DB_CHOICE in
 	# Go to its directory
 	cd /home/seafile
 
-	[ $ARCH = amd64 ] && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_x86-64.tar.gz
-	[ $ARCH = 86 ] && wget https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.0.5_i386.tar.gz
+	[ $ARCH = amd64 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_x86-64.tar.gz
+	[ $ARCH = 86 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_i386.tar.gz
 	if [ $ARCH = arm ]; then
 		# Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
@@ -34,10 +34,14 @@ case $DB_CHOICE in
 		ver=${ver#*v}
 		# One of this 3 link works
 		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
+	else
+		# Download the arcive
+		wget $url 2>&1 | \
+		stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 	fi
 
 	# Extract the downloaded archive and remove it
-	(pv -n seafile-server_* | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+	(pv -n seafile-server_* | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
 	rm seafile-server_*
 
 	# Prerequisites

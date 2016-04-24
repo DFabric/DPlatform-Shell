@@ -29,14 +29,19 @@ else
   ver=${ver#*v}
 
   [ $ARCH = 86 ] && ARCH=386
-  curl -OL https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz
+  # Download the arcive
+  wget "https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$ARCH-v$ver.tar.gz" 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n syncthing-linux-$ARCH-v$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  (pv -n syncthing-linux-$ARCH-v$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   cd syncthing-linux-$ARCH-v$ver
+
   # Move Syncthing bin to the system bin directory
   mv syncthing /usr/local/bin/
   # Move the SystemD Syncthing service to the SystemD directory
   mv etc/linux-systemd/*/* /lib/systemd/system
+
   # Remove the useless service and it's extracted folder
   rm syncthing-linux-$ARCH-v$ver*
 

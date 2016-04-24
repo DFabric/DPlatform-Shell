@@ -47,15 +47,17 @@ cd /home/myapp
 $install python gcc
 ```
 
-After prerequisites, next are the install instructions that depends of your app
+Follows the install instructions, that depends of your app
 ```sh
 # If your app has a git repository
 git clone https://github.com/MyApp/MyApp
 
-# Or if your app has an archive on Internet
-curl -OL https://myapp.com/myapp.tgz
+# Download the arcive
+wget https://myapp.com/myapp_version1.tgz -O myapp.tgz 2>&1 | \
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
 # Extract the downloaded archive and remove it
-(pv -n myapp.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+(pv -n myapp.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
 rm myapp.tgz
 
 cd MyApp

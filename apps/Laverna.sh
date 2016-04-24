@@ -11,9 +11,6 @@ fi
 # Define port
 port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)
 
-# Install unzip if not installed
-hash unzip 2>/dev/null || $install unzip
-
 # Go to its directory
 cd /home/var/www
 

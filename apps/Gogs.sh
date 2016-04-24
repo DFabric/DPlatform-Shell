@@ -21,17 +21,24 @@ ver=${ver#*v}
 # Download, extract the archive
 if [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   [ $ARCH = 86 ] && ARCH=386
-  curl -L https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz -o gogs.tar.gz
+
+  # Download the arcive
+  wget "https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz" -O gogs.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n gogs.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  (pv -n gogs.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm gogs.tar.gz
 elif [ $ARCH = arm ] ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
 
-  curl https://cdn.gogs.io/gogs_v${ver}_raspi2.zip -o gogs.zip
+  # Download the arcive
+  wget "https://cdn.gogs.io/gogs_v${ver}_raspi2.zip" -O gogs.zip 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n gogs.zip | unzip -) 2>&1 | whiptail --gauge "Extracting the files from downloaded the archive..." 6 64 0
+  (pv -n gogs.zip | unzip -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm gogs.zip
 fi
 # Add SystemD process, configure and start Gogs

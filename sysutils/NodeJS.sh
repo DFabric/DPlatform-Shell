@@ -10,6 +10,7 @@ if hash npm 2>/dev/null ;then
 elif [ `id -u` = 0 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_4.x | bash -
   $install nodejs npm
+  npm install -g npm
 
   echo "Node.js installed"
 else

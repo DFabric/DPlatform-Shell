@@ -5,10 +5,10 @@
 
 # Install and configure the necessary dependencies
 if [ $PKG = deb ] ;then
-  $install curl openssh-server ca-certificates postfix
+  $install openssh-server ca-certificates postfix
 # CentOS 7 (and RedHat/Oracle/Scientific Linux 7)
 elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ] ;then
-  yum install curl openssh-server
+  $install curl openssh-server
   systemctl enable sshd
   systemctl start sshd
   yum install postfix
@@ -18,7 +18,7 @@ elif [ $PKG = rpm ] && [ hash systemctl 2>/dev/null ] ;then
   systemctl reload firewalld
 # CentOS 6 (and RedHat/Oracle/Scientific Linux 6)
 elif [ $PKG = rpm ] ;then
-  yum install curl openssh-server postfix cronie
+  $install openssh-server postfix cronie
   service postfix start
   chkconfig postfix on
   lokkit -s http -s ssh
@@ -29,7 +29,7 @@ fi
 [ $PKG != pkg ] || break
 
 # Add the GitLab package server and install the package
-if [ $ARCH = arm ] ;then
+if [ $ARCH = arm ] && [ $PKG = deb ] ;then
   $install apt-transport-https
   curl -sS https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | sudo bash
 else

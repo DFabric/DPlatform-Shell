@@ -23,13 +23,15 @@ fi
 if ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
-
   [ $ARCH = 86 ] && ARCH=386
-  cd /usr/bin
+
   # Download and extract Caddy
-  curl https://caddyserver.com/download/build?os=linux&arch=$ARCH&features= -o caddy.tar.gz
+  wget "https://caddyserver.com/download/build?os=linux&arch=$ARCH&features=" -O caddy.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n caddy.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  (pv -n caddy.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  rm caddy.tar.gz
 
   # Download the caddy SystemD service to its directrory
   curl https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-systemd/caddy%40.service -o /etc/systemd/system/caddy.service

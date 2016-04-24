@@ -20,7 +20,9 @@ ver=${ver#*/v}
 
 [ $ARCH = 86 ] && ARCH=386
 
-wget https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH
+# Download the arcive
+wget "https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH" -O wide.tar.gz 2>&1 | \
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
 # Set the file executable
 chmod +x linx-server-v${ver}_linux-$ARCH

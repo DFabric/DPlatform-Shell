@@ -18,11 +18,14 @@ hash unzip 2>/dev/null || $install unzip
 
 ## Download and Install Ghost
 # Get the latest version of Ghost from Ghost.org
-curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip
+wget https://ghost.org/zip/ghost-latest.zip -O ghost.zio 2>&1 | \
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
 # Unzip Ghost into the recommended install folder location /var/www/ghost
 mkdir -p /var/www/
-unzip -uo ghost.zip -d /var/www/ghost
+
+# Extract the downloaded archive and remove it
+(pv -n ghost.zip | unzip -uo - -d /var/www/ghost) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
 rm ghost.zip
 
 # Move to the new ghost directory, and install Ghost production dependencies

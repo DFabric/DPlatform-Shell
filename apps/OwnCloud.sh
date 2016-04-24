@@ -27,7 +27,7 @@ elif [ $PGK = rpm ] ;then
   # Add the repository
   wget http://download.owncloud.org/download/repositories/9.0/CentOS_7/ce:9.0.repo -O /etc/yum.repos.d/ce:9.0.repo
   yum clean expire-cache
-  yum install -y owncloud
+  $install -y owncloud
 else
   whiptail --msgbox "Your operating system doesn't appear to be supported.\
   Try to install OwnCloud manually" 8 64

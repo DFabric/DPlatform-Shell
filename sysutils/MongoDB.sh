@@ -19,18 +19,27 @@ if [ "$mongo_ver" -gt 25 ] 2> /dev/null ;then
 
 elif [ "$ARMv" = armv6 ] && [ $PKG = deb ] ;then
   $install mongodb
-  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz
+
+  # Download the archive
+  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n mongo_Linux_armv6l_v2.6.7.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  (pv -n mongo_Linux_armv6l_v2.6.7.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
 elif [ $ARCH = arm ] && [ $PKG = deb ] ;then
   $install mongodb
-  curl -OL https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz
+
+  # Download the archive
+  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+
   # Extract the downloaded archive and remove it
-  (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the downloaded archive..." 6 64 0
+  (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm core_mongodb.tar.gz
+
   <<NOT_OPERATIONAL_YET
   # Check for mongodb user, if not, create mongodb user
   [ $(grep mongodb /etc/passwd) = "" ] && adduser --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb
