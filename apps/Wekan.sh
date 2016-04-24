@@ -9,7 +9,8 @@ port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 
 
 
 . sysutils/MongoDB.sh
-. sysutils/Meteor.sh
+
+[ $ACH = arm ] && sh sysutils/Meteor.sh
 
 # Add wekan user
 useradd -m wekan
