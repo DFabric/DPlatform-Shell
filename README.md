@@ -1,7 +1,7 @@
 # DPlatform [ALPHA]
 ![DP logo](https://j8r.github.io/DPlatform/img/logo.svg)
  **DPlatform** helps you to easily install applications and manage them.
-#### Would you want to have your own Cloud Storage, Chat Platform, CMS Website or VPN? To have applications you need simply, quickly without an headache putting time in complicated commands and configurations? Deploy applications/services easily and turn your server, even a cheap Raspberry Pi, to a cloud platform.
+#### Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 
@@ -67,7 +67,6 @@
 Clone the DPlatform git project, and then run it:
 ``` sh
 sudo apt-get -y install git
-cd ~ # Or whatever directory you want
 git clone https://github.com/j8r/DPlatform
 ```
 `sudo sh ~/DPlatform/dplatform.sh`

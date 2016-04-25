@@ -8,13 +8,53 @@
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
 
 # Define ReplicaSet
-whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
-"Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 12 48 \
---yes-button No --no-button Yes
-[ $? = 1 ] && ReplicaSet=1
+while whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
+"Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
+--yes-button Local --no-button External
+DBaccess=$? ;do
+  case $DBaccess in
+    0) MONGO_URL=mongodb://localhost:27017/rocketchat
+    # Define the ReplicaSet
+    whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
+    "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
+    . sysutils/MongoDB.sh
+    # Setup ReplicaSet
+    if [ "$?" = 0 ] ;then
+      # Mongo 2.4 or earlier
+      #if [ $mongo_version -lt 25 ] ;then
+      #  echo replSet=001-rs >> /etc/mongod.conf
+      # else
+      # Mongo 2.6+: using YAML syntax
+      echo 'replication:
+        replSetName:  "001-rs"' >> /etc/mongod.conf
+      # fi
+      systemctl restart mongodb
 
-# Install Dependencies
-. sysutils/MongoDB.sh
+      # Start the MongoDB shell and initiate the replica set
+      mongo rs.initiate
+
+      # RESULT EXPECTED
+      # {
+      #  "info2" : "no configuration explicitly specified -- making one",
+      #  "me" : "localhost:27017",
+      #  "info" : "Config now saved locally.  Should come online in about a minute.",
+      #  "ok" : 1
+      # }
+      $ReplicaSet="
+Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
+    fi
+    return 0;;
+
+    1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instancle URL" "\
+If you have a MongoDB database, you can enter its URL and use it.
+You can also use a MongoDB service provider on the Internet.
+MongoLab offers free sandbox databases that can be used here.
+Create a free account and database here https://mongolab.com/
+Enter your Mongo URL instance (remove brackets): \
+  " 12 72 "mongodb://:[user]:[password]@[host]:[port]/[datalink]" 3>&1 1>&2 2>&3)
+  [ $? = 1 ] && return 0;;
+  esac
+done
 
 [ $ACH = arm ] && sh sysutils/Meteor.sh
 
@@ -64,32 +104,6 @@ cd Rocket.Chat/programs/server
 [ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
 [ $ARCH = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
-# Setup ReplicaSet
-if [ "$ReplicaSet" = 1 ] ;then
-  # Mongo 2.4 or earlier
-  if [ $mongo_version -lt 25 ] ;then
-    echo replSet=001-rs >> /etc/mongod.conf
-  # Mongo 2.6+: using YAML syntax
-  else
-    echo 'replication:
-        replSetName:  "001-rs"' >> /etc/mongod.conf
-  fi
-  service mongod restart
-
-  # Start the MongoDB shell and initiate the replica set
-  mongo rs.initiate
-
-  # RESULT EXPECTED
-  # {
-  #  "info2" : "no configuration explicitly specified -- making one",
-  #  "me" : "localhost:27017",
-  #  "info" : "Config now saved locally.  Should come online in about a minute.",
-  #  "ok" : 1
-  # }
-  $ReplicaSet="
-Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
-fi
-
 # Change the owner from root to rocketchat
 chown -R rocketchat /home/rocketchat
 
@@ -109,7 +123,7 @@ SyslogIdentifier=RocketChat
 WorkingDirectory=/home/rocketchat/Rocket.Chat
 ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
-Environment=MONGO_URL=mongodb://localhost:27017/rocketchat$ReplicaSet
+Environment=$MONGO_URL$ReplicaSet
 User=rocketchat
 Restart=always
 [Install]

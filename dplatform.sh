@@ -88,12 +88,12 @@ You can always use the local IP of your server $LOCALIP in your local network" 1
 [ -f dp.cfg ] || network_access
 
 change_hostname() {
-	new_hostname=$(whiptail --inputbox --title "Change your hostname" "
-Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive),
+	new_hostname=$(whiptail --inputbox --title "Change your hostname" "\
+	Your hostname must contain only ASCII letters 'a' through 'z' (case-insensitive),
 the digits '0' through '9', and the hyphen.
 Hostname labels cannot begin or end with a hyphen.
 No other symbols, punctuation characters, or blank spaces are permitted.
-Please enter a hostname" 14 64 "$(hostname)" 3>&1 1>&2 2>&3)
+Please enter a hostname:" 14 64 "$(hostname)" 3>&1 1>&2 2>&3)
 	if [ $? = 0 ] ;then
 		echo $new_hostname > /etc/hostname
 		sed -i "s/ $($hostname) / $new_hostname /g" /etc/hosts

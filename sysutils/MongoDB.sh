@@ -40,53 +40,7 @@ elif [ $ARCH = arm ] && [ $PKG = deb ] ;then
   (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm core_mongodb.tar.gz
 
-  <<NOT_OPERATIONAL_YET
-  # Check for mongodb user, if not, create mongodb user
-  [ $(grep mongodb /etc/passwd) = "" ] && adduser --ingroup nogroup --shell /etc/false --disabled-password --gecos "" --no-create-home mongodb
-
-  # ensure appropriate owner & executable permissions
-  cd /usr/bin
-  chown root:root mongo*
-  chmod 755 mongo*
-
-  # create log file directory with appropriate owner & permissions
-  mkdir /var/log/mongodb
-  chown mongodb:nogroup /var/log/mongodb
-
-  # create the DB data directory with convenient access perms
-  mkdir /var/lib/mongodb
-  chown mongodb:root /var/lib/mongodb
-  chmod 775 /var/lib/mongodb
-
-  # create the mongodb.conf file in /etc
-  cat > /etc/mongodb.conf <<EOF
-# /etc/mongodb.conf
-# minimal config file (old style)
-# Run mongod --help to see a list of options
-
-bind_ip = 127.0.0.1
-quiet = true
-dbpath = /var/lib/mongodb
-logpath = /var/log/mongodb/mongod.log
-logappend = true
-storageEngine = mmapv1
-EOF
-
-  # create systemd / service entry
-  cat > /lib/systemd/system/mongodb.service <<EOF
-[Unit]
-Description=High-performance, schema-free document-oriented database
-After=network.target
-
-[Service]
-User=mongodb
-ExecStart=/usr/bin/mongod --quiet --config /etc/mongodb.conf
-
-[Install]
-WantedBy=multi-user.target
-EOF
-NOT_OPERATIONAL_YET
-systemctl restart mongodb
+  systemctl restart mongodb
 
 # Debian (deb) based OS
 elif [ $PKG = deb ] ;then

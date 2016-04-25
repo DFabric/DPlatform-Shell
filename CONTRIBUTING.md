@@ -1,6 +1,6 @@
 # Contributing to DPlatform
 
-#### This document is attended to provide informations for people who wants to add their contribution to the DPlatform project
+#### Thanks to your interest for the DPlatform project! This document is attended to provide advanced informations for people who wants to add their contribution.
 
 ## Shell Style Guide
 
