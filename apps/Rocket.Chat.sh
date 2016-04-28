@@ -8,16 +8,17 @@
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
 
 # Define ReplicaSet
-while whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
-"Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
---yes-button Local --no-button External
-DBaccess=$? ;do
+while : ;do
+  whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
+  "Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
+  --yes-button Local --no-button External
+  DBaccess=$?
   case $DBaccess in
     0) MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
+    . sysutils/MongoDB.sh
     whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
     "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
-    . sysutils/MongoDB.sh
     # Setup ReplicaSet
     if [ "$?" = 0 ] ;then
       # Mongo 2.4 or earlier
@@ -43,7 +44,7 @@ DBaccess=$? ;do
       $ReplicaSet="
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
     fi
-    return 0;;
+    break;;
 
     1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instancle URL" "\
 If you have a MongoDB database, you can enter its URL and use it.
@@ -52,7 +53,7 @@ MongoLab offers free sandbox databases that can be used here.
 Create a free account and database here https://mongolab.com/
 Enter your Mongo URL instance (with the brackets removed): \
   " 12 72 "mongodb://:{user}:{password}@{host}:{port}/{datalink}" 3>&1 1>&2 2>&3)
-  [ $? = 1 ] && return 0;;
+  [ $? = 0 ] || break;;
   esac
 done
 

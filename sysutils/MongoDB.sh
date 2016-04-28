@@ -47,10 +47,10 @@ elif [ $PKG = deb ] ;then
   apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv EA312927
   # Ubuntu repository
   if [ $DIST = ubuntu ] ;then
-    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
   # All other Debian based distributions
   else
-    echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+    echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
   fi
   apt-get update
   $install mongodb-org
