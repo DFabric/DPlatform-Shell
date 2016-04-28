@@ -9,7 +9,7 @@ fi
 [ $1 = remove ] && sh sysutils/service.sh remove EtherDraw && userdel -r etherdraw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture doesn't appear to work
-[ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
+[ $ARCHf = arm ] && whiptail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
 [ $? != 0 ] || break
 
 . sysutils/NodeJS.sh

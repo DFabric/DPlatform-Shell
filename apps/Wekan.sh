@@ -34,13 +34,13 @@ stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail 
 mv bundle Wekan
 rm wekan-$ver.tar.gz
 
-if [ $ARCH = arm ] ;then
+if [ $ARCHf = arm ] ;then
   $install python make g++
 
   # Reinstall bcrypt and bson to a newer version is needed
   cd /home/wekan/Wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
   cd /home/wekan/Wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
-elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
+elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
 
@@ -50,27 +50,27 @@ elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   # Meteor needs at least this version of node to work.
   n 0.10.44
 else
-    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
+    whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
 fi
 
 # Move to the server directory and install the dependencies:
 cd /home/wekan/Wekan/programs/server
 
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
-[ $ARCH = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
+[ $ARCHf = x86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
+[ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan
 chown -R wekan /home/wekan
 
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
-[ $ARCH = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
+[ $ARCHf = x86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
+[ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the SystemD service
 cat > "/etc/systemd/system/wekan.service" <<EOF
 [Unit]
 Description=Wekan Server
-Wants=mongodb.service
-After=network.target mongodb.service
+Wants=mongod.service
+After=network.target mongod.service
 [Service]
 Type=simple
 WorkingDirectory=/home/wekan/Wekan

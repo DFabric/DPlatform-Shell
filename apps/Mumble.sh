@@ -5,7 +5,7 @@
 [ $1 = remove ] && $remove mumble-server && whiptail --msgbox "Mumble removed!" 8 32 && break
 
 $install mumble-server
-[ $ARCH = deb ] && dpkg-reconfigure mumble-server
+[ $PKG = deb ] && dpkg-reconfigure mumble-server
 
 whiptail --msgbox "Mumble installed!
 

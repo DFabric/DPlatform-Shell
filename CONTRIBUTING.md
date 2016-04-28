@@ -61,12 +61,19 @@ stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail 
 rm myapp.tgz
 
 cd MyApp
+```
 
-#****************************#
-# Some installation commands #
-#****************************#
+Here is the following variables that you can use for your installations commands
+```sh
+$PKG={deb|rpm|pkg}
+$ARCHf={x86|arm}
+$ARCH={86|amd64|armv6|armv7|arm64}
 
-# Change the owner from root to myapp
+# Detect distribution (from /etc/os-release)
+$DIST={Debian|Ubuntu|Fedora|CentOS...}  # $ID
+$VERSION_ID={8|7|16.04|14.04|24|23|8|7|6...}  # $VERSION_ID
+
+# Finally change the owner from root to myapp
 chown -R myapp /home/myapp
 ```
 

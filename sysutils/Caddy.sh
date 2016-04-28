@@ -23,10 +23,12 @@ fi
 if ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
-  [ $ARCH = 86 ] && ARCH=386
+  arch=amd64
+  [ $ARCHf = arm ] && arch=arm
+  [ $ARCHf = 86 ] && arch=386
 
   # Download and extract Caddy
-  wget "https://caddyserver.com/download/build?os=linux&arch=$ARCH&features=" -O caddy.tar.gz 2>&1 | \
+  wget "https://caddyserver.com/download/build?os=linux&arch=$arch&features=" -O caddy.tar.gz 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
   # Extract the downloaded archive and remove it

@@ -18,14 +18,16 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/andreimarcu/l
 # Only keep the version number in the url
 ver=${ver#*/v}
 
-[ $ARCH = 86 ] && ARCH=386
+arch=amd64
+[ $ARCHf = arm ] && arch=arm
+[ $ARCH = 86 ] && arch=386
 
 # Download the arcive
-wget "https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$ARCH" -O wide.tar.gz 2>&1 | \
+wget "https://github.com/andreimarcu/linx-server/releases/download/v$ver/linx-server-v${ver}_linux-$arch" -O wide.tar.gz 2>&1 | \
 stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
 # Set the file executable
-chmod +x linx-server-v${ver}_linux-$ARCH
+chmod +x linx-server-v${ver}_linux-$arch
 
 cat > config.ini <<EOF bind = :$port
 # Need to fix
@@ -43,7 +45,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/home/linx
-ExecStart=/home/linx/linx-server-v${ver}_linux-$ARCH -config /home/linx/config.ini
+ExecStart=/home/linx/linx-server-v${ver}_linux-$arch -config /home/linx/config.ini
 User=linx
 Restart=always
 [Install]

@@ -27,7 +27,7 @@ case $DB_CHOICE in
 
 	[ $ARCH = amd64 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_x86-64.tar.gz
 	[ $ARCH = 86 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_i386.tar.gz
-	if [ $ARCH = arm ]; then
+	if [ $ARCHf = arm ]; then
 		# Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
 		# Only keep the version number in the url
@@ -104,11 +104,11 @@ EOF
 	# https://github.com/SeafileDE/seafile-server-installer
 	"Deploy Seafile with MariaDB")
 	$install lsb-release
-	if [ $ARCH = arm ] ;then
+	if [ $ARCHf = arm ] ;then
 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
 	elif [ $DIST = Ubuntu ] && [ $ARCH = amd64 ]; then
 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
-	elif [ $ARCH = amd64 ] ;then
+	elif [ $ARCHf = amd64 ] ;then
 		[ $PKG = deb ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
 		[ $PKG = rpm ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
 	else

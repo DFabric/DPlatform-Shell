@@ -16,13 +16,13 @@ fi
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
 
 # Debian / Ubuntu
-[ $ARCH = deb ] && $install zlib1g-dev gcc make git autoconf autogen automake pkg-config
+[ $PKG = deb ] && $install zlib1g-dev gcc make git autoconf autogen automake pkg-config
 
 # Centos / Redhat
-[ $ARCH = rpm ] && $install zlib-devel gcc make git autoconf autogen automake pkgconfig
+[ $PKG = rpm ] && $install zlib-devel gcc make git autoconf autogen automake pkgconfig
 
 # ArchLinux
-[ $ARCH = pkg ] && pacman -S --needed base-devel libmnl libnetfilter_acct zlib
+[ $PKG = pkg ] && pacman -S --needed base-devel libmnl libnetfilter_acct zlib
 
 # Install and run netdata
 cd

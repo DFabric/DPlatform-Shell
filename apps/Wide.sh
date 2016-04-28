@@ -13,7 +13,7 @@ case $? in
   # Download the arcive
   wget $url -O wide.tar.gz 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
-  
+
   # Extract the downloaded archive and remove it
   (pv -n wide.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm wide.tar.gz;;

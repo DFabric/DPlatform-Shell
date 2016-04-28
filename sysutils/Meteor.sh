@@ -1,18 +1,18 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $ARCH = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && break
+[ $1 = update ] && [ $ARCHf = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && break
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && [ $ARCH = arm ] && rm -rf /usr/share/meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
+[ $1 = remove ] && [ $ARCHf = arm ] && rm -rf /usr/share/meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
 [ $1 = remove ] && rm -rf ~/.meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
 
 if [ -d ~./meteor ] || [ -d /usr/share/meteor ] ;then
   echo "You have Meteor installed"
 # Install Meteor
-elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
+elif [ $ARCHf = x86 ] ;then
   curl https://install.meteor.com | /bin/sh
 
 # https://github.com/4commerce-technologies-AG/meteor
-elif [ $ARCH = arm ] ;then
+elif [ $ARCHf = arm ] ;then
   cd /usr/share
   git clone --depth 1 https://github.com/4commerce-technologies-AG/meteor
 

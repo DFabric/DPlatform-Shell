@@ -17,6 +17,7 @@ while : ;do
     0) MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
     . sysutils/MongoDB.sh
+    <<NOT_READY_YET
     whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
     "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
     # Setup ReplicaSet
@@ -44,6 +45,7 @@ while : ;do
       $ReplicaSet="
 Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
     fi
+NOT_READY_YET
     break;;
 
     1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instancle URL" "\
@@ -66,14 +68,14 @@ useradd -m rocketchat
 cd /home/rocketchat
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
-if [ $ARCH = arm ] ;then
+if [ $ARCHf = arm ] ;then
   $install python make g++
 
   # Download the Rocket.Chat binary for Raspberry Pi
   url=https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
-elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
+elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
 
@@ -87,7 +89,7 @@ elif [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
   # Download Stable version of Rocket.Chat
   url=https://rocket.chat/releases/latest/download
 else
-    whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48
+    whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
 fi
 
 # Download the arcive
@@ -102,21 +104,21 @@ rm rocket.chat.tgz
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && /usr/local/n/versions/node/0.10.44/bin/npm install
-[ $ARCH = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
+[ $ARCHf = x86] && /usr/local/n/versions/node/0.10.44/bin/npm install
+[ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
 chown -R rocketchat /home/rocketchat
 
-[ $ARCH = amd64 ] || [ $ARCH = 86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
-[ $ARCH = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
+[ $ARCHf = x86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
+[ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the SystemD service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
 Description=Rocket.Chat Server
-Wants=mongodb.service
-After=network.target mongodb.service
+Wants=mongod.service
+After=network.target mongod.service
 [Service]
 Type=simple
 StandardOutput=syslog
@@ -136,7 +138,7 @@ EOF
 systemctl start rocket.chat
 systemctl enable rocket.chat
 
-[ $ARCH != arm ] && whiptail --msgbox "Rocket.Chat installed!
+whiptail --msgbox "Rocket.Chat installed!
 
 Open http://$URL:$port in your browser and register.
 

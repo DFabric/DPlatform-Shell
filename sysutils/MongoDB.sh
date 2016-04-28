@@ -17,7 +17,7 @@ fi
 if [ "$mongo_ver" -gt 25 ] 2> /dev/null ;then
   echo You have the newer MongoDB version available
 
-elif [ "$ARMv" = armv6 ] && [ $PKG = deb ] ;then
+elif [ $ARCH = armv6 ] && [ $PKG = deb ] ;then
   $install mongodb
 
   # Download the archive
@@ -28,8 +28,12 @@ elif [ "$ARMv" = armv6 ] && [ $PKG = deb ] ;then
   (pv -n mongo_Linux_armv6l_v2.6.7.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
+  # Create a symbolic link to harmonize with the newer versions wich use mongod.service
+  ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
+  systemctl restart mongod
+
 # http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
-elif [ $ARCH = arm ] && [ $PKG = deb ] ;then
+elif [ $ARCHf = arm ] && [ $PKG = deb ] ;then
   $install mongodb
 
   # Download the archive
@@ -40,7 +44,9 @@ elif [ $ARCH = arm ] && [ $PKG = deb ] ;then
   (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm core_mongodb.tar.gz
 
-  systemctl restart mongodb
+  # Create a symbolic link to harmonize with the newer versions wich use mongod.service
+  ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
+  systemctl restart mongod
 
 # Debian (deb) based OS
 elif [ $PKG = deb ] ;then

@@ -43,16 +43,16 @@ else
 fi
 
 # Prerequisites
-hash whiptail curl pv sudo || $install whiptail curl pv
+hash whiptail curl pv sudo || $install whiptail curl pv sudo
 
 # Detect architecture
 ARCH=$(uname -m)
 case $ARCH in
-	x86_64) ARCH=amd64;;
-	i*86) ARCH=86;;
-	aarch64) ARCH=arm; ARMv=arm64;;
-	armv7*) ARCH=arm; ARMv=armv7;;
-	armv6*) ARCH=arm; ARMv=armv6;;
+	x86_64) ARCHf=x86; ARCH=amd64;;
+	i*86) ARCHf=x86; ARCH=86;;
+	aarch64) ARCHf=arm; ARCH=arm64;;
+	armv7*) ARCHf=arm; ARCH=armv7;;
+	armv6*) ARCHf=arm; ARCH=armv6;;
 	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1;;
 esac
 

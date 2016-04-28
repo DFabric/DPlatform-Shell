@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $ARCH != arm ] ;then
+if [ $ARCHf != arm ] ;then
   whiptail --msgbox "You need an ARM CPU to setup RetroPie" 8 48
   break
 fi

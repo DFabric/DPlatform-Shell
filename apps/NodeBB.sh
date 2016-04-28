@@ -13,7 +13,7 @@ fi
 
 ## Installing NodeBB
 # Install the base software stack
-[ $ARCH = rpm ] && yum -y groupinstall "Development Tools" && $install ImageMagick || $install imagemagick build-essential
+[ $PKG = rpm ] && yum -y groupinstall "Development Tools" && $install ImageMagick || $install imagemagick build-essential
 
 # Choice between MongoDB and Redis
 whiptail --yesno --title "Database setup" \
@@ -24,7 +24,7 @@ If you don't know, take the default MongoDB" 12 48 \
 --yes-button MongoDB --no-button Redis
 if [ $? = 0 ] ;then
   . sysutils/MongoDB.sh
-  DB=mongodb
+  DB=mongod
 elif [ $PKG = deb ] ;then
   $install redis-server
   DB=redis
@@ -67,7 +67,7 @@ EOF
 ./nodebb setup
 
 # In Centos6/7 allowing port through the firewall is needed
-[ $ARCH = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
+[ $PKG = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
 # Change the owner from root to nodebb
 chown -R nodebb /home/nodebb

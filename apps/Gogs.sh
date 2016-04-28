@@ -19,17 +19,18 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/gogits/gogs/r
 ver=${ver#*v}
 
 # Download, extract the archive
-if [ $ARCH = amd64 ] || [ $ARCH = 86 ] ;then
-  [ $ARCH = 86 ] && ARCH=386
+if [ $ARCHf = x86 ] ;then
+  arch=amd64
+  [ $ARCH = 86 ] && arch=386
 
   # Download the arcive
-  wget "https://cdn.gogs.io/gogs_v${ver}_linux_$ARCH.tar.gz" -O gogs.tar.gz 2>&1 | \
+  wget "https://cdn.gogs.io/gogs_v${ver}_linux_$arch.tar.gz" -O gogs.tar.gz 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
   (pv -n gogs.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm gogs.tar.gz
-elif [ $ARCH = arm ] ;then
+elif [ $ARCHf = arm ] ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
 
