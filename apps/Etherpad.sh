@@ -6,7 +6,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Etherpad updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove Etherpad && userdel -r etherpad && whiptail --msgbox "Etherpad removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Etherpad && userdel -r etherpad && whiptail --msgbox "Etherpad removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -29,7 +29,7 @@ sh $HOME/etherpad-lite/bin/installDeps.sh
 chown -R etherpad /home/etherpad
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Etherpad "/usr/bin/node node_modules/ep_etherpad-lite/node/server.js" /home/etherpad/etherpad-lite etherpad
+sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node node_modules/ep_etherpad-lite/node/server.js" /home/etherpad/etherpad-lite etherpad
 
 # Start the service and enable it to start on boot
 systemctl start etherpad

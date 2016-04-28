@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && npm udpate EtherCalc && whiptail --msgbox "EtherCalc updated!" 8 32 && break
-[ $1 = remove ] && sh sysutils/services.sh remove EtherCalc && npm uninstall ethercalc && userdel ethercalc && whiptail --msgbox "EtherCalc removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove EtherCalc && npm uninstall ethercalc && userdel ethercalc && whiptail --msgbox "EtherCalc removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -12,7 +12,7 @@ useradd -m ethercalc
 npm i -g ethercalc
 
 # Add SystemD process and run the server
-sh sysutils/services.sh EtherCalc "/usr/bin/node /usr/bin/ethercalc" / ethercalc
+sh sysutils/service.sh EtherCalc "/usr/bin/node /usr/bin/ethercalc" / ethercalc
 
 whiptail --msgbox "EtherCalc installed!
 

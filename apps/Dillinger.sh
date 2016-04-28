@@ -6,7 +6,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Dillinger updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove Dillinger && rm -rf ~/feedbin && whiptail --msgbox "Dillinger removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Dillinger && rm -rf ~/feedbin && whiptail --msgbox "Dillinger removed!" 8 32 && break
 
 # ARM architecture doesn't appear to work
 [ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48
@@ -25,7 +25,7 @@ mkdir -p downloads/files/{md,html,pdf}
 gulp build --prod
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh Dillinger "/usr/bin/node $HOME/dillinger/app" "$HOME/dillinger
+sh $DIR/sysutils/service.sh Dillinger "/usr/bin/node $HOME/dillinger/app" "$HOME/dillinger
 Environment=production"
 
 whiptail --msgbox "Dillinger installed!

@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] && systemctl stop rocket.chat && rm -rf /home/rocketchat/Rocket.Chat
-[ $1 = remove ] && sh sysutils/services.sh remove Rocket.Chat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Rocket.Chat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -50,8 +50,8 @@ If you have a MongoDB database, you can enter its URL and use it.
 You can also use a MongoDB service provider on the Internet.
 MongoLab offers free sandbox databases that can be used here.
 Create a free account and database here https://mongolab.com/
-Enter your Mongo URL instance (remove brackets): \
-  " 12 72 "mongodb://:[user]:[password]@[host]:[port]/[datalink]" 3>&1 1>&2 2>&3)
+Enter your Mongo URL instance (with the brackets removed): \
+  " 12 72 "mongodb://:{user}:{password}@{host}:{port}/{datalink}" 3>&1 1>&2 2>&3)
   [ $? = 1 ] && return 0;;
   esac
 done
@@ -119,6 +119,7 @@ After=network.target mongodb.service
 [Service]
 Type=simple
 StandardOutput=syslog
+StandardError=syslog
 SyslogIdentifier=RocketChat
 WorkingDirectory=/home/rocketchat/Rocket.Chat
 ExecStart=$node main.js

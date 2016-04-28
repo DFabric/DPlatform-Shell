@@ -7,7 +7,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "NodeBB updated and upgraded!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
 
 # https://docs.nodebb.org/en/latest/installing/os.html
 

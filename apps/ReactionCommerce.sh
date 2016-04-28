@@ -6,7 +6,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "ReactionCommerce updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove ReactionCommerce && rm -rf ~/reaction && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove ReactionCommerce && rm -rf ~/reaction && whiptail --msgbox "ReactionCommerce removed!" 8 32 && break
 
 # ARM architecture not supported
 if [ $ARCH = arm ] ;then
@@ -29,7 +29,7 @@ git checkout master # default branch is development
 ./reaction install
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/services.sh ReactionCommerce "$HOME/reaction/reaction" $HOME/reaction/bin
+sh $DIR/sysutils/service.sh ReactionCommerce "$HOME/reaction/reaction" $HOME/reaction/bin
 
 whiptail --msgbox "Reaction Commerce installed!
 

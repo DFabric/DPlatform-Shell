@@ -24,7 +24,6 @@
  - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
  - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
  - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
- - Torrent - Access to [Deluge](http://deluge-torrent.org/) and [Transmission](http://www.transmissionbt.com/) torrent web interface
  - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
  - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
  - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
@@ -34,7 +33,6 @@
  - [EtherCalc](https://ethercalc.net/) - Web spreadsheet, Node.js port of Multi-user SocialCalc
  - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
  - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
- - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
  - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
  - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
  - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
@@ -55,9 +53,11 @@
  - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
  - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
  - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
+ - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
  - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
  - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform
  - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
+ - [Webmin](http://www.webmin.com/) -  A web-based interface for system administration for Unix - With the [Authentic theme](https://github.com/qooob/authentic-theme)
  - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application
  - [Wide](https://wide.b3log.org/) - Web-based IDE for Teams using Go(lang)
  - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app - Installed thanks [WP Quick Install](http://wp-quick-install.com/)

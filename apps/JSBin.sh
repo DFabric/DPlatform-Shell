@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && npm udpate jsbin && whiptail --msgbox "JSBin updated!" 8 32 && break
-[ $1 = remove ] && sh sysutils/services.sh remove JS_Bin && npm uninstall jsbin && userdel jsbin && whiptail --msgbox "JSBin removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove JS_Bin && npm uninstall jsbin && userdel jsbin && whiptail --msgbox "JSBin removed!" 8 32 && break
 
 . sysutils/NodeJS.sh
 
@@ -12,7 +12,7 @@ useradd -m jsbin
 npm install -g jsbin
 
 # Add SystemD process and run the server
-sh sysutils/services.sh JSBin "/usr/bin/node /usr/bin/jsbin" / jsbin
+sh sysutils/service.sh JSBin "/usr/bin/node /usr/bin/jsbin" / jsbin
 
 whiptail --msgbox "JSBin installed!
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && [ $PKG = deb ] sh sysutils/services.sh remove Syncthing && $remove syncthing && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
-[ $1 = remove ] && sh sysutils/services.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
+[ $1 = remove ] && [ $PKG = deb ] sh sysutils/service.sh remove Syncthing && $remove syncthing && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && break
 
 [ $IP = $LOCALIP ] && access=$IP || access=
 
@@ -21,7 +21,7 @@ if [ $PKG = deb ] ;then
   sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing syncthing $HOME/syncthing-linux-*
+  sh sysutils/service.sh Syncthing syncthing $HOME/syncthing-linux-*
 else
   # Get the latest Syncthing release
   ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/syncthing/syncthing/releases/latest)
@@ -52,7 +52,7 @@ else
   sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
   # Add SystemD process, configure and start Syncthing
-  sh sysutils/services.sh Syncthing $HOME/syncthing-linux-$ARCH-v$ver/syncthing $HOME/syncthing-linux-$ARCH-v$ver
+  sh sysutils/service.sh Syncthing $HOME/syncthing-linux-$ARCH-v$ver/syncthing $HOME/syncthing-linux-$ARCH-v$ver
 fi
 
 whiptail --msgbox "Syncthing installed! Install Syncthing in your computer too to sync files!

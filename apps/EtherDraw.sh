@@ -6,7 +6,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "EtherDraw updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove EtherDraw && userdel -r etherdraw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove EtherDraw && userdel -r etherdraw && whiptail --msgbox "EtherDraw removed!" 8 32 && break
 
 # ARM architecture doesn't appear to work
 [ $ARCH = arm ] && whiptail --yesno "Your architecture ($ARCH) doesn't appear to be supported yet, cancel the installation?" 8 48

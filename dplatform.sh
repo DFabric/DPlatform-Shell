@@ -76,7 +76,7 @@ You can change this setup anytime if you want a different access before installi
 	case $NET in
 		"Local") whiptail --msgbox "You can access to your apps by opening >| $(hostname) |< in your browser. \
 Howewer, it might not work depending of your local DNS configuration. \
-You can always use the local IP of your server $LOCALIP in your local network" 10 64
+You can always use the local IP of your server in your local network" 10 64
 			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
 
 		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening >| $IP < in your browser." 8 64
@@ -134,8 +134,9 @@ apps_menus() {
 		cd $DIR
 	else
 		# Installation menu
-		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "
-		What application would you like to deploy?" 24 96 14 \
+		while APP=$(whiptail --title "DPlatform - Installation menu" --menu "\
+		What application would you like to deploy?
+		Apps with /!\ are not finished, same with |~| but might works" 24 96 14 \
 		Rocket.Chat "The Ultimate Open Source WebChat Platform" \
 		Gogs "Gogs(Go Git Service), a painless self-hosted Git Service" \
 		Syncthing "Open Source Continuous File Synchronization" \
@@ -154,7 +155,6 @@ apps_menus() {
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
-		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
@@ -177,6 +177,7 @@ apps_menus() {
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		Shout "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
+		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
 		Stringer "/!\ A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
 		Transmission "A cross-platform BitTorrent client that is easy and powerful use" \
@@ -239,7 +240,7 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		"Install apps") apps_menus install;;
 		"Update") apps_menus update;;
 		"Remove apps") apps_menus remove;;
-		"Apps Service Manager") . sysutils/services.sh;;
+		"Apps Service Manager") . sysutils/service.sh;;
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
 		"About") whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily

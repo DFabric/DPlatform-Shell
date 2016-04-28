@@ -10,7 +10,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "netdata updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/Caddy.sh && sh sysutils/services.sh remove netdata && (rm -rf ~/netdata; rm -rf /etc/netdata; rm -r /usr/sbin/netdata) && whiptail --msgbox "netdata removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/Caddy.sh && sh sysutils/service.sh remove netdata && (rm -rf ~/netdata; rm -rf /etc/netdata; rm -r /usr/sbin/netdata) && whiptail --msgbox "netdata removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)

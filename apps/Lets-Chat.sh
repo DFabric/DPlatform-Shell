@@ -7,7 +7,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Let's Chat updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove Lets-Chat && userdel -r letschat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Lets-Chat && userdel -r letschat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
 
 # Prerequisites
 . sysutils/MongoDB.sh

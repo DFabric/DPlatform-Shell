@@ -6,7 +6,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "StackEdit updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove StackEdit && userdel -r stackedit && whiptail --msgbox "StackEdit removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove StackEdit && userdel -r stackedit && whiptail --msgbox "StackEdit removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)

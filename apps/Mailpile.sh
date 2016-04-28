@@ -11,7 +11,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Mailpile updated!" 8 32
   break
 fi
-[ $1 = remove ] && sh sysutils/services.sh remove Mailpile && rm -rf ~/Mailpile && whiptail --msgbox "Mailpile removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Mailpile && rm -rf ~/Mailpile && whiptail --msgbox "Mailpile removed!" 8 32 && break
 
 
 [ $PKG = deb ] && $install gnupg openssl python-virtualenv python-pip python-lxml

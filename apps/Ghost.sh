@@ -3,7 +3,7 @@
 #http://support.ghost.org/installing-ghost-linux/
 #http://support.ghost.org/how-to-upgrade/
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && sh sysutils/services.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
+[ $1 = remove ] && sh sysutils/service.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && break
 
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)

@@ -5,7 +5,7 @@ if [ $1 = update ] ;then
   git pull
   whiptail --msgbox "Feedbin updated!" 8 32
   break
-fi[ $1 = remove ] && sh sysutils/services.sh remove Feedbin && userdel -r feedbin && whiptail --msgbox "Feedbin removed!" 8 32 && break
+fi[ $1 = remove ] && sh sysutils/service.sh remove Feedbin && userdel -r feedbin && whiptail --msgbox "Feedbin removed!" 8 32 && break
 
 # Create a feedbin user
 useradd -m feedbin
