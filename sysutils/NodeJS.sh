@@ -9,7 +9,8 @@ if hash npm 2>/dev/null ;then
   echo You have NodeJS installed
 elif [ `id -u` = 0 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
-  $install nodejs npm
+  $install nodejs
+  $install npm
 
   echo "Node.js installed"
 else
