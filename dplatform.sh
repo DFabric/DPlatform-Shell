@@ -43,7 +43,7 @@ else
 fi
 
 # Prerequisites
-hash whiptail curl pv sudo || $install whiptail curl pv sudo
+hash whiptail curl wget pv sudo || $install whiptail wget curl pv sudo
 
 # Detect architecture
 ARCH=$(uname -m)

@@ -26,7 +26,7 @@ ver=${ver#*v}
 
 # Download the arcive
 wget "https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz" 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Wekan archive..." 6 64 0
 
 # Extract the downloaded archive and remove it
 (pv -n wekan-$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
@@ -46,7 +46,7 @@ elif [ $ARCHf = x86 ] ;then
 
   # Meteor needs NodeJS 0.10.44
   wget "https://nodejs.org/dist/v0.10.44/node-v0.10.44-linux-x64.tar.gz" 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive NodeJS 0.10.44..." 6 64 0
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the NodeJS 0.10.44 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
   (pv -n node-v0.10.44-linux-x64.tar.gz | tar xzf - -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
@@ -58,7 +58,7 @@ fi
 # Move to the server directory and install the dependencies:
 cd /home/wekan/Wekan/programs/server
 
-[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.44-linux-x64/bin/npm install -g
+[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.44-linux-x64/bin/npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan

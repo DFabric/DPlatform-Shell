@@ -80,7 +80,7 @@ elif [ $ARCHf = x86 ] ;then
 
   # Meteor needs NodeJS 0.10.44
   wget "https://nodejs.org/dist/v0.10.44/node-v0.10.44-linux-x64.tar.gz" 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive NodeJS 0.10.44..." 6 64 0
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the NodeJS 0.10.44 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
   (pv -n node-v0.10.44-linux-x64.tar.gz | tar xzf -  -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
@@ -95,7 +95,7 @@ fi
 
 # Download the arcive
 wget $url -O rocket.chat.tgz 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Rocket.Chat archive..." 6 64 0
 
 # Extract the downloaded archive and remove it
 (pv -n rocket.chat.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
@@ -105,13 +105,13 @@ rm rocket.chat.tgz
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 
-[ $ARCHf = x86] && npm install
+[ $ARCHf = x86] && /usr/local/share/node-v0.10.44-linux-x64/bin/npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
 chown -R rocketchat /home/rocketchat
 
-[ $ARCHf = x86 ] && node=/usr/local/n/versions/node/0.10.44/bin/node
+[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.44-linux-x64/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the SystemD service

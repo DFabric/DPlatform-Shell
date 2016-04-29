@@ -22,4 +22,4 @@ else
   nvm install 6
 fi
 
-grep NodeJS dp.cfg 2>/dev/null || echo NodeJS >> dp.cfg
+grep NodeJS $DIR/dp.cfg 2>/dev/null || echo NodeJS >> $DIR/dp.cfg
