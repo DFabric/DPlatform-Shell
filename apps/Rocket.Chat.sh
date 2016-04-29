@@ -14,7 +14,7 @@ while : ;do
   --yes-button Local --no-button External
   DBaccess=$?
   case $DBaccess in
-    0) MONGO_URL=mongodb://localhost:27017/rocketchat
+    0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
     . sysutils/MongoDB.sh
     <<NOT_READY_YET
@@ -42,8 +42,7 @@ while : ;do
       #  "info" : "Config now saved locally.  Should come online in about a minute.",
       #  "ok" : 1
       # }
-      $ReplicaSet="
-Environment=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
+      MONGO_URL=MONGO_OPLOG_URL=mongodb://localhost:27017/local"
     fi
 NOT_READY_YET
     break;;
@@ -79,11 +78,13 @@ elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
   . $DIR/sysutils/NodeJS.sh
 
-  # Install a tool to let us change the node version.
-  npm install -g n
+  # Meteor needs NodeJS 0.10.44
+  wget "https://nodejs.org/dist/v0.10.44/node-v0.10.44-linux-x64.tar.gz" 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive NodeJS 0.10.44..." 6 64 0
 
-  # Meteor needs at least this version of node to work.
-  n 0.10.44
+  # Extract the downloaded archive and remove it
+  (pv -n node-v0.10.44-linux-x64.tar.gz | tar xzf -  -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  rm node-v0.10.44-linux-x64.tar.gz
 
   ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat
@@ -104,7 +105,7 @@ rm rocket.chat.tgz
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 
-[ $ARCHf = x86] && /usr/local/n/versions/node/0.10.44/bin/npm install
+[ $ARCHf = x86] && npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
@@ -127,7 +128,7 @@ SyslogIdentifier=RocketChat
 WorkingDirectory=/home/rocketchat/Rocket.Chat
 ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
-Environment=$MONGO_URL$ReplicaSet
+Environment=$MONGO_URL
 User=rocketchat
 Restart=always
 [Install]
