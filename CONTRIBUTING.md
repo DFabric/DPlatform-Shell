@@ -13,7 +13,7 @@ DPlatform is made in a POSIX Shell script. Therefore, your contribution must com
 
 ## Application installation script structure
 
-Each application installation scripts are built upon a same structure. Here we suppose that you application is called ***MyApp***
+Each application installation scripts are built upon a same structure. Here we suppose that you application is called **MyApp**
 
 First at the begining af each application script file, there are command to update and remove itself.
 ```sh

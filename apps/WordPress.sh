@@ -20,9 +20,11 @@ php WP-Quick-Install/index.php
 # Change the owner from root to laverna
 chown -R wordpress /var/www/wordpress
 
+[ $IP = $LOCALIP ] && access=$IP || access=
+
 if hash caddy 2>/dev/null ;then
  cat >> /etc/caddy/Caddyfile <<EOF
-$IP:$port {
+http://$access:$port {
   root /var/www/wordpress
   gzip
   fastcgi / 127.0.0.1:9000 php
@@ -39,7 +41,7 @@ else
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/wordpress <<EOF
  server {
-   listen $port default_server;
+   listen $access:$port;
 
    root /var/www/wordpress;
    index index.php index.html index.htm;
@@ -65,6 +67,7 @@ else
    }
  }
 EOF
+fi
 
 # Symlink sites-enabled to sites-available
 ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress

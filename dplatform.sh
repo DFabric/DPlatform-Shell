@@ -243,7 +243,7 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		"Apps Service Manager") . sysutils/service.sh;;
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
-		"About") whiptail --title "DPlatform - About" --msgbox "DPlatform - Deploy self-hosted apps easily
+		"About") whiptail --title "DPlatform - About" --yesno "DPlatform - Deploy self-hosted apps easily
 		https://github.com/j8r/DPlatform
 
 		- Domain/host name: `hostname`
@@ -252,7 +252,7 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		- IPv6: $IPv6
 		Your OS: $PRETTY_NAME $(uname -m)
 
-Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64;;
+Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64 --yes-button "           Ok           " --no-button "";;
 		$config) $config;;
 	esac
 done
