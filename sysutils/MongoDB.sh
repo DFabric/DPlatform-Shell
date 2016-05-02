@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
-[ $1 = remove ] && "$remove 'mongodb*'" && whiptail --msgbox "MongoDB removed!" 8 32 && break
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
+[ $1 = remove ] && $remove 'mongodb*' && whiptail --msgbox "MongoDB removed!" 8 32 && exit
 
 if hash mongo 2>/dev/null ;then
   # Check MongoDB version

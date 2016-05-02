@@ -1,13 +1,7 @@
 #!/bin/sh
 
-if [ $1 = update ] ;then
-  cd /home/letschat/lets-chat
-  git pull
-  npm run-script migrate
-  whiptail --msgbox "Let's Chat updated!" 8 32
-  break
-fi
-[ $1 = remove ] && sh sysutils/service.sh remove Lets-Chat && userdel -r letschat && whiptail --msgbox "Let's Chat removed!" 8 32 && break
+[ $1 = update ] && git -C /home/letschat/lets-chat pull && npm run-script migrate && whiptail --msgbox "Let's Chat updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Lets-Chat && userdel -r letschat && whiptail --msgbox "Let's Chat removed!" 8 32 && exit
 
 # Prerequisites
 . sysutils/MongoDB.sh

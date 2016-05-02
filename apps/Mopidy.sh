@@ -1,7 +1,7 @@
 #!/bin/sh
-[ $PKG = rpm ] && whiptail --msgbox "Your $PKG isn't supported yet" 8 32 && break
-[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install mopidy && pip install --upgrade -y Mopidy-Mopify && whiptail --msgbox "Mopidy updated!" 8 32 && break
-[ $1 = remove ] && $remove mopidy && pip uninstall -y Mopidy-Mopify && whiptail --msgbox "Mopidy removed!" 8 32 && break
+[ $PKG = rpm ] && whiptail --msgbox "Your $PKG isn't supported yet" 8 32 && exit
+[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install mopidy && pip install --upgrade -y Mopidy-Mopify && whiptail --msgbox "Mopidy updated!" 8 32 && exit
+[ $1 = remove ] && $remove mopidy && pip uninstall -y Mopidy-Mopify && whiptail --msgbox "Mopidy removed!" 8 32 && exit
 
 # Define ports
 MPDport=$(whiptail --title "MPD server port" --inputbox "Set a port number for the MPD server" 8 48 "6600" 3>&1 1>&2 2>&3)

@@ -2,16 +2,9 @@
 
 # https://github.com/mailpile/Mailpile/wiki/Getting-started-on-linux
 
-if [ $1 = update ] ;then
-  cd ~/Mailpile
-  # update your Mailpile
-  git pull
-  # update any submodules (documentation, plug-ins)
-  git submodule update
-  whiptail --msgbox "Mailpile updated!" 8 32
-  break
-fi
-[ $1 = remove ] && sh sysutils/service.sh remove Mailpile && rm -rf ~/Mailpile && whiptail --msgbox "Mailpile removed!" 8 32 && break
+# Update your Mailpile with any submodules (documentation, plug-ins)
+[ $1 = update ] && { cd ~/Mailpile; git pull; git submodule update; } && whiptail --msgbox "Mailpile updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Mailpile && rm -rf ~/Mailpile && whiptail --msgbox "Mailpile removed!" 8 32 && exit
 
 
 [ $PKG = deb ] && $install gnupg openssl python-virtualenv python-pip python-lxml

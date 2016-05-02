@@ -120,7 +120,6 @@ apps_menus() {
 			[ $? = 0 ] && whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
 			# Remove the app entry
-			[ $? = 0 ] && [ $1 = remove ] && sed -i "/$APP/d" dp.cfg
 			[ $? = 0 ] && case $APP in
 				Update) [ $PKG = deb ] && apt-get update
 				[ $PKG = rpm ] && yum update;;
@@ -129,7 +128,7 @@ apps_menus() {
 				Meteor) . sysutils/Meteor.sh $1;;
 				MongoDB) . sysutils/MongoDB.sh $1;;
 				Node.js) . sysutils/NodeJS.sh $1;;
-				$APP) . apps/$APP.sh $1;;
+				$APP) sh apps/$APP.sh $1; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
 	else

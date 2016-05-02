@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && npm udpate shout && whiptail --msgbox "Shout updated!" 8 32 && break
-[ $1 = remove ] && sh sysutils/service.sh remove Shout && npm uninstall shout && userdel shout && whiptail --msgbox "Shout removed!" 8 32 && break
+[ $1 = update ] && npm udpate shout && whiptail --msgbox "Shout updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Shout && npm uninstall shout && userdel shout && whiptail --msgbox "Shout removed!" 8 32 && exit
 
 . sysutils/NodeJS.sh
 

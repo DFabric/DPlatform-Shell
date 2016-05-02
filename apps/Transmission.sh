@@ -1,5 +1,8 @@
 #!/bin/sh
 
+[ $1 = update ] && $install transmission-daemon && whiptail --msgbox "Transmission updated!" 8 32 && exit
+[ $1 = remove ] && $remove transmission-daemon && whiptail --msgbox "Transmission removed!" 8 32 && exit
+
 $install transmission-daemon
 
 #sed -i 's/"rpc-whitelist": "127.0.0.1"/"rpc-whitelist": "127.0.0.1"/' /etc/transmission-daemon/settings.json

@@ -1,13 +1,7 @@
 #!/bin/sh
 
-if [ $1 = update ] ;then
-  cd /home/nodebb
-  git pull
-  ./nodebb upgrade
-  whiptail --msgbox "NodeBB updated and upgraded!" 8 32
-  break
-fi
-[ $1 = remove ] && sh sysutils/service.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && break
+[ $1 = update ] && git -C /home/nodebb pull && ./home/nodebb/nodebb upgrade && whiptail --msgbox "NodeBB updated and upgraded!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove NodeBB && userdel -r nodebb && whiptail --msgbox "NodeBB removed!" 8 32 && exit
 
 # https://docs.nodebb.org/en/latest/installing/os.html
 

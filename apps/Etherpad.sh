@@ -1,12 +1,7 @@
 #!/bin/sh
 
-if [ $1 = update ] ;then
-  cd /home/etherpad/etherpad-lite
-  git pull
-  whiptail --msgbox "Etherpad updated!" 8 32
-  break
-fi
-[ $1 = remove ] && sh sysutils/service.sh remove Etherpad && userdel -r etherpad && whiptail --msgbox "Etherpad removed!" 8 32 && break
+[ $1 = update ] && git -C /home/etherpad/etherpad-lite pull && whiptail --msgbox "Etherpad updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Etherpad && userdel -r etherpad && whiptail --msgbox "Etherpad removed!" 8 32 && exit
 
 . sysutils/NodeJS.sh
 
@@ -23,7 +18,7 @@ cd /home/etherpad
 git clone https://github.com/ether/etherpad-lite
 
 #prepare the enviroment
-sh $HOME/etherpad-lite/bin/installDeps.sh
+sh /home/etherpad/etherpad-lite/bin/installDeps.sh
 
 # Change the owner from root to etherpad
 chown -R etherpad /home/etherpad

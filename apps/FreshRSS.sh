@@ -1,15 +1,7 @@
 #!/bin/sh
 
-if [ $1 = update ] ;then
-  cd /var/www/FreshRSS
-  git reset --hard
-  git pull
-  chown -R www-data:www-data .
-  chmod -R g+w ./data/
-  whiptail --msgbox "FreshRSS updated!" 8 32
-  break
-fi
-[ $1 = remove ] && /var/www/FreshRSS && whiptail --msgbox && (rm /etc/nginx/sites-*/freshrss; systemctl restart nginx) && crontab -u www-data -r && whiptail --msgbox "FreshRSS removed!" 8 32 && break
+[ $1 = update ] && { cd /var/www/FreshRSS; git reset --hard; git pull; chown -R www-data:www-data .; chmod -R g+w ./data/; } && whiptail --msgbox "FreshRSS updated!" 8 32 && exit
+[ $1 = remove ] && rm /etc/nginx/sites-*/freshrss && systemctl restart nginx && crontab -u www-data -r && whiptail --msgbox "FreshRSS removed!" 8 32 && exit
 
 # Define port
 port=$(whiptail --title "FreshRSS port" --inputbox "Set a port number for FreshRSS" 8 48 "8086" 3>&1 1>&2 2>&3)

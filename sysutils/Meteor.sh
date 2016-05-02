@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $ARCHf = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && break
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && break
+[ $1 = update ] && [ $ARCHf = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && exit
+[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
 [ $1 = remove ] && [ $ARCHf = arm ] && rm -rf /usr/share/meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
 [ $1 = remove ] && rm -rf ~/.meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
 

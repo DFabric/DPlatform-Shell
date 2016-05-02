@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && npm udpate droppy && whiptail --msgbox "Droppy updated!" 8 32 && break
-[ $1 = remove ] && sh sysutils/service.sh remove Droppy && npm uninstall droppy && rm -rf /var/www/droppy && userdel droppy && whiptail --msgbox "Droppy removed!" 8 32 && break
+[ $1 = update ] && npm udpate droppy && whiptail --msgbox "Droppy updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Droppy && npm uninstall droppy && rm -rf /var/www/droppy && userdel droppy && whiptail --msgbox "Droppy removed!" 8 32 && exit
 
 . sysutils/NodeJS.sh
 

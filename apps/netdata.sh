@@ -1,16 +1,8 @@
 #!/bin/sh
 
-if [ $1 = update ] ;then
-  # update it
-  cd netdata
-  git pull
-
-  # rebuild it and install it
-  ./netdata-installer.sh
-  whiptail --msgbox "netdata updated!" 8 32
-  break
-fi
-[ $1 = remove ] && sh sysutils/Caddy.sh && sh sysutils/service.sh remove netdata && (rm -rf ~/netdata; rm -rf /etc/netdata; rm -r /usr/sbin/netdata) && whiptail --msgbox "netdata removed!" 8 32 && break
+# Update, rebuild and install netdata
+[ $1 = update ] && git -C netdada pull && .$HOME/netdata/netdata-installer.sh && whiptail --msgbox "netdata updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/Caddy.sh && sh sysutils/service.sh remove netdata && { rm -rf ~/netdata; rm -rf /etc/netdata; rm -r /usr/sbin/netdata; } && whiptail --msgbox "netdata removed!" 8 32 && exit
 
 # Define port
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
