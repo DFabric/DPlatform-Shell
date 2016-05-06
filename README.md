@@ -1,24 +1,23 @@
 # DPlatform [ALPHA]
 ![DP logo](https://j8r.github.io/DPlatform/img/logo.svg)
- **DPlatform** helps you to easily install applications and manage them.
+**DPlatform** helps you to easily install applications and manage them.
+
 #### Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.
 ![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
 
 ## DPlatform goals
+- Simplicity: Easy automated installation. Manage your applications simply through an UI
 
-- Simplicity: Easy automated installation. You can manage your applications simply through an UI
+- Lightness: Keep as light and close as a manual installation. No Docker required
 
-- Lightness: Keeping everything light as close as a bare metal manual installation. No Docker required
-
-- Independence: You own your data in your server. The installed programs don't depend of DPlatform or any third party service
+- Independence: Full control of your apps. Independence of installed apps from any third party service, including DPlatform
 
 - Freedom: Free and Open Source applications. DPlatform is a [MIT](http://opensource.org/licenses/MIT) licensed project
 
 - Security: One user is created per app. Severals use encryption and reverse-proxying
 
 ## Features
-
 - Install applications easily
 - Manage Apps Services - SystemD services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
 - Update/Remove installed apps simply with two clicks
@@ -77,19 +76,17 @@
 - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app - Installed thanks [WP Quick Install](http://wp-quick-install.com/)
 - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
 
-## Install
-Clone the DPlatform git project, and then run it:
+## Installation
+You need to have git installed, to clone the project. For example for Debian:
 ``` sh
 sudo apt-get -y install git
 git clone https://github.com/j8r/DPlatform
 ```
-`sudo sh ~/DPlatform/dplatform.sh`
+`sudo sh DPlatform/dplatform.sh`
 
 Next times, only run this last command for DPlatform
 
-
 ## Requirements
-
 A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have custom SytemdD services.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
@@ -100,21 +97,19 @@ CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
 Arch Linux. Partial support, not tested
 
-A x86, x86-64 or armv[6,7,8] CPU.
+A x86, x86-64 or ARMv[6,7,8] CPU.
 
 Development is still active. Most things should work, but problems could occur, more testing is needed.
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Roadmap
-
  - [1] Install apps efficiently through a terminal UI - In progress
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
  - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
- - DNS and secure firewall pass-trough via [localtunnel](https://localtunnel.me/)
+ - DNS and secure firewall pass-through via [localtunnel](https://localtunnel.me/)
  - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 
 ### Other informations
-
 Each app have its own dedicated user, most their own `/home/app_user` directory
 
 If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/j8r/DPlatform/blob/master/CONTRIBUTING.md)
