@@ -23,7 +23,7 @@
 <a id="dplatform-alpha" class="anchor" href="#dplatform-alpha" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DPlatform [ALPHA]</h1>
 
 <p><img src="https://j8r.github.io/DPlatform/img/logo.svg" alt="DP logo">
- <strong>DPlatform</strong> helps you to easily install applications and manage them.</p>
+<strong>DPlatform</strong> helps you to easily install applications and manage them.</p>
 
 <h4>
 <a id="quickly-have-your-own-cloud-storage-chat-cms-website-feed-reader-or-vpn-no-complex-commands-or-configurations-required-simply-access-to-your-freshly-installed-application-at-the-displayed-url-deploy-applicationsservices-easily-to-your-server-and-turn-it-even-a-cheap-raspberry-pi-to-a-saas-cloud-platform" class="anchor" href="#quickly-have-your-own-cloud-storage-chat-cms-website-feed-reader-or-vpn-no-complex-commands-or-configurations-required-simply-access-to-your-freshly-installed-application-at-the-displayed-url-deploy-applicationsservices-easily-to-your-server-and-turn-it-even-a-cheap-raspberry-pi-to-a-saas-cloud-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.</h4>
@@ -35,9 +35,9 @@
 <a id="dplatform-goals" class="anchor" href="#dplatform-goals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DPlatform goals</h2>
 
 <ul>
-<li><p>Simplicity: Easy automated installation. You can manage your applications simply through an UI</p></li>
-<li><p>Lightness: Keeping everything light as close as a bare metal manual installation. No Docker required</p></li>
-<li><p>Independence: You own your data in your server. The installed programs don't depend of DPlatform or any third party service</p></li>
+<li><p>Simplicity: Easy automated installation. Manage your applications simply through an UI</p></li>
+<li><p>Lightness: Keep as light and close as a manual installation. No Docker required</p></li>
+<li><p>Independence: Full control of your apps. Independence of installed apps from any third party service, including DPlatform</p></li>
 <li><p>Freedom: Free and Open Source applications. DPlatform is a <a href="http://opensource.org/licenses/MIT">MIT</a> licensed project</p></li>
 <li><p>Security: One user is created per app. Severals use encryption and reverse-proxying</p></li>
 </ul>
@@ -164,14 +164,14 @@
 </ul>
 
 <h2>
-<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Clone the DPlatform git project, and then run it:</p>
+<p>You need to have git installed, to clone the project. For example for Debian:</p>
 
 <div class="highlight highlight-source-shell"><pre>sudo apt-get -y install git
 git clone https://github.com/j8r/DPlatform</pre></div>
 
-<p><code>sudo sh ~/DPlatform/dplatform.sh</code></p>
+<p><code>sudo sh DPlatform/dplatform.sh</code></p>
 
 <p>Next times, only run this last command for DPlatform</p>
 
@@ -188,7 +188,7 @@ git clone https://github.com/j8r/DPlatform</pre></div>
 
 <p>Arch Linux. Partial support, not tested</p>
 
-<p>A x86, x86-64 or armv[6,7,8] CPU.</p>
+<p>A x86, x86-64 or ARMv[6,7,8] CPU.</p>
 
 <p>Development is still active. Most things should work, but problems could occur, more testing is needed.
 Please feel free to open an issue and create a pull request, all contributions are welcome!</p>
@@ -200,7 +200,7 @@ Please feel free to open an issue and create a pull request, all contributions a
 <li>[1] Install apps efficiently through a terminal UI - In progress</li>
 <li>(2) DPlatform Web GUI to manage apps easily - Early prototypes started</li>
 <li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Planned</li>
-<li>DNS and secure firewall pass-trough via <a href="https://localtunnel.me/">localtunnel</a>
+<li>DNS and secure firewall pass-through via <a href="https://localtunnel.me/">localtunnel</a>
 </li>
 <li>Enhance the security. <a href="https://caddyserver.com/">Caddy</a>, Nginx reverse proxy, <a href="https://letsencrypt.org/">Let's Encrypt</a> certificate</li>
 </ul>
