@@ -1,4 +1,4 @@
-# DPlatform [ALPHA]
+# DPlatform (alpha)
 ![DP logo](https://j8r.github.io/DPlatform/img/logo.svg)
 **DPlatform** helps you to easily install applications and manage them.
 

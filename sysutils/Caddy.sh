@@ -32,11 +32,16 @@ if ! hash caddy 2>/dev/null ;then
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
-  (pv -n caddy.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  (pv -n caddy.tar.gz | tar xzf - -C caddy) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm caddy.tar.gz
 
-  # Download the caddy SystemD service to its directrory
-  curl https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-systemd/caddy%40.service -o /etc/systemd/system/caddy.service
+  # Put the caddy binary to its directrory
+  mv caddy/caddy /usr/bin
+
+  # Put the caddy SystemD service to its directrory
+  mv caddy/init/linux-systemd/caddy@.service /etc/systemd/system/caddy.service
+
+  rm -r caddy
   # Remove Group=http
   sed -i "/Group=http/d" /etc/systemd/system/caddy.service
 

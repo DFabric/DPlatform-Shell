@@ -2,7 +2,24 @@
 
 #http://support.ghost.org/installing-ghost-linux/
 #http://support.ghost.org/how-to-upgrade/
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
+if [ $1 = update ] ;then
+  cd /var/www/ghost
+
+  wget https://ghost.org/zip/ghost-latest.zip 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+  (pv -n ghost-latest.zip | unzip -uo - -d ghost)) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+
+  rm ghost-latest.zip
+  mv ghost/core ghost/index.js ghost/*.md ghost/*.json .
+  rm -r ghost
+
+  npm install --production
+
+  chown -R ghost /var/www/ghost
+  systemctl restart ghost
+  whiptail --msgbox "Ghost updated!" 8 32
+  exit
+fi
 [ $1 = remove ] && sh sysutils/service.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && exit
 
 # Define port
@@ -18,7 +35,7 @@ hash unzip 2>/dev/null || $install unzip
 
 ## Download and Install Ghost
 # Get the latest version of Ghost from Ghost.org
-wget https://ghost.org/zip/ghost-latest.zip -O ghost.zio 2>&1 | \
+wget https://ghost.org/zip/ghost-latest.zip -O ghost.zip 2>&1 | \
 stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
 # Unzip Ghost into the recommended install folder location /var/www/ghost
@@ -50,8 +67,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/var/www/ghost
-Environment=NODE_ENV=production
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/npm start --production
 User=ghost
 Restart=always
 [Install]
