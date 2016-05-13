@@ -65,6 +65,7 @@
 - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
 - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
 - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
+- [Shout](http://shout-irc.com/) - The self-hosted web IRC client
 - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
 - [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
 - [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
