@@ -54,6 +54,7 @@
 - [Laverna](https://laverna.cc/) - A JavaScript note taking application with Markdown editor and encryption support
 - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
 - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
+- [Curvytron](http://www.curvytron.com/) - A web multiplayer Tron-like game with curves
 - [Caddy](https://caddyserver.com/) - Fast, cross-platform HTTP/2 web server with automatic HTTPS
 - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
 - [Mailpile](https://www.mailpile.is/) - A free & open modern, fast email client with user-friendly encryption and privacy features

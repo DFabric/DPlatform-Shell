@@ -1,0 +1,50 @@
+#!/bin/sh
+
+[ $1 = update ] && git -C /home/curvytron pull && whiptail --msgbox "Curvytron updated!" 8 32 && exit
+[ $1 = remove ] && sh sysutils/service.sh remove Curvytron && userdel -r curvytron && whiptail --msgbox "Curvytron removed!" 8 32 && exit
+
+# Define port
+port=$(whiptail --title "Curvytron port" --inputbox "Set a port number for Curvytron" 8 48 "8086" 3>&1 1>&2 2>&3)
+
+. sysutils/NodeJS.sh
+
+# Add curvytron user
+useradd -m curvytron
+
+# Go to curvytron user directory
+cd /home/curvytron
+
+## Installation
+# Clone the repository
+git clone https://github.com/Curvytron/curvytron .
+
+# Duplicate config.json.sample to config.json to setup a custom configuration,
+cp config.json.sample config.json
+
+sed -i "s/port: 8080/port: $port/" bin/curvytron.js
+
+# Install dependencies
+npm install -g bower gulp
+
+npm install
+npm install node-sass@next
+npm install gulp-sass@2.3.1
+
+bower install --allow-root
+
+# Build the game
+gulp
+
+# Change the owner from root to agario
+chown -R curvytron /home/curvytron
+
+# Add SystemD process and run the server
+sh sysutils/service.sh Curvytron "/usr/bin/node /home/curvytron/bin/curvytron.js" /home/curvytron curvytron
+
+# Start the service and enable it to start on boot
+systemctl start curvytron
+systemctl enable curvyton
+
+whiptail --msgbox "Curvytron installed!
+
+The game is accessible at http://$URL:$port" 10 64

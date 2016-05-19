@@ -75,7 +75,7 @@ chown -R myapp /home/myapp
 Create a SystemD service for your app
 ```sh
 # Create the SystemD service
-cat > "/etc/systemd/system/etherdraw.service" <<EOF
+cat > "/etc/systemd/system/myapp.service" <<EOF
 [Unit]
 Description=MyApp Server
 After=network.target
@@ -99,7 +99,7 @@ You can also use the builtin SystemD service creation of DPlatform
 # Add SystemD process and run the server
 sh sysutils/services.sh MyApp "/usr/bin/node /usr/bin/MyApp" /home/myapp/MyApp myapp
 # This command correspond to
-# sh ServiceCreationScriptPath Description= "ExecStart=" WorkingDirectory= User=
+# sh ServiceCreationScriptPath ServiceName "ExecStart=" WorkingDirectory= User=
 
 ```
 Finally, print a message box to inform that the installation is finished and the URL access of your app
@@ -108,3 +108,4 @@ whiptail --msgbox "MyApp installed!
 
 Open http://$URL:$port in your browser." 10 64
 ```
+Finally, add your new application to the `dplatform.sh` main menu next to anothers `MyApp "MyApp description" \`. Add also its description on "Available apps" like `- [MyApp](https://myapp_website) - Description`
