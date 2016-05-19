@@ -9,14 +9,14 @@ port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for Stack
 . sysutils/NodeJS.sh
 
 # Create stackedit user
-useradd -m stackedit
-
-# Go to stackedit user directory
-cd /home/stackedit
+useradd stackedit
 
 # Pre-requisites
-git clone https://github.com/benweet/stackedit .
+git clone https://github.com/benweet/stackedit /home/stackedit
 npm i -g gulp bower
+
+# Go to the stackedit user directory
+cd /home/stackedit
 
 # Download development tools
 npm install

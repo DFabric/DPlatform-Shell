@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ $1 = update ] && git -C /home/curvytron pull && whiptail --msgbox "Curvytron updated!" 8 32 && exit
+[ $1 = update ] && git -C /home/curvytron pull && git -C /home/curvytron reset --hard
 [ $1 = remove ] && sh sysutils/service.sh remove Curvytron && userdel -r curvytron && whiptail --msgbox "Curvytron removed!" 8 32 && exit
 
 # Define port
@@ -9,14 +9,14 @@ port=$(whiptail --title "Curvytron port" --inputbox "Set a port number for Curvy
 . sysutils/NodeJS.sh
 
 # Add curvytron user
-useradd -m curvytron
-
-# Go to curvytron user directory
-cd /home/curvytron
+useradd curvytron
 
 ## Installation
 # Clone the repository
-git clone https://github.com/Curvytron/curvytron .
+git clone https://github.com/Curvytron/curvytron /home/curvytron
+
+# Go to the curvytron user directory
+cd /home/curvytron
 
 # Duplicate config.json.sample to config.json to setup a custom configuration,
 cp config.json.sample config.json
