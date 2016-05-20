@@ -3,7 +3,7 @@
 [ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
 [ $1 = remove ] && sh sysutils/service.sh remove Seafile && sh sysutils/service.sh remove Seahub  && rm -rf ~/haiwen && rm -rf ~/seafile-server* && whiptail --msgbox "Seafile removed!" 8 32 && exit
 
-DB_CHOICE=$(hiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
+DB_CHOICE=$(whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 
 SQLite fit in Home/Personal Environment
 MariaDB/Nginx is recommended in Production/Enterprise Environment
@@ -102,7 +102,7 @@ EOF
 	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72
 	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
 	# https://github.com/SeafileDE/seafile-server-installer
-	"Deploy Seafile with MariaDB")
+	"Deploy Seafile with MariaDB"
 	$install lsb-release
 	if [ $ARCHf = arm ] ;then
 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
