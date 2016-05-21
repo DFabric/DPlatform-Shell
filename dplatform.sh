@@ -1,6 +1,6 @@
 #!/bin/sh
 # DeployPlaform - Deploy self-hosted apps efficiently
-# https://github.com/j8r/DPlatform
+# https://github.com/DFabric/DPlatform-ShellCore
 # Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
 
 # This script is implemented as POSIX-compliant.
@@ -8,7 +8,7 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 # Current directory
-DIR=$(cd -P $(dirname $0) && pwd)
+[ $DIR = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
 # Test if cuby responds
@@ -16,7 +16,7 @@ IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
 # Else use this site
 [ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
 [ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
-You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48 || git pull # Check available updates
+You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
@@ -39,7 +39,7 @@ elif hash pacman 2>/dev/null ;then
 	PKG=pkg
 	install="pacman -S"
 else
-	PKG=unknown
+	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
 
 # Prerequisites
@@ -244,7 +244,7 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
 		"About") whiptail --title "DPlatform - About" --yesno "DPlatform - Deploy self-hosted apps easily
-		https://github.com/j8r/DPlatform
+		https://github.com/DFabric/DPlatform-ShellCore
 
 		- Domain/host name: `hostname`
 		- Local IPv4: $LOCALIP

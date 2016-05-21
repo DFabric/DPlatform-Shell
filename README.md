@@ -3,8 +3,8 @@
 **DPlatform** helps you to easily install applications and manage them.
 
 #### Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.
-![main](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png)
-![install](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png)
+![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png)
+![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png)
 
 ## DPlatform goals
 - Simplicity: Easy automated installation. Manage your applications simply through an UI
@@ -25,7 +25,7 @@
 - Change your hostname
 - Determine your IPv4, IPv6, LocalIP and your hostname
 
- [![DP deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
+ [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
 ## Available apps
 - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
@@ -79,14 +79,20 @@
 - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
 
 ## Installation
-You need to have git installed, to clone the project. For example for Debian:
-``` sh
-sudo apt-get -y install git
-git clone https://github.com/j8r/DPlatform
-```
-`sudo sh DPlatform/dplatform.sh`
+To begin with DPlatform, run this command:
 
-Next times, only run this last command for DPlatform
+`wget -qO- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh`
+
+or
+
+`curl -o- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh`
+
+The prerequisites will be installed and the DPlatform git project cloned for you.
+
+Next times, to run DPlatform:
+`sudo sh init.sh`
+
+Not recommended because no auto-updates: Note you *can* directly run `dplatform.sh`.
 
 ## Requirements
 A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have custom SytemdD services.
@@ -114,7 +120,7 @@ Please feel free to open an issue and create a pull request, all contributions a
 ### Other informations
 Each app have its own dedicated user, most their own `/home/app_user` directory
 
-If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/j8r/DPlatform/blob/master/CONTRIBUTING.md)
+If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/DFabric/DPlatform-ShellCore/blob/master/CONTRIBUTING.md)
 
 ## Contributors - Special thanks
 [@cryptono](https://github.com/cryptono) - testing

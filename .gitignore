@@ -1,11 +1,17 @@
 # Ignore everything
 *
+
 # Except this files
 !.gitignore
+!init.sh
+!dplatform.sh
 !LICENSE
 !README.md
 !CONTRIBUTING.md
+
+# And folders
 /*
+!.git/
 !apps/
 !apps/*
 !sysutils/

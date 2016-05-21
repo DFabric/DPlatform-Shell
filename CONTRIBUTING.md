@@ -1,6 +1,6 @@
 # Contributing to DPlatform
 
-#### Thanks to your interest for the DPlatform project! This document is attended to provide advanced informations for people who wants to add their contribution.
+#### Thanks to your interest for the DPlatform project! This document is attended to provide advanced informations for people who wants to add their contribution to the DPlatform ShellCore of DPlatfor.
 
 ## Shell Style Guide
 
@@ -66,7 +66,7 @@ $ARCH={86|amd64|armv6|armv7|arm64}
 
 # Detect distribution (from /etc/os-release)
 $DIST={Debian|Ubuntu|Fedora|CentOS...}  # $ID
-$VERSION_ID={8|7|16.04|14.04|24|23|8|7|6...}  # $VERSION_ID
+$DIST_VER={8|7|16.04|14.04|24|23|8|7|6...}  # $VERSION_ID
 
 # Finally change the owner from root to myapp
 chown -R myapp /home/myapp
