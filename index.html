@@ -28,8 +28,8 @@
 <h4>
 <a id="quickly-have-your-own-cloud-storage-chat-cms-website-feed-reader-or-vpn-no-complex-commands-or-configurations-required-simply-access-to-your-freshly-installed-application-at-the-displayed-url-deploy-applicationsservices-easily-to-your-server-and-turn-it-even-a-cheap-raspberry-pi-to-a-saas-cloud-platform" class="anchor" href="#quickly-have-your-own-cloud-storage-chat-cms-website-feed-reader-or-vpn-no-complex-commands-or-configurations-required-simply-access-to-your-freshly-installed-application-at-the-displayed-url-deploy-applicationsservices-easily-to-your-server-and-turn-it-even-a-cheap-raspberry-pi-to-a-saas-cloud-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.</h4>
 
-<p><img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/main.png" alt="main">
-<img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/install.png" alt="install"></p>
+<p><img src="https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png" alt="main">
+<img src="https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png" alt="install"></p>
 
 <h2>
 <a id="dplatform-goals" class="anchor" href="#dplatform-goals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DPlatform goals</h2>
@@ -54,7 +54,7 @@
 <li>
 <p>Determine your IPv4, IPv6, LocalIP and your hostname</p>
 
-<p><a href="https://j8r.github.io/DPlatform/"><img src="https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png" alt="DP deploy"></a></p>
+<p><a href="https://dfabric.github.io/DPlatform-ShellCore"><img src="https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png" alt="DP deploy"></a></p>
 </li>
 </ul>
 
@@ -170,14 +170,20 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>You need to have git installed, to clone the project. For example for Debian:</p>
+<p>To begin with DPlatform, run this command:</p>
 
-<div class="highlight highlight-source-shell"><pre>sudo apt-get -y install git
-git clone https://github.com/j8r/DPlatform</pre></div>
+<p><code>wget -qO- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh</code></p>
 
-<p><code>sudo sh DPlatform/dplatform.sh</code></p>
+<p>or</p>
 
-<p>Next times, only run this last command for DPlatform</p>
+<p><code>curl -o- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh</code></p>
+
+<p>The prerequisites will be installed and the DPlatform git project cloned for you.</p>
+
+<p>Next times, to run DPlatform:
+<code>sudo sh init.sh</code></p>
+
+<p>Not recommended because no auto-updates: Note you <em>can</em> directly run <code>dplatform.sh</code>.</p>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
@@ -214,7 +220,7 @@ Please feel free to open an issue and create a pull request, all contributions a
 
 <p>Each app have its own dedicated user, most their own <code>/home/app_user</code> directory</p>
 
-<p>If you want to contribute, you should see <a href="https://github.com/j8r/DPlatform/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></p>
+<p>If you want to contribute, you should see <a href="https://github.com/DFabric/DPlatform-ShellCore/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></p>
 
 <h2>
 <a id="contributors---special-thanks" class="anchor" href="#contributors---special-thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors - Special thanks</h2>
