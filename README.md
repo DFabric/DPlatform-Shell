@@ -2,7 +2,7 @@
 ![DP logo](https://dfabric.github.io/DPlatform-ShellCore/img/logo.svg)
 **DPlatform** helps you to easily install applications and manage them.
 
-#### Quickly have your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.
+#### Quickly get your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a SaaS cloud platform.
 ![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png)
 

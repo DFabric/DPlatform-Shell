@@ -8,9 +8,11 @@
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
 
-. sysutils/MongoDB.sh
+[ "$1" = '' ] && { . $DIR/sysutils/MongoDB.sh; }
 
-[ $ACH = arm ] && sh sysutils/Meteor.sh
+# https://github.com/4commerce-technologies-AG/meteor
+# Special Meteor + NodeJS bundle for ARM
+[ $ARCHf = arm ] && [ "$1" = '' ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add wekan user
 useradd -m wekan
@@ -42,9 +44,8 @@ if [ $ARCHf = arm ] ;then
   cd /home/wekan/Wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
 elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
-  . $DIR/sysutils/NodeJS.sh
 
-  # Meteor needs NodeJS 0.10.44
+  # Meteor needs NodeJS 0.10.45
   wget "https://nodejs.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz" 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the NodeJS 0.10.45 archive..." 6 64 0
 
@@ -89,6 +90,6 @@ EOF
 systemctl start wekan
 systemctl enable wekan
 
-whiptail --msgbox "Wekan installed!
+whiptail --msgbox "$1 Wekan installed!
 
 Open http://$URL:$port in your browser" 10 64
