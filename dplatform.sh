@@ -7,10 +7,10 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-export DIR IPv4 IPv6 LOCALIP DIST DIST_VER PKG install remove ARCH ARCHf HDWR URL IP
+export DIRIPv4 IPv6 LOCALIP DIST DIST_VER PKG install remove ARCH ARCHf HDWR URL IP
 
 # Current directory
-[ $DIR = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
+[ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
 # Test if cuby responds
