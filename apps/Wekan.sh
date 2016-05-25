@@ -90,6 +90,6 @@ EOF
 systemctl start wekan
 systemctl enable wekan
 
-whiptail --msgbox "$1 Wekan installed!
+whiptail --msgbox "Wekan $1 installed!
 
 Open http://$URL:$port in your browser" 10 64

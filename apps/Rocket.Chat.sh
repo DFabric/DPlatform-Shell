@@ -106,7 +106,7 @@ rm rocket.chat.tgz
 # Install dependencies and start Rocket.Chat
 cd Rocket.Chat/programs/server
 
-[ $ARCHf = x86] && /usr/local/share/node-v0.10.45-linux-x64/bin/npm install
+[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.45-linux-x64/bin/npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
@@ -140,7 +140,7 @@ EOF
 systemctl start rocket.chat
 systemctl enable rocket.chat
 
-whiptail --msgbox "$1 Rocket.Chat installed!
+whiptail --msgbox "Rocket.Chat $1 installed!
 
 Open http://$URL:$port in your browser and register.
 
