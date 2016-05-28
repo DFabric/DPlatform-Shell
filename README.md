@@ -81,11 +81,11 @@
 ## Installation
 To begin with DPlatform, run this command:
 
-`wget -qO- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh`
+`wget -qO- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sudo sh`
 
 or
 
-`curl -o- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sh`
+`curl -o- https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/master/init.sh | sudo sh`
 
 The prerequisites will be installed and the DPlatform git project cloned for you.
 
