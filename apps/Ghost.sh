@@ -7,7 +7,7 @@ if [ $1 = update ] ;then
 
   wget https://ghost.org/zip/ghost-latest.zip 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
-  (pv -n ghost-latest.zip | unzip -uo - -d ghost)) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  (pv -n ghost-latest.zip | unzip -uo - -d ghost) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
 
   rm ghost-latest.zip
   mv ghost/core ghost/index.js ghost/*.md ghost/*.json .

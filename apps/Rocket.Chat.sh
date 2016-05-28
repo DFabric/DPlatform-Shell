@@ -16,7 +16,7 @@ while : ;do
   case $DBaccess in
     0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
-    [ "$1" = '' ] && { . $DIR/sysutils/MongoDB.sh; }
+    [ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }
     <<NOT_READY_YET
     whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
     "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
@@ -60,7 +60,7 @@ done
 
 # https://github.com/4commerce-technologies-AG/meteor
 # Special Meteor + NodeJS bundle for ARM
-[ $ARCHf = arm ] && [ "$1" = '' ] && { . $DIR/sysutils/Meteor.sh; }
+[ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add rocketchat user
 useradd -m rocketchat
@@ -80,7 +80,7 @@ elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
   # Meteor needs NodeJS 0.10.45
-  wget "https://nodejs.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz" 2>&1 | \
+  wget https://nodejs.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz 2>&1 | \
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the NodeJS 0.10.45 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
@@ -140,7 +140,8 @@ EOF
 systemctl start rocket.chat
 systemctl enable rocket.chat
 
-whiptail --msgbox "Rocket.Chat $1 installed!
+[ $1 = install ] && state=installed || state=$1d
+whiptail --msgbox "Rocket.Chat $1!
 
 Open http://$URL:$port in your browser and register.
 
