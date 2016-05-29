@@ -1,8 +1,8 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $PKG = deb ] && apt-get update && $install owncloud && whiptail --msgbox "OwnCloud updated!" 8 32 && exit
-[ $1 = update ] && [ $PKG = rpm ] && yum update && $install owncloud && whiptail --msgbox "OwnCloud updated!" 8 32 && exit
-[ $1 = remove ] && $remove owncloud && whiptail --msgbox "OwnCloud removed!" 8 32 && exit
+[ $1 = update ] && [ $PKG = deb ] && { apt-get update && $install owncloud; whitpail --msgbox "OwnCloud updated!" 8 32; exit; }
+[ $1 = update ] && [ $PKG = rpm ] && { yum update && $install owncloud; whitpail --msgbox "OwnCloud updated!" 8 32; exit; }
+[ $1 = remove ] && { $remove owncloud; whitpail --msgbox "OwnCloud removed!" 8 32; exit; }
 
 if [ $PKG = deb ] ;then
   case "$DIST$DIST_VER" in

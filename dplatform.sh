@@ -7,7 +7,7 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-export DIRIPv4 IPv6 LOCALIP DIST DIST_VER PKG install remove ARCH ARCHf HDWR URL IP
+export DIR IPv4 IPv6 LOCALIP DIST DIST_VER PKG install remove ARCH ARCHf HDWR URL IP
 
 # Current directory
 [ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
@@ -48,7 +48,7 @@ fi
 hash whiptail curl wget pv sudo || $install whiptail wget curl pv sudo
 
 # Detect architecture
-ARCH=$(uname -m)
+ARCH=$(arch)
 case $ARCH in
 	x86_64) ARCHf=x86; ARCH=amd64;;
 	i*86) ARCHf=x86; ARCH=86;;

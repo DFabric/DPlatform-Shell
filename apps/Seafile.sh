@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
-[ $1 = remove ] && sh sysutils/service.sh remove Seafile && sh sysutils/service.sh remove Seahub  && rm -rf ~/haiwen && rm -rf ~/seafile-server* && whiptail --msgbox "Seafile removed!" 8 32 && exit
+[ $1 = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf ~/haiwen; rm -rf ~/seafile-server*; whitpail --msgbox "Seafile removed!" 8 32; exit; }
 
 DB_CHOICE=$(whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
 

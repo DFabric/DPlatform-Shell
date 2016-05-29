@@ -1,9 +1,9 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $ARCHf = arm ] && (cd ~/meteor; git pull) && whiptail --msgbox "Meteor updated!" 8 32 && exit
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
-[ $1 = remove ] && [ $ARCHf = arm ] && rm -rf /usr/share/meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
-[ $1 = remove ] && rm -rf ~/.meteor && whiptail --msgbox "Meteor removed!" 8 32 && echo Meteor >> dp.cfg && break
+[ $1 = update ] && [ $ARCHf = arm ] && { git -C ~/meteor pull; whitpail --msgbox "Meteor updated!" 8 32; exit; }
+[ $1 = update ] &&  $ARCHf = x86 ] && { curl https://install.meteor.com | /bin/sh; whiptail --msgbox "Meteor updated!" 8 32; exit; }
+[ $1 = remove ] && [ $ARCHf = arm ] && { rm -rf /usr/share/meteor; whitpail --msgbox "Meteor removed!" 8 32; exit }
+[ $1 = remove ] && { rm -rf ~/.meteor; whitpail --msgbox "Meteor removed!" 8 32; exit; }
 
 if [ -d ~./meteor ] || [ -d /usr/share/meteor ] ;then
   echo "You have Meteor installed"

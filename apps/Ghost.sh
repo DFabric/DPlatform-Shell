@@ -20,7 +20,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Ghost updated!" 8 32
   exit
 fi
-[ $1 = remove ] && sh sysutils/service.sh remove Ghost && rm -rf /var/www/ghost && userdel ghost && whiptail --msgbox "Ghost removed!" 8 32 && exit
+[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel ghost; whitpail --msgbox "Ghost removed!" 8 32; exit; }
 
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
@@ -42,7 +42,7 @@ stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail 
 mkdir -p /var/www/
 
 # Extract the downloaded archive and remove it
-(pv -n ghost.zip | unzip -uo - -d /var/www/ghost) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+unzip - -d /var/www/ghost
 rm ghost.zip
 
 # Move to the new ghost directory, and install Ghost production dependencies

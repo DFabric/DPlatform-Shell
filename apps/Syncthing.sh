@@ -1,8 +1,8 @@
 #!/bin/sh
 
-[ $1 = update ] && whiptail --msgbox "Not availabe yet!" 8 32 && exit
-[ $1 = remove ] && [ $PKG = deb ] sh sysutils/service.sh remove Syncthing && $remove syncthing && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && exit
-[ $1 = remove ] && sh sysutils/service.sh remove Syncthing && rm -rf ~/syncthing-linux-* && rm -rf ~/.config/syncthing && whiptail --msgbox "Syncthing removed!" 8 32 && exit
+[ $1 = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
+[ $1 = remove ] && [ $PKG = deb ] && { sh sysutils/service.sh remove Syncthing; $remove syncthing; rm -rf ~/.config/syncthing; whitpail --msgbox "Syncthing removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Syncthing; rm -rf ~/syncthing-linux-*; rm -rf ~/.config/syncthing; whitpail --msgbox "Syncthing removed!" 8 32; exit; }
 
 [ $IP = $LOCALIP ] && access=$IP || access=
 

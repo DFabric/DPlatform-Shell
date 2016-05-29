@@ -17,8 +17,8 @@ Each application installation scripts are built upon a same structure. Here we s
 
 First at the begining af each application script file, there are command to update and remove itself.
 ```sh
-[ $1 = update ] && git -C /home/myapp/MyApp pull && whiptail --msgbox "MyApp updated!" 8 32 && exit
-[ $1 = remove ] && sh sysutils/services.sh remove MyApp && userdel -r myapp && whiptail --msgbox "MyApp removed!" 8 32 && exit
+[ $1 = update ] && { git -C /home/myapp/MyApp pull; whiptail --msgbox "MyApp updated!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/services.sh remove MyApp; userdel -r myapp; whiptail --msgbox "MyApp removed!" 8 32 ; exit; }
 ```
 Depending of your app, you can ask to the user to write some arguments, like a port number.
 ``` sh

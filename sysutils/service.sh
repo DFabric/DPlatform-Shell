@@ -64,7 +64,7 @@ if [ "$1" = "" ] ;then
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 3>&1 1>&2 2>&3) ;do
     cd $DIR
-    [ $service_choice = SystemD ] && whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
+    [ $service_choice = SystemD ]; whitpail --msgbox "$(systemctl status)" 11 64 || service_setup
     service_detection
   done
 

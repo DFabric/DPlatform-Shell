@@ -15,8 +15,8 @@ if [ "$1" = update ] ;then
   # Only keep the version number in the url
   ver=${ver#*v}
 
-  [ $caddy_ver = $ver ] && whiptail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
-  [ $caddy_ver != $ver ] && echo "You have Caddy $caddy_ver, the latest is $ver. Upgrading Caddy..." || break
+  [ $caddy_ver = $ver ] && whitpail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
+  [ $caddy_ver != $ver ] && echo "You have Caddy $caddy_ver, the latest is $ver. Upgrading Caddy..." || exit
 fi
 
 # Install Caddy if not installed
@@ -53,7 +53,7 @@ if ! hash caddy 2>/dev/null ;then
   systemctl start caddy
   systemctl enable caddy
 
-  [ $1 = update ] && whiptail --msgbox "Caddy updated!" 8 32
+  [ $1 = update ] && { whiptail --msgbox "Caddy updated!" 8 32
 
   grep Caddy dp.cfg || echo "Caddy installed!" && echo Caddy >> dp.cfg
 fi

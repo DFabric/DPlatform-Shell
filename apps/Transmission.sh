@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && $install transmission-daemon && whiptail --msgbox "Transmission updated!" 8 32 && exit
-[ $1 = remove ] && $remove transmission-daemon && whiptail --msgbox "Transmission removed!" 8 32 && exit
+[ $1 = update ] && { $install transmission-daemon; whitpail --msgbox "Transmission updated!" 8 32; exit; }
+[ $1 = remove ] && { $remove transmission-daemon; whitpail --msgbox "Transmission removed!" 8 32; exit; }
 
 $install transmission-daemon
 

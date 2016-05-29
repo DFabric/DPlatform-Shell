@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Remove the old server executables
-[ $1 = update ] && systemctl stop rocket.chat && rm -rf /home/rocketchat/Rocket.Chat
-[ $1 = remove ] && sh sysutils/service.sh remove Rocket.Chat && userdel -r rocketchat && whiptail --msgbox "Rocket.Chat removed!" 8 32 && exit
+[ $1 = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -r rocketchat; whitpail --msgbox "Rocket.Chat removed!" 8 32; exit; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -141,7 +141,7 @@ systemctl start rocket.chat
 systemctl enable rocket.chat
 
 [ $1 = install ] && state=installed || state=$1d
-whiptail --msgbox "Rocket.Chat $1!
+whiptail --msgbox "Rocket.Chat $state!
 
 Open http://$URL:$port in your browser and register.
 
