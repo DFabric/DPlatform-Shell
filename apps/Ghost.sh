@@ -13,8 +13,10 @@ if [ $1 = update ] ;then
   mv ghost/core ghost/index.js ghost/*.md ghost/*.json .
   rm -r ghost
 
-  npm install --production
+  # --unsafe-perm required by node-gyp for the sqlite3 package
+  npm install --production --unsafe-perm
 
+  # Change the owner from root to ghost
   chown -R ghost /var/www/ghost
   systemctl restart ghost
   whiptail --msgbox "Ghost updated!" 8 32
@@ -47,13 +49,18 @@ rm ghost.zip
 
 # Move to the new ghost directory, and install Ghost production dependencies
 cd /var/www/ghost
-npm install --production
+
+# --unsafe-perm required by node-gyp for the sqlite3 package
+npm install --production --unsafe-perm
 
 ## Configure Ghost
 cp config.example.js config.js
-sed -i "s/host: '127.0.0.1',/host: '0.0.0.0',/" config.js
-sed -i "s/url: 'my-ghost-blog.com',/url: '$IP:$port',/" config.js
-sed -i "s/port: '2368'/port: '$IP:$port',/" config.js
+
+[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
+
+sed -i "s/url: 'my-ghost-blog.com'/url: '$URL:$port'/" config.js
+sed -i "s/host: '127.0.0.1'/host: '$access'/" config.js
+sed -i "s/port: '2368'/port: '$port'/" config.js
 
 # Change the owner from root to ghost
 useradd ghost

@@ -69,7 +69,7 @@ ln -s /etc/nginx/sites-available/freshrss /etc/nginx/sites-enabled/freshrss
 rm -f /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl restart nginx
-fi
+
 
 # Add a Cron job for the www-data user to launch the update script every hour
 crontab -u www-data -l | { cat; echo "0 * * * * /usr/bin/php /var/www/FreshRSS/app/actualize_script.php >/dev/null 2>&1"; } | crontab -

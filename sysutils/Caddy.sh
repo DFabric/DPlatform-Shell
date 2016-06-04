@@ -32,16 +32,17 @@ if ! hash caddy 2>/dev/null ;then
   stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
-  (pv -n caddy.tar.gz | tar xzf - -C caddy) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  mkdir /tmp/caddy
+  (pv -n caddy.tar.gz | tar xzf - -C /tmp/caddy) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
   rm caddy.tar.gz
 
   # Put the caddy binary to its directrory
-  mv caddy/caddy /usr/bin
+  mv /tmp/caddy/caddy /usr/bin
 
   # Put the caddy SystemD service to its directrory
-  mv caddy/init/linux-systemd/caddy@.service /etc/systemd/system/caddy.service
+  mv /tmp/caddy/init/linux-systemd/caddy@.service /etc/systemd/system/caddy.service
 
-  rm -r caddy
+  rm -r /tmp/caddy
   # Remove Group=http
   sed -i "/Group=http/d" /etc/systemd/system/caddy.service
 
@@ -53,7 +54,7 @@ if ! hash caddy 2>/dev/null ;then
   systemctl start caddy
   systemctl enable caddy
 
-  [ $1 = update ] && { whiptail --msgbox "Caddy updated!" 8 32
+  [ $1 = update ] && whiptail --msgbox "Caddy updated!" 8 32
 
   grep Caddy dp.cfg || echo "Caddy installed!" && echo Caddy >> dp.cfg
 fi
