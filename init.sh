@@ -7,8 +7,8 @@
 if hash apt-get 2>/dev/null ;then
 	install="debconf-apt-progress -- apt-get install -y"
 elif hash rpm 2>/dev/null ;then
-	install="yum install --enablerepo=epel -y"
-	[ $ID = Fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
+	install="yum install -y"
+	[ $ID = Fedora ] && install="dnf install -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null ;then
 	install="pacman -S"
 else
@@ -16,7 +16,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget pv sudo || $install git whiptail wget curl pv sudo
+hash git whiptail curl wget pv sudo || $install git whiptail curl wget pv sudo
 
 # Current directory
 DIR=$(cd -P $(dirname $0) && pwd)

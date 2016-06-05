@@ -41,10 +41,10 @@ wget https://ghost.org/zip/ghost-latest.zip -O ghost.zip 2>&1 | \
 stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
 
 # Unzip Ghost into the recommended install folder location /var/www/ghost
-mkdir -p /var/www/
+mkdir -p /var/www/ghost
 
 # Extract the downloaded archive and remove it
-unzip - -d /var/www/ghost
+unzip ghost.zip -d /var/www/ghost
 rm ghost.zip
 
 # Move to the new ghost directory, and install Ghost production dependencies

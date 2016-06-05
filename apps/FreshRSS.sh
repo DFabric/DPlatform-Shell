@@ -15,7 +15,7 @@ git clone https://github.com/FreshRSS/FreshRSS
 
 # Set the rights so that your Web browser can access the files
 chown -R www-data:www-data FreshRSS
-chmod -R g+w ./data/
+chmod -R g+w FreshRSS/./data/
 
 # Replace the default Origine theme by the more modern Flat theme
 sed "s/'theme' => 'Origine'/'theme' => 'Flat'/" FreshRSS/data/users/_/config.default.php
@@ -72,7 +72,7 @@ systemctl restart nginx
 
 
 # Add a Cron job for the www-data user to launch the update script every hour
-crontab -u www-data -l | { cat; echo "0 * * * * /usr/bin/php /var/www/FreshRSS/app/actualize_script.php >/dev/null 2>&1"; } | crontab -
+crontab -u www-data -l | { sudo -u www-data cat; echo "0 * * * * /usr/bin/php /var/www/FreshRSS/app/actualize_script.php >/dev/null 2>&1"; } | sudo -u www-data crontab -
 
 whiptail --msgbox "FreshRSS installed!
 

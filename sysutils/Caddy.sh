@@ -66,15 +66,4 @@ if grep "$1" /etc/caddy/Caddyfile ;then
 
   # Restart Caddy to apply the changes
   systemctl restart caddy
-
-elif [ "$1" != "" ] ;then
-  # Add this app entry ine the Caddyfile to proxy it
-  cat >> /etc/caddy/Caddyfile <<EOF
-$IP {
-    proxy / localhost:$1
-}
-
-EOF
-  # Restart Caddy to apply the changes
-  systemctl restart caddy
 fi

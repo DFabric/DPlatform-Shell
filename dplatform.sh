@@ -34,9 +34,9 @@ if hash apt-get 2>/dev/null ;then
 	remove="apt-get purge -y"
 elif hash rpm 2>/dev/null ;then
 	PKG=rpm
-	install="yum install --enablerepo=epel -y"
+	install="yum install -y"
 	remove="yum remove -y"
-	[ $DIST = Fedora ] && install="dnf install --enablerepo=epel -y" && remove="dnf remove -y"
+	[ $DIST = Fedora ] && install="dnf install -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null ;then
 	PKG=pkg
 	install="pacman -S"
@@ -45,7 +45,7 @@ else
 fi
 
 # Prerequisites
-hash whiptail curl wget pv sudo || $install whiptail wget curl pv sudo
+hash git whiptail curl wget pv sudo || $install git whiptail curl wget pv sudo
 
 # Detect architecture
 ARCH=$(arch)
@@ -61,6 +61,7 @@ esac
 # Detect hardware
 HDWR=$(uname -a)
 case "$HDWR" in
+	*rpi3*) HDWR=rpi3;;
 	*rpi2*) HDWR=rpi2;;
 	*rpi*) HDWR=rpi;;
 	*bananian*) HDWR=bpi;;
@@ -233,7 +234,7 @@ Your can access to your apps by opening this address in your browser:
 "Install apps" "Install new applications" \
 "Update" "Update applications and DPlatform" \
 "Remove apps" "Uninstall applications" \
-"Apps Service Manager" "Start/Stop and auto start services at startup" \
+"App Service Manager" "Start/Stop and auto start services at boot" \
 "Network app access" "Define the network accessibility of the apps" \
 "Hostname" "Change the name of the server on your local network" \
 "About" "Informations about this project and your system" \
@@ -242,7 +243,7 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		"Install apps") apps_menus install;;
 		"Update") apps_menus update;;
 		"Remove apps") apps_menus remove;;
-		"Apps Service Manager") . sysutils/service.sh;;
+		"App Service Manager") . sysutils/service.sh;;
 		"Network app access") network_access;;
 		"Hostname") change_hostname;;
 		"About") whiptail --title "DPlatform - About" --yesno "DPlatform - Deploy self-hosted apps easily
