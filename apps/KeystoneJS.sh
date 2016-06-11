@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 . sysutils/MongoDB.sh
 
 cd

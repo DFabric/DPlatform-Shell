@@ -27,7 +27,7 @@ else
   DB=redis
 fi
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Create a nodebb user
 useradd -m nodebb

@@ -3,7 +3,7 @@
 [ $1 = update ] && { git -C /home/etherpad/etherpad-lite pull; whiptail --msgbox "Etherpad updated!" 8 32; exit; }
 [ $1 = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -r etherpad; whiptail --msgbox "Etherpad removed!" 8 32; exit; }
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add etherpad user
 useradd -m etherpad

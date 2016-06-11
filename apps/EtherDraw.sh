@@ -7,7 +7,7 @@
 [ $ARCHf = arm ]; whitpail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
 [ $? != 0 ] || break
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add etherdraw user
 useradd -m etherdraw

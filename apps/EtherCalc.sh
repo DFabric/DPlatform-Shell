@@ -3,7 +3,7 @@
 [ $1 = update ] && { npm udpate EtherCalc; whiptail --msgbox "EtherCalc updated!" 8 32; exit; }
 [ $1 = remove ] && { sh sysutils/service.sh remove EtherCalc; npm uninstall ethercalc; userdel ethercalc; whiptail --msgbox "EtherCalc removed!" 8 32; exit; }
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add ethercalc user
 useradd -m ethercalc

@@ -6,7 +6,7 @@
 # Define port
 port=$(whiptail --title "Curvytron port" --inputbox "Set a port number for Curvytron" 8 48 "8086" 3>&1 1>&2 2>&3)
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add curvytron user
 useradd curvytron

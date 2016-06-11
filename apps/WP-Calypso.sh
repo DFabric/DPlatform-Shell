@@ -3,7 +3,7 @@
 #https://github.com/Automattic/wp-calypso/blob/master/docs/install.md
 
 # Prerequisites
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 $install make
 

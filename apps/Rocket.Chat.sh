@@ -59,7 +59,7 @@ Enter your Mongo URL instance (with the brackets removed): \
 done
 
 # https://github.com/4commerce-technologies-AG/meteor
-# Special Meteor + NodeJS bundle for ARM
+# Special Meteor + Node.js bundle for ARM
 [ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add rocketchat user
@@ -79,9 +79,9 @@ if [ $ARCHf = arm ] ;then
 elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
-  # Meteor needs NodeJS 0.10.45
-  wget https://nodejs.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the NodeJS 0.10.45 archive..." 6 64 0
+  # Meteor needs Node.js 0.10.45
+  wget https://Node.js.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js 0.10.45 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
   (pv -n node-v0.10.45-linux-x64.tar.gz | tar xzf -  -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0

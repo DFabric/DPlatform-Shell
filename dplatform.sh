@@ -39,7 +39,7 @@ elif hash rpm 2>/dev/null ;then
 	[ $DIST = Fedora ] && install="dnf install -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null ;then
 	PKG=pkg
-	install="pacman -S"
+	install="pacman -Syu"
 else
 	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
@@ -130,7 +130,7 @@ apps_menus() {
 				Docker) . sysutils/Docker.sh $1;;
 				Meteor) . sysutils/Meteor.sh $1;;
 				MongoDB) . sysutils/MongoDB.sh $1;;
-				Node.js) . sysutils/NodeJS.sh $1;;
+				Node.js) . sysutils/Node.js.sh $1;;
 				$APP) sh apps/$APP.sh $1; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
@@ -203,7 +203,7 @@ apps_menus() {
 						Docker) . sysutils/Docker.sh;;
 						Meteor) . sysutils/Meteor.sh;;
 						MongoDB) . sysutils/MongoDB.sh;;
-						Node.js) . sysutils/NodeJS.sh;;
+						Node.js) . sysutils/Node.js.sh;;
 						$APP) . apps/$APP.sh; cd $DIR; grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg;;
 					esac
 				fi;;

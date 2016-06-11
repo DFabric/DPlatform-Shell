@@ -6,7 +6,7 @@
 # Define port
 port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Create stackedit user
 useradd stackedit

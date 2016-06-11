@@ -10,7 +10,7 @@ elif hash rpm 2>/dev/null ;then
 	install="yum install -y"
 	[ $ID = Fedora ] && install="dnf install -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null ;then
-	install="pacman -S"
+	install="pacman -Syu"
 else
   echo "Your operating system $DIST isn't supported"; exit 1
 fi

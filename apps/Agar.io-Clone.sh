@@ -3,7 +3,7 @@
 [ $1 = update ] && { git -C /home/agario/agar.io-clone pull; whiptail --msgbox "Agar.io Clone updated!" 8 32; exit; }
 [ $1 = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -r agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; exit; }
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add agario user
 useradd -m agario

@@ -5,7 +5,7 @@
 
 # Prerequisites
 . sysutils/MongoDB.sh
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add letschat user
 useradd -m letschat

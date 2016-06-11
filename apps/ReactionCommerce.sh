@@ -10,7 +10,7 @@ if [ $ARCHf = arm ] ;then
   break
 fi
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 . sysutils/Meteor.sh
 
 cd

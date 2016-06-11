@@ -7,7 +7,7 @@
 port=$(whiptail --title "Shout port" --inputbox "Set a port number for Shout" 8 48 "9000" 3>&1 1>&2 2>&3)
 [ "$port" != "" ] && port =" --port $port"
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Add shout user
 useradd -m shout

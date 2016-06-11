@@ -27,7 +27,7 @@ fi
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
 
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 
 # Install unzip if not installed
 hash unzip 2>/dev/null || $install unzip
