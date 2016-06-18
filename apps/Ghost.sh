@@ -51,14 +51,13 @@ rm ghost.zip
 cd /var/www/ghost
 
 # --unsafe-perm required by node-gyp for the sqlite3 package
-npm install --production --unsafe-perm
+npm install --production
 
 ## Configure Ghost
 cp config.example.js config.js
 
 [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
 
-sed -i "s/url: 'my-ghost-blog.com'/url: '$URL:$port'/" config.js
 sed -i "s/host: '127.0.0.1'/host: '$access'/" config.js
 sed -i "s/port: '2368'/port: '$port'/" config.js
 
