@@ -78,6 +78,8 @@
 - [WordPress](https://wordpress.org/) - Web software you can use to create a beautiful website, blog, or app - Installed thanks [WP Quick Install](http://wp-quick-install.com/)
 - [(WordPress) Calypso](https://developer.wordpress.com/calypso/) - A single interface built for reading, writing, and managing all of your WordPress sites in one place
 
+ +A mystery
+
 ## Installation
 To begin with DPlatform, run this command:
 
@@ -128,4 +130,4 @@ If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/D
 ## License
 DPlatform - Deploy self-hosted apps easily
 
-Copyright (c) 2015-2016 Julien Reichardt- [MIT License](http://opensource.org/licenses/MIT) (MIT)
+Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)

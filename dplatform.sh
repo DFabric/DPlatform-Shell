@@ -255,7 +255,8 @@ $config$configOption 3>&1 1>&2 2>&3) ;do
 		- IPv6: $IPv6
 		Your OS: $PRETTY_NAME $(uname -m)
 
-Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64 --yes-button "           Ok           " --no-button "";;
+Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64 --yes-button "           Ok           " --no-button ""
+		[ $? = 1 ] && sh apps/dustship.sh;;
 		$config) $config;;
 	esac
 done
