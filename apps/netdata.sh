@@ -18,7 +18,8 @@ else
 
   # Centos / Fedora / Redhat
   [ $PKG = rpm ] && $install zlib-devel libuuid-devel libmnl-devel gcc make git autoconf autogen automake pkgconfig
-
+  
+  cd
   # download it - the directory 'netdata' will be created
   git clone https://github.com/firehol/netdata --depth=1
 
