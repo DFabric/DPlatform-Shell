@@ -56,11 +56,10 @@ get_rand() {
 get_key() {
   stty_state=$(stty -g)
   stty raw -echo min 0
-  key=$(printf "$(dd bs=3 count=1 2>/dev/null)" | xxd)
+  key=$(printf "$(dd bs=3 count=1 2>/dev/null)" | od -a)
   stty "$stty_state"
-  keycode=${key% *}
-  key=${key#$keycode *}
-  key=${key#*.}
+  key=${key#* *  }
+  key=${key%*????????}
 }
 
 # Create a new item
@@ -102,11 +101,11 @@ item_pos() {
 # Move the player and determine its position
 position_move() {
   case $key in
-    w|'[A') [ $player_y != 16 ] && player_y=$(( player_y + 1 )) && game_neg_y=${game_neg_y#??} && game_y="$game_y\n";; # UP
-    s|'[B') [ $player_y != 0 ] && player_y=$(( player_y - 1 )) && game_neg_y="$game_neg_y\n" && game_y=${game_y#??};; # DOWN
-    d|'[C') [ $player_x != 48 ] && player_x=$(( player_x + 1 )) && game_x="$game_x ";; # RIGHT
-    a|'[D') [ $player_x != 0 ] && player_x=$(( player_x - 1 )) && game_x=${game_x#?};; # LEFT
-    q) clear; exit;;
+    w|W|' [   A') [ $player_y != 16 ] && player_y=$(( player_y + 1 )) && game_neg_y=${game_neg_y#??} && game_y="$game_y\n";; # UP
+    s|S|' [   B') [ $player_y != 0 ] && player_y=$(( player_y - 1 )) && game_neg_y="$game_neg_y\n" && game_y=${game_y#??};; # DOWN
+    d|D|' [   C') [ $player_x != 48 ] && player_x=$(( player_x + 1 )) && game_x="$game_x ";; # RIGHT
+    a|A|' [   D') [ $player_x != 0 ] && player_x=$(( player_x - 1 )) && game_x=${game_x#?};; # LEFT
+    q|Q) clear; exit 1;;
   esac
 }
 
