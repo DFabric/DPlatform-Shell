@@ -47,7 +47,7 @@ while : ;do
 NOT_READY_YET
     break;;
 
-    1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instancle URL" "\
+    1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instance URL" "\
 If you have a MongoDB database, you can enter its URL and use it.
 You can also use a MongoDB service provider on the Internet.
 MongoLab offers free sandbox databases that can be used here.
