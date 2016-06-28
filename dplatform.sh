@@ -21,6 +21,8 @@ IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
 You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
+[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
+
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 # Detect distribution
 . /etc/os-release
@@ -82,7 +84,7 @@ Howewer, it might not work depending of your local DNS configuration. \
 You can always use the local IP of your server in your local network" 10 64
 			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
 
-		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening >| $IP < in your browser." 8 64
+		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening >| $IP |< in your browser." 8 64
 			sed -i "/URL=/URL=IP/d" dp.cfg 2>/dev/null || echo "URL=IP" > dp.cfg;;
 	esac
 }
@@ -153,7 +155,7 @@ apps_menus() {
 		Cuberite "A custom Minecraft compatible game server written in C++" \
 		Deluge "A lightweight, Free Software, cross-platform BitTorrent client" \
 		Dillinger "The last Markdown editor, ever" \
-		Droppy " Self-hosted file storage server, with file editing and media view" \
+		Droppy "Self-hosted file storage server, with file editing and media view" \
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
