@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/bundle; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; whitpail --msgbox "Wekan removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; rm -rf /usr/local/share/node-v0.10.4*; whitpail --msgbox "Wekan removed!" 8 32; exit; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port
@@ -45,13 +45,13 @@ if [ $ARCHf = arm ] ;then
 elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
-  # Meteor needs Node.js 0.10.45
-  wget https://Node.js.org/dist/v0.10.45/node-v0.10.45-linux-x64.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js 0.10.45 archive..." 6 64 0
+  # Meteor needs Node.js 0.10.46
+  wget https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz 2>&1 | \
+  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js 0.10.46 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
-  (pv -n node-v0.10.45-linux-x64.tar.gz | tar xzf - -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
-  rm node-v0.10.45-linux-x64.tar.gz
+  (pv -n node-v0.10.46-linux-x64.tar.gz | tar xzf - -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  rm node-v0.10.46-linux-x64.tar.gz
 else
     whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
 fi
@@ -59,13 +59,13 @@ fi
 # Move to the server directory and install the dependencies:
 cd /home/wekan/Wekan/programs/server
 
-[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.45-linux-x64/bin/npm install
+[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.46-linux-x64/bin/npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan
 chown -R wekan /home/wekan
 
-[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.45-linux-x64/bin/node
+[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the SystemD service
