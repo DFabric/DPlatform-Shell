@@ -21,11 +21,10 @@ elif [ $ARCH = armv6 ] && [ $PKG = deb ] ;then
   $install mongodb
 
   # Download the archive
-  wget --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+  download --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz "Downloading the MongoDB 2.6.7 archive..." 6 64 0
 
   # Extract the downloaded archive and remove it
-  (pv -n mongo_Linux_armv6l_v2.6.7.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract mongo_Linux_armv6l_v2.6.7.tar.gz "xzf - -C /usr/bin" "Extracting the files from the archive..."
   rm mongo_Linux_armv6l_v2.6.7.tar.gz
 
   # Create a symbolic link to harmonize with the newer versions wich use mongod.service
@@ -37,11 +36,10 @@ elif [ $ARCHf = arm ] && [ $PKG = deb ] ;then
   $install mongodb
 
   # Download the archive
-  wget https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+  download https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz "Downloading the MongoDB 3.0.9 archive..."
 
   # Extract the downloaded archive and remove it
-  (pv -n core_mongodb.tar.gz | tar xzf - -C /usr/bin) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract core_mongodb.tar.gz "xzf - -C /usr/bin" "Extracting the files from the archive..."
   rm core_mongodb.tar.gz
 
   # Create a symbolic link to harmonize with the newer versions wich use mongod.service

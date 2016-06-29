@@ -80,11 +80,10 @@ elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
   # Meteor needs Node.js 0.10.46
-  wget https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js 0.10.46 archive..." 6 64 0
+  download https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz "Downloading the Node.js 0.10.46 archive..."
 
   # Extract the downloaded archive and remove it
-  (pv -n node-v0.10.46-linux-x64.tar.gz | tar xzf -  -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract node-v0.10.46-linux-x64.tar.gz "xzf -  -C /usr/local/share" "Extracting the files from the archive..."
   rm node-v0.10.46-linux-x64.tar.gz
 
   ## Install Rocket.Chat
@@ -95,11 +94,10 @@ else
 fi
 
 # Download the arcive
-wget $url -O rocket.chat.tgz 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Rocket.Chat archive..." 6 64 0
+wget "$url -O rocket.chat.tgz" "Downloading the Rocket.Chat archive..."
 
 # Extract the downloaded archive and remove it
-(pv -n rocket.chat.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+extract rocket.chat.tgz "xzf -" "Extracting the files from the archive..."
 
 mv bundle Rocket.Chat
 rm rocket.chat.tgz

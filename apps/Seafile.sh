@@ -36,12 +36,11 @@ case $DB_CHOICE in
 		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
 	else
 		# Download the arcive
-		wget $url 2>&1 | \
-		stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+		download $url "Downloading the Seafile $ver archive..."
 	fi
 
 	# Extract the downloaded archive and remove it
-	(pv -n seafile-server_* | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+	extract seafile-server_* "xzf -" "Extracting the files from the archive..."
 	rm seafile-server_*
 
 	# Prerequisites

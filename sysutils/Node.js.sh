@@ -26,11 +26,10 @@ ver=$(curl https://nodejs.org/en/)
 ver=${ver%' LTS" data-version="'*}
 ver=${ver#*'title="Download '}
 cd /tmp
-wget https://nodejs.org/dist/$ver/node-$ver-linux-$arch.tar.xz 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js $ver archive..." 6 64 0
+download https://nodejs.org/dist/$ver/node-$ver-linux-$arch.tar.xz" "Downloading the Node.js $ver archive..."
 
 # Extract the downloaded archive and remove it
-(pv -n node-$ver-linux-$arch.tar.xz | tar xJf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+extract node-$ver-linux-$arch.tar.xz "tar xJf -" "Extracting the files from the archive..."
 
 # Remove not used files
 rm node-$ver-linux-arm64/*.md node-$ver-linux-$arch/LICENSE

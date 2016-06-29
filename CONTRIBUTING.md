@@ -48,11 +48,10 @@ Follows the install instructions, that depends of your app
 git clone https://github.com/MyApp/MyApp
 
 # Download the arcive
-wget https://myapp.com/myapp_version1.tgz -O myapp.tgz 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+download "https://myapp.com/myapp_version1.tgz -O myapp.tar.gz" "Downloading the archive..."
 
 # Extract the downloaded archive and remove it
-(pv -n myapp.tgz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+extract myapp.tar.gz "tar xzf -" "Extracting the files from the archive..."
 rm myapp.tgz
 
 cd MyApp
@@ -98,7 +97,7 @@ You can also use the builtin SystemD service creation of DPlatform
 ```sh
 # Add SystemD process and run the server
 sh sysutils/services.sh MyApp "/usr/bin/node /usr/bin/MyApp" /home/myapp/MyApp myapp
-# This command correspond to
+# This command with its arguments correspond to 
 # sh ServiceCreationScriptPath ServiceName "ExecStart=" WorkingDirectory= User=
 
 ```

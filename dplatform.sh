@@ -67,8 +67,17 @@ case "$HDWR" in
 	*rpi2*) HDWR=rpi2;;
 	*rpi*) HDWR=rpi;;
 	*bananian*) HDWR=bpi;;
-	*) HDWR=other;;
 esac
+
+# Download with progress bar
+download() {
+	wget $1 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "$2" 6 64 0
+}
+
+# Extract with progress bar
+extract() {
+	(pv -n $1 | tar $2) 2>&1 | whiptail --gauge "$3" 6 64 0
+}
 
 # Domain configuration
 network_access() {

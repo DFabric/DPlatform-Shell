@@ -5,9 +5,8 @@
 if [ $1 = update ] ;then
   cd /var/www/ghost
 
-  wget https://ghost.org/zip/ghost-latest.zip 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
-  (pv -n ghost-latest.zip | unzip -uo - -d ghost) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  download https://ghost.org/zip/ghost-latest.zip "Downloading the Ghost archive..."
+  unzip -uo ghost-latest -d ghost
 
   rm ghost-latest.zip
   mv ghost/core ghost/index.js ghost/*.md ghost/*.json .
@@ -37,8 +36,7 @@ hash unzip 2>/dev/null || $install unzip
 
 ## Download and Install Ghost
 # Get the latest version of Ghost from Ghost.org
-wget https://ghost.org/zip/ghost-latest.zip -O ghost.zip 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+download "https://ghost.org/zip/ghost-latest.zip -O ghost.zip" "Downloading the Ghost archive..."
 
 # Unzip Ghost into the recommended install folder location /var/www/ghost
 mkdir -p /var/www/ghost

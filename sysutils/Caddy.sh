@@ -27,13 +27,12 @@ if ! hash caddy 2>/dev/null ;then
   [ $ARCHf = arm ] && arch=arm
   [ $ARCHf = 86 ] && arch=386
 
-  # Download and extract Caddy
-  wget "https://caddyserver.com/download/build?os=linux&arch=$arch&features=" -O caddy.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+  # Download  Caddy
+  wget https://caddyserver.com/download/build?os=linux&arch=$arch&features= -O caddy.tar.gz
 
   # Extract the downloaded archive and remove it
   mkdir /tmp/caddy
-  (pv -n caddy.tar.gz | tar xzf - -C /tmp/caddy) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract caddy.tar.gz "xzf -C /tmp/caddy" "Extracting the files from the archive..."
   rm caddy.tar.gz
 
   # Put the caddy binary to its directrory

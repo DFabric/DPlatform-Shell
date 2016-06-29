@@ -32,11 +32,10 @@ else
   [ $ARCHf = arm ] && arch=arm
   [ $ARCH = 86 ] && arch=386
   # Download the arcive
-  wget "https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$arch-v$ver.tar.gz" 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the archive..." 6 64 0
+  download "https://github.com/syncthing/syncthing/releases/download/v$ver/syncthing-linux-$arch-v$ver.tar.gz" "Downloading the Syncthing $ver archive..."
 
   # Extract the downloaded archive and remove it
-  (pv -n syncthing-linux-$arch-v$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract syncthing-linux-$arch-v$ver.tar.gz "xzf -" "Extracting the files from the archive..."
   cd syncthing-linux-$arch-v$ver
 
   # Move Syncthing bin to the system bin directory

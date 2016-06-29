@@ -27,11 +27,10 @@ ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/wekan/wekan/r
 ver=${ver#*v}
 
 # Download the arcive
-wget "https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz" 2>&1 | \
-stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Wekan archive..." 6 64 0
+download "https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.gz" "Downloading the Wekan $ver archive..."
 
 # Extract the downloaded archive and remove it
-(pv -n wekan-$ver.tar.gz | tar xzf -) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+extract wekan-$ver.tar.gz "xzf -" "Extracting the files from the archive..."
 
 mv bundle Wekan
 rm wekan-$ver.tar.gz
@@ -46,11 +45,10 @@ elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
   # Meteor needs Node.js 0.10.46
-  wget https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz 2>&1 | \
-  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "Downloading the Node.js 0.10.46 archive..." 6 64 0
+  download "https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz" "Downloading the Node.js 0.10.46 archive..."
 
   # Extract the downloaded archive and remove it
-  (pv -n node-v0.10.46-linux-x64.tar.gz | tar xzf - -C /usr/local/share) 2>&1 | whiptail --gauge "Extracting the files from the archive..." 6 64 0
+  extract node-v0.10.46-linux-x64.tar.gz "xzf - -C /usr/local/share" "Extracting the files from the archive..."
   rm node-v0.10.46-linux-x64.tar.gz
 else
     whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
