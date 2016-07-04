@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/bundle; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; rm -rf /usr/local/share/node-v0.10.4*; whitpail --msgbox "Wekan removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan removed!" 8 32; exit; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port

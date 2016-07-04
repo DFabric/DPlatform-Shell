@@ -4,7 +4,7 @@
 [ $1 = remove ] && { sh sysutils/service.sh remove Dillinger; rm -rf ~/feedbin; whiptail --msgbox "Dillinger removed!" 8 32; exit; }
 
 # ARM architecture doesn't appear to work
-[ $ARCHf = arm ]; whitpail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
+[ $ARCHf = arm ]; whiptail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
 [ $? != 0 ] || break
 
 . sysutils/Node.js.sh

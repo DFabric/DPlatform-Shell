@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { npm udpate shout; whitpail --msgbox "Shout updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Shout; npm uninstall shout; userdel shout; whitpail --msgbox "Shout removed!" 8 32; exit; }
+[ $1 = update ] && { npm udpate shout; whiptail --msgbox "Shout updated!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Shout; npm uninstall shout; userdel shout; whiptail --msgbox "Shout removed!" 8 32; exit; }
 
 # Define port
 port=$(whiptail --title "Shout port" --inputbox "Set a port number for Shout" 8 48 "9000" 3>&1 1>&2 2>&3)

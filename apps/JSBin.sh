@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { npm udpate jsbin; whitpail --msgbox "JSBin updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove JS_Bin; npm uninstall jsbin; userdel jsbin; whitpail --msgbox "JSBin removed!" 8 32; exit; }
+[ $1 = update ] && { npm udpate jsbin; whiptail --msgbox "JSBin updated!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove JS_Bin; npm uninstall jsbin; userdel jsbin; whiptail --msgbox "JSBin removed!" 8 32; exit; }
 
 . sysutils/Node.js.sh
 

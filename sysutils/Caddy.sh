@@ -15,7 +15,7 @@ if [ "$1" = update ] ;then
   # Only keep the version number in the url
   ver=${ver#*v}
 
-  [ $caddy_ver = $ver ] && whitpail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
+  [ $caddy_ver = $ver ] && whiptail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
   [ $caddy_ver != $ver ] && echo "You have Caddy $caddy_ver, the latest is $ver. Upgrading Caddy..." || exit
 fi
 

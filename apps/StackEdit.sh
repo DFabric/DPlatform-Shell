@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/stackedit pull; whitpail --msgbox "StackEdit updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove StackEdit; userdel -r stackedit; whitpail --msgbox "StackEdit removed!" 8 32; exit; }
+[ $1 = update ] && { git -C /home/stackedit pull; whiptail --msgbox "StackEdit updated!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove StackEdit; userdel -r stackedit; whiptail --msgbox "StackEdit removed!" 8 32; exit; }
 
 # Define port
 port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)
