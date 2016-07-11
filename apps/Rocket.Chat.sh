@@ -83,7 +83,7 @@ elif [ $ARCHf = x86 ] ;then
   download https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz "Downloading the Node.js 0.10.46 archive..."
 
   # Extract the downloaded archive and remove it
-  extract node-v0.10.46-linux-x64.tar.gz "xzf -  -C /usr/local/share" "Extracting the files from the archive..."
+  extract node-v0.10.46-linux-x64.tar.gz "xzf - -C /usr/local/share" "Extracting the files from the archive..."
   rm node-v0.10.46-linux-x64.tar.gz
 
   ## Install Rocket.Chat
