@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { $install deluged deluge-web; whiptail --msgbox "Deluge updated!" 8 32; exit; }
-[ $1 = remove ] && { $remove deluged deluge-web; whiptail --msgbox "Deluge removed!" 8 32; exit }
+[ $1 = remove ] && { $remove deluged deluge-web; whiptail --msgbox "Deluge removed!" 8 32; exit; }
 
 # http://dev.deluge-torrent.org/wiki/UserGuide/Service/systemd
 $install deluged deluge-web
