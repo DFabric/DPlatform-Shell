@@ -142,7 +142,7 @@ apps_menus() {
 				Meteor) . sysutils/Meteor.sh $1;;
 				MongoDB) . sysutils/MongoDB.sh $1;;
 				Node.js) . sysutils/Node.js.sh $1;;
-				$APP) sh apps/$APP.sh $1; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				$APP) . apps/$APP.sh $1; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
 	else
