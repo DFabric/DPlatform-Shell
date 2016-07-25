@@ -6,7 +6,7 @@
 . sysutils/Node.js.sh
 
 # Add ethercalc user
-useradd -m ethercalc
+useradd ethercalc
 
 # Globa installation
 npm i -g ethercalc

@@ -6,7 +6,7 @@
 . sysutils/Node.js.sh
 
 # Add jsbin user
-useradd -m jsbin
+useradd jsbin
 
 # Installation
 npm install -g jsbin

@@ -189,7 +189,7 @@ apps_menus() {
 		NodeBB "Node.js based community forum built for the modern web" \
 		ReactionCommerce "|~| Modern reactive, real-time event driven ecommerce platform" \
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
-		Shout "The self-hosted web IRC client" \
+		TheLounge "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
 		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
 		Stringer "/!\ A self-hosted, anti-social RSS reader" \
