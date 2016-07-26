@@ -7,7 +7,7 @@
 port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)
 
 # Go to its directory
-cd /home/var/www
+cd /var/www
 
 #  Clone the prebuilt static version
 git clone https://github.com/Laverna/static-laverna
