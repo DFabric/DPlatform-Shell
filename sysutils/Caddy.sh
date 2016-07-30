@@ -18,7 +18,7 @@ if [ "$1" = update ] ;then
   Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ] && rm -rf /etc/systemd/system/Caddy.service; } && rm -rf /usr/bin/caddy || exit
 fi
 
-[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -rf /usr/bin/caddy; rm -rf /etc/caddy/Caddyfile; whiptail --msgbox "Caddy removed!" 8 32; exit; }
+[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -rf /usr/local/bin/caddy; rm -rf /etc/caddy/Caddyfile; whiptail --msgbox "Caddy removed!" 8 32; exit; }
 
 # Install Caddy if not installed
 if ! hash caddy 2>/dev/null ;then
@@ -52,7 +52,7 @@ if ! hash caddy 2>/dev/null ;then
   rm /tmp/caddy.tar.gz
 
   # Put the caddy binary to its directrory
-  mv /tmp/caddy/caddy /usr/bin
+  mv /tmp/caddy/caddy /usr/local/bin
 
   # Put the caddy SystemD service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system

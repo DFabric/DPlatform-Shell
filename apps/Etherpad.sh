@@ -1,30 +1,44 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/etherpad/etherpad-lite pull; whiptail --msgbox "Etherpad updated!" 8 32; exit; }
+[ $1 = update ] && { git -C /home/etherpad pull; whiptail --msgbox "Etherpad updated!" 8 32; exit; }
 [ $1 = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -r etherpad; whiptail --msgbox "Etherpad removed!" 8 32; exit; }
 
 . sysutils/Node.js.sh
 
-# Add etherpad user
-useradd -m etherpad
+# Define port
+port=$(whiptail --title "Etherpad port" --inputbox "Set a port number for Etherpad" 8 48 "9001" 3>&1 1>&2 2>&3)
 
-# Go to etherpad user directory
+# Create etherpad user directory
+mkdir /home/etherpad
 cd /home/etherpad
 
 # gzip, git, curl, libssl develop libraries, python and gcc needed
-[ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential
-[ $PKG = rpm ] && $install gzip python openssl-devel && yum groupinstall "Development Tools"
+[ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential sqlite3
+[ $PKG = rpm ] && $install gzip python openssl-devel sqlite3 && yum groupinstall "Development Tools"
 
-git clone https://github.com/ether/etherpad-lite
+git clone https://github.com/ether/etherpad-lite .
+
+cp settings.json.template settings.json
+
+[ $IP = $LOCALIP ] && access=$IP || access=
+sed -i "s/0.0.0.0/$access/" settings.json
+sed -i "s/9001/$port/" settings.json
+
+# Relace dirty db by SQlite
+sed -i 's/"dbType" : "dirty"/"dbType" : "sqlite"/' settings.json
+sed -i 's/var\/dirty.db/var\/sqlite.db/' settings.json
 
 #prepare the enviroment
-sh /home/etherpad/etherpad-lite/bin/installDeps.sh
+sh /home/etherpad/bin/installDeps.sh
+
+# Add etherpad user
+useradd etherpad
 
 # Change the owner from root to etherpad
 chown -R etherpad /home/etherpad
 
 # Add SystemD process and run the server
-sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node node_modules/ep_etherpad-lite/node/server.js" /home/etherpad/etherpad-lite etherpad
+sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node /home/etherpad/node_modules/ep_etherpad-lite/node/server.js" /home/etherpad etherpad
 
 # Start the service and enable it to start on boot
 systemctl start etherpad

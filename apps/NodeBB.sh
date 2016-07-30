@@ -29,11 +29,12 @@ fi
 
 . sysutils/Node.js.sh
 
-# Create a nodebb user
-useradd -m nodebb
-
-# Go to nodebb user directory
+# Create nodebb user directory
+mkdir /home/nodebb
 cd /home/nodebb
+
+# Clean the user directory
+rm -rf ".*"
 
 # Clone the repository
 git clone -b v1.x.x https://github.com/NodeBB/NodeBB .
@@ -62,6 +63,9 @@ EOF
 
 # In Centos6/7 allowing port through the firewall is needed
 [ $PKG = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
+
+# Create a nodebb user
+useradd -m nodebb
 
 # Change the owner from root to nodebb
 chown -R nodebb /home/nodebb

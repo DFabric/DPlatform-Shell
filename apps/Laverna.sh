@@ -6,7 +6,16 @@
 # Define port
 port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)
 
+# Create www-data user and group
+groupadd -g 33 www-data
+useradd \
+  -g www-data --no-user-group \
+  --home-dir /var/www --no-create-home \
+  --shell /usr/sbin/nologin \
+  --system --uid 33 www-data
+
 # Go to its directory
+mkdir -p /var/www
 cd /var/www
 
 #  Clone the prebuilt static version

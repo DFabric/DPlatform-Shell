@@ -20,7 +20,7 @@ apt-get update
 $install jitsi-meet
 
 # Adding sip-gateway to Jitsi Meet
-whiptail --yesno "Would you like to add sip-gateway to Jitsi Meet?" 8 48
+whiptail --yesno "Would you like to add the sip-gateway Jigasi to Jitsi Meet?" 8 48
 case $? in
   0) # Install Jigasi
   $install jigasi;;
