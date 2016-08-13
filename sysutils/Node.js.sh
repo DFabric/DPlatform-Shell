@@ -22,11 +22,9 @@ arch=x64
 [ $ARCH = arm64 ] && arch=arm64
 [ $ARCH = 86 ] && arch=x86
 
-ver=$(curl https://nodejs.org/en/)
-ver=${ver%' LTS" data-version="'*}
-ver=${ver#*'title="Download '}
+ver=$(curl https://semver.io/node/stable)
 cd /tmp
-download https://nodejs.org/dist/$ver/node-$ver-linux-$arch.tar.xz" "Downloading the Node.js $ver archive..."
+download "https://nodejs.org/dist/$ver/node-$ver-linux-$arch.tar.xz" "Downloading the Node.js $ver archive..."
 
 # Extract the downloaded archive and remove it
 extract node-$ver-linux-$arch.tar.xz "tar xJf -" "Extracting the files from the archive..."

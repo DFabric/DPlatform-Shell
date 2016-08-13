@@ -9,7 +9,8 @@ if [ $1 = update ] ;then
   unzip -uo ghost-latest -d ghost
 
   rm ghost-latest.zip
-  mv ghost/core ghost/index.js ghost/*.md ghost/*.json .
+  rm -rf core
+  mv ghost/core ghost/index.js ghost/*.md ghost/*.json ghost/package.json .
   rm -r ghost
 
   # --unsafe-perm required by node-gyp for the sqlite3 package

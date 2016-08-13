@@ -168,6 +168,7 @@ apps_menus() {
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
+		GateOne "Gate One is an HTML5-powered terminal emulator and SSH client" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
