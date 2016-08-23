@@ -26,7 +26,7 @@ else
   # build it, install it, start it
   ~/netdata/netdata-installer.sh
 
-  [ $IP = $LOCALIP ] && access=$IP || access=
+  [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
 
   # Run netdata via Caddy's proxying
   if hash caddy 2>/dev/null ;then

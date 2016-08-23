@@ -24,7 +24,7 @@ git clone https://github.com/Laverna/static-laverna
 # Change the owner from root to www-data
 chown -R www-data:www-data /var/www/static-laverna
 
-[ $IP = $LOCALIP ] && access=$IP || access=
+[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
 
 if hash caddy 2>/dev/null ;then
   cat >> /etc/caddy/Caddyfile <<EOF

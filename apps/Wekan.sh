@@ -1,12 +1,11 @@
 #!/bin/sh
 
-[ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/bundle; }
+[ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/*; }
 [ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan removed!" 8 32; exit; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
-
 
 [ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }
 
@@ -32,15 +31,15 @@ download "https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.
 # Extract the downloaded archive and remove it
 extract wekan-$ver.tar.gz "xzf -" "Extracting the files from the archive..."
 
-mv bundle Wekan
+mv bundle .
 rm wekan-$ver.tar.gz
 
 if [ $ARCHf = arm ] ;then
   $install python make g++
 
   # Reinstall bcrypt and bson to a newer version is needed
-  cd /home/wekan/Wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
-  cd /home/wekan/Wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
+  cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
+  cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
 elif [ $ARCHf = x86 ] ;then
   $install graphicsmagick
 
@@ -55,7 +54,7 @@ else
 fi
 
 # Move to the server directory and install the dependencies:
-cd /home/wekan/Wekan/programs/server
+cd /home/wekan/programs/server
 
 [ $ARCHf = x86 ] && /usr/local/share/node-v0.10.46-linux-x64/bin/npm install
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
@@ -74,7 +73,7 @@ Wants=mongod.service
 After=network.target mongod.service
 [Service]
 Type=simple
-WorkingDirectory=/home/wekan/Wekan
+WorkingDirectory=/home/wekan
 ExecStart=$node main.js
 Environment=MONGO_URL=mongodb://127.0.0.1:27017/wekan
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port

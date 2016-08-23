@@ -128,7 +128,8 @@ Each app have its own dedicated user, most their own `/home/app_user` directory
 If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/DFabric/DPlatform-ShellCore/blob/master/CONTRIBUTING.md)
 
 ## Contributors - Special thanks
-[@cryptono](https://github.com/cryptono) - testing
+[RapFan89](https://github.com/RapFan89)
+[cryptono](https://github.com/cryptono) - testing
 
 ## License
 DPlatform - Deploy self-hosted apps easily

@@ -40,7 +40,7 @@ Options Indexes FollowSymLinks MultiViews
 </VirtualHost>
 APACHE2
 
-[ $IP = $LOCALIP ] && access=$IP || access=
+[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
 
 # Create Nginx configuration file
 cat > /etc/nginx/sites-available/freshrss <<EOF
@@ -51,6 +51,18 @@ server {
   index index.php index.html index.htm;
   access_log /var/log/nginx/freshrss.access.log;
   error_log /var/log/nginx/freshrss.error.log;
+
+  location / {
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+  }
+
+  error_page 404 /404.html;
+
+  error_page 500 502 503 504 /50x.html;
+  location = /50x.html {
+   root /usr/share/nginx/html;
+  }
+
   location ~ ^.+?\.php(/.*)?$ {
     fastcgi_pass unix:$php_fpm;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
@@ -59,9 +71,6 @@ server {
     #include fastcgi_params;
     #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
   }
-  #location / {
-  #  try_files $uri $uri/ index.php;
-  #}
 }
 EOF
 
