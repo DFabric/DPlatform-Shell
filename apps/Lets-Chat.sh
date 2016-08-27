@@ -23,7 +23,7 @@ npm install
 # Change the owner from root to letschat
 chown -R letschat /home/letschat
 
-# Create the SystemD service
+# Create the systemd service
 cat > "/etc/systemd/system/lets-chat.service" <<EOF
 [Unit]
 Description=Let's Chat Server

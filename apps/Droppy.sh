@@ -11,7 +11,7 @@ useradd -m droppy
 # Install latest version and dependencies.
 npm install -g droppy
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh sysutils/service.sh Droppy "/usr/bin/node /usr/bin/droppy start --configdir /var/www/droppy/config --filesdir /var/www/droppy/files" / droppy
 
 whiptail --msgbox "Droppy installed!

@@ -29,7 +29,7 @@ sh bin/installDeps.sh
 # Change the owner from root to etherdraw
 chown -R etherdraw /home/etherdraw
 
-# Create the SystemD service
+# Create the systemd service
 cat > "/etc/systemd/system/etherdraw.service" <<EOF
 [Unit]
 Description=EtherDraw Server

@@ -1,5 +1,5 @@
 # DPlatform (alpha)
-### check out [browser-tools.net](http://browser-tools.net)! In-browser, offline standalone and statically self-servable web tool set.
+### check out [browser-tools.net](https://browser-tools.net)! In-browser, offline standalone and statically self-servable web tool set.
 
 ![DP logo](https://dfabric.github.io/DPlatform-ShellCore/img/logo.svg)
 **DPlatform** helps you to easily install applications and manage them.
@@ -21,7 +21,7 @@
 
 ## Features
 - Install applications easily
-- Manage Apps Services - SystemD services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
+- Manage Apps Services - systemd services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
 - Update/Remove installed apps simply with two clicks
 - Chose the network accessibility of your app - Internet public access or local access
 - Change your hostname
@@ -57,6 +57,7 @@
 - [Laverna](https://laverna.cc/) - A JavaScript note taking application with Markdown editor and encryption support
 - [Let's Chat](https://sdelements.github.io/lets-chat/) - Self-hosted chat app for small teams
 - [Linx](https://github.com/andreimarcu/linx-server) - Self-hosted file/code/media sharing website
+- [Cloud9](https://github.com/c9/core) - Cloud9 3.0 SDK for Plugin Development
 - [Curvytron](http://www.curvytron.com/) - A web multiplayer Tron-like game with curves
 - [Caddy](https://caddyserver.com/) - Fast, cross-platform HTTP/2 web server with automatic HTTPS
 - [Docker](https://www.docker.com/) - Open container engine platform for distributed application
@@ -100,11 +101,11 @@ Next times, to run DPlatform:
 Not recommended because no auto-updates: Note you *can* directly run `dplatform.sh`.
 
 ## Requirements
-A recent GNU/Linux operating system with **SystemD** is recommended, lots of apps have custom SytemdD services.
+A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom SytemdD services.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
 
-If you use Ubuntu 14.04.x and you want to use SystemD services provided by DPlatform, you can switch to it instead of the default Upstart
+If you use Ubuntu 14.04.x and you want to use systemd services provided by DPlatform, you can switch to it instead of the default Upstart
 
 CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 

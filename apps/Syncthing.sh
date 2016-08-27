@@ -20,7 +20,7 @@ if [ $PKG = deb ] ;then
   # Access the web GUI from other computers
   sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
-  # Add SystemD process, configure and start Syncthing
+  # Add systemd process, configure and start Syncthing
   sh sysutils/service.sh Syncthing syncthing $HOME/syncthing-linux-*
 else
   # Get the latest Syncthing release
@@ -40,7 +40,7 @@ else
 
   # Move Syncthing bin to the system bin directory
   mv syncthing /usr/local/bin/
-  # Move the SystemD Syncthing service to the SystemD directory
+  # Move the systemd Syncthing service to the systemd directory
   mv etc/linux-systemd/*/* /lib/systemd/system
 
   # Remove the useless service and it's extracted folder
@@ -52,7 +52,7 @@ else
   # Access the web GUI from other computers
   sed -i 's/127.0.0.1:8384/$access:8384/g' ~/.config/syncthing/config.xml
 
-  # Add SystemD process, configure and start Syncthing
+  # Add systemd process, configure and start Syncthing
   sh sysutils/service.sh Syncthing $HOME/syncthing-linux-$arch-v$ver/syncthing $HOME/syncthing-linux-$arch-v$ver
 fi
 

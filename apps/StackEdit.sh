@@ -27,7 +27,7 @@ bower install --allow-root
 # Change the owner from root to git
 chown -R stackedit /home/stackedit
 
-# Add SystemD process
+# Add systemd process
 cat > /etc/systemd/system/stackedit.service <<EOF
 [Unit]
 Description=StackEdit Server

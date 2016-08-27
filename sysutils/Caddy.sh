@@ -54,7 +54,7 @@ if ! hash caddy 2>/dev/null ;then
   # Put the caddy binary to its directrory
   mv /tmp/caddy/caddy /usr/local/bin
 
-  # Put the caddy SystemD service to its directrory
+  # Put the caddy systemd service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system
 
   rm -r /tmp/caddy

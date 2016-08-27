@@ -22,7 +22,7 @@ npm install
 # Change the owner from root to agario
 chown -R agario /home/agario
 
-# Create the SystemD service
+# Create the systemd service
 cat > "/etc/systemd/system/agar.io-clone.service" <<EOF
 [Unit]
 Description=Agar.io Clone Game Server

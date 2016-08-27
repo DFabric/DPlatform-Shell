@@ -55,7 +55,7 @@ case $DB_CHOICE in
 
 	# Change the owner from root to seafile
 	chown -R seafile:seafile /home/seafile
-	# Create SystemD service and run the server
+	# Create systemd service and run the server
 	cat > /etc/systemd/system/seafile.service <<EOF
 [Unit]
 Description=Seafile Server

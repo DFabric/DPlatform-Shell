@@ -11,7 +11,7 @@ useradd jsbin
 # Installation
 npm install -g jsbin
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh sysutils/service.sh JSBin "/usr/bin/node /usr/bin/jsbin" / jsbin
 
 whiptail --msgbox "JSBin installed!

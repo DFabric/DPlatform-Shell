@@ -177,6 +177,7 @@ apps_menus() {
 		Laverna "Note taking application with Mardown editor and encryption" \
 		LetsChat "Self-hosted chat app for small teams" \
 		Linx "Self-hosted file/code/media sharing website" \
+		Cloud9 "Cloud9 3.0 SDK for Plugin Development" \
 		Curvytron "A web multiplayer Tron-like game with curves" \
 		Caddy "Fast, cross-platform HTTP/2 web server with automatic HTTPS" \
 		Docker "Open container engine platform for distributed application" \

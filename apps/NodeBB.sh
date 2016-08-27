@@ -70,7 +70,7 @@ useradd -m nodebb
 # Change the owner from root to nodebb
 chown -R nodebb /home/nodebb
 
-# Add SystemD process
+# Add systemd process
 cat > /etc/systemd/system/nodebb.service <<EOF
 [Unit]
 Description=NodeBB Forum Server

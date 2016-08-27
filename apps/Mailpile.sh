@@ -63,7 +63,7 @@ server {
 }
 EOF
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 cat > "/etc/systemd/system/maipile.service" <<EOF
 [Unit]
 Description=Mailpile Client Server

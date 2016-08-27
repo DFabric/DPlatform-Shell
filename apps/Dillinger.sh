@@ -19,7 +19,7 @@ npm i -d
 mkdir -p downloads/files/{md,html,pdf}
 gulp build --prod
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh $DIR/sysutils/service.sh Dillinger "/usr/bin/node $HOME/dillinger/app" "$HOME/dillinger
 Environment=production"
 

@@ -64,7 +64,7 @@ sed -i "s/port: '2368'/port: '$port'/" config.js
 useradd ghost
 chown -R ghost /var/www/ghost
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 cat > "/etc/systemd/system/ghost.service" <<EOF
 [Unit]
 Description=The Ghost Blogging Platform

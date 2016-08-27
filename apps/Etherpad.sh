@@ -37,7 +37,7 @@ useradd etherpad
 # Change the owner from root to etherpad
 chown -R etherpad /home/etherpad
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node /home/etherpad/node_modules/ep_etherpad-lite/node/server.js" /home/etherpad etherpad
 
 # Start the service and enable it to start on boot

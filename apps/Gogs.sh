@@ -40,7 +40,7 @@ elif [ $ARCHf = arm ] ;then
   unzip gogs.zip
   rm gogs.zip
 fi
-# Add SystemD process, configure and start Gogs
+# Add systemd process, configure and start Gogs
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system
 
 # Change the owner from root to git

@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # Install supervisor if not already present
-hash systemctl 2>/dev/null || whiptail --msgbox "You need to use SystemD boot system" 8 48 exit
+hash systemctl 2>/dev/null || whiptail --msgbox "You need to use systemd boot system" 8 48 exit
 
 service_detection() {
   service_list=
-  service_list="SystemD [status]auto-start-at-boot"
+  service_list="systemd [status]auto-start-at-boot"
 
   # Parse line by line dp.cfg, and create en entry for each
   while read service ;do
@@ -64,7 +64,7 @@ if [ "$1" = "" ] ;then
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 3>&1 1>&2 2>&3) ;do
     cd $DIR
-    [ $service_choice = SystemD ]; whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
+    [ $service_choice = systemd ]; whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
     service_detection
   done
 

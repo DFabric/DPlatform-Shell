@@ -15,7 +15,7 @@ useradd thelounge
 # Install
 npm install -g thelounge
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh sysutils/service.sh TheLounge "/usr/bin/node /usr/bin/lounge$port_arg" / thelounge
 
 whiptail --msgbox "The Lounge installed!

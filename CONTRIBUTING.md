@@ -48,7 +48,7 @@ Follows the install instructions, that depends of your app
 git clone https://github.com/MyApp/MyApp
 
 # Download the arcive
-download "https://myapp.com/myapp_version1.tgz -O myapp.tar.gz" "Downloading the archive..."
+download "https://myapp.com/myapp_v1.0.0.tar.gz -O myapp.tar.gz" "Downloading the archive..."
 
 # Extract the downloaded archive and remove it
 extract myapp.tar.gz "tar xzf -" "Extracting the files from the archive..."
@@ -71,9 +71,9 @@ $DIST_VER={8|7|16.04|14.04|24|23|8|7|6...}  # $VERSION_ID
 chown -R myapp /home/myapp
 ```
 
-Create a SystemD service for your app
+Create a systemd service for your app
 ```sh
-# Create the SystemD service
+# Create the systemd service
 cat > "/etc/systemd/system/myapp.service" <<EOF
 [Unit]
 Description=MyApp Server
@@ -93,11 +93,11 @@ EOF
 systemctl start myapp
 systemctl enable myapp
 ```
-You can also use the builtin SystemD service creation of DPlatform
+You can also use the builtin systemd service creation of DPlatform
 ```sh
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh sysutils/services.sh MyApp "/usr/bin/node /usr/bin/MyApp" /home/myapp/MyApp myapp
-# This command with its arguments correspond to 
+# This command with its arguments correspond to
 # sh ServiceCreationScriptPath ServiceName "ExecStart=" WorkingDirectory= User=
 
 ```

@@ -37,7 +37,7 @@ EOF
 # Change the owner from root to linx
 chown -R linx /home/linx
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 cat > "/etc/systemd/system/linx.service" <<EOF
 [Unit]
 Description=Linx Server

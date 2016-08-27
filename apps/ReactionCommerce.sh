@@ -23,7 +23,7 @@ git checkout master # default branch is development
 
 ./reaction install
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh $DIR/sysutils/service.sh ReactionCommerce "$HOME/reaction/reaction" $HOME/reaction/bin
 
 whiptail --msgbox "Reaction Commerce installed!

@@ -65,7 +65,7 @@ chown -R wekan /home/wekan
 [ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
-# Create the SystemD service
+# Create the systemd service
 cat > "/etc/systemd/system/wekan.service" <<EOF
 [Unit]
 Description=Wekan Server

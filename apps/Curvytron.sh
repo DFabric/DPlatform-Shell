@@ -38,7 +38,7 @@ gulp
 # Change the owner from root to agario
 chown -R curvytron /home/curvytron
 
-# Add SystemD process and run the server
+# Add systemd process and run the server
 sh sysutils/service.sh Curvytron "/usr/bin/node /home/curvytron/bin/curvytron.js" /home/curvytron curvytron
 
 # Start the service and enable it to start on boot
