@@ -3,7 +3,7 @@
 [ $1 = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
 [ $1 = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf ~/haiwen; rm -rf ~/seafile-server*; whiptail --msgbox "Seafile removed!" 8 32; exit; }
 
-DB_CHOICE=$(whiptail --title Seafile --menu "	What data base would you like to deploy with Seafile?
+db_choice=$(whiptail --title Seafile --menu "	What database would you like to deploy with Seafile?
 
 SQLite fit in Home/Personal Environment
 MariaDB/Nginx is recommended in Production/Enterprise Environment
@@ -12,7 +12,7 @@ If you don't know, the first answer should fit you" 16 80 2 \
 "Deploy Seafile with SQLite" "Light, powerfull, simpler" \
 "Deploy Seafile with MariaDB" "Advanced, secure, heavier" \
 3>&1 1>&2 2>&3)
-case $DB_CHOICE in
+case $db_choice in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
@@ -25,8 +25,6 @@ case $DB_CHOICE in
 	# Go to its directory
 	cd /home/seafile
 
-	[ $ARCH = amd64 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_x86-64.tar.gz
-	[ $ARCH = 86 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_5.1.1_i386.tar.gz
 	if [ $ARCHf = arm ]; then
 		# Get the latest Seafile release
 		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
@@ -35,6 +33,15 @@ case $DB_CHOICE in
 		# One of this 3 link works
 		wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_stable_${ver}_pi.tar.gz | wget https://github.com/haiwen/seafile-rpi/releases/download/v$ver/seafile-server_beta_${ver}_pi.tar.gz
 	else
+		# Get the latest Seafile release
+		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile/releases/latest)
+		# Only keep the version number in the url
+		ver=${ver#*v}
+		ver=${ver%-server}
+
+		[ $ARCH = amd64 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_${ver}_x86-64.tar.gz
+		[ $ARCH = 86 ] && url=https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_${ver}_i386.tar.gz
+
 		# Download the arcive
 		download $url "Downloading the Seafile $ver archive..."
 	fi

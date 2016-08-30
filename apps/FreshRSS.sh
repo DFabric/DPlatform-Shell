@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ $1 = update ] && { cd /var/www/FreshRSS; git reset --hard; git pull; chown -R www-data:www-data .; chmod -R g+w ./data/; whiptail --msgbox "FreshRSS updated!" 8 32; exit; }
+[ $1 = update ] && { cd /var/www/FreshRSS; git reset --hard; git pull; chown -R www-data:www-data ./; chmod -R g+w ./data/; whiptail --msgbox "FreshRSS updated!" 8 32; exit; }
 [ $1 = remove ] && { rm /etc/nginx/sites-*/freshrss; systemctl restart nginx; crontab -u www-data -r; whiptail --msgbox "FreshRSS removed!" 8 32; exit; }
 
 # Define port
