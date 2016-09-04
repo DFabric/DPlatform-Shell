@@ -98,10 +98,10 @@ The prerequisites will be installed and the DPlatform git project cloned for you
 Next times, to run DPlatform:
 `sudo sh init.sh`
 
-Not recommended because no auto-updates: Note you *can* directly run `dplatform.sh`.
+Not recommended because no auto-updates, but you you still *can* directly run `dplatform.sh`.
 
 ## Requirements
-A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom SytemdD services.
+A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom sytsemdd services.
 
 Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
 
@@ -130,7 +130,7 @@ If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/D
 
 ## Contributors - Special thanks
 [RapFan89](https://github.com/RapFan89)
-[cryptono](https://github.com/cryptono) - testing
+[cryptono](https://github.com/cryptono)
 
 ## License
 DPlatform - Deploy self-hosted apps easily

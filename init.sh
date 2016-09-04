@@ -15,7 +15,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget pv sudo || $install git whiptail curl wget pv sudo
+hash git whiptail curl wget sudo || $install git whiptail curl wget sudo
 
 # Current directory
 DIR=$(cd -P $(dirname $0) && pwd)

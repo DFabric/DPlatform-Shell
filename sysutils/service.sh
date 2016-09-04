@@ -59,12 +59,13 @@ if [ "$1" = "" ] ;then
   service_detection
   used_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", (($3+$5)/1000)}')
   total_memory=$(free -m | awk '/Mem/ {printf "%.2g\n", ($2/1000)}')
+
   service_choice=$(whiptail --title "App Service Manager" --menu "
   Select with Arrows <-v-> and/or Tab <=>
   Memory usage: $used_memory GiB used / $total_memory GiB total" 16 72 6 \
   $service_list 3>&1 1>&2 2>&3) ;do
     cd $DIR
-    [ $service_choice = systemd ]; whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
+    [ $service_choice = systemd ] && whiptail --msgbox "$(systemctl status)" 11 64 || service_setup
     service_detection
   done
 

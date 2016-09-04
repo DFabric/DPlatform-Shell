@@ -7,8 +7,6 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
-export DIR IPv4 IPv6 LOCALIP DIST DIST_VER PKG install remove ARCH ARCHf HDWR URL IP
-
 # Current directory
 [ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
@@ -47,7 +45,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget pv sudo || $install git whiptail curl wget pv sudo
+hash git whiptail curl wget sudo || $install git whiptail curl wget sudo
 
 # Detect architecture
 ARCH=$(arch)
@@ -76,6 +74,7 @@ download() {
 
 # Extract with progress bar
 extract() {
+	hash pv || $install pv
 	(pv -n $1 | tar $2) 2>&1 | whiptail --gauge "$3" 6 64 0
 }
 
@@ -168,7 +167,7 @@ apps_menus() {
 		EtherCalc "Web spreadsheet, Node.js port of Multi-user SocialCalc" \
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
-		GateOne "Gate One is an HTML5-powered terminal emulator and SSH client" \
+		GateOne "An HTML5-powered terminal emulator and SSH client" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
