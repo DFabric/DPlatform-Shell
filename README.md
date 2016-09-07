@@ -107,7 +107,7 @@ Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tes
 
 If you use Ubuntu 14.04.x and you want to use systemd services provided by DPlatform, you can switch to it instead of the default Upstart
 
-CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
+CentOS 6, 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
 Arch Linux. Partial support, not tested
 

@@ -5,13 +5,23 @@
 
 # Detect package manager
 if hash apt-get 2>/dev/null ;then
+	PKG=deb
 	install="debconf-apt-progress -- apt-get install -y"
-elif hash rpm 2>/dev/null ;then
-	[ $ID = Fedora ] && install="dnf install -y" || install="yum install -y"
+	remove="apt-get purge -y"
+elif hash dnf 2>/dev/null ;then
+	PKG=rpm
+	install="dnf install -y"
+	remove="dnf remove -y"
+elif hash yum 2>/dev/null ;then
+	PKG=rpm
+	install="yum install -y"
+	remove="yum remove -y"
 elif hash pacman 2>/dev/null ;then
+	PKG=pkg
 	install="pacman -Syu"
+	remove="pacman -Rsy"
 else
-  echo "Your operating system $DIST isn't supported"; exit 1
+	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
 
 # Prerequisites

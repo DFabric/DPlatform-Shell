@@ -22,24 +22,39 @@ IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n
 [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+
 # Detect distribution
-. /etc/os-release
-DIST=$ID
-DIST_VER=$VERSION_ID
+if [ -e /etc/os-release ] ;then
+	. /etc/os-release
+	DIST=$ID
+	DIST_VER=$VERSION_ID
+elif [ -e /etc/issue ] ;then
+	grep Red Hat /etc/issue && DIST=redhat
+	grep CentOS /etc/issue && DIST=centos
+	DIST_VER=$(cat /etc/issue)
+	DIST_VER=${DIST_VER#*release}
+	DIST_VER=${DIST_VER%.*}
+else
+	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
+fi
 
 # Detect package manager
 if hash apt-get 2>/dev/null ;then
 	PKG=deb
 	install="debconf-apt-progress -- apt-get install -y"
 	remove="apt-get purge -y"
-elif hash rpm 2>/dev/null ;then
+elif hash dnf 2>/dev/null ;then
+	PKG=rpm
+	install="dnf install -y"
+	remove="dnf remove -y"
+elif hash yum 2>/dev/null ;then
 	PKG=rpm
 	install="yum install -y"
 	remove="yum remove -y"
-	[ $DIST = Fedora ] && install="dnf install -y" && remove="dnf remove -y"
 elif hash pacman 2>/dev/null ;then
 	PKG=pkg
 	install="pacman -Syu"
+	remove="pacman -Rsy"
 else
 	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
@@ -243,29 +258,29 @@ esac
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
 Your can access to your apps by opening this address in your browser:
 		>| http://$URL(:port) |<" 18 80 8 \
-"Install apps" "Install new applications" \
-"Update" "Update applications and DPlatform" \
-"Remove apps" "Uninstall applications" \
+Install "Install new applications" \
+Update "Update applications and DPlatform" \
+Remove "Uninstall applications" \
 "App Service Manager" "Start/Stop and auto start services at boot" \
 "Network app access" "Define the network accessibility of the apps" \
-"Hostname" "Change the name of the server on your local network" \
-"About" "Informations about this project and your system" \
+Hostname "Change the name of the server on your local network" \
+About "Informations about this project and your system" \
 $config$configOption 3>&1 1>&2 2>&3) ;do
 	case $CHOICE in
-		"Install apps") apps_menus install;;
-		"Update") apps_menus update;;
-		"Remove apps") apps_menus remove;;
+		Install) apps_menus install;;
+		Update) apps_menus update;;
+		Remove) apps_menus remove;;
 		"App Service Manager") . sysutils/service.sh;;
 		"Network app access") network_access;;
-		"Hostname") change_hostname;;
-		"About") whiptail --title "DPlatform - About" --yesno "DPlatform - Deploy self-hosted apps easily
+		Hostname) change_hostname;;
+		About) whiptail --title "DPlatform - About" --yesno "DPlatform - Deploy self-hosted apps easily
 		https://github.com/DFabric/DPlatform-ShellCore
 
 		- Domain/host name: `hostname`
 		- Local IPv4: $LOCALIP
 		- Public IPv4: $IPv4
 		- IPv6: $IPv6
-		Your OS: $PRETTY_NAME $(uname -m)
+		Your OS: $DIST $DIST_VER $(uname -m)
 
 Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)" 16 64 --yes-button "           Ok           " --no-button ""
 		[ $? = 1 ] && sh apps/dustship.sh;;
