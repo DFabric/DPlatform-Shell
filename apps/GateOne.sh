@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { whiptail --msgbox "Not available" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove GateOne; rm -rf /var/lib/gateone; rm -f /usr/local/bin/gateone; whiptail --msgbox "GateOne removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove GateOne; rm -rf /var/lib/gateone; rm -f /usr/local/bin/gateone; whiptail --msgbox "GateOne  updated!" 8 32; break; }
 
 $install python
 

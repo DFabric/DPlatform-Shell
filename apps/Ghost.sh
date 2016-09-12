@@ -3,26 +3,29 @@
 #http://support.ghost.org/installing-ghost-linux/
 #http://support.ghost.org/how-to-upgrade/
 if [ $1 = update ] ;then
-  cd /var/www/ghost
+  cd /var/www
 
   download https://ghost.org/zip/ghost-latest.zip "Downloading the Ghost archive..."
-  unzip -uo ghost-latest -d ghost
+  unzip -uo ghost-latest -d ghost-latest
 
   rm ghost-latest.zip
-  rm -rf core
-  mv ghost/core ghost/index.js ghost/*.md ghost/*.json ghost/package.json .
-  rm -r ghost
+
+  cp -rf ghost/content ghost/config.js ghost-latest
 
   # --unsafe-perm required by node-gyp for the sqlite3 package
   npm install --production --unsafe-perm
 
+  mv ghost ghost-old
+  mv ghost-latest ghost
+
   # Change the owner from root to ghost
-  chown -R ghost /var/www/ghost
+  chown -R ghost: /var/www/ghost
   systemctl restart ghost
-  whiptail --msgbox "Ghost updated!" 8 32
+
+  whiptail --msgbox "Ghost updated! " 8 48
   exit
 fi
-[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel ghost; whiptail --msgbox "Ghost removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { $install jigasi jitsi-meet jicofo jitsi-videobridge; whiptail --msgbox "Jitsi Meet updated!" 8 32; exit; }
-[ $1 = remove ] && { $remove jigasi jitsi-meet jicofo jitsi-videobridge; whiptail --msgbox "Jitsi Meet removed!" 8 32; exit; }
+[ $1 = update ] && { $install jigasi jitsi-meet jicofo jitsi-videobridge; whiptail --msgbox "Jitsi Meet updated!" 8 32; break; }
+[ $1 = remove ] && { $remove jigasi jitsi-meet jicofo jitsi-videobridge; whiptail --msgbox "Jitsi Meet  updated!" 8 32; break; }
 
 # Only debian based are supported
 if [ $PKG != deb ] ;then

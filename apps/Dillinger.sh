@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C ~/dillinger pull; whiptail --msgbox "Dillinger updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Dillinger; rm -rf ~/feedbin; whiptail --msgbox "Dillinger removed!" 8 32; exit; }
+[ $1 = update ] && { git -C ~/dillinger pull; whiptail --msgbox "Dillinger updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Dillinger; rm -rf ~/feedbin; whiptail --msgbox "Dillinger  updated!" 8 32; break; }
 
 # ARM architecture doesn't appear to work
 [ $ARCHf = arm ]; whiptail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48

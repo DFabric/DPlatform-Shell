@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/agario/agar.io-clone pull; whiptail --msgbox "Agar.io Clone updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -r agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; exit; }
+[ $1 = update ] && { git -C /home/agario/agar.io-clone pull; whiptail --msgbox "Agar.io Clone updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -r agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; break; }
 
 . sysutils/Node.js.sh
 
@@ -23,7 +23,7 @@ npm install
 chown -R agario /home/agario
 
 # Create the systemd service
-cat > "/etc/systemd/system/agar.io-clone.service" <<EOF
+cat > "/etc/systemd/system/agario.service" <<EOF
 [Unit]
 Description=Agar.io Clone Game Server
 After=network.target
@@ -38,8 +38,8 @@ WantedBy=multi-user.target
 EOF
 
 # Start the service and enable it to start on boot
-systemctl start agario
-systemctl enable agario
+systemctl start agar.io-clone
+systemctl enable agar.io-clone
 
 whiptail --msgbox "Agar.io Clone installed!
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
-[ $1 = remove ] && { rm /etc/nginx/sites-*/wordpress; systemctl restart nginx; rm -rf /var/www/wordpress; whiptail --msgbox "WordPress removed!" 8 32; exit; }
+[ $1 = remove ] && { rm /etc/nginx/sites-*/wordpress; systemctl restart nginx; rm -rf /var/www/wordpress; whiptail --msgbox "WordPress  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "WordPress port" --inputbox "Set a port number for WordPress" 8 48 "8089" 3>&1 1>&2 2>&3)

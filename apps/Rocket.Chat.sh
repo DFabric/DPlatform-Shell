@@ -2,18 +2,17 @@
 
 # Remove the old server executables
 [ $1 = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -r rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -r rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
 
 # Define ReplicaSet
 while : ;do
-  whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
+  DB=$(whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
   "Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
-  --yes-button Local --no-button External
-  DBaccess=$?
-  case $DBaccess in
+  --yes-button Local --no-button External 3>&1 1>&2 2>&3)
+  case $DB in
     0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
     [ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }
@@ -50,10 +49,9 @@ NOT_READY_YET
     1) MONGO_URL=$(whiptail --inputbox --title "Set your MongoDB instance URL" "\
 If you have a MongoDB database, you can enter its URL and use it.
 You can also use a MongoDB service provider on the Internet.
-MongoLab offers free sandbox databases that can be used here.
-Create a free account and database here https://mongolab.com/
+You can use a free https://mongolab.com/ database.
 Enter your Mongo URL instance (with the brackets removed): \
-  " 12 72 "mongodb://:{user}:{password}@{host}:{port}/{datalink}" 3>&1 1>&2 2>&3)
+  " 10 72 "mongodb://:{user}:{password}@{host}:{port}/{datalink}" 3>&1 1>&2 2>&3)
   [ $? = 0 ] || break;;
   esac
 done

@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] && { git pull origin master; scripts/install-sdk.sh; whiptail --msgbox "Cloud9 updated!" 8 32; exit;}
-[ $1 = remove ] && { sh sysutils/service.sh remove Cloud9; userdel -r cloud9; whiptail --msgbox "Cloud9 removed!" 8 32; exit; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Cloud9; userdel -r cloud9; whiptail --msgbox "Cloud9  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Cloud9 port" --inputbox "Set a port number for Cloud9" 8 48 "8181" 3>&1 1>&2 2>&3)

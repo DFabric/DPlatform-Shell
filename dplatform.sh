@@ -11,18 +11,6 @@
 [ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
-# Test if cuby responds
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
-# Else use this site
-[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
-[ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
-You have no internet connection. You can do everything but install new apps and access them through Internet" 10 48
-
-IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
-[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
-
-LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-
 # Detect distribution
 if [ -e /etc/os-release ] ;then
 	. /etc/os-release
@@ -35,7 +23,7 @@ elif [ -e /etc/issue ] ;then
 	DIST_VER=${DIST_VER#*release}
 	DIST_VER=${DIST_VER%.*}
 else
-	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
+	echo "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
 
 # Detect package manager
@@ -56,7 +44,7 @@ elif hash pacman 2>/dev/null ;then
 	install="pacman -Syu"
 	remove="pacman -Rsy"
 else
-	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
+	echo "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
 
 # Prerequisites
@@ -70,7 +58,7 @@ case $ARCH in
 	aarch64) ARCHf=arm; ARCH=arm64;;
 	armv7*) ARCHf=arm; ARCH=armv7;;
 	armv6*) ARCHf=arm; ARCH=armv6;;
-	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48 exit 1;;
+	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48; exit 1;;
 esac
 
 # Detect hardware
@@ -82,6 +70,18 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 esac
 
+# Test if cuby responds
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
+# Else use this site
+[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
+[ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
+You have no internet connection. You can do everything but install new apps" 10 32
+
+IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
+[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
+
+LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+
 # Download with progress bar
 download() {
 	wget $1 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "$2" 6 64 0
@@ -89,7 +89,7 @@ download() {
 
 # Extract with progress bar
 extract() {
-	hash pv || $install pv
+	hash pv 2>/dev/null || $install pv
 	(pv -n $1 | tar $2) 2>&1 | whiptail --gauge "$3" 6 64 0
 }
 
@@ -156,7 +156,8 @@ apps_menus() {
 				Meteor) . sysutils/Meteor.sh $1;;
 				MongoDB) . sysutils/MongoDB.sh $1;;
 				Node.js) . sysutils/Node.js.sh $1;;
-				$APP) . apps/$APP.sh $1; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				# Create a loop to break
+				$APP) for a in a; do . apps/$APP.sh $1 ;done ; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
 	else

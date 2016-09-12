@@ -21,7 +21,7 @@ elif hash pacman 2>/dev/null ;then
 	install="pacman -Syu"
 	remove="pacman -Rsy"
 else
-	whiptail --msgbox "Your operating system $DIST isn't supported" 8 48; exit 1
+	echo "Your operating system $DIST isn't supported" 8 48; exit 1
 fi
 
 # Prerequisites
