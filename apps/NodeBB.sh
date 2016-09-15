@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/nodebb pull; ./home/nodebb/nodebb upgrade; whiptail --msgbox "NodeBB updated and upgraded!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove NodeBB; userdel -r nodebb; whiptail --msgbox "NodeBB  updated!" 8 32; break; }
+[ $1 = update ] && { git -C /home/nodebb pull; ./home/nodebb/nodebb upgrade; chown -R nodebb: /home/nodebb; whiptail --msgbox "NodeBB updated and upgraded!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove NodeBB; userdel -rf nodebb; groupdel nodebb; whiptail --msgbox "NodeBB  updated!" 8 32; break; }
 
 # https://docs.nodebb.org/en/latest/installing/os.html
 
@@ -65,10 +65,10 @@ EOF
 [ $PKG = rpm ] && firewall-cmd --zone=public --add-port=4567/tcp --permanent && firewall-cmd --reload
 
 # Create a nodebb user
-useradd -m nodebb
+useradd -mrU nodebb
 
 # Change the owner from root to nodebb
-chown -R nodebb /home/nodebb
+chown -R nodebb: /home/nodebb
 
 # Add systemd process
 cat > /etc/systemd/system/nodebb.service <<EOF
@@ -80,6 +80,7 @@ Type=simple
 WorkingDirectory=/home/nodebb
 ExecStart=/usr/bin/node /app.js
 User=nodebb
+Group=nodebb
 Restart=always
 [Install]
 WantedBy=multi-user.target

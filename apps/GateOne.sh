@@ -8,7 +8,7 @@ $install python
 # Clone the repository
 git clone https://github.com/liftoff/GateOne
 
-cd gateone*
+cd GateOne
 python setup.py install
 mv /lib/systemd/system/gateone.service /etc/systemd/system
 

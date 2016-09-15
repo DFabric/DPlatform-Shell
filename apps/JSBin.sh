@@ -1,12 +1,12 @@
 #!/bin/sh
 
 [ $1 = update ] && { npm udpate jsbin; whiptail --msgbox "JSBin updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove JS_Bin; npm uninstall jsbin; userdel jsbin; whiptail --msgbox "JSBin  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove JS_Bin; npm uninstall jsbin; userdel -rf jsbin; groupdel jsbin; whiptail --msgbox "JSBin  updated!" 8 32; break; }
 
 . sysutils/Node.js.sh
 
 # Add jsbin user
-useradd jsbin
+useradd -rU jsbin
 
 # Installation
 npm install -g jsbin

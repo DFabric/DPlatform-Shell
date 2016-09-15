@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf ~/haiwen; rm -rf ~/seafile-server*; whiptail --msgbox "Seafile  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf ~/haiwen; rm -rf ~/seafile-server*; userdel -rf seafile; groupdel seafile; whiptail --msgbox "Seafile  updated!" 8 32; break; }
 
 db_choice=$(whiptail --title Seafile --menu "	What database would you like to deploy with Seafile?
 
@@ -20,7 +20,7 @@ case $db_choice in
 	port=$(whiptail --title "Seafile port" --inputbox "Set a port number for Seafile" 8 48 "8001" 3>&1 1>&2 2>&3)
 
 	# Create a seafile user
-	useradd -m seafile
+	useradd -mrU seafile
 
 	# Go to its directory
 	cd /home/seafile

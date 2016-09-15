@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/etherpad pull; whiptail --msgbox "Etherpad updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -r etherpad; whiptail --msgbox "Etherpad  updated!" 8 32; break; }
+[ $1 = update ] && { git -C /home/etherpad pull; chown -R etherpad: /home/etherpad; whiptail --msgbox "Etherpad updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -rf etherpad; goupdel etherpad; whiptail --msgbox "Etherpad  updated!" 8 32; break; }
 
 . sysutils/Node.js.sh
 
@@ -32,10 +32,10 @@ sed -i 's/var\/dirty.db/var\/sqlite.db/' settings.json
 sh /home/etherpad/bin/installDeps.sh
 
 # Add etherpad user
-useradd etherpad
+useradd -ru etherpad
 
 # Change the owner from root to etherpad
-chown -R etherpad /home/etherpad
+chown -R etherpad: /home/etherpad
 
 # Add systemd process and run the server
 sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node /home/etherpad/node_modules/ep_etherpad-lite/node/server.js" /home/etherpad etherpad

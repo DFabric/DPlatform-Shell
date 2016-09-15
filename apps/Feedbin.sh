@@ -1,10 +1,10 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/feedbin pull; whiptail --msgbox "Feedbin updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Feedbin; userdel -r feedbin; whiptail --msgbox "Feedbin  updated!" 8 32; break; }
+[ $1 = update ] && { git -C /home/feedbin pull; chown -R feedbin: /home/feedbin; whiptail --msgbox "Feedbin updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Feedbin; userdel -rf feedbin; groupdel feedbin; whiptail --msgbox "Feedbin  updated!" 8 32; break; }
 
 # Create a feedbin user
-useradd -m feedbin
+useradd -mrU feedbin
 
 # Go to its directory
 cd /home/feedbin
@@ -39,7 +39,7 @@ sudo -u postgres createuser -s $USER
 rake db:setup
 
 # Change the owner from root to feedbin
-chown -R feedbin /home/feedbin
+chown -R feedbin: /home/feedbin
 
 # Run Feedbin
 bundle exec foreman start & rackup

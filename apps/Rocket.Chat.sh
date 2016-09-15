@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ $1 = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -r rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -61,7 +61,7 @@ done
 [ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add rocketchat user
-useradd -m rocketchat
+useradd -mrU rocketchat
 
 # Go to rocketchat user directory
 cd /home/rocketchat
@@ -106,7 +106,7 @@ cd Rocket.Chat/programs/server
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
-chown -R rocketchat /home/rocketchat
+chown -R rocketchat: /home/rocketchat
 
 [ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
@@ -127,6 +127,7 @@ ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=$MONGO_URL
 User=rocketchat
+Group=rocketchat
 Restart=always
 [Install]
 WantedBy=multi-user.target

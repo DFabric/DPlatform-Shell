@@ -22,7 +22,7 @@ arch=x64
 [ $ARCH = arm64 ] && arch=arm64
 [ $ARCH = 86 ] && arch=x86
 
-ver=$(curl https://semver.io/node/stable)
+ver=
 cd /tmp
 download "https://nodejs.org/dist/v$ver/node-v$ver-linux-$arch.tar.xz" "Downloading the Node.js $ver archive..."
 
@@ -30,10 +30,10 @@ download "https://nodejs.org/dist/v$ver/node-v$ver-linux-$arch.tar.xz" "Download
 extract node-v$ver-linux-$arch.tar.xz "xJf -" "Extracting the files from the archive..."
 
 # Remove not used files
-rm node-v$ver-linux-arm64/*.md node-v$ver-linux-$arch/LICENSE
+rm node-v$ver-linux-$arch/*.md node-v$ver-linux-$arch/LICENSE
 
 # Merge the folder in the usr directory
-rsync -aPr node-v$ver-linux-arm64/* /usr
+rsync -aPr node-v$ver-linux-$arch/* /usr
 rm -r node-v$ver-linux-$arch*
 
 [ $1 = install ] && state=installed || state=$1

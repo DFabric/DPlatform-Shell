@@ -1,14 +1,14 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/letschat/lets-chat pull; npm run-script migrate; whiptail --msgbox "Let's Chat updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Lets-Chat; userdel -r letschat; whiptail --msgbox "Let's Chat  updated!" 8 32; break; }
+[ $1 = update ] && { git -C /home/letschat/lets-chat pull; npm run-script migrate; chown -R letschat: /home/letschat; whiptail --msgbox "Let's Chat updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Lets-Chat; userdel -rf letschat; groupdel letschat; whiptail --msgbox "Let's Chat  updated!" 8 32; break; }
 
 # Prerequisites
 . sysutils/MongoDB.sh
 . sysutils/Node.js.sh
 
 # Add letschat user
-useradd -m letschat
+useradd -mrU letschat
 
 # Go to letschat user directory
 cd /home/letschat
@@ -21,7 +21,7 @@ cd lets-chat
 npm install
 
 # Change the owner from root to letschat
-chown -R letschat /home/letschat
+chown -R letschat: /home/letschat
 
 # Create the systemd service
 cat > "/etc/systemd/system/lets-chat.service" <<EOF
@@ -34,6 +34,7 @@ Type=simple
 WorkingDirectory=/home/letschat/lets-chat
 ExecStart=/usr/bin/npm start
 User=letschat
+Group=letschat
 Restart=always
 [Install]
 WantedBy=multi-user.target

@@ -1,13 +1,13 @@
 #!/bin/sh
 
-[ $1 = update ] && { /home/git/gogs/gogs update; whiptail --msgbox "Gogs updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Gogs; userdel -r git; whiptail --msgbox "Gogs  updated!" 8 32; break; }
+[ $1 = update ] && { /home/git/gogs/gogs update; chown -R git: /home/git/gogs; whiptail --msgbox "Gogs updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Gogs; userdel -rf git; groupdel git; whiptail --msgbox "Gogs  updated!" 8 32; break; }
 
 # Prerequisites
 $install sqlite3
 
 # Create a git user
-useradd -m git
+useradd -mrU git
 
 # Go to its directory
 cd /home/git
@@ -44,7 +44,7 @@ fi
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system
 
 # Change the owner from root to git
-chown -R git:git /home/git/gogs
+chown -R git: /home/git/gogs
 
 # Start the service and enable it to start up on boot
 systemctl start gogs

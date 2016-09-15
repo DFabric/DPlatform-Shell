@@ -1,12 +1,12 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/agario/agar.io-clone pull; whiptail --msgbox "Agar.io Clone updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -r agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; break; }
+[ $1 = update ] && { git -C /home/agario/agar.io-clone pull; chown -R agario: /home/agario; whiptail --msgbox "Agar.io Clone updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -rf agario; groupdel agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; break; }
 
 . sysutils/Node.js.sh
 
 # Add agario user
-useradd -m agario
+useradd -mrU agario
 
 # Go to agario user directory
 cd /home/agario
@@ -20,10 +20,10 @@ cd agar.io-clone
 npm install
 
 # Change the owner from root to agario
-chown -R agario /home/agario
+chown -R agario: /home/agario
 
 # Create the systemd service
-cat > "/etc/systemd/system/agario.service" <<EOF
+cat > "/etc/systemd/system/agar.io-clone.service" <<EOF
 [Unit]
 Description=Agar.io Clone Game Server
 After=network.target
@@ -32,6 +32,7 @@ Type=simple
 WorkingDirectory=/home/agario/agar.io-clone
 ExecStart=/usr/bin/npm start
 User=agario
+Group=agario
 Restart=always
 [Install]
 WantedBy=multi-user.target

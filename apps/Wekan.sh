@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/*; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -r wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -rf wekan; groupdel wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan  updated!" 8 32; break; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port
@@ -14,7 +14,7 @@ port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 
 [ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add wekan user
-useradd -m wekan
+useradd -mrU wekan
 
 # Go to wekan user directory
 cd /home/wekan
@@ -60,7 +60,7 @@ cd /home/wekan/programs/server
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan
-chown -R wekan /home/wekan
+chown -R wekan: /home/wekan
 
 [ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
@@ -78,6 +78,7 @@ ExecStart=$node main.js
 Environment=MONGO_URL=mongodb://127.0.0.1:27017/wekan
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 User=wekan
+Group=wekan
 Restart=always
 [Install]
 WantedBy=multi-user.target

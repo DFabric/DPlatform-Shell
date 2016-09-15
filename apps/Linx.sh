@@ -1,13 +1,13 @@
 #!/bin/sh
 
 [ $1 = update ] || [ $1 = remove ] && rm -rf ~/linx-server*
-[ $1 = remove ] && { sh sysutils/service.sh remove Linx; userdel -r linx; whiptail --msgbox "Linx  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Linx; userdel -rf linx; groupdel linx; whiptail --msgbox "Linx  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Linx port" --inputbox "Set a port number for Linx" 8 48 "8087" 3>&1 1>&2 2>&3)
 
 # Create a linx user
-useradd -m linx
+useradd -mrU linx
 
 # Go to its directory
 cd /home/linx
@@ -35,7 +35,7 @@ bind = :$port
 EOF
 
 # Change the owner from root to linx
-chown -R linx /home/linx
+chown -R linx: /home/linx
 
 # Add systemd process and run the server
 cat > "/etc/systemd/system/linx.service" <<EOF
@@ -47,6 +47,7 @@ Type=simple
 WorkingDirectory=/home/linx
 ExecStart=/home/linx/linx-server-v${ver}_linux-$arch -config /home/linx/config.ini
 User=linx
+Group=linx
 Restart=always
 [Install]
 WantedBy=multi-user.target

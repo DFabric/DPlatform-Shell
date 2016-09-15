@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/etherdraw/draw pull; whiptail --msgbox "EtherDraw updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove EtherDraw; userdel -r etherdraw; whiptail --msgbox "EtherDraw  updated!" 8 32; break; }
+[ $1 = update ] && { git -C /home/etherdraw/draw pull; chown -R etherdraw: /home/etherdraw; whiptail --msgbox "EtherDraw updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove EtherDraw; userdel -rf etherdraw; groupdel etherdraw; whiptail --msgbox "EtherDraw  updated!" 8 32; break; }
 
 # ARM architecture doesn't appear to work
 [ $ARCHf = arm ]; whiptail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
@@ -10,7 +10,7 @@
 . sysutils/Node.js.sh
 
 # Add etherdraw user
-useradd -m etherdraw
+useradd -mrU etherdraw
 
 # Go to etherdraw user directory
 cd /home/etherdraw
@@ -27,7 +27,7 @@ cd draw
 sh bin/installDeps.sh
 
 # Change the owner from root to etherdraw
-chown -R etherdraw /home/etherdraw
+chown -R etherdraw: /home/etherdraw
 
 # Create the systemd service
 cat > "/etc/systemd/system/etherdraw.service" <<EOF
@@ -39,6 +39,7 @@ Type=simple
 WorkingDirectory=/home/etherdraw/draw
 ExecStart=/usr/bin/node server.js
 User=etherdraw
+Group=etherdraw
 Restart=always
 [Install]
 WantedBy=multi-user.target

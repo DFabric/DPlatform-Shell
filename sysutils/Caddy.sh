@@ -24,8 +24,8 @@ fi
 if ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
-  arch=amd64
-  [ $ARCHf = arm ] && arch=arm
+  arch=$ARCH
+  [ $ARCH = armv7l ] && arch=arm
   [ $ARCHf = 86 ] && arch=386
 
   groupadd -g 33 www-data

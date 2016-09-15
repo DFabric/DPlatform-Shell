@@ -25,7 +25,7 @@ if [ $1 = update ] ;then
   whiptail --msgbox "Ghost updated! " 8 48
   exit
 fi
-[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
@@ -64,8 +64,8 @@ sed -i "s/host: '127.0.0.1'/host: '$access'/" config.js
 sed -i "s/port: '2368'/port: '$port'/" config.js
 
 # Change the owner from root to ghost
-useradd ghost
-chown -R ghost /var/www/ghost
+useradd -rU ghost
+chown -R ghost: /var/www/ghost
 
 # Add systemd process and run the server
 cat > "/etc/systemd/system/ghost.service" <<EOF
@@ -76,7 +76,9 @@ After=network.target
 Type=simple
 WorkingDirectory=/var/www/ghost
 ExecStart=/usr/bin/npm start --production
+Environment=GHOST_NODE_VERSION_CHECK=false
 User=ghost
+Group=ghost
 Restart=always
 [Install]
 WantedBy=multi-user.target

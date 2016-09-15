@@ -1,12 +1,12 @@
 #!/bin/sh
 
 [ $1 = update ] && { npm udpate droppy; whiptail --msgbox "Droppy updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Droppy; npm uninstall droppy; rm -rf /var/www/droppy; userdel -r droppy; whiptail --msgbox "Droppy  updated!" 8 32; break; }
+[ $1 = remove ] && { sh sysutils/service.sh remove Droppy; npm uninstall droppy; rm -rf /var/www/droppy; userdel -rf droppy; groupdel droppy; whiptail --msgbox "Droppy  updated!" 8 32; break; }
 
 . sysutils/Node.js.sh
 
 # Add droppy user
-useradd -m droppy
+useradd -rU droppy
 
 # Install latest version and dependencies.
 npm install -g droppy
