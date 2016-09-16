@@ -9,10 +9,10 @@ port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Roc
 
 # Define ReplicaSet
 while : ;do
-  DB=$(whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
+  whiptail --yesno --title "Define the Rocket.Chat MongoDB database" \
   "Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
-  --yes-button Local --no-button External 3>&1 1>&2 2>&3)
-  case $DB in
+  --yes-button Local --no-button External
+  case $? in
     0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
     [ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }

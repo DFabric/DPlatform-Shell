@@ -1,5 +1,12 @@
 # DPlatform (alpha)
-### check out [browser-tools.net](https://browser-tools.net)! In-browser, offline standalone and statically servable web tool set.
+
+[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+
+### Discover [DPlatform-DockerShip](https://github.com/DFabric/DPlatform-DockerShip) - The Docker version of DPlatform!
+
+[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-DockerShip/gh-pages/img/deploy-docker.png)](https://dfabric.github.io/DPlatform-DockerShip)
+
+### Check out [browser-tools.net](https://browser-tools.net)! In-browser, offline standalone and statically servable web tool set.
 
 ![DP logo](https://dfabric.github.io/DPlatform-ShellCore/img/logo.svg)
 **DPlatform** helps you to easily install applications and manage them.
@@ -26,8 +33,6 @@
 - Chose the network accessibility of your app - Internet public access or local access
 - Change your hostname
 - Determine your IPv4, IPv6, LocalIP and your hostname
-
- [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
 ## Available apps
 - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
