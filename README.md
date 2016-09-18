@@ -15,6 +15,14 @@
 ![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png)
 
+## Features
+- Install applications easily
+- Manage Apps Services - systemd services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
+- Update/Remove installed apps simply with two clicks
+- Chose the network accessibility of your app - Internet public access or local access
+- Change your hostname
+- Determine your IPv4, IPv6, LocalIP and your hostname
+
 ## DPlatform goals
 - Simplicity: Easy automated installation. Manage your applications simply through an UI
 
@@ -25,14 +33,6 @@
 - Freedom: Free and Open Source applications. DPlatform is a [MIT](http://opensource.org/licenses/MIT) licensed project
 
 - Security: One user is created per app. Severals use encryption and reverse-proxying
-
-## Features
-- Install applications easily
-- Manage Apps Services - systemd services integration: view apps services status, one click start/stop, auto-start at boot and auto-restart if down unexpectively
-- Update/Remove installed apps simply with two clicks
-- Chose the network accessibility of your app - Internet public access or local access
-- Change your hostname
-- Determine your IPv4, IPv6, LocalIP and your hostname
 
 ## Available apps
 - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform

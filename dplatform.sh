@@ -8,7 +8,7 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 # Current directory
-[ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
+DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
 # Detect distribution
@@ -71,9 +71,10 @@ case "$HDWR" in
 esac
 
 # Test if cuby responds
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com/ && sleep 1)
+echo "Obtaining the IPv4 address from http://ip4.cuby-hebergs.com..."
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1)
 # Else use this site
-[ "$IPv4" = "" ] && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
+[ "$IPv4" = "" ] && echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
 [ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
 You have no internet connection. You can do everything but install new apps" 10 32
 
@@ -151,13 +152,9 @@ apps_menus() {
 			[ $? = 0 ] && case $APP in
 				Update) [ $PKG = deb ] && apt-get update
 				[ $PKG = rpm ] && yum update;;
-				Caddy) . sysutils/Caddy.sh $1;;
-				Docker) . sysutils/Docker.sh $1;;
-				Meteor) . sysutils/Meteor.sh $1;;
-				MongoDB) . sysutils/MongoDB.sh $1;;
-				Node.js) . sysutils/Node.js.sh $1;;
 				# Create a loop to break
-				$APP) for a in a; do . apps/$APP.sh $1 ;done ; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $APP; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				$APP) for a in a; do . apps/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
 	else
@@ -227,11 +224,7 @@ apps_menus() {
 					whiptail --msgbox "$APP is already installed" 8 32
 				else
 					case $APP in
-						Caddy) . sysutils/Caddy.sh;;
-						Docker) . sysutils/Docker.sh;;
-						Meteor) . sysutils/Meteor.sh;;
-						MongoDB) . sysutils/MongoDB.sh;;
-						Node.js) . sysutils/Node.js.sh;;
+						Caddy|Docker|Meteor|MongoDB|Node.js) . sysutils/$APP.sh;;
 						$APP) . apps/$APP.sh; cd $DIR; grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg;;
 					esac
 				fi;;

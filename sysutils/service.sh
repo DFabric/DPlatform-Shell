@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install supervisor if not already present
-hash systemctl 2>/dev/null || whiptail --msgbox "You need to use systemd boot system" 8 48 exit
+hash systemd 2>/dev/null || whiptail --msgbox "You haven't systemd as an init system. You will can't be able to use custom app services" 8 48
 
 service_detection() {
   service_list=
