@@ -105,14 +105,14 @@ EOF
 	whiptail --msgbox "	Seafile installed!
 	Open http://$URL:$port in your browser
 
-	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72
+	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72;;
 	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
 	# https://github.com/SeafileDE/seafile-server-installer
-	"Deploy Seafile with MariaDB"
+	"Deploy Seafile with MariaDB")
 	$install lsb-release
 	if [ $ARCHf = arm ] ;then
 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
-	elif [ $DIST = Ubuntu ] && [ $ARCH = amd64 ]; then
+	elif [ $DIST = ubuntu ] && [ $ARCH = amd64 ]; then
 		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
 	elif [ $ARCHf = amd64 ] ;then
 		[ $PKG = deb ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
@@ -121,5 +121,5 @@ EOF
 		whiptail --msgbox "Your system isn't supported yet" 8 48
 		break
 	fi
-	bash seafile*
+	bash seafile*;;
 esac

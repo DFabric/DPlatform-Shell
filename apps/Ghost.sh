@@ -12,11 +12,12 @@ if [ $1 = update ] ;then
 
   cp -rf ghost/content ghost/config.js ghost-latest
 
+  cd ghost-latest
   # --unsafe-perm required by node-gyp for the sqlite3 package
-  npm install --production --unsafe-perm
+  GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
 
-  mv ghost ghost-old
-  mv ghost-latest ghost
+  mv ../ghost ../ghost-old
+  mv ../ghost-latest ../ghost
 
   # Change the owner from root to ghost
   chown -R ghost: /var/www/ghost
@@ -53,7 +54,7 @@ rm ghost.zip
 cd /var/www/ghost
 
 # --unsafe-perm required by node-gyp for the sqlite3 package
-npm install --production
+GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
 
 ## Configure Ghost
 cp config.example.js config.js

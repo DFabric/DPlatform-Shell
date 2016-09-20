@@ -8,7 +8,7 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 # Current directory
-DIR=$(cd -P $(dirname $0) && pwd)
+[ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
 
 # Detect distribution

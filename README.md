@@ -1,10 +1,10 @@
 # DPlatform (alpha)
 
-[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+[![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
 ### Discover [DPlatform-DockerShip](https://github.com/DFabric/DPlatform-DockerShip) - The Docker version of DPlatform!
 
-[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-DockerShip/gh-pages/img/deploy-docker.png)](https://dfabric.github.io/DPlatform-DockerShip)
+[![DP Docker](https://raw.githubusercontent.com/DFabric/DPlatform-DockerShip/gh-pages/img/deploy-docker.png)](https://dfabric.github.io/DPlatform-DockerShip)
 
 ### Check out [browser-tools.net](https://browser-tools.net)! In-browser, offline standalone and statically servable web tool set.
 
