@@ -91,5 +91,6 @@ systemctl enable ghost
 
 whiptail --msgbox "Ghost installed!
 
+You will probably need to configue Ghost in 'config.js'
 Visit http://$URL:$port to see your newly setup Ghost blog
 Visit http://$URL:$port/ghost and create your admin user to login to the Ghost admin" 12 64

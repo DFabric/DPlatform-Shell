@@ -70,13 +70,19 @@ case "$HDWR" in
 	*bananian*) HDWR=bpi;;
 esac
 
+# Check if systemd is the init system
+hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You haven't systemd as an init system.
+
+Your apps will be installed successfully but you will can't
+be able to use custom app services that run in background" 10 64
+
 # Test if cuby responds
 echo "Obtaining the IPv4 address from http://ip4.cuby-hebergs.com..."
 IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1)
 # Else use this site
 [ "$IPv4" = "" ] && echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
 [ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
-You have no internet connection. You can do everything but install new apps" 10 32
+You have no internet connection. You can do everything but install new apps" 8 48
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
 [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]

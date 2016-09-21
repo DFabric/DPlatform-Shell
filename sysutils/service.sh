@@ -1,7 +1,10 @@
 #!/bin/sh
 
-# Install supervisor if not already present
-hash systemd 2>/dev/null || whiptail --msgbox "You haven't systemd as an init system. You will can't be able to use custom app services" 8 48
+# Check if systemd is the init system
+hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You haven't systemd as an init system.
+
+Your apps will be installed successfully but you will can't
+be able to use custom app services that run in background" 10 64
 
 service_detection() {
   service_list=
