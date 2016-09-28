@@ -34,9 +34,10 @@ extract wekan-$ver.tar.gz "xzf -" "Extracting the files from the archive..."
 mv bundle .
 rm wekan-$ver.tar.gz
 
-if [ $ARCHf = arm ] ;then
-  $install python make g++
+# Dependencies needed for npm install
+$install python make g++
 
+if [ $ARCHf = arm ] ;then
   # Reinstall bcrypt and bson to a newer version is needed
   cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
   cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson

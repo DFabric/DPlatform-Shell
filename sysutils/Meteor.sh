@@ -26,4 +26,4 @@ elif [ $ARCHf = arm ] ;then
   alias meteor="/usr/share/meteor/meteor"
 fi
 
-grep Meteor $DIR/dp.cfg 2>/dev/null || echo Meteor >> $DIR/dp.cfg
+grep -q Meteor $DIR/dp.cfg 2>/dev/null || echo Meteor >> $DIR/dp.cfg

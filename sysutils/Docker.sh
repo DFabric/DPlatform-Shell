@@ -6,4 +6,4 @@
 # Get the latest Docker package.
 hash docker 2>/dev/null && echo Docker is already installed || [ $ARCH = amd64 ] && curl -sSL https://get.docker.com/ | sh || $install docker.io || $install docker
 
-grep Docker dp.cfg 2>/dev/null || echo Docker >> dp.cfg
+grep -q Docker dp.cfg 2>/dev/null || echo Docker >> dp.cfg

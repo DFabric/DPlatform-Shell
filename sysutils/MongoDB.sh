@@ -77,4 +77,4 @@ else
   $install mongodb || {echo You probably need to manually install MongoDB; exit 1}
 fi
 
-grep MongoDB $DIR/dp.cfg 2>/dev/null || echo MongoDB >> $DIR/dp.cfg
+grep -q MongoDB $DIR/dp.cfg 2>/dev/null || echo MongoDB >> $DIR/dp.cfg

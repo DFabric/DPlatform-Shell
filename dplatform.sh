@@ -226,12 +226,12 @@ apps_menus() {
 			Are you sure to want to continue?" 8 48
 			case $? in
 				1) ;; # Return to installation menu
-				0) if grep $APP dp.cfg 2>/dev/null ;then
+				0) if grep -q $APP dp.cfg ;then
 					whiptail --msgbox "$APP is already installed" 8 32
 				else
 					case $APP in
 						Caddy|Docker|Meteor|MongoDB|Node.js) . sysutils/$APP.sh;;
-						$APP) . apps/$APP.sh; cd $DIR; grep $APP dp.cfg 2>/dev/null || echo $APP >> dp.cfg;;
+						$APP) . apps/$APP.sh; cd $DIR; grep -q  $APP dp.cfg || echo $APP >> dp.cfg;;
 					esac
 				fi;;
 			esac
@@ -251,7 +251,7 @@ fi
 while
 # Recuperate the URL variable from dp.cfg
 case $(grep URL= dp.cfg) in
-	URL=hostname) URL=`hostname`; IP=$LOCALIP;;
+	URL=hostname) URL=$(hostname); IP=$LOCALIP;;
 	URL=IP) [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]; URL=$IP;; # Set default IP to IPv4 unless IPv6 is available
 esac
 # Main menu

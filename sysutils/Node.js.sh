@@ -7,11 +7,13 @@
 # https://github.com/nodesource/distributions/
 if hash npm 2>/dev/null && [ $1 = install ] ;then
   echo You have Node.js installed
-else
+elif [ $ARCH != arm64 ]
   curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
   $install nodejs
   $install npm
-
+  echo "Node.js installed"
+else
+  $install nodejs nodejs-legacy npm
   echo "Node.js installed"
 fi
 
@@ -40,4 +42,4 @@ rm -r node-v$ver-linux-$arch*
 echo "Node.js $state ($ver)"
 NEED_IMPROVEMENTS
 
-grep Node.js $DIR/dp.cfg 2>/dev/null || echo Node.js >> $DIR/dp.cfg
+grep -q Node.js $DIR/dp.cfg 2>/dev/null || echo Node.js >> $DIR/dp.cfg

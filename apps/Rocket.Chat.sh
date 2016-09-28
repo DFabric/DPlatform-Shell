@@ -66,25 +66,19 @@ useradd -mrU rocketchat
 # Go to rocketchat user directory
 cd /home/rocketchat
 
+# Dependencies needed for npm install
+$install python make g++
+
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCHf = arm ] ;then
-  $install python make g++
-
   # Download the Rocket.Chat binary for Raspberry Pi
   url=https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCHf = x86 ] ;then
+  . $DIR/sysutils/Node.js.sh
   $install graphicsmagick
 
-  # Meteor needs Node.js 0.10.46
-  download https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz "Downloading the Node.js 0.10.46 archive..."
-
-  # Extract the downloaded archive and remove it
-  extract node-v0.10.46-linux-x64.tar.gz "xzf - -C /usr/local/share" "Extracting the files from the archive..."
-  rm node-v0.10.46-linux-x64.tar.gz
-
-  ## Install Rocket.Chat
   # Download Stable version of Rocket.Chat
   url=https://rocket.chat/releases/latest/download
 else
@@ -97,18 +91,21 @@ download "$url -O rocket.chat.tgz" "Downloading the Rocket.Chat archive..."
 # Extract the downloaded archive and remove it
 extract rocket.chat.tgz "xzf -" "Extracting the files from the archive..."
 
-mv bundle Rocket.Chat
-rm rocket.chat.tgz
-# Install dependencies and start Rocket.Chat
-cd Rocket.Chat/programs/server
+# Extract the bundle to the current directory
+mv bundle/* bundle/.[^.]* .
 
-[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.46-linux-x64/bin/npm install
+rm -r bundle rocket.chat.tgz
+
+# Install dependencies and start Rocket.Chat
+cd programs/server
+
+[ $ARCHf = x86 ] && npm install && ln -s node_modules/fibers/bin/linux-x64-v8-5.0 node_modules/fibers/bin/linux-x64-v8-5.1
 [ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
 chown -R rocketchat: /home/rocketchat
 
-[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
+[ $ARCHf = x86 ] && node=/usr/bin/node
 [ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
 
 # Create the systemd service
@@ -122,7 +119,7 @@ Type=simple
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=RocketChat
-WorkingDirectory=/home/rocketchat/Rocket.Chat
+WorkingDirectory=/home/rocketchat
 ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 Environment=$MONGO_URL

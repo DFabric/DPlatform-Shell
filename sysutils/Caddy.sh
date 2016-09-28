@@ -13,9 +13,9 @@ if [ "$1" = update ] ;then
   # Only keep the version number in the url
   ver=${ver#*v}
 
-  [ $caddy_ver = $ver ] && whiptail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
-  [ $caddy_ver != $ver ] && { whiptail --yesno "You have Caddy $caddy_ver, the latest is $ver. Upgrading Caddy...
-  Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ] && rm -rf /etc/systemd/system/Caddy.service; } && rm -rf /usr/bin/caddy || exit
+  [ "$caddy_ver" = "$ver" ] && whiptail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
+  [ "$caddy_ver" != "$ver" ] && { whiptail --yesno "You have Caddy $caddy_ver, the latest is $ver. Caddy...
+  Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ] && rm -f /etc/systemd/system/Caddy.service; } && rm -rf /usr/bin/caddy || exit
 fi
 
 [ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -rf /usr/local/bin/caddy; rm -rf /etc/caddy/Caddyfile; whiptail --msgbox "Caddy  removed!" 8 32; break; }
@@ -69,7 +69,7 @@ if ! hash caddy 2>/dev/null ;then
 
   [ $1 = update ] && whiptail --msgbox "Caddy updated!" 8 32
 
-  grep Caddy dp.cfg || whiptail --msgbox "  Caddy installed!
+  grep -q Caddy dp.cfg || whiptail --msgbox "  Caddy installed!
   Caddy run as 'www-data' user and group
 
   You can modify the Caddy configuration files:
