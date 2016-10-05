@@ -10,12 +10,13 @@ if [ $1 = update ] ;then
 
   rm ghost-latest.zip
 
-  cp -rf ghost/content ghost/config.js ghost-latest
+  cp -r ghost/content ghost/config.js ghost-latest
 
   cd ghost-latest
   # --unsafe-perm required by node-gyp for the sqlite3 package
   GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
 
+  [ -d ../ghost-old ] && rm -r ../ghost-old
   mv ../ghost ../ghost-old
   mv ../ghost-latest ../ghost
 
@@ -23,7 +24,8 @@ if [ $1 = update ] ;then
   chown -R ghost: /var/www/ghost
   systemctl restart ghost
 
-  whiptail --msgbox "Ghost updated! " 8 48
+  whiptail --msgbox " Ghost updated!
+  You previous site backup is at '/var/www/ghost-old'" 8 48
   exit
 fi
 [ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }

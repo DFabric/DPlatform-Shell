@@ -36,7 +36,7 @@
 
 ## Available apps
 - [Rocket.Chat](https://rocket.chat/) - The Ultimate Open Source WebChat Platform
-- [Gogs](http://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
+- [Gogs](https://gogs.io/) - Gogs(Go Git Service), a painless self-hosted Git Service
 - [Syncthing](https://syncthing.net/) - Open Source Continuous File Synchronization
 - [OpenVPN](https://openvpn.net/) - Open source secure tunneling VPN daemon - Deployed thanks to [openvpn-install](https://github.com/Nyr/openvpn-install)
 - [Mumble](http://www.mumble.info/) - Voicechat utility

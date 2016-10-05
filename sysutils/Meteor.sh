@@ -14,7 +14,7 @@ elif [ $ARCHf = x86 ] ;then
 # https://github.com/4commerce-technologies-AG/meteor
 elif [ $ARCHf = arm ] ;then
   cd /usr/share
-  git clone --depth 1 -b release-1.2.1-universal https://github.com/4commerce-technologies-AG/meteor
+  git clone --depth 1 -b release-1.3.4.1-universal https://github.com/4commerce-technologies-AG/meteor
 
   # Fix curl CA error
   echo insecure > ~/.curlrc

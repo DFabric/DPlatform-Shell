@@ -14,18 +14,18 @@ if [ "$1" = update ] ;then
   ver=${ver#*v}
 
   [ "$caddy_ver" = "$ver" ] && whiptail --msgbox "You have the $ver version of Caddy, the latest avalaible!" 8 48
-  [ "$caddy_ver" != "$ver" ] && { whiptail --yesno "You have Caddy $caddy_ver, the latest is $ver. Caddy...
-  Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ] && rm -f /etc/systemd/system/Caddy.service; } && rm -rf /usr/bin/caddy || exit
+  [ "$caddy_ver" != "$ver" ] && { whiptail --yesno "You have Caddy $caddy_ver, the latest is $ver.
+  Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ];  } || break
 fi
 
-[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -rf /usr/local/bin/caddy; rm -rf /etc/caddy/Caddyfile; whiptail --msgbox "Caddy  removed!" 8 32; break; }
+[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -f /usr/local/bin/caddy; rm -f /etc/caddy/Caddyfile; whiptail --msgbox "Caddy  removed!" 8 32; break; }
 
 # Install Caddy if not installed
-if ! hash caddy 2>/dev/null ;then
+if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   hash unzip 2>/dev/null || $install unzip
   arch=$ARCH
-  [ $ARCH = armv7l ] && arch=arm
+  [ $ARCH = armv7 ] && arch=arm
   [ $ARCHf = 86 ] && arch=386
 
   groupadd -g 33 www-data
@@ -35,7 +35,9 @@ if ! hash caddy 2>/dev/null ;then
     --shell /usr/sbin/nologin \
     --system --uid 33 www-data
 
-  mkdir /etc/caddy
+  # Create a caddy directory and create the Caddyfile configuration file
+  mkdir -p /etc/caddy
+  touch /etc/caddy/Caddyfile
   chown -R root:www-data /etc/caddy
   mkdir /etc/ssl/caddy
   chown -R www-data:root /etc/ssl/caddy
@@ -53,28 +55,31 @@ if ! hash caddy 2>/dev/null ;then
 
   # Put the caddy binary to its directrory
   mv /tmp/caddy/caddy /usr/local/bin
+  chmod 755 /usr/local/bin/caddy
+
+  # Give the caddy binary the ability to bind to privileged ports (e.g. 80, 443) as a non-root user
+  setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
   # Put the caddy systemd service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system
 
   rm -r /tmp/caddy
 
-  # Create a caddy directory and create the Caddyfile configuration file
-  mkdir -p /etc/caddy
-  touch /etc/caddy/Caddyfile
-
   # Start CAddy and enable the auto-start it at boot
   systemctl start caddy
   systemctl enable caddy
 
-  [ $1 = update ] && whiptail --msgbox "Caddy updated!" 8 32
-
-  grep -q Caddy dp.cfg || whiptail --msgbox "  Caddy installed!
+  if [ $1 = update ] ;then
+    systemctl daemon-reload
+    whiptail --msgbox "Caddy updated!" 8 32
+  else
+    grep -q Caddy dp.cfg || echo Caddy >> dp.cfg
+    whiptail --msgbox "  Caddy installed!
   Caddy run as 'www-data' user and group
 
   You can modify the Caddy configuration files:
   Caddyfile configuration: '/etc/caddy/Caddyfile'
-  Service configuration: '/etc/systemd/system/caddy.service'" 12 64 && echo Caddy >> dp.cfg
+  Service configuration: '/etc/systemd/system/caddy.service'" 12 64
 else
   echo "Caddy is already installed"
 fi
