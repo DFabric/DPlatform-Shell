@@ -78,14 +78,14 @@ be able to use custom app services that run in background" 10 64
 
 # Test if cuby responds
 echo "Obtaining the IPv4 address from http://ip4.cuby-hebergs.com..."
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1)
+IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo "failed"
 # Else use this site
-[ "$IPv4" = "" ] && echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1)
-[ "$IPv4" = "" ] && whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
+[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed."; }
+
+nc -z g.co 443 || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
 You have no internet connection. You can do everything but install new apps" 8 48
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
-[ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]
 
 LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 
@@ -106,7 +106,7 @@ network_access() {
 It appears that you run DPlatform for the first time. You need to setup the network access of your applications. \
 You can change this setup anytime if you want a different access before installing new apps" 14 96 2 \
 "Local" "Your apps will be available only in your local network / from your home" \
-"Public IP/FQDN" "Only if you can open your ports / make redirections in your router firewall" 3>&1 1>&2 2>&3)
+"Public IP/FQDN" "Only if you can open your ports / make redirections in your router's firewall" 3>&1 1>&2 2>&3)
 	#Worlwide with generrated URL" "Secure access with a generated/custom URL with a Firewall passthrough. No further configurations needed" \
 	case $NET in
 		"Local") whiptail --msgbox "You can access to your apps by opening >| $(hostname) |< in your browser. \
@@ -114,8 +114,14 @@ Howewer, it might not work depending of your local DNS configuration. \
 You can always use the local IP of your server in your local network" 10 64
 			sed -i "/URL=/URL=hostname/d" dp.cfg 2>/dev/null || echo "URL=hostname" > dp.cfg;;
 
-		"Public IP/FQDN") whiptail --msgbox "You can access to your apps by opening >| $IP |< in your browser." 8 64
-			sed -i "/URL=/URL=IP/d" dp.cfg 2>/dev/null || echo "URL=IP" > dp.cfg;;
+		"Public IP/FQDN")
+		# IP address choice if both IPv4 and IPv6 are present
+		[ $IPv6 != ::1 ] && [ "$IPv4" != "" ] && whiptail --yesno "You have two public IP addresses available. Which one do you want to use?" --yes-button IPv6 --no-button IPv4 8 48 && IP=IP || IP=IPv4
+		sed -i "/URL=/URL=$IP/d" dp.cfg 2>/dev/null || echo "URL=$IP" > dp.cfg
+		[ $IP = IP ] && IP=IPv6
+		eval IP=\$$IP
+		whiptail --msgbox "You can access to your apps by opening in your browser
+		>| $IP |< " 8 64;;
 	esac
 }
 
@@ -157,7 +163,8 @@ apps_menus() {
 			# Remove the app entry
 			[ $? = 0 ] && case $APP in
 				Update) [ $PKG = deb ] && apt-get update
-				[ $PKG = rpm ] && yum update;;
+				[ $PKG = rpm ] && yum update
+				git pull;;
 				# Create a loop to break
 				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $APP; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 				$APP) for a in a; do . apps/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
@@ -252,7 +259,8 @@ while
 # Recuperate the URL variable from dp.cfg
 case $(grep URL= dp.cfg) in
 	URL=hostname) URL=$(hostname); IP=$LOCALIP;;
-	URL=IP) [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]; URL=$IP;; # Set default IP to IPv4 unless IPv6 is available
+	URL=IP) [ $IPv6 = ::1 ] && IP=$IPv4 || IP=[$IPv6]; URL=$IP;;
+	URL=IPv4) IP=$IPv4; URL=$IP;;
 esac
 # Main menu
 CHOICE=$(whiptail --title "DPlatform - Main menu" --menu "	Select with arrows <-v-> and Tab <=>. Confirm with Enter <-'
@@ -262,7 +270,7 @@ Install "Install new applications" \
 Update "Update applications and DPlatform" \
 Remove "Uninstall applications" \
 "App Service Manager" "Start/Stop and auto start services at boot" \
-"Network app access" "Define the network accessibility of the apps" \
+"Network app access" "Define the network accessibility of your apps" \
 Hostname "Change the name of the server on your local network" \
 About "Informations about this project and your system" \
 $config$configOption 3>&1 1>&2 2>&3) ;do
