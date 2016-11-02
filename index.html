@@ -71,7 +71,7 @@
 <li>
 <a href="https://rocket.chat/">Rocket.Chat</a> - The Ultimate Open Source WebChat Platform</li>
 <li>
-<a href="http://gogs.io/">Gogs</a> - Gogs(Go Git Service), a painless self-hosted Git Service</li>
+<a href="https://gogs.io/">Gogs</a> - Gogs(Go Git Service), a painless self-hosted Git Service</li>
 <li>
 <a href="https://syncthing.net/">Syncthing</a> - Open Source Continuous File Synchronization</li>
 <li>
@@ -196,20 +196,22 @@
 <p>Next times, to run DPlatform:
 <code>sudo sh init.sh</code></p>
 
-<p>Not recommended because no auto-updates, but you you still <em>can</em> directly run <code>dplatform.sh</code>.</p>
+<p>Not recommended because no auto-updates, but you still <em>can</em> run directly <code>dplatform.sh</code>.</p>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
 
 <p>A recent GNU/Linux operating system with <strong>systemd</strong> is recommended, lots of apps have custom sytsemdd services.</p>
 
-<p>Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested</p>
+<p>Debian 8 and derivatives like Ubuntu and Raspbian. Full support, well tested</p>
 
-<p>If you use Ubuntu 14.04.x and you want to use systemd services provided by DPlatform, you can switch to it instead of the default Upstart</p>
-
-<p>CentOS 6, 7, Fedora and other RHEL derivatives. Good support, not fully tested</p>
+<p>CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested</p>
 
 <p>Arch Linux. Partial support, not tested</p>
+
+<p>Older distributions like Ubuntu 14.04.x, Debian 7 and Centos 6 have also a partial support, but you will only be able to install applications and not be able to use systemd services provided by DPlatform.</p>
+
+<p>You can try switch to it instead of the default SysVinit/Upstart to be able to use them.</p>
 
 <p>A x86, x86-64 or ARMv[6,7,8] CPU.</p>
 
@@ -220,9 +222,9 @@ Please feel free to open an issue and create a pull request, all contributions a
 <a id="roadmap" class="anchor" href="#roadmap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Roadmap</h2>
 
 <ul>
-<li>[1] Install apps efficiently through a terminal UI - In progress</li>
+<li>[1] Install apps efficiently through a terminal UI - Done.</li>
 <li>(2) DPlatform Web GUI to manage apps easily - Early prototypes started</li>
-<li>(3) Build a custom image with DPlatform Web GUI auto-configuration - Planned</li>
+<li>(3) Build a custom image with a DPlatform Web GUI and auto-configurations - Planned</li>
 <li>DNS and secure firewall pass-through via <a href="https://localtunnel.me/">localtunnel</a>
 </li>
 <li>Enhance the security. <a href="https://caddyserver.com/">Caddy</a>, Nginx reverse proxy, <a href="https://letsencrypt.org/">Let's Encrypt</a> certificate</li>
