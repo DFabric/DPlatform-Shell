@@ -103,18 +103,20 @@ The prerequisites will be installed and the DPlatform git project cloned for you
 Next times, to run DPlatform:
 `sudo sh init.sh`
 
-Not recommended because no auto-updates, but you you still *can* directly run `dplatform.sh`.
+Not recommended because no auto-updates, but you still *can* run directly `dplatform.sh`.
 
 ## Requirements
 A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom sytsemdd services.
 
-Debian 8 Jessie and derivatives like Ubuntu and Raspbian. Full support, well tested
+Debian 8 and derivatives like Ubuntu and Raspbian. Full support, well tested
 
-If you use Ubuntu 14.04.x and you want to use systemd services provided by DPlatform, you can switch to it instead of the default Upstart
-
-CentOS 6, 7, Fedora and other RHEL derivatives. Good support, not fully tested
+CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
 Arch Linux. Partial support, not tested
+
+Older distributions like Ubuntu 14.04.x, Debian 7 and Centos 6 have also a partial support, but you will only be able to install applications and not be able to use systemd services provided by DPlatform.
+
+You can try switch to it instead of the default SysVinit/Upstart to be able to use them.
 
 A x86, x86-64 or ARMv[6,7,8] CPU.
 
@@ -122,9 +124,9 @@ Development is still active. Most things should work, but problems could occur, 
 Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Roadmap
- - [1] Install apps efficiently through a terminal UI - In progress
+ - [1] Install apps efficiently through a terminal UI - Done.
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
- - (3) Build a custom image with DPlatform Web GUI auto-configuration - Planned
+ - (3) Build a custom image with a DPlatform Web GUI and auto-configurations - Planned
  - DNS and secure firewall pass-through via [localtunnel](https://localtunnel.me/)
  - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
 

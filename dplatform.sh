@@ -82,7 +82,8 @@ IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo
 # Else use this site
 [ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed."; }
 
-nc -z g.co 443 || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
+# Check Internet availability
+ping -c 1 g.co &>/dev/null || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
 You have no internet connection. You can do everything but install new apps" 8 48
 
 IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
