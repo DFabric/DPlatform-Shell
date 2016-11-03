@@ -7,7 +7,7 @@
 # https://github.com/nodesource/distributions/
 if hash npm 2>/dev/null && [ $1 = install ] ;then
   echo You have Node.js installed
-elif [ $ARCH != arm64 ]
+elif [ $ARCH != arm64 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
   $install nodejs
   $install npm
