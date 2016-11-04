@@ -7,6 +7,9 @@
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS
 # and probably other distros of the same families, although no support is offered for them.
 
+[ $(id -u) != 0 ] && whiptail --title '/!\ WARNING - Not runned as root /!\' --msgbox "	You don't run this as root!
+You will need to have root permissions" 8 48
+
 # Current directory
 [ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
 cd $DIR
@@ -159,10 +162,10 @@ apps_menus() {
 		APP=$(whiptail --title "DPlatform - $1 menu" --menu "
 		What application would you like to $1?" 16 64 8 $apps_choice 3>&1 1>&2 2>&3)
 			# Confirmation message
-			[ $? = 0 ] && whiptail --yesno "		$APP will be $1d.
+			[ $? = 1 ] || whiptail --yesno "		$APP will be $1d.
 			Are you sure to want to continue?" 8 48
 			# Remove the app entry
-			[ $? = 0 ] && case $APP in
+			[ $? = 1 ] || case $APP in
 				Update) [ $PKG = deb ] && apt-get update
 				[ $PKG = rpm ] && yum update
 				git pull;;
@@ -185,6 +188,7 @@ apps_menus() {
 		Mopidy "Mopidy is an extensible music server written in Python" \
 		FreshRSS "A free, self-hostable aggregator" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
+		NextCloud "Access, share and protect your files, calendars, contacts, communication" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \

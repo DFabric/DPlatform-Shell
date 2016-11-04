@@ -12,6 +12,14 @@ port=$(whiptail --title "FreshRSS port" --inputbox "Set a port number for FreshR
 php_fpm=/run/php/php7.0-fpm.sock
 $install php7.0 php7.0-curl php7.0-gmp php7.0-intl php7.0-json php7.0-sqlite php7.0-fpm php7.0-xml nginx || echo "PHP7 not available, fallback to PHP5" && $install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite php5-fpm nginx && php_fpm=/var/run/php5-fpm.sock
 
+# Create www-data user and group
+groupadd -g 33 www-data
+useradd \
+  -g www-data --no-user-group \
+  --home-dir /var/www --no-create-home \
+  --shell /usr/sbin/nologin \
+  --system --uid 33 www-data
+
 cd /var/www
 
 git clone https://github.com/FreshRSS/FreshRSS
@@ -40,7 +48,7 @@ Options Indexes FollowSymLinks MultiViews
 </VirtualHost>
 APACHE2
 
-[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
+[ $IP = $LOCALIP ] && access=$IP || access=
 
 # Create Nginx configuration file
 cat > /etc/nginx/sites-available/freshrss <<EOF

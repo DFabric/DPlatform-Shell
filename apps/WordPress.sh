@@ -10,16 +10,24 @@ port=$(whiptail --title "WordPress port" --inputbox "Set a port number for WordP
 php_fpm=/run/php/php7.0-fpm.sock
 $install mariadb-server php7.0-mysql php7.0-fpm || echo "PHP7 not available, fallback to PHP5" && $install mariadb-server php5-mysql php5-fpm && php_fpm=/var/run/php5-fpm.sock
 
-php WP-Quick-Install/wp-quick-install/index.php
+# Create www-data user and group
+groupadd -g 33 www-data
+useradd \
+  -g www-data --no-user-group \
+  --home-dir /var/www --no-create-home \
+  --shell /usr/sbin/nologin \
+  --system --uid 33 www-data
 
-cd /var/www
+mkdir -p /var/www/wordpress
+cd /var/www/wordpress
 git clone https://github.com/GeekPress/WP-Quick-Install
-mv WP-Quick-Install wordpress
+mv WP-Quick-Install/wp-quick-install/* .
+rm -rf WP-Quick-Install
 
 # Change the owner from root to www-data
-chown -R www-data:www-data  /var/www/wordpress
+chown -R www-data:  /var/www/wordpress
 
-[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
+[ $IP = $LOCALIP ] && access=$IP || access=
 
 if hash caddy 2>/dev/null ;then
  cat >> /etc/caddy/Caddyfile <<EOF
@@ -42,7 +50,7 @@ else
 server {
   listen $access:$port;
 
-  root /var/www/wordpress/wp-quick-install;
+  root /var/www/wordpress/;
   index index.php index.html index.htm;
   access_log /var/log/nginx/wordpress.access.log;
   error_log /var/log/nginx/wordpress.error.log;
@@ -78,6 +86,6 @@ rm -f /etc/nginx/sites-enabled/default
 # Reload Nginx
 systemctl restart nginx
 
-whiptail --msgbox "WordPress installed!
+whiptail --msgbox "WordPress wizard installed!
 
-Open http://$URL:$port in your browser!" 10 64
+Open http://$URL:$port in your browser to proceed to the installation." 10 64

@@ -15,16 +15,15 @@ useradd \
   --system --uid 33 www-data
 
 # Go to its directory
-mkdir -p /var/www
 cd /var/www
 
 #  Clone the prebuilt static version
 git clone https://github.com/Laverna/static-laverna
 
 # Change the owner from root to www-data
-chown -R www-data:www-data /var/www/static-laverna
+chown -R www-data: /var/www/static-laverna
 
-[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
+[ $IP = $LOCALIP ] && access=$IP || access=
 
 if hash caddy 2>/dev/null ;then
   cat >> /etc/caddy/Caddyfile <<EOF

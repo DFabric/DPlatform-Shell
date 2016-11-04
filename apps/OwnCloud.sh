@@ -2,30 +2,39 @@
 
 [ "$1" = update ] && [ $PKG = deb ] && { apt-get update && $install owncloud; whiptail --msgbox "OwnCloud updated!" 8 32; break; }
 [ "$1" = update ] && [ $PKG = rpm ] && { yum update && $install owncloud; whiptail --msgbox "OwnCloud updated!" 8 32; break; }
-[ "$1" = remove ] && { $remove owncloud; whiptail --msgbox "OwnCloud  removed." 8 32; break; }
+[ "$1" = remove ] && { $remove owncloud; whiptail --msgbox "OwnCloud removed." 8 32; break; }
 
 if [ $PKG = deb ] ;then
   case "$DIST$DIST_VER" in
-    *ubuntu14.04*) dist=xUbuntu_14.04;;
-    *ubuntu*16.04*) dist=xUbuntu_16.04;;
-    *) dist=Debian_8.0;;
+    ubuntu12.04|ubuntu14.10|ubuntu15.04|ubuntu15.10|ubuntu16.04) dist=Ubuntu_$DIST_VER;;
+    debian7|debian8) dist=Debian_$DIST_VER.0;;
+    *) whiptail --yes-no "Your operating system $DIST doesn't appear to be officially supported. Try with the Debian 8 repo?" 8 64
+     [ $? = 0 ] || break
+      dist=Debian_8.0;;
   esac
 
   # Trust the repository
-  wget -nv https://download.owncloud.org/download/repositories/9.1/$dist/Release.key -O Release.key
+  wget -nv https://download.owncloud.org/download/repositories/stable/$dist/Release.key -O Release.key
   apt-key add - < Release.key
 
   # Add the repository
-  sh -c "echo 'deb http://download.owncloud.org/download/repositories/9.1/$dist/ /' >> /etc/apt/sources.list.d/owncloud.list"
+  sh -c "echo 'deb http://download.owncloud.org/download/repositories/stable/$dist/ /' >> /etc/apt/sources.list.d/owncloud.list"
   apt-get update
   $install owncloud
 
 elif [ $PGK = rpm ] ;then
+  case "$DIST$DIST_VER" in
+    "Red Hat6"|"Red Hat7") dist=RHEL_$DIST_VER;;
+    centos6|centos7) dist=CentOS_$DIST_VER;;
+    *) whiptail --yes-no "Your operating system $DIST doesn't appear to be officially supported. Try with the CentOS 7 repo?" 8 64
+      [ $? = 0 ] || break
+      dist=CentOS_7;;
+  esac
   # Trust the repository
-  rpm --import https://download.owncloud.org/download/repositories/9.1/CentOS_7/repodata/repomd.xml.key
+  rpm --import https://download.owncloud.org/download/repositories/stable/$dist/repodata/repomd.xml.key
 
   # Add the repository
-  wget http://download.owncloud.org/download/repositories/9.1/CentOS_7/ce:9.1.repo -O /etc/yum.repos.d/ce:9.0.repo
+  wget http://download.owncloud.org/download/repositories/stable/$dist/ce:stable.repo -O /etc/yum.repos.d/ce:stable.repo
   yum clean expire-cache
   $install -y owncloud
 else

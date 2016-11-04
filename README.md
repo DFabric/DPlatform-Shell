@@ -44,6 +44,7 @@
 - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
 - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
 - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
+- [NextCloud](https://nextcloud.com) - Access, share and protect your files, calendars, contacts, communication & more at home and in your enterprise
 - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
 - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
 - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
