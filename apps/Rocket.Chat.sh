@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ "$1" = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat removed." 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)

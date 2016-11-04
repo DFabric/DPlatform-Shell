@@ -1,8 +1,8 @@
 #!/bin/sh
 
-[ "$1" = update ] && [ $PKG = deb ] && [ `id -u` = 0 ] && { apt-get update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
-[ "$1" = update ] && [ $PKG = rpm ] && [ `id -u` != 0 ] && { yum update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
-[ "$1" = remove ] && { $remove Node.js; whiptail --msgbox "Node.js  updated!" 8 32; break; }
+[ "$1" = update ] && [ $PKG = deb ] && [ $(id -u) = 0 ] && { apt-get update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
+[ "$1" = update ] && [ $PKG = rpm ] && [ $(id -u) != 0 ] && { yum update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
+[ "$1" = remove ] && { $remove Node.js; whiptail --msgbox "Node.js removed." 8 32; break; }
 
 # https://github.com/nodesource/distributions/
 if hash npm 2>/dev/null && [ "$1" = "" ] ;then

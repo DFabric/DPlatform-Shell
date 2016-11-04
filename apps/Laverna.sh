@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /var/www/static-laverna pull; whiptail --msgbox "Laverna updated!" 8 32; break; }
-[ "$1" = remove ] && { /var/www/static-laverna; rm /etc/nginx/sites-*/laverna; systemctl restart nginx; whiptail --msgbox "Laverna  updated!" 8 32; break; }
+[ "$1" = remove ] && { /var/www/static-laverna; rm /etc/nginx/sites-*/laverna; systemctl restart nginx; whiptail --msgbox "Laverna removed." 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Laverna port" --inputbox "Set a port number for Laverna" 8 48 "8007" 3>&1 1>&2 2>&3)

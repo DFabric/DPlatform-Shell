@@ -18,7 +18,7 @@ if [ "$1" = update ] ;then
   Would you like also use the newest Caddy service?" 10 64; [ $? = 0 ];  } || break
 fi
 
-[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -f /usr/local/bin/caddy; rm -f /etc/caddy/Caddyfile; whiptail --msgbox "Caddy  removed!" 8 32; break; }
+[ "$1" = remove ] && [ "$2" = "" ] && { sh sysutils/service.sh remove Caddy; rm -f /usr/local/bin/caddy; rm -f /etc/caddy/Caddyfile; whiptail --msgbox "Caddy removed." 8 32; break; }
 
 # Install Caddy if not installed
 if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then

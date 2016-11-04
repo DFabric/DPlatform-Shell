@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /home/agario/agar.io-clone pull; chown -R agario: /home/agario; whiptail --msgbox "Agar.io Clone updated!" 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -rf agario; groupdel agario; whiptail --msgbox "Agar.io Clone removed!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Agar.io-Clone; userdel -rf agario; groupdel agario; whiptail --msgbox "Agar.io Clone removed." 8 32; break; }
 
 . sysutils/Node.js.sh
 
