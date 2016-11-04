@@ -17,9 +17,8 @@ download "https://download.nextcloud.com/server/installer/setup-nextcloud.php -O
 # Change the owner from root to www-data
 chown -R www-data:  /var/www/nextcloud
 
-[ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
-
 if hash caddy 2>/dev/null ;then
+  [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
  cat >> /etc/caddy/Caddyfile <<EOF
 http://$access:$port {
   root /var/www/nextcloud
@@ -33,11 +32,12 @@ http://$access:$port {
 EOF
 systemctl restart caddy
 else
+  [ $IP = $LOCALIP ] && access=$IP: || access=
   $install nginx
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/nextcloud <<EOF
 server {
-  listen $access:$port;
+  listen $access$port;
 
   root /var/www/nextcloud/;
   index index.php index.html index.htm;

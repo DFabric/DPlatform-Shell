@@ -23,9 +23,8 @@ git clone https://github.com/Laverna/static-laverna
 # Change the owner from root to www-data
 chown -R www-data: /var/www/static-laverna
 
-[ $IP = $LOCALIP ] && access=$IP || access=
-
 if hash caddy 2>/dev/null ;then
+  [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
   cat >> /etc/caddy/Caddyfile <<EOF
 http://$access:$port {
     root /var/www/static-laverna
@@ -35,11 +34,13 @@ http://$access:$port {
 EOF
   systemctl restart caddy
 else
+  [ $IP = $LOCALIP ] && access=$IP: || access=
+
   $install nginx
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/laverna <<EOF
 server  {
-    listen $access:$port;
+    listen $access$port;
     root /var/www/static-laverna;
     index index.html;
     server_name \$hostname;

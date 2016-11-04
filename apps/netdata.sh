@@ -36,12 +36,11 @@ elif [ "$install_choice" = "DP basic" ] ;then
   ~/netdata/netdata-installer.sh
 fi
 
-  [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
-
 # Run netdata via Caddy's proxying
 if hash caddy 2>/dev/null ;then
+  [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
   cat >> /etc/caddy/Caddyfile <<EOF
-$access:$port {
+http://$access:$port {
     proxy / localhost:19999
 }
 EOF
@@ -49,6 +48,7 @@ EOF
 
 # Pass netdata via a nginx
 else
+  [ $IP = $LOCALIP ] && access=$IP: || access=
   $install nginx
   cat > /etc/nginx/sites-available/netdata <<EOF
 upstream backend {
@@ -59,7 +59,7 @@ upstream backend {
 
 server {
   # nginx listens to this
-  listen $access:$port;
+  listen $access$port;
 
   # the virtual host name of this
   server_name \$hostname;
