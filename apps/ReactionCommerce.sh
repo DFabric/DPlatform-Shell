@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { .$HOME/reaction pull; whiptail --msgbox "ReactionCommerce updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove ReactionCommerce; rm -rf ~/reaction; whiptail --msgbox "ReactionCommerce  updated!" 8 32; break; }
+[ "$1" = update ] && { .$HOME/reaction pull; whiptail --msgbox "ReactionCommerce updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove ReactionCommerce; rm -rf ~/reaction; whiptail --msgbox "ReactionCommerce  updated!" 8 32; break; }
 
 # ARM architecture not supported
 if [ $ARCHf = arm ] ;then

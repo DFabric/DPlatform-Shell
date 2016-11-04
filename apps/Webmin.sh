@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { $install webmin; whiptail --msgbox "Webmin updated!" 8 32; break; }
-[ $1 = remove ] && { $remove webmin; whiptail --msgbox "Webmin  updated!" 8 32; break; }
+[ "$1" = update ] && { $install webmin; whiptail --msgbox "Webmin updated!" 8 32; break; }
+[ "$1" = remove ] && { $remove webmin; whiptail --msgbox "Webmin  updated!" 8 32; break; }
 
 # add repository to sources.list
 cat >> /etc/apt/sources.list <<EOF

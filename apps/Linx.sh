@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] || [ $1 = remove ] && rm -rf ~/linx-server*
-[ $1 = remove ] && { sh sysutils/service.sh remove Linx; userdel -rf linx; groupdel linx; whiptail --msgbox "Linx  updated!" 8 32; break; }
+[ "$1" = update ] || [ "$1" = remove ] && rm -rf ~/linx-server*
+[ "$1" = remove ] && { sh sysutils/service.sh remove Linx; userdel -rf linx; groupdel linx; whiptail --msgbox "Linx  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Linx port" --inputbox "Set a port number for Linx" 8 48 "8087" 3>&1 1>&2 2>&3)
@@ -56,7 +56,7 @@ EOF
 systemctl start linx
 systemctl enable linx
 
-[ $1 = install ] && state=installed || state=$1d
+[ "$1" = install ] && state=installed || state=$1d
 whiptail --msgbox "Linx $state!
 
 Open your browser to http://$URL:$port" 10 64

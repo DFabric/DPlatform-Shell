@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Remove the old server executables
-[ $1 = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
+[ "$1" = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -15,7 +15,7 @@ while : ;do
   case $? in
     0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
     # Define the ReplicaSet
-    [ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }
+    [ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
     <<NOT_READY_YET
     whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
     "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
@@ -58,7 +58,7 @@ done
 
 # https://github.com/4commerce-technologies-AG/meteor
 # Special Meteor + Node.js bundle for ARM
-[ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
+[ $ARCHf = arm ] && [ "$1" = "" ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add rocketchat user
 useradd -mrU rocketchat
@@ -67,7 +67,8 @@ useradd -mrU rocketchat
 cd /home/rocketchat
 
 # Dependencies needed for npm install
-$install python make g++
+[ $PKG = rpm ] && $install gcc-c++ || $install g++
+$install python make
 
 # https://github.com/RocketChat/Rocket.Chat.RaspberryPi
 if [ $ARCHf = arm ] ;then
@@ -77,7 +78,7 @@ if [ $ARCHf = arm ] ;then
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCHf = x86 ] ;then
   . $DIR/sysutils/Node.js.sh
-  $install graphicsmagick
+  [ $PKG = rpm ] && $install repel-release && $install GraphicsMagick || $install graphicsmagick
 
   # Download Stable version of Rocket.Chat
   url=https://rocket.chat/releases/latest/download
@@ -134,7 +135,7 @@ EOF
 systemctl start rocket.chat
 systemctl enable rocket.chat
 
-[ $1 = install ] && state=installed || state=$1d
+[ "$1" = install ] && state=installed || state=$1d
 whiptail --msgbox "Rocket.Chat $state!
 
 Open http://$URL:$port in your browser and register.

@@ -146,7 +146,7 @@ Please enter a hostname:" 14 64 "$(hostname)" 3>&1 1>&2 2>&3)
 
 # Applications menus
 apps_menus() {
-	if [ $1 = update ] || [ $1 = remove ] ;then
+	if [ "$1" = update ] || [ "$1" = remove ] ;then
 		# Reset previous apps_choice variable
 		apps_choice=
 		[ $1 = update ] && apps_choice="Update Syncronize_new_packages_available"
@@ -167,7 +167,7 @@ apps_menus() {
 				[ $PKG = rpm ] && yum update
 				git pull;;
 				# Create a loop to break
-				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $APP; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 				$APP) for a in a; do . apps/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
@@ -276,7 +276,7 @@ Hostname "Change the name of the server on your local network" \
 About "Informations about this project and your system" \
 $config$configOption 3>&1 1>&2 2>&3) ;do
 	case $CHOICE in
-		Install) apps_menus install;;
+		Install) apps_menus;;
 		Update) apps_menus update;;
 		Remove) apps_menus remove;;
 		"App Service Manager") . sysutils/service.sh;;

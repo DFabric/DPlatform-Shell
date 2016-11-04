@@ -2,7 +2,7 @@
 
 #http://support.ghost.org/installing-ghost-linux/
 #http://support.ghost.org/how-to-upgrade/
-if [ $1 = update ] ;then
+if [ "$1" = update ] ;then
   cd /var/www
 
   download https://ghost.org/zip/ghost-latest.zip "Downloading the Ghost archive..."
@@ -28,7 +28,7 @@ if [ $1 = update ] ;then
   You previous site backup is at '/var/www/ghost-old'" 8 48
   exit
 fi
-[ $1 = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost  updated!" 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)

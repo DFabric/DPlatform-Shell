@@ -1,19 +1,21 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $PKG = deb ] && [ `id -u` = 0 ] && { apt-get update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
-[ $1 = update ] && [ $PKG = rpm ] && [ `id -u` != 0 ] && { yum update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
-[ $1 = remove ] && { $remove Node.js; whiptail --msgbox "Node.js  updated!" 8 32; break; }
+[ "$1" = update ] && [ $PKG = deb ] && [ `id -u` = 0 ] && { apt-get update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
+[ "$1" = update ] && [ $PKG = rpm ] && [ `id -u` != 0 ] && { yum update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
+[ "$1" = remove ] && { $remove Node.js; whiptail --msgbox "Node.js  updated!" 8 32; break; }
 
 # https://github.com/nodesource/distributions/
-if hash npm 2>/dev/null && [ $1 = install ] ;then
+if hash npm 2>/dev/null && [ "$1" = "" ] ;then
   echo You have Node.js installed
 elif [ $ARCH != arm64 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
   $install nodejs
-  $install npm
+  [ $PKG = deb ] && $install npm
   echo "Node.js installed"
 else
-  $install nodejs nodejs-legacy npm
+  [ $PKG = rpm ] && $install epel-release
+  $install nodejs npm
+  [ $PKG = deb ] && $install nodejs-legacy
   echo "Node.js installed"
 fi
 
@@ -38,7 +40,7 @@ rm node-v$ver-linux-$arch/*.md node-v$ver-linux-$arch/LICENSE
 rsync -aPr node-v$ver-linux-$arch/* /usr
 rm -r node-v$ver-linux-$arch*
 
-[ $1 = install ] && state=installed || state=$1
+[ "$1" = install ] && state=installed || state="$1"
 echo "Node.js $state ($ver)"
 NEED_IMPROVEMENTS
 

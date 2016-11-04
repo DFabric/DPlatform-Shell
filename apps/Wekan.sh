@@ -1,17 +1,17 @@
 #!/bin/sh
 
-[ $1 = update ] && { systemctl stop wekan; rm -rf /home/wekan/*; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Wekan; userdel -rf wekan; groupdel wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan  updated!" 8 32; break; }
+[ "$1" = update ] && { systemctl stop wekan; rm -rf /home/wekan/*; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Wekan; userdel -rf wekan; groupdel wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan  updated!" 8 32; break; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
 # Define port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
-[ $1 = install ] && { . $DIR/sysutils/MongoDB.sh; }
+[ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
 
 # https://github.com/4commerce-technologies-AG/meteor
 # Special Meteor + Node.js bundle for ARM
-[ $ARCHf = arm ] && [ $1 = install ] && { . $DIR/sysutils/Meteor.sh; }
+[ $ARCHf = arm ] && [ "$1" = "" ] && { . $DIR/sysutils/Meteor.sh; }
 
 # Add wekan user
 useradd -mrU wekan
@@ -35,14 +35,15 @@ mv bundle .
 rm wekan-$ver.tar.gz
 
 # Dependencies needed for npm install
-$install python make g++
+[ $PKG = rpm ] && $install gcc-c++ || $install g++
+$install python make
 
 if [ $ARCHf = arm ] ;then
   # Reinstall bcrypt and bson to a newer version is needed
   cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
   cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
 elif [ $ARCHf = x86 ] ;then
-  $install graphicsmagick
+  [ $PKG = rpm ] && $install repel-release && $install GraphicsMagick || $install graphicsmagick
 
   # Meteor needs Node.js 0.10.46
   download "https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz" "Downloading the Node.js 0.10.46 archive..."
@@ -89,7 +90,7 @@ EOF
 systemctl start wekan
 systemctl enable wekan
 
-[ $1 = install ] && state=installed || state=$1d
+[ "$1" = install ] && state=installed || state=$1d
 whiptail --msgbox "Wekan $state!
 
 Open http://$URL:$port in your browser" 10 64

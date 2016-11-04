@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { $install gitlab-ce; whiptail --msgbox "GitLab updated" 8 32; exit; }
-[ $1 = remove ] && { $remove gitlab-ce; whiptail --msgbox "GitLab  updated!" 8 32; break; }
+[ "$1" = update ] && { $install gitlab-ce; whiptail --msgbox "GitLab updated" 8 32; exit; }
+[ "$1" = remove ] && { $remove gitlab-ce; whiptail --msgbox "GitLab  updated!" 8 32; break; }
 
 # Install and configure the necessary dependencies
 if [ $PKG = deb ] ;then

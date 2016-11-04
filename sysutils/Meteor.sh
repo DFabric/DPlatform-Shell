@@ -1,9 +1,9 @@
 #!/bin/sh
 
-[ $1 = update ] && [ $ARCHf = arm ] && { git -C ~/meteor pull; whiptail --msgbox "Meteor updated!" 8 32; break; }
-[ $1 = update ] &&  $ARCHf = x86 ] && { curl https://install.meteor.com | /bin/sh; whiptail --msgbox "Meteor updated!" 8 32; break; }
-[ $1 = remove ] && [ $ARCHf = arm ] && { rm -rf /usr/share/meteor; whiptail --msgbox "Meteor  updated!" 8 32; break; }
-[ $1 = remove ] && { rm -rf ~/.meteor; whiptail --msgbox "Meteor  updated!" 8 32; break; }
+[ "$1" = update ] && [ $ARCHf = arm ] && { git -C ~/meteor pull; whiptail --msgbox "Meteor updated!" 8 32; break; }
+[ "$1" = update ] &&  $ARCHf = x86 ] && { curl https://install.meteor.com | /bin/sh; whiptail --msgbox "Meteor updated!" 8 32; break; }
+[ "$1" = remove ] && [ $ARCHf = arm ] && { rm -rf /usr/share/meteor; whiptail --msgbox "Meteor  updated!" 8 32; break; }
+[ "$1" = remove ] && { rm -rf ~/.meteor; whiptail --msgbox "Meteor  updated!" 8 32; break; }
 
 if [ -d ~./meteor ] || [ -d /usr/share/meteor ] ;then
   echo "You have Meteor installed"

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/etherpad pull; chown -R etherpad: /home/etherpad; whiptail --msgbox "Etherpad updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -rf etherpad; goupdel etherpad; whiptail --msgbox "Etherpad  updated!" 8 32; break; }
+[ "$1" = update ] && { git -C /home/etherpad pull; chown -R etherpad: /home/etherpad; whiptail --msgbox "Etherpad updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -rf etherpad; goupdel etherpad; whiptail --msgbox "Etherpad  updated!" 8 32; break; }
 
 . sysutils/Node.js.sh
 

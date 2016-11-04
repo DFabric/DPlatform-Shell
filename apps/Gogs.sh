@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { /home/git/gogs/gogs update; chown -R git: /home/git/gogs; whiptail --msgbox "Gogs updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Gogs; userdel -rf git; groupdel git; whiptail --msgbox "Gogs  updated!" 8 32; break; }
+[ "$1" = update ] && { /home/git/gogs/gogs update; chown -R git: /home/git/gogs; whiptail --msgbox "Gogs updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Gogs; userdel -rf git; groupdel git; whiptail --msgbox "Gogs  updated!" 8 32; break; }
 
 # Prerequisites
 $install sqlite3

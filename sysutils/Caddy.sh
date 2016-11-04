@@ -69,7 +69,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   systemctl start caddy
   systemctl enable caddy
 
-  if [ $1 = update ] ;then
+  if [ "$1" = update ] ;then
     systemctl daemon-reload
     whiptail --msgbox "Caddy updated!" 8 32
   else

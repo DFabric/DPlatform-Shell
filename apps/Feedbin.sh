@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ $1 = update ] && { git -C /home/feedbin pull; chown -R feedbin: /home/feedbin; whiptail --msgbox "Feedbin updated!" 8 32; break; }
-[ $1 = remove ] && { sh sysutils/service.sh remove Feedbin; userdel -rf feedbin; groupdel feedbin; whiptail --msgbox "Feedbin  updated!" 8 32; break; }
+[ "$1" = update ] && { git -C /home/feedbin pull; chown -R feedbin: /home/feedbin; whiptail --msgbox "Feedbin updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Feedbin; userdel -rf feedbin; groupdel feedbin; whiptail --msgbox "Feedbin  updated!" 8 32; break; }
 
 # Create a feedbin user
 useradd -mrU feedbin
