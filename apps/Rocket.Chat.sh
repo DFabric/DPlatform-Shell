@@ -52,7 +52,7 @@ You can also use a MongoDB service provider on the Internet.
 You can use a free https://mongolab.com/ database.
 Enter your Mongo URL instance (with the brackets removed): \
   " 10 72 "mongodb://:{user}:{password}@{host}:{port}/{datalink}" 3>&1 1>&2 2>&3)
-  [ $? = 0 ] || break;;
+  [ $? = 1 ] || break;;
   esac
 done
 

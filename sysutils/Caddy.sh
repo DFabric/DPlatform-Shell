@@ -80,6 +80,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   You can modify the Caddy configuration files:
   Caddyfile configuration: '/etc/caddy/Caddyfile'
   Service configuration: '/etc/systemd/system/caddy.service'" 12 64
+  fi
 else
   echo "Caddy is already installed"
 fi
