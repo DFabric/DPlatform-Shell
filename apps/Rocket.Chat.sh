@@ -78,7 +78,7 @@ if [ $ARCHf = arm ] ;then
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 elif [ $ARCHf = x86 ] ;then
   . $DIR/sysutils/Node.js.sh
-  [ $PKG = rpm ] && $install repel-release && $install GraphicsMagick || $install graphicsmagick
+  [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
 
   # Download Stable version of Rocket.Chat
   url=https://rocket.chat/releases/latest/download

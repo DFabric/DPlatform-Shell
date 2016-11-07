@@ -43,7 +43,7 @@ if [ $ARCHf = arm ] ;then
   cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
   cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
 elif [ $ARCHf = x86 ] ;then
-  [ $PKG = rpm ] && $install repel-release && $install GraphicsMagick || $install graphicsmagick
+  [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
 
   # Meteor needs Node.js 0.10.46
   download "https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz" "Downloading the Node.js 0.10.46 archive..."

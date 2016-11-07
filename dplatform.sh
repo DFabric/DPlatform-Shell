@@ -51,7 +51,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget sudo || $install git whiptail curl wget sudo
+hash git whiptail curl wget sudo 2>/dev/null || $install git whiptail curl wget sudo
 
 # Detect architecture
 ARCH=$(arch)
