@@ -44,7 +44,7 @@
 - [Mopidy](https://www.mopidy.com/) - Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more - With [Mopify](https://github.com/dirkgroenen/mopidy-mopify) - Web Client for Mopidy Music Server and the Pi MusicBox
 - [FreshRSS](http://freshrss.org/) - A free, self-hosted RSS feed aggregator. Lightweight, easy to work with, powerful and customizable
 - [OwnCloud](https://owncloud.org/) - Access & share your files, calendars, contacts, mail & more from any device, on your terms
-- [NextCloud](https://nextcloud.com) - Access, share and protect your files, calendars, contacts, communication & more at home and in your enterprise
+- [Nextcloud](https://nextcloud.com) - Access, share and protect your files, calendars, contacts, communication & more at home and in your enterprise
 - [Agar.io Clone](https://github.com/huytd/agar.io-clone) - Agar.io clone written with Socket.IO and HTML5 canvas
 - [Ajenti](http://ajenti.org/core/) - Ajenti is a Linux & BSD web admin panel
 - [Cuberite](http://cuberite.org/) - A Minecraft-compatible multiplayer game server that is written in C++ and designed to be efficient with memory and CPU
@@ -107,7 +107,7 @@ Next times, to run DPlatform:
 Not recommended because no auto-updates, but you still *can* run directly `dplatform.sh`.
 
 ## Requirements
-A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom sytsemdd services.
+A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom systemd services.
 
 Debian 8 and derivatives like Ubuntu and Raspbian. Full support, well tested
 

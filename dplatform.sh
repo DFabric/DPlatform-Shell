@@ -20,8 +20,8 @@ if [ -e /etc/os-release ] ;then
 	DIST=$ID
 	DIST_VER=$VERSION_ID
 elif [ -e /etc/issue ] ;then
-	grep Red Hat /etc/issue && DIST=redhat
-	grep CentOS /etc/issue && DIST=centos
+	grep -q Red Hat /etc/issue && DIST=redhat
+	grep -q CentOS /etc/issue && DIST=centos
 	DIST_VER=$(cat /etc/issue)
 	DIST_VER=${DIST_VER#*release}
 	DIST_VER=${DIST_VER%.*}
@@ -188,7 +188,7 @@ apps_menus() {
 		Mopidy "Mopidy is an extensible music server written in Python" \
 		FreshRSS "A free, self-hostable aggregator" \
 		OwnCloud "Access & share your files, calendars, contacts, mail" \
-		NextCloud "Access, share and protect your files, calendars, contacts, communication" \
+		Nextcloud "Access, share and protect your files, calendars, contacts, communication" \
 		Agar.io-Clone "Agar.io clone written with Socket.IO and HTML5 canvas" \
 		Ajenti "Web admin panel" \
 		Cuberite "A custom Minecraft compatible game server written in C++" \

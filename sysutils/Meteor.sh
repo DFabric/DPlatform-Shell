@@ -13,17 +13,17 @@ elif [ $ARCHf = x86 ] ;then
 
 # https://github.com/4commerce-technologies-AG/meteor
 elif [ $ARCHf = arm ] ;then
-  cd /usr/share
-  git clone --depth 1 -b release-1.3.4.1-universal https://github.com/4commerce-technologies-AG/meteor
+  cd /usr/local/share
+  git clone --depth 1 -b release-1.2.1-universal https://github.com/4commerce-technologies-AG/meteor
 
   # Fix curl CA error
   echo insecure > ~/.curlrc
   # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
-  /usr/share/meteor/meteor -v
+  /usr/local/share/meteor/meteor -v
   rm ~/.curlrc
 
   # Set an alias
-  alias meteor="/usr/share/meteor/meteor"
+  alias meteor="/usr/local/share/meteor/meteor"
 fi
 
 grep -q Meteor $DIR/dp.cfg 2>/dev/null || echo Meteor >> $DIR/dp.cfg

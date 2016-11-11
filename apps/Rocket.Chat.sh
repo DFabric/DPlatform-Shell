@@ -2,7 +2,7 @@
 
 # Remove the old server executables
 [ "$1" = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Rocket.Chat removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; groupdel rocketchat; rm -rf /usr/local/share/meteor; whiptail --msgbox "Rocket.Chat removed." 8 32; break; }
 
 # Define port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
@@ -13,7 +13,7 @@ while : ;do
   "Rocket.Chat needs a MongoDB database. A new local one will be installed, unless you have already an external database" 10 48 \
   --yes-button Local --no-button External
   case $? in
-    0) MONGO_URL=MONGO_URL=mongodb://localhost:27017/rocketchat
+    0) MONGO_URL=MONGO_URL=mongodb://127.0.0.1:27017/rocketchat
     # Define the ReplicaSet
     [ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
     <<NOT_READY_YET
@@ -93,7 +93,7 @@ download "$url -O rocket.chat.tgz" "Downloading the Rocket.Chat archive..."
 extract rocket.chat.tgz "xzf -" "Extracting the files from the archive..."
 
 # Extract the bundle to the current directory
-mv bundle/* bundle/.[^.]* .
+mv -f bundle/* bundle/.[^.]* .
 
 rm -r bundle rocket.chat.tgz
 
@@ -101,25 +101,25 @@ rm -r bundle rocket.chat.tgz
 cd programs/server
 
 [ $ARCHf = x86 ] && npm install && ln -s node_modules/fibers/bin/linux-x64-v8-5.0 node_modules/fibers/bin/linux-x64-v8-5.1
-[ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
+[ $ARCHf = arm ] && /usr/local/share/local/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
 chown -R rocketchat: /home/rocketchat
 
 [ $ARCHf = x86 ] && node=/usr/bin/node
-[ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
+[ $ARCHf = arm ] && node=/usr/local/share/local/meteor/dev_bundle/bin/node
 
 # Create the systemd service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
-Description=Rocket.Chat Server
+Description=Rocket.Chat server
 Wants=mongod.service
 After=network.target mongod.service
 [Service]
 Type=simple
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=RocketChat
+SyslogIdentifier=Rocket.Chat
 WorkingDirectory=/home/rocketchat
 ExecStart=$node main.js
 Environment=ROOT_URL=http://$IP:$port/ PORT=$port

@@ -40,17 +40,17 @@ $install python make
 
 if [ $ARCHf = arm ] ;then
   # Reinstall bcrypt and bson to a newer version is needed
-  cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/share/meteor/dev_bundle/bin/npm install bcrypt
-  cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/share/meteor/dev_bundle/bin/npm install bson
+  cd /home/wekan/programs/server/npm/npm-bcrypt && /usr/local/share/meteor/dev_bundle/bin/npm uninstall bcrypt && /usr/local/share/meteor/dev_bundle/bin/npm install bcrypt
+  cd /home/wekan/programs/server/npm/cfs_gridfs/node_modules/mongodb && /usr/local/share/meteor/dev_bundle/bin/npm uninstall bson && /usr/local/share/meteor/dev_bundle/bin/npm install bson
 elif [ $ARCHf = x86 ] ;then
   [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
 
-  # Meteor needs Node.js 0.10.46
-  download "https://nodejs.org/dist/v0.10.46/node-v0.10.46-linux-x64.tar.gz" "Downloading the Node.js 0.10.46 archive..."
+  # Meteor needs Node.js 0.10.48
+  download "https://nodejs.org/dist/v0.10.48/node-v0.10.48-linux-x64.tar.gz" "Downloading the Node.js 0.10.48 archive..."
 
   # Extract the downloaded archive and remove it
-  extract node-v0.10.46-linux-x64.tar.gz "xzf - -C /usr/local/share" "Extracting the files from the archive..."
-  rm node-v0.10.46-linux-x64.tar.gz
+  extract node-v0.10.48-linux-x64.tar.gz "xzf - -C /usr/local/share" "Extracting the files from the archive..."
+  rm node-v0.10.48-linux-x64.tar.gz
 else
     whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
 fi
@@ -58,14 +58,14 @@ fi
 # Move to the server directory and install the dependencies:
 cd /home/wekan/programs/server
 
-[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.46-linux-x64/bin/npm install
-[ $ARCHf = arm ] && /usr/share/meteor/dev_bundle/bin/npm install
+[ $ARCHf = x86 ] && /usr/local/share/node-v0.10.48-linux-x64/bin/npm install
+[ $ARCHf = arm ] && /usr/local/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to wekan
 chown -R wekan: /home/wekan
 
-[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.46-linux-x64/bin/node
-[ $ARCHf = arm ] && node=/usr/share/meteor/dev_bundle/bin/node
+[ $ARCHf = x86 ] && node=/usr/local/share/node-v0.10.48-linux-x64/bin/node
+[ $ARCHf = arm ] && node=/usr/local/share/meteor/dev_bundle/bin/node
 
 # Create the systemd service
 cat > "/etc/systemd/system/wekan.service" <<EOF
