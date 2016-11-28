@@ -8,8 +8,8 @@ DPlatform is made in a POSIX Shell script. Therefore, your contribution must com
 - POSIX compliance (`#!/bin/sh`): all commands must work with sh, dash, bash, ksh, zsh
 - Unless required no semicolons
 - Indentation whenever is possible (for example except for `cat <<EOF EOF`)
-- Use a space and a semicolon before `then` and `do`: `if/elif [ ] ;then`, and `while/for ;do`
-- If you have simple conditions, use one-line booleans expressions like `[ = ] && [ ] || command` instead of `if/elif/else`
+- Use a space and a semicolon just before `then` and `do`: `if/elif [ ] ;then`, and `while/for ;do`
+- If you have simple conditions, use one-line booleans expressions like `[ "$1" = "" ] && [ ] || command` instead of `if/elif/else`
 
 ## Application installation script structure
 
@@ -17,23 +17,23 @@ Each application installation scripts are built upon a same structure. Here we s
 
 First at the begining af each application script file, there are command to update and remove itself.
 ```sh
-[ $1 = update ] && { git -C /home/myapp/MyApp pull; whiptail --msgbox "MyApp updated!" 8 32; exit; }
-[ $1 = remove ] && { sh sysutils/services.sh remove MyApp; userdel -r myapp; whiptail --msgbox "MyApp removed!" 8 32 ; exit; }
+[ "$1" = update ] && { git -C /home/myapp/MyApp pull; whiptail --msgbox "MyApp updated!" 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/services.sh remove MyApp; userdel -rf myapp; groupdel myapp; whiptail --msgbox "MyApp removed." 8 32 ; break; }
 ```
 Depending of your app, you can ask to the user to write some arguments, like a port number.
 ``` sh
-# Define port
+# Defining the port
 port=$(whiptail --title "MyApp port" --inputbox "Set a port number for MyApp" 8 48 "80" 3>&1 1>&2 2>&3)
 ```
 
 Next, the prerequisites
 ```sh
 # Prerequisites of MyApp that have builtin support in DPlatform's sysutils, for example NodeJS or MongoDB
-. sysutils/NodeJS.sh
+. sysutils/Node.js.sh
 . sysutils/MongoDB.sh
 
 # Add MyApp user
-useradd -m myapp
+useradd -mrU myapp
 
 # Go to myapp user directory
 cd /home/myapp
@@ -47,7 +47,7 @@ Follows the install instructions, that depends of your app
 # If your app has a git repository
 git clone https://github.com/MyApp/MyApp
 
-# Download the arcive
+# Download the archive
 download "https://myapp.com/myapp_v1.0.0.tar.gz -O myapp.tar.gz" "Downloading the archive..."
 
 # Extract the downloaded archive and remove it
@@ -68,7 +68,7 @@ $DIST={Debian|Ubuntu|Fedora|CentOS...}  # $ID
 $DIST_VER={8|7|16.04|14.04|24|23|8|7|6...}  # $VERSION_ID
 
 # Finally change the owner from root to myapp
-chown -R myapp /home/myapp
+chown -R myapp: /home/myapp
 ```
 
 Create a systemd service for your app

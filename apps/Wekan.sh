@@ -4,7 +4,7 @@
 [ "$1" = remove ] && { sh sysutils/service.sh remove Wekan; userdel -rf wekan; groupdel wekan; rm -rf /usr/local/share/node-v0.10.4*; whiptail --msgbox "Wekan removed." 8 32; break; }
 
 # https://github.com/wekan/wekan/wiki/Install-and-Update
-# Define port
+# Defining the port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
 [ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
@@ -86,7 +86,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-# Start the service and enable it to start on boot
+# Start the service and enable it to start at boot
 systemctl start wekan
 systemctl enable wekan
 

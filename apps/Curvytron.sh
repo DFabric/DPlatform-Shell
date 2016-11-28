@@ -3,7 +3,7 @@
 [ "$1" = update ] && { git -C /home/curvytron pull; git -C /home/curvytron reset --hard; chown -R curvytron: /home/curvytron; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove Curvytron; userdel -rf curvytron; groupdel curvytron; whiptail --msgbox "Curvytron removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "Curvytron port" --inputbox "Set a port number for Curvytron" 8 48 "8086" 3>&1 1>&2 2>&3)
 
 . sysutils/Node.js.sh
@@ -38,10 +38,10 @@ gulp
 # Change the owner from root to agario
 chown -R curvytron: /home/curvytron
 
-# Add systemd process and run the server
+# Add a systemd service and run the server
 sh sysutils/service.sh Curvytron "/usr/bin/node /home/curvytron/bin/curvytron.js" /home/curvytron curvytron
 
-# Start the service and enable it to start on boot
+# Start the service and enable it to start at boot
 systemctl start curvytron
 systemctl enable curvyton
 

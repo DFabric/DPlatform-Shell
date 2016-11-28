@@ -16,21 +16,30 @@ if [ "$1" = update ] ;then
   # --unsafe-perm required by node-gyp for the sqlite3 package
   GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
 
-  [ -d ../ghost-old ] && rm -r ../ghost-old
-  mv ../ghost ../ghost-old
-  mv ../ghost-latest ../ghost
+  cd ..
+
+  # Increment the last number of the new directory name if it already exists
+  i=0
+  ghost_old=ghost_old.$i
+  while [ -d $ghost_old  ] ;do
+    ghost_old=ghost_old.$i
+    i=$(( i + 1 ))
+  done
+
+  mv ghost $ghost_old
+  mv ghost-latest ghost
 
   # Change the owner from root to ghost
   chown -R ghost: /var/www/ghost
   systemctl restart ghost
 
   whiptail --msgbox " Ghost updated!
-  You previous site backup is at '/var/www/ghost-old'" 8 48
-  exit
+  You previous site backup is at '/var/www/ghost_old'" 8 64
+  break
 fi
 [ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
 
 . sysutils/Node.js.sh
@@ -70,7 +79,7 @@ sed -i "s/port: '2368'/port: '$port'/" config.js
 useradd -rU ghost
 chown -R ghost: /var/www/ghost
 
-# Add systemd process and run the server
+# Add a systemd service and run the server
 cat > "/etc/systemd/system/ghost.service" <<EOF
 [Unit]
 Description=The Ghost Blogging Platform

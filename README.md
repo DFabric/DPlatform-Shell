@@ -1,4 +1,4 @@
-# DPlatform (alpha)
+# DPlatform
 
 [![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
@@ -78,8 +78,6 @@
 - [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
 - [TheLounge](https://thelounge.github.io/) - The self-hosted web IRC client
 - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
-- [Feedbin](https://feedbin.com/) - Feedbin is a simple, fast and nice looking RSS reader
-- [Stringer](https://github.com/swanson/stringer) - A self-hosted, anti-social RSS reader
 - [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform
 - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
 - [Webmin](http://www.webmin.com/) -  A web-based interface for system administration for Unix - With the [Authentic theme](https://github.com/qooob/authentic-theme)
@@ -104,12 +102,12 @@ The prerequisites will be installed and the DPlatform git project cloned for you
 Next times, to run DPlatform:
 `sudo sh init.sh`
 
-Not recommended because no auto-updates, but you still *can* run directly `dplatform.sh`.
+Not recommended because no auto-updates, but you *can* still run directly `dplatform.sh`.
 
 ## Requirements
 A recent GNU/Linux operating system with **systemd** is recommended, lots of apps have custom systemd services.
 
-Debian 8 and derivatives like Ubuntu and Raspbian. Full support, well tested
+Debian 8/9, and derivatives like Ubuntu 16.04 and Raspbian Jessie. Full support, well tested
 
 CentOS 7, Fedora and other RHEL derivatives. Good support, not fully tested
 
@@ -119,17 +117,16 @@ Older distributions like Ubuntu 14.04.x, Debian 7 and Centos 6 have also a parti
 
 You can try switch to it instead of the default SysVinit/Upstart to be able to use them.
 
-A x86, x86-64 or ARMv[6,7,8] CPU.
+CPU: x86, x86-64, ARMv[6,7,8]
 
-Development is still active. Most things should work, but problems could occur, more testing is needed.
-Please feel free to open an issue and create a pull request, all contributions are welcome!
+Development is active. Please feel free to open an issue and create a pull request, all contributions are welcome!
 
 ## Roadmap
  - [1] Install apps efficiently through a terminal UI - Done.
  - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
  - (3) Build a custom image with a DPlatform Web GUI and auto-configurations - Planned
- - DNS and secure firewall pass-through via [localtunnel](https://localtunnel.me/)
- - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate
+ - DNS and secure firewall pass-through via [localtunnel](https://localtunnel.me/) - Planned
+ - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate - Partial
 
 ### Other informations
 Each app have its own dedicated user, most their own `/home/app_user` directory
@@ -138,6 +135,7 @@ If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/D
 
 ## Contributors - Special thanks
 [RapFan89](https://github.com/RapFan89)
+
 [cryptono](https://github.com/cryptono)
 
 ## License

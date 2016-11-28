@@ -3,7 +3,7 @@
 [ "$1" = update ] && [ $PKG = deb ] && { apt-get update; $install mopidy; pip install --upgrade -y Mopidy-Mopify; whiptail --msgbox "Mopidy updated!" 8 32; break; }
 [ "$1" = remove ] && { $remove mopidy; pip uninstall -y Mopidy-Mopify; whiptail --msgbox "Mopidy removed." 8 32; break; }
 
-# Define ports
+# Defining the ports
 MPDport=$(whiptail --title "MPD server port" --inputbox "Set a port number for the MPD server" 8 48 "6600" 3>&1 1>&2 2>&3)
 
 port=$(whiptail --title "Mopify web client port" --inputbox "Set a port number for Mopify web client" 8 48 "6680" 3>&1 1>&2 2>&3)
@@ -38,7 +38,7 @@ port = $MPDport
 max_connections = 40
 connection_timeout = 120
 EOF
-# Start the service and enable it to start up on boot
+# Start the service and enable it to start up at boot
 systemctl enable mopidy
 systemctl restart mopidy
 

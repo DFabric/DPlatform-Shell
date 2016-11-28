@@ -99,7 +99,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-  # Start the service and enable it to start up on boot
+  # Start the service and enable it to start up at boot
   systemctl start $name
   systemctl enable $name
 fi

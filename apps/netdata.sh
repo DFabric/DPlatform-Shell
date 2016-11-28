@@ -4,7 +4,7 @@
 [ "$1" = update ] && { git -C netdada pull; ~/netdata/netdata-installer.sh; whiptail --msgbox "netdata updated!" 8 32; break; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove netdata; rm /etc/nginx/sites-*/netdata; systemctl restart nginx; sh sysutils/service.sh remove netdata; ~/netdata/netdata-uninstaller.sh --force; rm -r ~/netdata; whiptail --msgbox "netdata removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
 
 install_choice=$(whiptail --title Seafile --menu "	What netdata packages installation do you want?" 16 96 3 \

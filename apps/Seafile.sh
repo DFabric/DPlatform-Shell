@@ -16,7 +16,7 @@ case $db_choice in
 
 	# http://manual.seafile.com/deploy/using_sqlite.html
 	"Deploy Seafile with SQLite")
-	# Define port
+	# Defining the port
 	port=$(whiptail --title "Seafile port" --inputbox "Set a port number for Seafile" 8 48 "8001" 3>&1 1>&2 2>&3)
 
 	# Create a seafile user
@@ -78,7 +78,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	# Start the service and enable it to start on boot
+	# Start the service and enable it to start at boot
 	systemctl start seafile
 	systemctl enable seafile
 	./home/seafile/seafile-server-latest/seahub.sh start $port
@@ -98,7 +98,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 EOF
-	# Start the service and enable it to start on boot
+	# Start the service and enable it to start at boot
 	systemctl start seahub
 	systemctl enable seahub
 

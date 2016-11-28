@@ -3,9 +3,6 @@
 [ $(id -u) != 0 ] && whiptail --title '/!\ WARNING - Not runned as root /!\' --msgbox "	You don't run this as root!
 You will need to have root permissions" 8 48
 
-# Detect distribution
-. /etc/os-release
-
 # Detect package manager
 if hash apt-get 2>/dev/null ;then
 	PKG=deb
@@ -24,7 +21,7 @@ elif hash pacman 2>/dev/null ;then
 	install="pacman -Syu"
 	remove="pacman -Rsy"
 else
-	echo "Your operating system $DIST isn't supported" 8 48; exit 1
+	echo "Your operating system isn't supported" 8 48; exit 1
 fi
 
 # Prerequisites

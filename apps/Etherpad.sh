@@ -5,7 +5,7 @@
 
 . sysutils/Node.js.sh
 
-# Define port
+# Defining the port
 port=$(whiptail --title "Etherpad port" --inputbox "Set a port number for Etherpad" 8 48 "9001" 3>&1 1>&2 2>&3)
 
 # Create etherpad user directory
@@ -32,17 +32,13 @@ sed -i 's/var\/dirty.db/var\/sqlite.db/' settings.json
 sh /home/etherpad/bin/installDeps.sh
 
 # Add etherpad user
-useradd -ru etherpad
+useradd -rU etherpad
 
 # Change the owner from root to etherpad
 chown -R etherpad: /home/etherpad
 
-# Add systemd process and run the server
+# Add a systemd service and run the server
 sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node /home/etherpad/node_modules/ep_etherpad-lite/node/server.js" /home/etherpad etherpad
-
-# Start the service and enable it to start on boot
-systemctl start etherpad
-systemctl enable etherpad
 
 whiptail --msgbox "Etherpad installed!
 

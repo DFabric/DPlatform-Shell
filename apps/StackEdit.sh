@@ -3,7 +3,7 @@
 [ "$1" = update ] && { git -C /home/stackedit pull; whiptail --msgbox "StackEdit updated!" 8 32; break; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove StackEdit; userdel -rf stackedit; groupdel stackedit; whiptail --msgbox "StackEdit removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "StackEdit port" --inputbox "Set a port number for StackEdit" 8 48 "8050" 3>&1 1>&2 2>&3)
 
 . sysutils/Node.js.sh
@@ -27,7 +27,7 @@ bower install --allow-root
 # Change the owner from root to git
 chown -R stackedit: /home/stackedit
 
-# Add systemd process
+# Add a systemd service
 cat > /etc/systemd/system/stackedit.service <<EOF
 [Unit]
 Description=StackEdit Server
@@ -44,7 +44,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-# Start the service and enable it to start up on boot
+# Start the service and enable it to start up at boot
 systemctl start stackedit
 systemctl enable stackedit
 

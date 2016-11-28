@@ -3,7 +3,7 @@
 [ "$1" = update ] || [ "$1" = remove ] && rm -rf ~/linx-server*
 [ "$1" = remove ] && { sh sysutils/service.sh remove Linx; userdel -rf linx; groupdel linx; whiptail --msgbox "Linx removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "Linx port" --inputbox "Set a port number for Linx" 8 48 "8087" 3>&1 1>&2 2>&3)
 
 # Create a linx user
@@ -37,7 +37,7 @@ EOF
 # Change the owner from root to linx
 chown -R linx: /home/linx
 
-# Add systemd process and run the server
+# Add a systemd service and run the server
 cat > "/etc/systemd/system/linx.service" <<EOF
 [Unit]
 Description=Linx Server

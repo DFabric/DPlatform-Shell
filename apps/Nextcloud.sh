@@ -3,7 +3,7 @@
 [ "$1" = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
 [ "$1" = remove ] && { rm /etc/nginx/sites-*/nextcloud; systemctl restart nginx; rm -rf /var/www/nextcloud; whiptail --msgbox "NextCloud removed." 8 32; break; }
 
-# Define port
+# Defining the port
 port=$(whiptail --title "NextCloud port" --inputbox "Set a port number for NextCloud" 8 48 "8084" 3>&1 1>&2 2>&3)
 
 # PHP5 fallback if PHP7 not available

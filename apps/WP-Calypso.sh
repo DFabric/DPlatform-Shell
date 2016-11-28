@@ -18,4 +18,4 @@ echo 127.0.0.1 calypso.localhost >> /etc/hosts
 
 whiptail --msgbox "Wordpress Calypso installed!
 
-Open http://calypso.$IP:3000 in your browser" 10 64
+Open http://calypso.$URL:3000 in your browser" 10 64

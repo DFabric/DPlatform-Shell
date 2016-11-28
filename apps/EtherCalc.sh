@@ -11,7 +11,7 @@ useradd -rU ethercalc
 # Globa installation
 npm i -g ethercalc
 
-# Add systemd process and run the server
+# Add a systemd service and run the server
 sh sysutils/service.sh EtherCalc "/usr/bin/node /usr/bin/ethercalc" / ethercalc
 
 whiptail --msgbox "EtherCalc installed!

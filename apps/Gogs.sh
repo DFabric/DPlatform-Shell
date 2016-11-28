@@ -40,13 +40,13 @@ elif [ $ARCHf = arm ] ;then
   unzip gogs.zip
   rm gogs.zip
 fi
-# Add systemd process, configure and start Gogs
+# Add a systemd service, configure and start Gogs
 cp /home/git/gogs/scripts/systemd/gogs.service /etc/systemd/system
 
 # Change the owner from root to git
 chown -R git: /home/git/gogs
 
-# Start the service and enable it to start up on boot
+# Start the service and enable it to start up at boot
 systemctl start gogs
 systemctl enable gogs
 

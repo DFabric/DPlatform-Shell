@@ -64,15 +64,6 @@ case $ARCH in
 	*) whiptail --msgbox "Your architecture $ARCH isn't supported" 8 48; exit 1;;
 esac
 
-# Detect hardware
-HDWR=$(uname -a)
-case "$HDWR" in
-	*rpi3*) HDWR=rpi3;;
-	*rpi2*) HDWR=rpi2;;
-	*rpi*) HDWR=rpi;;
-	*bananian*) HDWR=bpi;;
-esac
-
 # Check if systemd is the init system
 hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You haven't systemd as an init system.
 
@@ -223,8 +214,6 @@ apps_menus() {
 		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		TheLounge "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
-		Feedbin "/!\ Feedbin is a simple, fast and nice looking RSS reader" \
-		Stringer "/!\ A self-hosted, anti-social RSS reader" \
 		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
 		Transmission "A cross-platform BitTorrent client that is easy and powerful use" \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \

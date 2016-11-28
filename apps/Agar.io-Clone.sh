@@ -38,7 +38,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-# Start the service and enable it to start on boot
+# Start the service and enable it to start at boot
 systemctl start agar.io-clone
 systemctl enable agar.io-clone
 

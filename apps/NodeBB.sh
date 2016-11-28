@@ -70,7 +70,7 @@ useradd -mrU nodebb
 # Change the owner from root to nodebb
 chown -R nodebb: /home/nodebb
 
-# Add systemd process
+# Add a systemd service
 cat > /etc/systemd/system/nodebb.service <<EOF
 [Unit]
 Description=NodeBB Forum Server
@@ -85,7 +85,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-# Start the service and enable it to start up on boot
+# Start the service and enable it to start up at boot
 systemctl start nodebb
 systemctl enable nodebb
 
