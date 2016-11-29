@@ -101,13 +101,13 @@ rm -r bundle rocket.chat.tgz
 cd programs/server
 
 [ $ARCHf = x86 ] && npm install && ln -s node_modules/fibers/bin/linux-x64-v8-5.0 node_modules/fibers/bin/linux-x64-v8-5.1
-[ $ARCHf = arm ] && /usr/local/share/local/meteor/dev_bundle/bin/npm install
+[ $ARCHf = arm ] && /usr/local/share/meteor/dev_bundle/bin/npm install
 
 # Change the owner from root to rocketchat
 chown -R rocketchat: /home/rocketchat
 
 [ $ARCHf = x86 ] && node=/usr/bin/node
-[ $ARCHf = arm ] && node=/usr/local/share/local/meteor/dev_bundle/bin/node
+[ $ARCHf = arm ] && node=/usr/local/share/meteor/dev_bundle/bin/node
 
 # Create the systemd service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF

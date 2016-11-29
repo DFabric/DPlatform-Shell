@@ -25,7 +25,7 @@ mv WP-Quick-Install/wp-quick-install/* .
 rm -rf WP-Quick-Install
 
 # Change the owner from root to www-data
-chown -R www-data:  /var/www/wordpress
+chown -R www-data:  /var/www/
 
 if hash caddy 2>/dev/null ;then
   [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
@@ -43,36 +43,32 @@ http://$access:$port {
 EOF
 systemctl restart caddy
 else
-  [ $IP = $LOCALIP ] && access=$IP || access=
+  [ $IP = $LOCALIP ] && access=$IP: || access=
   $install nginx
   # Create Nginx configuration file
   cat > /etc/nginx/sites-available/wordpress <<EOF
 server {
-  listen $access$port;
-
-  root /var/www/wordpress/;
+  listen $access$port default_server;
+  server_name \$hostname;
+  root /var/www/wordpress;
   index index.php index.html index.htm;
-  access_log /var/log/nginx/wordpress.access.log;
-  error_log /var/log/nginx/wordpress.error.log;
-
+  charset UTF-8;
   location / {
-    try_files $uri $uri/ /index.php?q=$uri&$args;
+    try_files $uri/ /index.php?$args;
   }
-
-  error_page 404 /404.html;
-
-  error_page 500 502 503 504 /50x.html;
-  location = /50x.html {
-   root /usr/share/nginx/html;
+  location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:$php_fpm;
+    fastcgi_index index.php;
+    include fastcgi.conf;
   }
-
- location ~ \.php$ {
-   fastcgi_pass unix:$php_fpm;
-   fastcgi_split_path_info ^(.+\.php)(/.*)$;
-   include snippets/fastcgi-php.conf;
-   #include fastcgi_params;
-   #fastcgi_params;
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff)$ {
+    add_header Access-Control-Allow-Origin *;
+    access_log off; log_not_found off; expires 30d;
   }
+  location = /robots.txt { access_log off; log_not_found off; }
+  location ~ /\. { deny all; access_log off; log_not_found off; }
 }
 EOF
 fi

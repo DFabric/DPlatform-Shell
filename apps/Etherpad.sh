@@ -31,6 +31,8 @@ sed -i 's/var\/dirty.db/var\/sqlite.db/' settings.json
 #prepare the enviroment
 sh /home/etherpad/bin/installDeps.sh
 
+npm install sqlite3
+
 # Add etherpad user
 useradd -rU etherpad
 

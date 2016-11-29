@@ -192,7 +192,7 @@ apps_menus() {
 		GateOne "An HTML5-powered terminal emulator and SSH client" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
-		Jitsi-Meet "Secure, Simple and Scalable Video Conferences" \
+		Jitsi-Meet "|~| Secure, Simple and Scalable Video Conferences" \
 		JSBin "Collaborative JavaScript Debugging App" \
 		KeystoneJS "|~| Node.js CMS & Web Application Platform" \
 		Laverna "Note taking application with Mardown editor and encryption" \
