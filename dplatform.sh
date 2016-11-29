@@ -65,10 +65,10 @@ case $ARCH in
 esac
 
 # Check if systemd is the init system
-hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You haven't systemd as an init system.
+hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You don't have systemd as an init system.
 
-Your apps will be installed successfully but you will can't
-be able to use custom app services that run in background" 10 64
+Your apps will be installed successfully but you won't
+be able to use custom app services that run in the background" 10 64
 
 # Test if cuby responds
 echo "Obtaining the IPv4 address from http://ip4.cuby-hebergs.com..."
