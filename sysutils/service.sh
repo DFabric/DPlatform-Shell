@@ -96,6 +96,7 @@ WorkingDirectory=$3
 ExecStart=$2
 User=$user
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

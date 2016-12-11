@@ -92,6 +92,7 @@ Environment=GHOST_NODE_VERSION_CHECK=false
 User=ghost
 Group=ghost
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

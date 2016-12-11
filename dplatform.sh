@@ -205,7 +205,7 @@ apps_menus() {
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
 		Meteor "The JavaScript App Platform" \
-		Modoboa "/!\ Mail hosting made simple" \
+		Modoboa "Mail hosting made simple" \
 		MongoDB "The next-generation database" \
 		netdata "Real-time performance monitoring, in the greatest possible detail" \
 		Node.js "Install Node.js using nvm" \

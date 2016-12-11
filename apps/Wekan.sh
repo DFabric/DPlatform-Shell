@@ -82,6 +82,7 @@ Environment=ROOT_URL=http://$IP:$port/ PORT=$port
 User=wekan
 Group=wekan
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

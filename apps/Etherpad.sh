@@ -9,8 +9,8 @@
 port=$(whiptail --title "Etherpad port" --inputbox "Set a port number for Etherpad" 8 48 "9001" 3>&1 1>&2 2>&3)
 
 # Create etherpad user directory
-mkdir /home/etherpad
-cd /home/etherpad
+# Add etherpad user
+useradd -mrU etherpad
 
 # gzip, git, curl, libssl develop libraries, python and gcc needed
 [ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential sqlite3
@@ -20,8 +20,7 @@ git clone https://github.com/ether/etherpad-lite .
 
 cp settings.json.template settings.json
 
-[ $IP = $LOCALIP ] && access=$IP || access=
-sed -i "s/0.0.0.0/$access/" settings.json
+[ $IP = $LOCALIP ] && sed -i "s/0.0.0.0/$IP/" settings.json
 sed -i "s/9001/$port/" settings.json
 
 # Relace dirty db by SQlite
@@ -32,9 +31,6 @@ sed -i 's/var\/dirty.db/var\/sqlite.db/' settings.json
 sh /home/etherpad/bin/installDeps.sh
 
 npm install sqlite3
-
-# Add etherpad user
-useradd -rU etherpad
 
 # Change the owner from root to etherpad
 chown -R etherpad: /home/etherpad

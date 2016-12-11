@@ -1,11 +1,7 @@
 #!/bin/sh
 
-[ "$1" = update ] && { git -C /home/etherdraw/draw pull; chown -R etherdraw: /home/etherdraw; whiptail --msgbox "EtherDraw updated!" 8 32; break; }
+[ "$1" = update ] && { git -C /home/etherdraw pull; chown -R etherdraw: /home/etherdraw; whiptail --msgbox "EtherDraw updated!" 8 32; break; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove EtherDraw; userdel -rf etherdraw; groupdel etherdraw; whiptail --msgbox "EtherDraw removed." 8 32; break; }
-
-# ARM architecture doesn't appear to work
-[ $ARCHf = arm ]; whiptail --yesno "Your architecture ($ARCHf) doesn't appear to be supported yet, cancel the installation?" 8 48
-[ $? != 0 ] || break
 
 . sysutils/Node.js.sh
 
@@ -16,33 +12,33 @@ useradd -mrU etherdraw
 cd /home/etherdraw
 
 # Install Requirements
-$install libcairo2-dev libpango1.0-dev libgif-dev g++
-$install libjpeg8-dev || $install libjpeg62-dev
-[ $PKG = deb ] && $install build-essential
-[ $PKG = rpm ] && $install groupinstall 'Development Tools'
+[ $PKG = deb ] && $install build-essential libcairo2-dev libpango1.0-dev libgif-dev g++ && { $install libjpeg8-dev || $install libjpeg62-dev; }
+[ $PKG = rpm ] && yum groupinstall 'Development Tools' && $install libcairo2-devel libpango1.0-devel libgif-devel gcc-c++ && { $install libjpeg8-devel || $install libjpeg62-devel; }
 
 # Install EtherDraw
-git clone https://github.com/JohnMcLear/draw
+git clone https://github.com/JohnMcLear/draw .
 
-#prepare the enviroment
-cd draw
+# prepare the enviroment
 sh bin/installDeps.sh
+
+npm install sqlite3
 
 # Change the owner from root to etherdraw
 chown -R etherdraw: /home/etherdraw
 
 # Create the systemd service
-cat > "/etc/systemd/system/etherdraw.service" <<EOF
+cat > /etc/systemd/system/etherdraw.service <<EOF
 [Unit]
 Description=EtherDraw Server
 After=network.target
 [Service]
 Type=simple
-WorkingDirectory=/home/etherdraw/draw
-ExecStart=/usr/bin/node server.js
+WorkingDirectory=/home/etherdraw
+ExecStart=/usr/bin/node /home/etherdraw/server.js
 User=etherdraw
 Group=etherdraw
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

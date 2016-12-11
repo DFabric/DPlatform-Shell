@@ -82,6 +82,7 @@ ExecStart=/usr/bin/node /app.js
 User=nodebb
 Group=nodebb
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

@@ -36,6 +36,7 @@ ExecStart=/usr/bin/npm start
 User=letschat
 Group=letschat
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

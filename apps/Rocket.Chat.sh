@@ -127,6 +127,7 @@ Environment=$MONGO_URL
 User=rocketchat
 Group=rocketchat
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

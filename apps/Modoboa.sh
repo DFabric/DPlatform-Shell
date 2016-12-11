@@ -1,17 +1,19 @@
 #!/bin/sh
 
+[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; break; }
+[ "$1" = remove ] && { whiptail --msgbox "Not available yet." 8 32; break; }
+
+$install python
+
 cd
 git clone https://github.com/modoboa/modoboa-installer
 cd modoboa-installer
 
-# Access the web GUI from other computers
-sed -i 's/127.0.0.1/0.0.0.0/g' installer.cgf
-
-./run.py `hostname`
+./run.py $(hostname)
 
 whiptail --msgbox "Modoboa installed!
 
-You should be able to access Modoboa at http://$URL:8000
+You should be able to access Modoboa at https://$URL
 
 Username: admin
 Password: password" 14 64

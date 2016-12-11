@@ -34,6 +34,7 @@ ExecStart=/usr/bin/npm start
 User=agario
 Group=agario
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

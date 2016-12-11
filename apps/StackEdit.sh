@@ -40,6 +40,7 @@ ExecStart=/usr/bin/node server.js
 User=stackedit
 group=stackedit
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF

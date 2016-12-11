@@ -6,7 +6,7 @@
 # Defining the ports
 MPDport=$(whiptail --title "MPD server port" --inputbox "Set a port number for the MPD server" 8 48 "6600" 3>&1 1>&2 2>&3)
 
-port=$(whiptail --title "Mopify web client port" --inputbox "Set a port number for Mopify web client" 8 48 "6680" 3>&1 1>&2 2>&3)
+port=$(whiptail --title "Mopify web client port" --inputbox "Set a port number for the Mopify web client" 8 48 "6680" 3>&1 1>&2 2>&3)
 
 if [ $PKG = deb ] ;then
   # Add the archive’s GPG key
@@ -20,7 +20,7 @@ if [ $PKG = deb ] ;then
   # Install Mopidy and all dependencies
   apt-get update
 fi
-[ $PKG = rpm ]; whiptail --yesno "Your have $DIST. $PGK based OS aren't supported yet." 8 32
+[ $PKG = rpm ]; whiptail --yesno "Your have $DIST. $PKG based OS aren't supported yet." 8 32
 [ $PKG != rpm ] || break
 $install mopidy
 

@@ -49,6 +49,7 @@ ExecStart=/home/linx/linx-server-v${ver}_linux-$arch -config /home/linx/config.i
 User=linx
 Group=linx
 Restart=always
+RestartSec=9
 [Install]
 WantedBy=multi-user.target
 EOF
