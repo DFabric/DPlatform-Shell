@@ -51,7 +51,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget sudo 2>/dev/null || $install git whiptail curl wget sudo
+hash git whiptail curl wget 2>/dev/null || $install git whiptail curl wget
 
 # Detect architecture
 ARCH=$(arch)
@@ -65,7 +65,7 @@ case $ARCH in
 esac
 
 # Check if systemd is the init system
-hash systemd 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You don't have systemd as an init system.
+hash systemctl 2>/dev/null || whiptail --title '/!\ WARNING - systemd services not available /!\' --msgbox "       You don't have systemd as an init system.
 
 Your apps will be installed successfully but you won't
 be able to use custom app services that run in the background" 10 64
@@ -211,10 +211,9 @@ apps_menus() {
 		Node.js "Install Node.js using nvm" \
 		NodeBB "Node.js based community forum built for the modern web" \
 		ReactionCommerce "|~| Modern reactive, real-time event driven ecommerce platform" \
-		RetroPie "/!\ Setup Raspberry PI with RetroArch emulator and various cores" \
 		TheLounge "The self-hosted web IRC client" \
 		StackEdit "In-browser markdown editor" \
-		Taiga.Io "/!\ Agile, Free and Open Source Project Management Platform" \
+		Taiga.io "/!\ Agile, Free and Open Source Project Management Platform" \
 		Transmission "A cross-platform BitTorrent client that is easy and powerful use" \
 		Wagtail "|~| Django CMS focused on flexibility and user experience" \
 		Wekan "Collaborative Trello-like kanban board application" \

@@ -51,7 +51,7 @@ case $db_choice in
 	rm seafile-server_*
 
 	# Prerequisites
-	$install python2.7 libpython2.7 python-setuptools python-imaging python-ldap sqlite3
+	$install python2.7 libpython2.7 python-setuptools python-imaging python-ldap sqlite3 sudo
 
 	cd seafile-server-*
 	#run the setup script & answer prompted questions

@@ -8,10 +8,10 @@
 
 if [ $PKG = deb ] ;then
   # Add the release PGP keys:
-  curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+  curl -s https://syncthing.net/release-key.txt | apt-key add -
 
   # Add the "release" channel to your APT sources:
-  echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
+  echo "deb http://apt.syncthing.net/ syncthing release" | tee /etc/apt/sources.list.d/syncthing.list
 
   # Update and install syncthing:
   sudo apt-get update

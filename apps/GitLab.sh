@@ -31,9 +31,9 @@ fi
 # Add the GitLab package server and install the package
 if [ $ARCH = armv7 ] && [ $PKG = deb ] ;then
   $install apt-transport-https
-  curl -sS https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | sudo bash
+  curl -sS https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | bash
 else
-  curl -Ss https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | sudo bash
+  curl -Ss https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.$PKG.sh | bash
 fi
 $install gitlab-ce
 

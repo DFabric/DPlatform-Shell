@@ -25,7 +25,7 @@ else
 fi
 
 # Prerequisites
-hash git whiptail curl wget sudo 2>/dev/null || $install git whiptail curl wget sudo
+hash git whiptail curl wget 2>/dev/null || $install git whiptail curl wget
 
 # Current directory
 DIR=$(cd -P $(dirname $0) && pwd)
@@ -33,5 +33,6 @@ cd $DIR
 
 # Check available updates or clone the project
 [ -d $DIR/.git ] && git pull
-[ -d $DIR/DPlatform-ShellCore ] && DIR=$DIR/DPlatform-ShellCore || [ "${DIR##*/}" != DPlatform-ShellCore ] && git clone -b master --single-branch https://github.com/DFabric/DPlatform-ShellCore && DIR=$DIR/DPlatform-ShellCore
+[ -d $DIR/DPlatform-ShellCore ] || [ "${DIR##*/}" != DPlatform-ShellCore ] && git clone -b master --single-branch https://github.com/DFabric/DPlatform-ShellCore
+DIR=$DIR/DPlatform-ShellCore
 . $DIR/dplatform.sh

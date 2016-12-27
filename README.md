@@ -75,10 +75,9 @@
 - [NodeBB](https://nodebb.org/) - Node.js based community forum built for the modern web
 - [Node.js](https://nodejs.org/) - Install Node.js with [NodeSource](https://nodesource.com/)(root) or [nvm](https://github.com/creationix/nvm)(non-root)
 - [Reaction Commerce](https://reactioncommerce.com/) - A completely open source JavaScript platform for today's premier ecommerce experiences
-- [RetroPie](https://github.com/RetroPie/RetroPie-Setup) - Setup Raspberry PI with RetroArch emulator and various cores
 - [TheLounge](https://thelounge.github.io/) - The self-hosted web IRC client
 - [StackEdit](https://stackedit.io/) - A full-featured, open-source Markdown editor based on PageDown.
-- [Taiga.Io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform
+- [Taiga.io](https://taiga.io/) - Agile, Free and Open Source Project Management Platform
 - [Transmission](https://www.transmissionbt.com/) with WebInterface - A cross-platform BitTorrent client that is open source and designed for easy, powerful use
 - [Webmin](http://www.webmin.com/) -  A web-based interface for system administration for Unix - With the [Authentic theme](https://github.com/qooob/authentic-theme)
 - [Wekan](https://wekan.io/) - Collaborative Trello-like kanban board application
