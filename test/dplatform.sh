@@ -13,12 +13,29 @@ cl="\33[0;37m"
 # Bold Yellow selectioned color
 sl="\33[1;33m"
 
+
+if [ "$1" != run ]; then
+	printf "To run tests: sh dplatform.sh run
+
+	You can use systemd-nspawn to launch DPlatform tests
+
+	$sl Unbuntu 16.04$end
+	machinectl pull-tar https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-root.tar.xz
+	systemd-nspawn -M xenial-server-cloudimg-amd64-root
+
+	$sl Fedora 25$end
+	machinectl pull-raw --verify=no https://dl.fedoraproject.org/pub/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.raw.xz
+	systemd-nspawn -M Fedora-Cloud-Base-25-1.3.x86_64\n"
+	exit 0
+fi
 [ $(id -u) != 0 ] && printf "\033c\33[1;31m        You don't run this as root!\33[0m
     You will need to have root permissions
     Press Enter <-'\n" && read null
 
 # Current directory
 [ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
+cp -r .. /tmp/DPlatform-ShellCore-test
+DIR=/tmp/DPlatform-ShellCore-test
 cd $DIR
 
 # Detect distribution
@@ -61,7 +78,7 @@ fi
 hash git curl wget 2>/dev/null || $install git curl wget
 
 # Detect architecture
-ARCH=$(arch)
+ARCH=$(uname -m)
 case $ARCH in
 	x86_64) ARCHf=x86; ARCH=amd64;;
 	i*86) ARCHf=x86; ARCH=86;;
@@ -104,29 +121,27 @@ extract() {
 	tar $2 -${1% *}
 }
 
-# Applications menus
-apps_menus() {
-			case $APP in
-				# Create a loop to break
-				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
-				$APP) for a in a; do . apps/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
-			esac
-		cd $DIR
-	else
-		# Installation menu
-		while APP="Rocket.Chat Gogs Syncthing OpenVPN Mumble Seafile Mopidy FreshRSS OwnCloud Nextcloud Agar.io-Clone Ajenti Cuberite Deluge Dillinger Droppy EtherCalc EtherDraw Etherpad GateOne GitLab Ghost Jitsi-Meet JSBin KeystoneJS Laverna LetsChat Linx Cloud9 Curvytron Caddy Docker Mailpile Mattermost Meteor Modoboa MongoDB netdata Node.js NodeBB ReactionCommerce TheLounge StackEdit Taiga.io Transmission Wagtail Wekan Wide WordPress WP-Calypso"
-		do
-			case $APP in
-				Caddy|Docker|Meteor|MongoDB|Node.js) . sysutils/$APP.sh;;
-				$APP) . apps/$APP.sh; cd $DIR; grep -q  $APP dp.cfg || echo $APP >> dp.cfg;;
-			esac
-		done
-	fi
-}
-
 URL=$(hostname)
 IP=$LOCALIP
+APP_LIST="Rocket.Chat Gogs Syncthing OpenVPN Mumble Seafile Mopidy FreshRSS OwnCloud Nextcloud Agar.io-Clone Ajenti Cuberite Deluge Dillinger Droppy EtherCalc EtherDraw Etherpad GateOne GitLab Ghost Jitsi-Meet JSBin KeystoneJS Laverna LetsChat Linx Cloud9 Curvytron Caddy Docker Mailpile Mattermost Meteor Modoboa MongoDB netdata Node.js NodeBB ReactionCommerce TheLounge StackEdit Taiga.io Transmission Wagtail Wekan Wide WordPress WP-Calypso"
 
-Install) apps_menus
-Update) apps_menus update
-Remove) apps_menus remove
+for app in $APP_LIST ;do
+	# Installation menu
+	case $app in
+		Caddy|Docker|Meteor|MongoDB|Node.js) app_path="$DIR/sysutils/$app.sh";;
+		$app) app_path="$DIR/apps/$app.sh";;
+	esac
+	# Port
+	sed -i -e '/Set a port/ s/=.*"\(.*\)"[^"]*$/=\1/'	$app_path
+
+	# Message box
+	sed -i -e 's/whiptail --msgbox/echo/' -e 's/" [0-9]*[0-9] [0-9][0-9]/"/' $app_path
+
+	if [ "$1" = update ] || [ "$1" = remove ] ;then
+		for a in a; do . $app_path $1 ;done
+	else
+		. $app_path
+	fi
+	cd $DIR
+done
+rm -r $DIR

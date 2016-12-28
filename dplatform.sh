@@ -54,7 +54,7 @@ fi
 hash git whiptail curl wget 2>/dev/null || $install git whiptail curl wget
 
 # Detect architecture
-ARCH=$(arch)
+ARCH=$(uname -m)
 case $ARCH in
 	x86_64) ARCHf=x86; ARCH=amd64;;
 	i*86) ARCHf=x86; ARCH=86;;

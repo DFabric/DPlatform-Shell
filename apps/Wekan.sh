@@ -31,7 +31,7 @@ download "https://github.com/wekan/wekan/releases/download/v$ver/wekan-$ver.tar.
 # Extract the downloaded archive and remove it
 extract wekan-$ver.tar.gz "xzf -" "Extracting the files from the archive..."
 
-mv bundle .
+mv -f bundle/* bundle/.[^.]* .
 rm wekan-$ver.tar.gz
 
 # Dependencies needed for npm install
