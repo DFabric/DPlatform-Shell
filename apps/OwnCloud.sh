@@ -6,7 +6,7 @@
 
 if [ $PKG = deb ] ;then
   case "$DIST$DIST_VER" in
-    ubuntu12.04|ubuntu14.10|ubuntu15.04|ubuntu15.10|ubuntu16.04) dist=Ubuntu_$DIST_VER;;
+    ubuntu12.04|ubuntu14.10|ubuntu15.*|ubuntu16.*|ubuntu17.*) dist=Ubuntu_$DIST_VER;;
     debian7|debian8) dist=Debian_$DIST_VER.0;;
     *) whiptail --yes-no "Your operating system $DIST doesn't appear to be officially supported. Try with the Debian 8 repo?" 8 64
      [ $? = 0 ] || break

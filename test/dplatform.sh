@@ -8,22 +8,21 @@
 # and probably other distros of the same families, although no support is offered for them.
 
 end="\33[0m"
-# White text color
-cl="\33[0;37m"
+
 # Bold Yellow selectioned color
-sl="\33[1;33m"
+cl="\33[1;33m"
 
-
-if [ "$1" != run ]; then
+if [ "$1" != run ] ;then
 	printf "To run tests: sh dplatform.sh run
 
-	You can use systemd-nspawn to launch DPlatform tests
+	You can use systemd-nspawn to launch DPlatform tests inside
 
-	$sl Unbuntu 16.04$end
+	$cl Unbuntu 16.04$end
 	machinectl pull-tar https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-root.tar.xz
 	systemd-nspawn -M xenial-server-cloudimg-amd64-root
+	# If you have no DNS, copy /etc/resolv.conf of your machine to /run/resolvconf/resolv.conf in the container
 
-	$sl Fedora 25$end
+	$cl Fedora 25$end
 	machinectl pull-raw --verify=no https://dl.fedoraproject.org/pub/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.raw.xz
 	systemd-nspawn -M Fedora-Cloud-Base-25-1.3.x86_64\n"
 	exit 0
@@ -32,8 +31,9 @@ fi
     You will need to have root permissions
     Press Enter <-'\n" && read null
 
-# Current directory
-[ "$DIR" = '' ] && DIR=$(cd -P $(dirname $0) && pwd)
+# cd to the current directory
+cd $(cd -P $(dirname $0) && pwd)
+
 cp -r .. /tmp/DPlatform-ShellCore-test
 DIR=/tmp/DPlatform-ShellCore-test
 cd $DIR
@@ -56,7 +56,7 @@ fi
 # Detect package manager
 if hash apt-get 2>/dev/null ;then
 	PKG=deb
-	install="debconf-apt-progress -- apt-get install -y"
+	install="apt-get install -y"
 	remove="apt-get purge -y"
 elif hash dnf 2>/dev/null ;then
 	PKG=rpm
@@ -125,17 +125,19 @@ URL=$(hostname)
 IP=$LOCALIP
 APP_LIST="Rocket.Chat Gogs Syncthing OpenVPN Mumble Seafile Mopidy FreshRSS OwnCloud Nextcloud Agar.io-Clone Ajenti Cuberite Deluge Dillinger Droppy EtherCalc EtherDraw Etherpad GateOne GitLab Ghost Jitsi-Meet JSBin KeystoneJS Laverna LetsChat Linx Cloud9 Curvytron Caddy Docker Mailpile Mattermost Meteor Modoboa MongoDB netdata Node.js NodeBB ReactionCommerce TheLounge StackEdit Taiga.io Transmission Wagtail Wekan Wide WordPress WP-Calypso"
 
+# Port
+sed -i -e '/Set a port/ s/=.*"\(.*\)"[^"]*$/=\1/' $DIR/*/*
+
+# Message box
+sed -i -e 's/whiptail --msgbox/echo/' -e 's/" [0-9]*[0-9] [0-9][0-9]/"/' $DIR/*/*
+
 for app in $APP_LIST ;do
-	# Installation menu
+	app_path="$DIR/apps/$app.sh"
 	case $app in
 		Caddy|Docker|Meteor|MongoDB|Node.js) app_path="$DIR/sysutils/$app.sh";;
-		$app) app_path="$DIR/apps/$app.sh";;
+		Rocket.Chat) sed -i -n '/while/{:a;N;/done/!ba;N;s/.*/MONGO_URL=MONGO_URL=mongodb:\/\/127.0.0.1:27017\/rocketchat\n. $DIR\/sysutils\/MongoDB.sh\n/};p' $app_path;;
+		$app) ;;
 	esac
-	# Port
-	sed -i -e '/Set a port/ s/=.*"\(.*\)"[^"]*$/=\1/'	$app_path
-
-	# Message box
-	sed -i -e 's/whiptail --msgbox/echo/' -e 's/" [0-9]*[0-9] [0-9][0-9]/"/' $app_path
 
 	if [ "$1" = update ] || [ "$1" = remove ] ;then
 		for a in a; do . $app_path $1 ;done
@@ -144,4 +146,5 @@ for app in $APP_LIST ;do
 	fi
 	cd $DIR
 done
+
 rm -r $DIR

@@ -46,35 +46,28 @@ elif [ $ARCHf = arm ] && [ $PKG = deb ] ;then
   ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
   systemctl restart mongod
 
-# Debian (deb) based OS
-elif [ $PKG = deb ] ;then
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv EA312927
-  # Ubuntu repository
-  if [ $DIST = ubuntu ] ;then
-    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
-  # All other Debian based distributions
-  else
-    echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
-  fi
-  apt-get update
-  $install mongodb-org
-
-# Red Hat (rpm) based OS
-elif [ $PKG = rpm ] ;then
-  echo '[mongodb-org-3.2]' > /etc/yum.repos.d/mongodb-org-3.2.repo
-  echo 'name=MongoDB Repository' >> /etc/yum.repos.d/mongodb-org-3.2.repo
-  if grep 'Amazon' /etc/issue 2>/dev/null ;then
-    echo 'baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/' >> /etc/yum.repos.d/mongodb-org-3.2.repo
-  else
-    echo 'baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/x86_64/' >> /etc/yum.repos.d/mongodb-org-3.2.repo
-  fi
-  echo 'gpgcheck=0' >> /etc/yum.repos.d/mongodb-org-3.2.repo
-  echo 'enabled=1' >> /etc/yum.repos.d/mongodb-org-3.2.repo
-
+elif [ $ARCHf = x86 ] ;then
+  [ $PKG = deb ] && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+  case "$DIST$DIST_VER" in
+	   ubuntu12.04) echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     ubuntu14.04) echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     ubuntu16.04) echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     debian7) echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     debian8) echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     centos*|redhat*) cat > /etc/yum.repos.d/mongodb-org-3.4.repo <<EOF
+[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+EOF;;
+     *) $install mongodb || { echo You need to manually install MongoDB; exit 1; };;
+  esac
+  [ $PKG = deb ] && apt-get update
   $install mongodb-org
 else
-  # If mongodb installation return an error, manual installation required
-  $install mongodb || {echo You probably need to manually install MongoDB; exit 1}
+  $install mongodb || { echo You need to manually install MongoDB; exit 1; }
 fi
 
 grep -q MongoDB $DIR/dp.cfg 2>/dev/null || echo MongoDB >> $DIR/dp.cfg
