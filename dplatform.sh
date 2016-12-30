@@ -190,6 +190,7 @@ apps_menus() {
 		EtherDraw "Collaborative real-time drawing, sketching & painting" \
 		Etherpad "Real-time collaborative document editor" \
 		GateOne "An HTML5-powered terminal emulator and SSH client" \
+		Gitea "Git with a cup of tea - A painless self-hosted Git service" \
 		GitLab "Open source Version Control to collaborate on code" \
 		Ghost "Simple and powerful blogging/publishing platform" \
 		Jitsi-Meet "|~| Secure, Simple and Scalable Video Conferences" \

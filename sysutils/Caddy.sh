@@ -46,8 +46,8 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Create a temp directrory
   mkdir /tmp/caddy
 
-  # Download  Caddy
-  wget "https://caddyserver.com/download/build?os=linux&arch=$arch&features=" -O /tmp/caddy.tar.gz
+  # Download Caddy
+  download "https://caddyserver.com/download/build?os=linux&arch=$arch&features= -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
 
   # Extract the downloaded archive and remove it
   extract "/tmp/caddy.tar.gz" "xzf - -C /tmp/caddy" "Extracting the files from the archive..."

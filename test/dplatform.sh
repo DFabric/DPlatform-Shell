@@ -123,7 +123,7 @@ extract() {
 
 URL=$(hostname)
 IP=$LOCALIP
-APP_LIST="Rocket.Chat Gogs Syncthing OpenVPN Mumble Seafile Mopidy FreshRSS OwnCloud Nextcloud Agar.io-Clone Ajenti Cuberite Deluge Dillinger Droppy EtherCalc EtherDraw Etherpad GateOne GitLab Ghost Jitsi-Meet JSBin KeystoneJS Laverna LetsChat Linx Cloud9 Curvytron Caddy Docker Mailpile Mattermost Meteor Modoboa MongoDB netdata Node.js NodeBB ReactionCommerce TheLounge StackEdit Taiga.io Transmission Wagtail Wekan Wide WordPress WP-Calypso"
+APP_LIST="Rocket.Chat Gogs Syncthing OpenVPN Mumble Seafile Mopidy FreshRSS OwnCloud Nextcloud Agar.io-Clone Ajenti Cuberite Deluge Dillinger Droppy EtherCalc EtherDraw Etherpad GateOne Gitea GitLab Ghost Jitsi-Meet JSBin KeystoneJS Laverna LetsChat Linx Cloud9 Curvytron Caddy Docker Mailpile Mattermost Meteor Modoboa MongoDB netdata Node.js NodeBB ReactionCommerce TheLounge StackEdit Taiga.io Transmission Wagtail Wekan Wide WordPress WP-Calypso"
 
 # Port
 sed -i -e '/Set a port/ s/=.*"\(.*\)"[^"]*$/=\1/' $DIR/*/*

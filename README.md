@@ -55,6 +55,7 @@
 - [EtherDraw](https://github.com/JohnMcLear/draw) - A real time collaborative drawing tool using nodejs, socket.io & paper.js
 - [Etherpad](http://etherpad.org/) - Real-time collaborative document editor
 - [Gate One](http://liftoffsoftware.com/Products/GateOne) - Gate One is an HTML5-powered terminal emulator and SSH client
+- [Gitea](https://gitea.io/) - Git with a cup of tea - A painless self-hosted Git service
 - [GitLab CE](https://about.gitlab.com/features/) - Open source Version Control to collaborate on code
 - [Ghost](https://ghost.org/) - Simple and powerful blogging/publishing platform
 - [Jitsi Meet](https://jitsi.org/Projects/JitsiMeet) - Secure, Simple and Scalable Video Conferences
