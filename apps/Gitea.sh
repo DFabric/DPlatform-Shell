@@ -28,7 +28,7 @@ case $ARCH in
 esac
 
 # Download the archive
-download "https://dl.gitea.io/gitea/$ver/gitea-$ver-linux-$arch" "Downloading the Gitea $ver binary..."
+download "https://dl.gitea.io/gitea/$ver/gitea-$ver-linux-$arch -O /home/git/gitea/gitea" "Downloading the Gitea $ver binary..."
 
 # Start the service and enable it to start up at boot
 download "https://raw.githubusercontent.com/go-gitea/gitea/master/scripts/systemd/gitea.service -O /etc/systemd/system/gitea.service" "Downloading the Gitea systemd service..."
