@@ -33,6 +33,5 @@ cd $DIR
 
 # Check available updates or clone the project
 [ -d $DIR/.git ] && git pull
-[ -d $DIR/DPlatform-ShellCore ] || [ "${DIR##*/}" != DPlatform-ShellCore ] && git clone -b master --single-branch https://github.com/DFabric/DPlatform-ShellCore
-DIR=$DIR/DPlatform-ShellCore
+[ -d $DIR/DPlatform-ShellCore ] && DIR=$DIR/DPlatform-ShellCore || [ "${DIR##*/}" != DPlatform-ShellCore ] && git clone -b master --single-branch https://github.com/DFabric/DPlatform-ShellCore && DIR=$DIR/DPlatform-ShellCore
 . $DIR/dplatform.sh

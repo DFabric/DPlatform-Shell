@@ -1,7 +1,7 @@
 #!/bin/sh
 # DeployPlaform - Deploy self-hosted apps efficiently
 # https://github.com/DFabric/DPlatform-ShellCore
-# Copyright (c) 2015-2016 Julien Reichardt - MIT License (MIT)
+# Copyright (c) 2015-2017 Julien Reichardt - MIT License (MIT)
 
 # This script is implemented as POSIX-compliant.
 # It should work on sh, dash, bash, ksh, zsh on Debian, Ubuntu, Fedora, CentOS

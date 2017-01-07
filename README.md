@@ -141,4 +141,4 @@ If you want to contribute, you should see [CONTRIBUTING.md](https://github.com/D
 ## License
 DPlatform - Deploy self-hosted apps easily
 
-Copyright (c) 2015-2016 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
+Copyright (c) 2015-2017 Julien Reichardt - [MIT License](http://opensource.org/licenses/MIT) (MIT)
