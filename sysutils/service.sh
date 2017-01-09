@@ -89,6 +89,7 @@ Type=simple
 WorkingDirectory=$3
 ExecStart=$2
 User=$user
+Group=$user
 Restart=always
 RestartSec=9
 [Install]

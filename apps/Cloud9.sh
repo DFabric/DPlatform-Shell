@@ -23,6 +23,10 @@ chown -R cloud9: /home/cloud9
 # Add a systemd service and run the server
 sh sysutils/service.sh Cloud9 "/usr/bin/node server$port_arg" /home/cloud9 cloud9
 
+# Start the service and enable it to start at boot
+systemctl start cloud9
+systemctl enable cloud9
+
 whiptail --msgbox "Cloud9 installed!
 
 Open http://$URL:$port in your browser and register.

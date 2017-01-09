@@ -65,7 +65,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
 
   rm -r /tmp/caddy
 
-  # Start CAddy and enable the auto-start it at boot
+  # Start Caddy and enable the auto-start it at boot
   systemctl start caddy
   systemctl enable caddy
 
