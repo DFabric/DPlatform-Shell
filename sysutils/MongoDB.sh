@@ -21,7 +21,7 @@ elif [ $ARCH = armv6 ] && [ $PKG = deb ] ;then
   $install mongodb
 
   # Download the archive
-  download --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz "Downloading the MongoDB 2.6.7 archive..." 6 64 0
+  download --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz "Downloading the MongoDB 2.6.7 archive..."
 
   # Extract the downloaded archive and remove it
   extract mongo_Linux_armv6l_v2.6.7.tar.gz "xzf - -C /usr/bin" "Extracting the files from the archive..."
@@ -49,7 +49,7 @@ elif [ $ARCHf = arm ] && [ $PKG = deb ] ;then
 elif [ $ARCHf = x86 ] ;then
   [ $PKG = deb ] && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
   case "$DIST$DIST_VER" in
-	   ubuntu12.04) echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
+     ubuntu12.04) echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
      ubuntu14.04) echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
      ubuntu16.04) echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
      debian7) echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list;;
@@ -61,7 +61,8 @@ baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
-EOF;;
+EOF
+;;
      *) $install mongodb || { echo You need to manually install MongoDB; exit 1; };;
   esac
   [ $PKG = deb ] && apt-get update

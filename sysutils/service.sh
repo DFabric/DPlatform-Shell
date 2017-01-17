@@ -12,7 +12,7 @@ service_detection() {
     # Correct the service name of the app
     [ $service = mumble ] && service_list="$service_list mumble-server ${service_description#*=}[$(systemctl is-active mumble-server)]$(systemctl is-enabled mumble-server)"
     [ $service = deluge ] && service=deluged
-    [ $service = mongod ] && service=mongod
+    [ $service = mongodb ] && service=mongod
     # Only create an entry for existing services
     if [ -f /etc/systemd/system/$service.service ] || [ -f /lib/systemd/system/$service.service ] ;then
       # Concatenate the service into a list
