@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Update, rebuild and install netdata
-[ "$1" = update ] && { git -C netdada pull; ~/netdata/netdata-installer.sh; whiptail --msgbox "netdata updated!" 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove netdata; rm /etc/nginx/sites-*/netdata; systemctl restart nginx; sh sysutils/service.sh remove netdata; ~/netdata/netdata-uninstaller.sh --force; rm -r ~/netdata; whiptail --msgbox "netdata removed." 8 32; break; }
+[ "$1" = update ] && { cd /opt/netdata; ./netdata-updater.sh; whiptail --msgbox "netdata updated!" 8 32; break; }
+[ "$1" = remove ] && { rm /etc/nginx/sites-*/netdata; systemctl restart nginx; sh sysutils/service.sh remove netdata; rm -rf /usr/sbin/netdata /etc/netdata /usr/share/netdata /usr/libexec/netdata /var/cache/netdata /var/log/netdata /opt/netdata; userdel netdata; groupdel netdata; whiptail --msgbox "netdata removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
@@ -10,7 +10,6 @@ port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata
 install_choice=$(whiptail --title Seafile --menu "	What netdata packages installation do you want?" 16 96 3 \
 "Basic" "System monitoring and many applications. No mariadb, named, hardware sensors and SNMP" \
 "Advanced" "Install all the required packages for monitoring everything netdata can monitor" \
-"DP basic" "Most basic installation. Don't include Python unlike previous choices" \
 3>&1 1>&2 2>&3)
 
 
@@ -21,19 +20,20 @@ install_choice=$(whiptail --title Seafile --menu "	What netdata packages install
 # ArchLinux
 if [ "$install_choice" = "DP basic" ] && [ $PKG = pkg ] ;then
   $install netdata
-elif [ "$install_choice" = "DP basic" ] ;then
+else
   # Debian / Ubuntu
   [ $PKG = deb ] && $install zlib1g-dev uuid-dev libmnl-dev gcc make autoconf autogen automake pkg-config
 
   # Centos / Fedora / Redhat
   [ $PKG = rpm ] && $install zlib-devel libuuid-devel libmnl-devel gcc make autoconf autogen automake pkgconfig
 
-  cd
+  cd /tmp
   # download it - the directory 'netdata' will be created
   git clone https://github.com/firehol/netdata --depth=1
 
   # build it, install it, start it
-  ~/netdata/netdata-installer.sh
+  cd netdata
+  ./netdata-installer.sh --install /opt
 fi
 
 # Run netdata via Caddy's proxying
@@ -91,6 +91,7 @@ killall netdata
 
 # copy netdata.service to systemd
 cp system/netdata.service /etc/systemd/system/
+rm -rf /tmp/netdata
 
 # let systemd know there is a new service
 systemctl daemon-reload
