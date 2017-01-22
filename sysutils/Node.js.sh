@@ -2,7 +2,7 @@
 
 [ "$1" = update ] && [ $ARCH != arm64 ] && [ $PKG = deb ] && { apt-get update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
 [ "$1" = update ] && [ $PKG = rpm ] && { yum update; $install nodejs; whiptail --msgbox "Node.js updated!" 8 32; break; }
-[ "$1" = remove ] && [ $ARCH = arm64 ] && [ $PKG = deb ] { cd /usr; rm -rf */node*; rm -rf doc/node; rm -rf share/*/*/node*; rm bin/npm; whiptail --msgbox "Node.js removed." 8 32; break; }
+[ "$1" = remove ] && [ $ARCH = arm64 ] && [ $PKG = deb ] && { cd /usr; rm -rf */node*; rm -rf doc/node; rm -rf share/*/*/node*; rm bin/npm; whiptail --msgbox "Node.js removed." 8 32; break; }
 [ "$1" = remove ] && { $remove nodejs; whiptail --msgbox "Node.js removed." 8 32; break; }
 
 
@@ -38,8 +38,8 @@ elif [ $PKG = deb ] ;then
   rsync -aPr node-v$ver-linux-$arch/* /usr
   rm -r node-v$ver-linux-$arch*
 
-  [ "$1" = install ] && whiptail --msgbox=installed || whiptail --msgbox="$1"
-  echo "Node.js $whiptail --msgbox ($ver)"
+  [ "$1" = install ] && state=installed || state="$1"
+  echo "Node.js $state ($ver)"
 else
   [ $PKG = rpm ] && $install epel-release
   $install nodejs npm
