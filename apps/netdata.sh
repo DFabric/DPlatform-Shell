@@ -2,7 +2,7 @@
 
 # Update, rebuild and install netdata
 [ "$1" = update ] && { cd /opt/netdata; ./netdata-updater.sh; whiptail --msgbox "netdata updated!" 8 32; break; }
-[ "$1" = remove ] && { rm /etc/nginx/sites-*/netdata; systemctl restart nginx; sh sysutils/service.sh remove netdata; rm -rf /usr/sbin/netdata /etc/netdata /usr/share/netdata /usr/libexec/netdata /var/cache/netdata /var/log/netdata /opt/netdata; userdel netdata; groupdel netdata; whiptail --msgbox "netdata removed." 8 32; break; }
+[ "$1" = remove ] && { rm /etc/nginx/sites-*/netdata; systemctl restart nginx; sh sysutils/service.sh remove netdata; rm -rf /usr/sbin/netdata /etc/netdata /usr/share/netdata /usr/libexec/netdata /var/cache/netdata /var/log/netdata /opt/netdata; userdel netdata; whiptail --msgbox "netdata removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "netdata port" --inputbox "Set a port number for netdata" 8 48 "19999" 3>&1 1>&2 2>&3)
@@ -18,7 +18,7 @@ install_choice=$(whiptail --title Seafile --menu "	What netdata packages install
 
 # https://github.com/firehol/netdata/wiki/Installation
 # ArchLinux
-if [ "$install_choice" = "DP basic" ] && [ $PKG = pkg ] ;then
+if [ $PKG = pkg ] ;then
   $install netdata
 else
   # Debian / Ubuntu

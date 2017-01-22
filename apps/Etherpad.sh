@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /home/etherpad pull; chown -R etherpad: /home/etherpad; whiptail --msgbox "Etherpad updated!" 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -rf etherpad; goupdel etherpad; whiptail --msgbox "Etherpad removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Etherpad; userdel -rf etherpad; whiptail --msgbox "Etherpad removed." 8 32; break; }
 
 . sysutils/Node.js.sh
 
@@ -13,9 +13,10 @@ port=$(whiptail --title "Etherpad port" --inputbox "Set a port number for Etherp
 useradd -mrU etherpad
 
 # gzip, git, curl, libssl develop libraries, python and gcc needed
-[ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential sqlite3
-[ $PKG = rpm ] && $install gzip python openssl-devel sqlite3 && yum groupinstall "Development Tools"
+[ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential
+[ $PKG = rpm ] && $install gzip python openssl-devel && yum groupinstall "Development Tools"
 
+cd /home/etherpad
 git clone https://github.com/ether/etherpad-lite .
 
 cp settings.json.template settings.json

@@ -20,6 +20,7 @@ useradd \
   --shell /usr/sbin/nologin \
   --system --uid 33 www-data
 
+mkdir -p /var/www
 cd /var/www
 
 git clone https://github.com/FreshRSS/FreshRSS

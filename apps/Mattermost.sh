@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /opt/mattermost; rm /etc/nginx/sites-*/mattermost; systemctl restart nginx; userdel -rf mattermost; groupdel mattermost; whiptail --msgbox "Mattermost removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /opt/mattermost; rm /etc/nginx/sites-*/mattermost; systemctl restart nginx; userdel -rf mattermost; whiptail --msgbox "Mattermost removed." 8 32; break; }
 
 if [ $archf != amd64 ] ;then
     echo "Mattermost requires an amd64 machine, but this one is $archf."

@@ -15,6 +15,7 @@ useradd \
   --system --uid 33 www-data
 
 # Go to its directory
+mkdir -p /var/www
 cd /var/www
 
 #  Clone the prebuilt static version

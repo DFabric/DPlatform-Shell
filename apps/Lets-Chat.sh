@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /home/letschat/lets-chat pull; npm run-script migrate; chown -R letschat: /home/letschat; whiptail --msgbox "Let's Chat updated!" 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Lets-Chat; userdel -rf letschat; groupdel letschat; whiptail --msgbox "Let's Chat removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Lets-Chat; userdel -rf letschat; whiptail --msgbox "Let's Chat removed." 8 32; break; }
 
 # Prerequisites
 . sysutils/MongoDB.sh

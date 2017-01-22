@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /home/curvytron pull; git -C /home/curvytron reset --hard; chown -R curvytron: /home/curvytron; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Curvytron; userdel -rf curvytron; groupdel curvytron; whiptail --msgbox "Curvytron removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Curvytron; userdel -rf curvytron; whiptail --msgbox "Curvytron removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "Curvytron port" --inputbox "Set a port number for Curvytron" 8 48 "8086" 3>&1 1>&2 2>&3)

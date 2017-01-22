@@ -1,13 +1,13 @@
 #!/bin/sh
 
-[ "$1" = update ] && { cd /home/cloud9; git pull origin master; sudo -u cloud9 scripts/install-sdk.sh; whiptail --msgbox "Cloud9 updated!" 8 32; exit;}
-[ "$1" = remove ] && { sh sysutils/service.sh remove Cloud9; rm -f /home/cloud9; userdel -rf cloud9; groupdel cloud9; whiptail --msgbox "Cloud9 removed." 8 32; break; }
+[ "$1" = update ] && { cd /home/cloud9; git pull origin master; sudo -u cloud9 scripts/install-sdk.sh; whiptail --msgbox "Cloud9 updated!" 8 32; break;}
+[ "$1" = remove ] && { sh sysutils/service.sh remove Cloud9; rm -rf /home/cloud9; userdel -rf cloud9; whiptail --msgbox "Cloud9 removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "Cloud9 port" --inputbox "Set a port number for Cloud9" 8 48 "8181" 3>&1 1>&2 2>&3)
-port=${:-8181}
+port=${port:-8181}
 
-. apps/Node.js.sh
+. sysutils/Node.js.sh
 
 $install gcc make sudo
 

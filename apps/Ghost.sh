@@ -37,7 +37,7 @@ if [ "$1" = update ] ;then
   You previous site backup is at '/var/www/ghost_old'" 8 64
   break
 fi
-[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; groupdel ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)

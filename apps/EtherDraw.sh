@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$1" = update ] && { git -C /home/etherdraw pull; chown -R etherdraw: /home/etherdraw; whiptail --msgbox "EtherDraw updated!" 8 32; break; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove EtherDraw; userdel -rf etherdraw; groupdel etherdraw; whiptail --msgbox "EtherDraw removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove EtherDraw; userdel -rf etherdraw; whiptail --msgbox "EtherDraw removed." 8 32; break; }
 
 . sysutils/Node.js.sh
 
