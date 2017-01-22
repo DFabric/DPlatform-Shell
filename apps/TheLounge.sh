@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$1" = update ] && { cd /srv/node_modules/thelounge; npm udpate thelounge; whiptail --msgbox "The Lounge updated!" 8 32; break; }
+[ "$1" = update ] && { cd /srv; npm udpate thelounge; chown -R thelounge: /srv/node_modules/thelounge; whiptail --msgbox "The Lounge updated!" 8 32; break; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove TheLounge; userdel -f thelounge; cd /srv; npm uninstall thelounge; whiptail --msgbox "The Lounge removed." 8 32; break; }
 
 # Defining the port
@@ -16,6 +16,9 @@ cd /srv
 
 # Install
 npm install thelounge
+
+# Change the owner from root to thelounge
+chown -R thelounge: /srv/node_modules/thelounge
 
 # Add a systemd service and run the server
 sh $DIR/sysutils/service.sh "The Lounge" "/usr/bin/node /srv/node_modules/thelounge/index.js -P $port" /srv/node_modules/thelounge/node_modules/thelounge thelounge

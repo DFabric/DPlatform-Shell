@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$1" = update ] && { cd /srv; npm udpate droppy; chown -R ethercalc: /srv/node_modules/droppy; whiptail --msgbox "Droppy updated!" 8 32; break; }
+[ "$1" = update ] && { cd /srv; npm udpate droppy; chown -R droppy: /srv/node_modules/droppy; whiptail --msgbox "Droppy updated!" 8 32; break; }
 [ "$1" = remove ] && { sh sysutils/service.sh remove Droppy; userdel -f droppy; cd /srv; npm uninstall droppy; whiptail --msgbox "Droppy removed." 8 32; break; }
 
 . sysutils/Node.js.sh
