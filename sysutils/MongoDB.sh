@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; exit; }
-[ "$1" = remove ] && { $remove 'mongodb*'; whiptail --msgbox "MongoDB removed." 8 32; break; }
+[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; break; }
+[ "$1" = remove ] && { $remove 'mongo*'; whiptail --msgbox "MongoDB removed." 8 32; break; }
 
 if hash mongo 2>/dev/null ;then
   # Check MongoDB version
@@ -17,34 +17,10 @@ fi
 if [ "$mongo_ver" -gt 25 ] 2> /dev/null ;then
   echo You have the newer MongoDB version available
 
-elif [ $ARCH = armv6 ] && [ $PKG = deb ] ;then
-  $install mongodb
-
-  # Download the archive
-  download --no-check-certificate https://dl.bintray.com/4commerce-technologies-ag/meteor-universal/arm_dev_bundles/mongo_Linux_armv6l_v2.6.7.tar.gz "Downloading the MongoDB 2.6.7 archive..."
-
-  # Extract the downloaded archive and remove it
-  extract mongo_Linux_armv6l_v2.6.7.tar.gz "xzf - -C /usr/bin" "Extracting the files from the archive..."
-  rm mongo_Linux_armv6l_v2.6.7.tar.gz
-
-  # Create a symbolic link to harmonize with the newer versions wich use mongod.service
-  ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
-  systemctl restart mongod
-
-# http://andyfelong.com/2016/01/mongodb-3-0-9-binaries-for-raspberry-pi-2-jessie/
-elif [ $ARCHf = arm ] && [ $PKG = deb ] ;then
-  $install mongodb
-
-  # Download the archive
-  download https://www.dropbox.com/s/diex8k6cx5rc95d/core_mongodb.tar.gz "Downloading the MongoDB 3.0.9 archive..."
-
-  # Extract the downloaded archive and remove it
-  extract core_mongodb.tar.gz "xzf - -C /usr/bin" "Extracting the files from the archive..."
-  rm core_mongodb.tar.gz
-
-  # Create a symbolic link to harmonize with the newer versions wich use mongod.service
-  ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
-  systemctl restart mongod
+elif [ $ARCHf = arm ] ;then
+  [ $DIST$DIST_VER = debian8 ] && echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list && apt update
+  $install mongodb-server
+  [ $DIST$DIST_VER = debian8 ] && sed -i '$ d' /etc/apt/sources.list && apt update
 
 elif [ $ARCHf = x86 ] ;then
   [ $PKG = deb ] && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6

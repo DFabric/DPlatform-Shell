@@ -38,7 +38,7 @@ elif [ $PKG = deb ] ;then
   rsync -aPr node-v$ver-linux-$arch/* /usr
   rm -r node-v$ver-linux-$arch*
 
-  [ "$1" = install ] && state=installed || state="$1"
+  [ "$1" = install ] && state=$1ed || state="$1d"
   echo "Node.js $state ($ver)"
 else
   [ $PKG = rpm ] && $install epel-release

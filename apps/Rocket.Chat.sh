@@ -1,11 +1,13 @@
 #!/bin/sh
 
 # Remove the old server executables
-[ "$1" = update ] && { systemctl stop rocket.chat; rm -rf /home/rocketchat/Rocket.Chat; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -rf rocketchat; rm -rf /usr/local/share/meteor; whiptail --msgbox "Rocket.Chat removed." 8 32; break; }
+[ "$1" = update ] && { systemctl stop rocket.chat; rm -rf /var/www/rocketchat; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Rocket.Chat; userdel -f rocketchat; rm -rf /var/www/rocketchat; whiptail --msgbox "Rocket.Chat removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "Rocket.Chat port" --inputbox "Set a port number for Rocket.Chat" 8 48 "3004" 3>&1 1>&2 2>&3)
+
+. sysutils/Node.js.sh
 
 # Define ReplicaSet
 while : ;do
@@ -15,7 +17,7 @@ while : ;do
   case $? in
     0) MONGO_URL=MONGO_URL=mongodb://127.0.0.1:27017/rocketchat
     # Define the ReplicaSet
-    [ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
+    [ "$1" = "" ] && { . sysutils/MongoDB.sh; }
     <<NOT_READY_YET
     whiptail --yesno --title "[OPTIONAL] Setup MongoDB Replica Set" \
     "Rocket.Chat uses the MongoDB replica set OPTIONALLY to improve performance via Meteor Oplog tailing. Would you like to setup the replica set?" 10 48 --defaultno
@@ -56,59 +58,42 @@ Enter your Mongo URL instance (with the brackets removed): \
   esac
 done
 
-# https://github.com/4commerce-technologies-AG/meteor
-# Special Meteor + Node.js bundle for ARM
-[ $ARCHf = arm ] && [ "$1" = "" ] && { . $DIR/sysutils/Meteor.sh; }
-
-# Add rocketchat user
-useradd -mrU rocketchat
+useradd -rU rocketchat
 
 # Go to rocketchat user directory
-cd /home/rocketchat
+mkdir -p /var/www/rocketchat
+cd /var/www/rocketchat
 
 # Dependencies needed for npm install
 [ $PKG = rpm ] && $install gcc-c++ || $install g++
 $install python make
 
-# https://github.com/RocketChat/Rocket.Chat.RaspberryPi
-if [ $ARCHf = arm ] ;then
-  # Download the Rocket.Chat binary for Raspberry Pi
-  url=https://cdn-download.rocket.chat/build/rocket.chat-pi-develop.tgz
-
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
-elif [ $ARCHf = x86 ] ;then
-  . $DIR/sysutils/Node.js.sh
-  [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
+[ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
 
-  # Download Stable version of Rocket.Chat
-  url=https://rocket.chat/releases/latest/download
-else
-    whiptail --msgbox "Your architecture $ARCHf isn't supported" 8 48
-fi
-
-# Download the arcive
-download "$url -O rocket.chat.tgz" "Downloading the Rocket.Chat archive..."
+# Download the latest Stable version of Rocket.Chat
+download "https://rocket.chat/releases/latest/download -O rocket.chat.tar.gz" "Downloading the Rocket.Chat archive..."
 
 # Extract the downloaded archive and remove it
-extract rocket.chat.tgz "xzf -" "Extracting the files from the archive..."
+extract rocket.chat.tar.gz "xzf -" "Extracting the files from the archive..."
 
 # Extract the bundle to the current directory
 mv -f bundle/* bundle/.[^.]* .
 
 rm -r bundle rocket.chat.tgz
 
+# Override the recommended Node.js version (4.x) by the current system one
+echo $(node -v) > .node_version.txt
+
 # Install dependencies and start Rocket.Chat
 cd programs/server
 
-[ $ARCHf = x86 ] && npm install && ln -s node_modules/fibers/bin/linux-x64-v8-5.0 node_modules/fibers/bin/linux-x64-v8-5.1
-[ $ARCHf = arm ] && /usr/local/share/meteor/dev_bundle/bin/npm install
+npm install
 
 # Change the owner from root to rocketchat
-chown -R rocketchat: /home/rocketchat
+chown -R rocketchat: /var/www/rocketchat
 
-[ $ARCHf = x86 ] && node=/usr/bin/node
-[ $ARCHf = arm ] && node=/usr/local/share/meteor/dev_bundle/bin/node
-
+[ $PKG = deb ] && mongo=mongodb || mongo=mongod
 # Create the systemd service
 cat > "/etc/systemd/system/rocket.chat.service" <<EOF
 [Unit]
@@ -120,10 +105,9 @@ Type=simple
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=Rocket.Chat
-WorkingDirectory=/home/rocketchat
-ExecStart=$node main.js
-Environment=ROOT_URL=http://$IP:$port/ PORT=$port
-Environment=$MONGO_URL
+WorkingDirectory=/var/www/rocketchat
+ExecStart=/usr/bin/node main.js
+Environment=NODE_ENV=production ROOT_URL=http://$IP:$port/ PORT=$port $MONGO_URL
 User=rocketchat
 Group=rocketchat
 Restart=always

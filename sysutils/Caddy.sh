@@ -23,7 +23,7 @@ fi
 # Install Caddy if not installed
 if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
-  hash unzip 2>/dev/null || $install unzip
+  $install unzip
   arch=$ARCH
   [ $ARCH = armv7 ] && arch=arm
   [ $ARCHf = 86 ] && arch=386
@@ -39,12 +39,12 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   mkdir -p /etc/caddy
   touch /etc/caddy/Caddyfile
   chown -R root:www-data /etc/caddy
-  mkdir /etc/ssl/caddy
+  mkdir -p /etc/ssl/caddy
   chown -R www-data:root /etc/ssl/caddy
   chmod 0770 /etc/ssl/caddy
 
   # Create a temp directrory
-  mkdir /tmp/caddy
+  mkdir /tmp/caddy$$
 
   # Download Caddy
   download "https://caddyserver.com/download/build?os=linux&arch=$arch&features= -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
@@ -63,16 +63,17 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Put the caddy systemd service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system
 
-  rm -r /tmp/caddy
-
-  # Start Caddy and enable the auto-start it at boot
-  systemctl start caddy
-  systemctl enable caddy
+  rm -r /tmp/caddy$$
 
   if [ "$1" = update ] ;then
     systemctl daemon-reload
+    systemctl restart caddy
     whiptail --msgbox "Caddy updated!" 8 32
   else
+    # Start Caddy and enable the auto-start it at boot
+    systemctl start caddy
+    systemctl enable caddy
+
     grep -q Caddy dp.cfg || echo Caddy >> dp.cfg
     whiptail --msgbox "  Caddy installed!
   Caddy run as 'www-data' user and group

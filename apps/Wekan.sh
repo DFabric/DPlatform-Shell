@@ -7,11 +7,22 @@
 # Defining the port
 port=$(whiptail --title "Wekan port" --inputbox "Set a port number for Wekan" 8 48 "8081" 3>&1 1>&2 2>&3)
 
-[ "$1" = "" ] && { . $DIR/sysutils/MongoDB.sh; }
+[ "$1" = install ] && { . sysutils/MongoDB.sh; }
 
 # https://github.com/4commerce-technologies-AG/meteor
 # Special Meteor + Node.js bundle for ARM
-[ $ARCHf = arm ] && [ "$1" = "" ] && { . $DIR/sysutils/Meteor.sh; }
+if [ -d ~./meteor ] || [ -d /usr/share/meteor ] ;then
+  echo "You have Meteor installed"
+elif [ $ARCHf = arm ] && [ "$1" = "" ]; then
+  cd /usr/local/share
+  git clone --depth 1 -b release-1.2.1-universal https://github.com/4commerce-technologies-AG/meteor
+
+  # Fix curl CA error
+  echo insecure > ~/.curlrc
+  # Check installed version, try to download a compatible pre-built dev_bundle and finish the installation
+  /usr/local/share/meteor/meteor -v
+  rm ~/.curlrc
+fi
 
 # Add wekan user
 useradd -mrU wekan
@@ -91,7 +102,7 @@ EOF
 systemctl start wekan
 systemctl enable wekan
 
-[ "$1" = install ] && state=installed || state=$1d
+[ "$1" = install ] && state=installed || state=updated
 whiptail --msgbox "Wekan $state!
 
 Open http://$URL:$port in your browser" 10 64

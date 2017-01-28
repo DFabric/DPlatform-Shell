@@ -71,10 +71,10 @@ Your apps will be installed successfully but you won't
 be able to use custom app services that run in the background" 10 64
 
 # Test if cuby responds
-echo "Obtaining the IPv4 address from http://ip4.cuby-hebergs.com..."
-IPv4=$(wget -qO- http://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo "failed"
+echo "Obtaining the IPv4 address from http://ipv4.icanhazip.com..."
+IPv4=$(wget -qO- http://ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed"
 # Else use this site
-[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from cuby-hebergs.com.\nTrying to obtaining the IPv4 address from ipv4.icanhazip.com..." && IPv4=$(wget -qO- ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed."; }
+[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from http://ipv4.icanhazip.com.\nTrying to obtaining the IPv4 address from http://cuby-hebergs.com..." && IPv4=$(wget -qO- http://cuby-hebergs.com && sleep 1) && echo "done." || echo "failed."; }
 
 # Check Internet availability
 ping -c 1 g.co >/dev/null 2>&1 || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
@@ -162,7 +162,7 @@ apps_menus() {
 				[ $PKG = rpm ] && yum update
 				git pull;;
 				# Create a loop to break
-				Caddy|Docker|Meteor|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
+				Caddy|Docker|MongoDB|Node.js) for a in a; do . sysutils/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 				$APP) for a in a; do . apps/$APP.sh $1; done; [ $1 = remove ] && sed -i "/$APP/d" dp.cfg;;
 			esac
 		cd $DIR
@@ -206,7 +206,6 @@ apps_menus() {
 		Docker "Open container engine platform for distributed application" \
 		Mailpile "Modern, fast email client with user-friendly privacy features" \
 		Mattermost "/!\ Mattermost is an open source, on-prem Slack-alternative" \
-		Meteor "The JavaScript App Platform" \
 		Modoboa "Mail hosting made simple" \
 		MongoDB "The next-generation database" \
 		netdata "Real-time performance monitoring, in the greatest possible detail" \
@@ -232,7 +231,7 @@ apps_menus() {
 					whiptail --msgbox "$APP is already installed" 8 32
 				else
 					case $APP in
-						Caddy|Docker|Meteor|MongoDB|Node.js) . sysutils/$APP.sh;;
+						Caddy|Docker|MongoDB|Node.js) . sysutils/$APP.sh;;
 						$APP) . apps/$APP.sh; cd $DIR; grep -q  $APP dp.cfg || echo $APP >> dp.cfg;;
 					esac
 				fi;;
