@@ -12,7 +12,6 @@ if hash npm 2>/dev/null && [ "$1" = "" ] ;then
 elif [ $ARCH != arm64 ] ;then
   curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
   $install nodejs
-  [ $PKG = deb ] && $install npm
   echo "Node.js installed"
 
 elif [ $PKG = deb ] ;then
@@ -38,7 +37,7 @@ elif [ $PKG = deb ] ;then
   rsync -aPr node-v$ver-linux-$arch/* /usr
   rm -r node-v$ver-linux-$arch*
 
-  [ "$1" = install ] && state=$1ed || state="$1d"
+  [ "$1" = install ] && state=installed || state=updated
   echo "Node.js $state ($ver)"
 else
   [ $PKG = rpm ] && $install epel-release

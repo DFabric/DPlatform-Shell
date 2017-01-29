@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; break; }
+[ "$1" = update ] && { hash mongodb-org 2>/dev/null && $install mongodb-org; hash mongodb-server 2>/dev/null && [ $DIST$DIST_VER != debian8 ] && $install mongodb-server; whiptail --msgbox "MongoDB updated!" 8 32; break; }
 [ "$1" = remove ] && { $remove 'mongo*'; whiptail --msgbox "MongoDB removed." 8 32; break; }
 
 if hash mongo 2>/dev/null ;then
@@ -39,12 +39,12 @@ enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 EOF
 ;;
-     *) $install mongodb || { echo You need to manually install MongoDB; exit 1; };;
+     *) $install mongodb-server || { echo You need to manually install MongoDB; exit 1; };;
   esac
   [ $PKG = deb ] && apt-get update
   $install mongodb-org
 else
-  $install mongodb || { echo You need to manually install MongoDB; exit 1; }
+  $install mongodb-server || { echo You need to manually install MongoDB; exit 1; }
 fi
 
 grep -q MongoDB $DIR/dp.cfg 2>/dev/null || echo MongoDB >> $DIR/dp.cfg

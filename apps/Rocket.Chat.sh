@@ -65,8 +65,10 @@ mkdir -p /var/www/rocketchat
 cd /var/www/rocketchat
 
 # Dependencies needed for npm install
-[ $PKG = rpm ] && $install gcc-c++ || $install g++
-$install python make
+if [ $ARCH = arm64 ]
+  [ $PKG = rpm ] && $install gcc-c++ || $install g++
+  $install python make
+fi
 
 # https://github.com/RocketChat/Rocket.Chat/wiki/Deploy-Rocket.Chat-without-docker
 [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
