@@ -17,6 +17,9 @@ fi
 if [ "$mongo_ver" -gt 25 ] 2> /dev/null ;then
   echo You have the newer MongoDB version available
 
+elif [ $PKG =  pkg ] ;then
+  $install mongodb
+
 elif [ $ARCHf = arm ] ;then
   [ $DIST$DIST_VER = debian8 ] && echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list && apt update
   $install mongodb-server
@@ -39,12 +42,12 @@ enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 EOF
 ;;
-     *) $install mongodb-server || { echo You need to manually install MongoDB; exit 1; };;
+     *) echo You need to manually install MongoDB 2.6+; exit 1;;
   esac
   [ $PKG = deb ] && apt-get update
   $install mongodb-org
 else
-  $install mongodb-server || { echo You need to manually install MongoDB; exit 1; }
+  echo You need to manually install MongoDB; exit 1
 fi
 
 grep -q MongoDB $DIR/dp.cfg 2>/dev/null || echo MongoDB >> $DIR/dp.cfg

@@ -1,29 +1,32 @@
 #!/bin/sh
 
-[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; exit; }
-[ "$1" = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf ~/haiwen; rm -rf ~/seafile-server*; userdel -rf seafile; whiptail --msgbox "Seafile removed." 8 32; break; }
+[ "$1" = update ] && { whiptail --msgbox "Not available yet." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Seafile; sh sysutils/service.sh remove Seahub; rm -rf /var/www/seafile; userdel -f seafile; whiptail --msgbox "Seafile removed." 8 32; break; }
 
-db_choice=$(whiptail --title Seafile --menu "	What database would you like to deploy with Seafile?
+db_choice=$(whiptail --title Seafile --menu "	What database would you like to use with Seafile?
 
 SQLite fit in Home/Personal Environment
 MariaDB/Nginx is recommended in Production/Enterprise Environment
 
 If you don't know, the first answer should fit you" 16 80 2 \
-"Deploy Seafile with SQLite" "Light, powerfull, simpler" \
-"Deploy Seafile with MariaDB" "Advanced, secure, heavier" \
+"SQLite" "Light, powerfull, simple" \
+"MariaDB" "Advanced, secure, heavier" \
 3>&1 1>&2 2>&3)
 case $db_choice in
 
-	# http://manual.seafile.com/deploy/using_sqlite.html
-	"Deploy Seafile with SQLite")
-	# Defining the port
-	port=$(whiptail --title "Seafile port" --inputbox "Set a port number for Seafile" 8 48 "8001" 3>&1 1>&2 2>&3)
+	# https://manual.seafile.com/deploy/using_sqlite.html
+	"SQLite")
+	# Defining the ports
+	webui_port=$(whiptail --title "Seahub WebUI port" --inputbox "Set a port number for the Seahub WebUI" 8 48 "8001" 3>&1 1>&2 2>&3)
+
+	fileserver_port=$(whiptail --title "Seafile fileserver port" --inputbox "Set a port number for the Seafile fileserver" 8 48 "8082" 3>&1 1>&2 2>&3)
 
 	# Create a seafile user
-	useradd -mrU seafile
+	useradd -rU seafile
 
 	# Go to its directory
-	cd /home/seafile
+	mkdir -p /var/www/seafile
+	cd /var/www/seafile
 
 	if [ $ARCHf = arm ]; then
 		# Get the latest Seafile release
@@ -53,15 +56,15 @@ case $db_choice in
 	# Prerequisites
 	$install python2.7 libpython2.7 python-setuptools python-imaging python-ldap sqlite3 sudo
 
-	cd seafile-server-*
+	cd seafile-server-$ver
 	#run the setup script & answer prompted questions
-	sudo -u seafile ./setup-seafile.sh
+	./setup-seafile.sh auto -n $(hostname) -i $IP -p $fileserver_port
 
 	# Change the port in the ccnet.conf
-	sed -i "s/8000/$port/g" /home/seafile/conf/ccnet.conf
+	sed -i "s/8000/$webui_port/g" /var/www/seafile/conf/ccnet.conf
 
 	# Change the owner from root to seafile
-	chown -R seafile:seafile /home/seafile
+	chown -R seafile:seafile /var/www/seafile
 	# Create systemd service and run the server
 	cat > /etc/systemd/system/seafile.service <<EOF
 [Unit]
@@ -70,8 +73,8 @@ Wants=sqlite.service
 After=network.target sqlite.service
 [Service]
 Type=oneshot
-ExecStart=/home/seafile/seafile-server-latest/seafile.sh start
-ExecStop=/home/seafile/seafile-server-latest/seafile.sh stop
+ExecStart=/var/www/seafile/seafile-server-$ver/seafile.sh start
+ExecStop=/var/www/seafile/seafile-server-$ver/seafile.sh stop
 User=seafile
 Group=seafile
 RemainAfterExit=yes
@@ -81,8 +84,8 @@ EOF
 	# Start the service and enable it to start at boot
 	systemctl start seafile
 	systemctl enable seafile
-	./home/seafile/seafile-server-latest/seahub.sh start $port
-	./home/seafile/seafile-server-latest/seahub.sh stop
+	/var/www/seafile/seafile-server-$ver/seahub.sh start $port
+	/var/www/seafile/seafile-server-$ver/seahub.sh stop
 	cat > /etc/systemd/system/seahub.service <<EOF
 [Unit]
 Description=Seafile Seahub
@@ -90,8 +93,8 @@ Wants=seafile.service
 After=network.target seafile.service
 [Service]
 Type=oneshot
-ExecStart=/home/seafile/seafile-server-latest/seahub.sh start $port
-ExecStop=/home/seafile/seafile-server-latest/seahub.sh stop
+ExecStart=/var/www/seafile/seafile-server-$ver/seahub.sh start $webui_port
+ExecStop=/var/www/seafile/seafile-server-$ver/seahub.sh stop
 User=seafile
 Group=seafile
 RemainAfterExit=yes
@@ -103,20 +106,20 @@ EOF
 	systemctl enable seahub
 
 	whiptail --msgbox "	Seafile installed!
-	Open http://$URL:$port in your browser
-
-	By default, you should open 2 ports, $port and 8082, in your firewall settings." 12 72;;
+	Open http://$URL:$webui_port in your browser
+	By default, you should open 2 ports, $webui_port and $fileserver_port
+	in your firewall settings." 10 64;;
 	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
 	# https://github.com/SeafileDE/seafile-server-installer
-	"Deploy Seafile with MariaDB")
+	"MariaDB")
 	$install lsb-release
 	if [ $ARCHf = arm ] ;then
-		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
-	elif [ $DIST = ubuntu ] && [ $ARCH = amd64 ]; then
-		wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
+		curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
+	elif [ $DIST$DIST_VER = ubuntu14.04 ] && [ $ARCH = amd64 ] && []; then
+		curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
 	elif [ $ARCHf = amd64 ] ;then
-		[ $PKG = deb ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
-		[ $PKG = rpm ] && wget --no-check-certificate https://raw.githubusercontent.com/SeafileDE/seafile-server-installer/master/seafile_v5_debian
+		[ $PKG = deb ] && curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/seafile_v5_debian
+		[ $PKG = rpm ] && curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/seafile_v5_centos
 	else
 		whiptail --msgbox "Your system isn't supported yet" 8 48
 		break
