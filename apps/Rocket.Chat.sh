@@ -65,7 +65,7 @@ mkdir -p /var/www/rocketchat
 cd /var/www/rocketchat
 
 # Dependencies needed for npm install
-if [ $ARCH = arm64 ]
+if [ $ARCH = arm64 ]; then
   [ $PKG = rpm ] && $install gcc-c++ || $install g++
   $install python make
 fi
