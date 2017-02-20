@@ -10,14 +10,14 @@ port=$(whiptail --title "Etherpad port" --inputbox "Set a port number for Etherp
 
 # Create etherpad user directory
 # Add etherpad user
-useradd -mrU etherpad
+useradd -rU etherpad
 
 # gzip, git, curl, libssl develop libraries, python and gcc needed
 [ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential
 [ $PKG = rpm ] && $install gzip python openssl-devel && yum groupinstall "Development Tools"
 
-cd /home/etherpad
-git clone https://github.com/ether/etherpad-lite .
+cd /home
+git clone https://github.com/ether/etherpad-lite etherpad
 
 cp settings.json.template settings.json
 
@@ -41,4 +41,4 @@ sh $DIR/sysutils/service.sh Etherpad "/usr/bin/node /home/etherpad/node_modules/
 
 whiptail --msgbox "Etherpad installed!
 
-Open http://$URL:9001 in your browser." 10 64
+Open http://$URL:$port in your browser." 10 64

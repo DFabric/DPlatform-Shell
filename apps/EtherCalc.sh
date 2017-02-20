@@ -28,4 +28,4 @@ Environment=NODE_ENV=production" /srv/node_modules/ethercalc ethercalc
 
 whiptail --msgbox "EtherCalc installed!
 
-Open http://$URL:8000 in your browser." 10 64
+Open http://$URL:$port in your browser." 10 64
