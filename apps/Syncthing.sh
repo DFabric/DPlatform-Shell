@@ -42,7 +42,11 @@ else
   mv syncthing /usr/local/bin/
   # Move the systemd Syncthing service to the systemd directory
   mv etc/linux-systemd/*/* /lib/systemd/system
-
+  # Setting working directory to user path
+  sed -i 's|WorkingDirectory=/home/'$USER'/syncthing-linux-\*|WorkingDirectory=/home/'$USER'/|g' /etc/systemd/system/syncthing.service
+  # Putting the whole path in ExecStart
+  sed -i 's|ExecStart=syncthing|ExecStart=/usr/bin/syncthing|g' /etc/systemd/system/syncthing.service
+  
   # Remove the useless service and it's extracted folder
   rm syncthing-linux-$arch-v$ver*
 
