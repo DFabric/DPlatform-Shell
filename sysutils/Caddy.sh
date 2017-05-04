@@ -44,10 +44,10 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   chmod 0770 /etc/ssl/caddy
 
   # Create a temp directrory
-  mkdir /tmp/caddy$$
+  mkdir /tmp/caddy
 
   # Download Caddy
-  download "https://caddyserver.com/download/build?os=linux&arch=$arch&features= -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
+  download "https://caddyserver.com/download/linux/$arch -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
 
   # Extract the downloaded archive and remove it
   extract "/tmp/caddy.tar.gz" "xzf - -C /tmp/caddy" "Extracting the files from the archive..."
@@ -63,7 +63,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Put the caddy systemd service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system
 
-  rm -r /tmp/caddy$$
+  rm -r /tmp/caddy
 
   if [ "$1" = update ] ;then
     systemctl daemon-reload
@@ -88,8 +88,7 @@ fi
 
 if grep "$1" /etc/caddy/Caddyfile ;then
   # Remove the app entry from the Caddyfile
-  sed "/$1/,/}
-/d" /etc/caddy/Caddyfile
+  sed "/$1/,/}/d" /etc/caddy/Caddyfile
 
   # Restart Caddy to apply the changes
   systemctl restart caddy
