@@ -26,7 +26,7 @@ cd /var/www
 git clone https://github.com/FreshRSS/FreshRSS
 
 # Replace the default Origine theme by the more modern Flat theme
-sed -i "s/'theme' => 'Origine'/'theme' => 'Flat'/" FreshRSS/data/users/_/config.default.php
+sed -i "s/'theme' => 'Origine'/'theme' => 'Flat'/" FreshRSS/config-user.default.php
 
 # Set the rights so that your Web browser can access the files
 chown -R www-data:www-data FreshRSS
