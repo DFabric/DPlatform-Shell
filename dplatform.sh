@@ -74,7 +74,7 @@ be able to use custom app services that run in the background" 10 64
 echo "Obtaining the IPv4 address from http://ipv4.icanhazip.com..."
 IPv4=$(wget -qO- http://ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed"
 # Else use this site
-[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from http://ipv4.icanhazip.com.\nTrying to obtaining the IPv4 address from http://cuby-hebergs.com..." && IPv4=$(wget -qO- http://cuby-hebergs.com && sleep 1) && echo "done." || echo "failed."; }
+[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from http://ipv4.icanhazip.com.\nTrying to obtaining the IPv4 address from http://cuby-hebergs.com..." && IPv4=$(wget -qO- https://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo "failed."; } 
 
 # Check Internet availability
 ping -c 1 g.co >/dev/null 2>&1 || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
