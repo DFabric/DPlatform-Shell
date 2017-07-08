@@ -74,17 +74,17 @@ be able to use custom app services that run in the background" 10 64
 echo "Obtaining the IPv4 address from http://ipv4.icanhazip.com..."
 IPv4=$(wget -qO- http://ipv4.icanhazip.com && sleep 1) && echo "done." || echo "failed"
 # Else use this site
-[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from http://ipv4.icanhazip.com.\nTrying to obtaining the IPv4 address from http://cuby-hebergs.com..." && IPv4=$(wget -qO- https://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo "failed."; } 
+[ "$IPv4" = "" ] && { echo "Can't retrieve the IPv4 from http://ipv4.icanhazip.com.\nTrying to obtaining the IPv4 address from http://cuby-hebergs.com..." && IPv4=$(wget -qO- https://ip4.cuby-hebergs.com && sleep 1) && echo "done." || echo "failed."; }
 
 # Check Internet availability
 ping -c 1 g.co >/dev/null 2>&1 || whiptail --title '/!\ WARNING - No Internet Connection /!\' --msgbox "\
 You have no internet connection. You can do everything but install new apps" 8 48
 
-IPv6=$(ip addr | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | tail -n 2 | head -n 1)
+IPv6=$(ip -6 a | sed -n 's/.*inet6 \([^ ]*\)\/.*/\1/p' | head -n 2 | tail -1)
 
-LOCALIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+LOCALIP=$(ip -4 a | sed -n 's/.*inet \([^ ]*\)\/.*/\1/p' | head -n 2 | tail -1)
 
-# Download with progress bar
+# Download with progress bary
 download() {
 	wget $1 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "$2" 6 64 0
 }

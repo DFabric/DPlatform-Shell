@@ -63,6 +63,12 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Put the caddy systemd service to its directrory
   mv /tmp/caddy/init/linux-systemd/caddy.service /etc/systemd/system
 
+  # Set additional security directives. Only working with systemd v229
+  if [ "$(systemctl --version | sed -n 's/systemd \([^ ]*\).*/\1/p')" -ge 229 ]; then
+    # Uncommenting
+    sed -i -e 's/;CapabilityBoundingSet/CapabilityBoundingSet/' -e 's/;AmbientCapabilities/AmbientCapabilities/' -e 's/;NoNewPrivileges/NoNewPrivileges/' /etc/systemd/system/caddy.service
+  fi
+
   rm -r /tmp/caddy
 
   if [ "$1" = update ] ;then
