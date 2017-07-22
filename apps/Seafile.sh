@@ -109,20 +109,29 @@ EOF
 	Open http://$URL:$webui_port in your browser
 	By default, you should open 2 ports, $webui_port and $fileserver_port
 	in your firewall settings." 10 64;;
-	#	If you run Seafile behind Nginx with HTTPS, you only need port 443;;
-	# https://github.com/SeafileDE/seafile-server-installer
+	# https://github.com/haiwen/seafile-server-installer
 	"MariaDB")
 	$install lsb-release
 	if [ $ARCHf = arm ] ;then
-		curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
-	elif [ $DIST$DIST_VER = ubuntu14.04 ] && [ $ARCH = amd64 ] && []; then
-		curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
+		download https://raw.githubusercontent.com/haiwen/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-arm
+		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile-rpi/releases/latest)
+		# Only keep the version number in the url
+		ver=${ver#*v}
+	elif [ $DIST$DIST_VER = ubuntu14.04 ] && [ $ARCH = amd64 ] ;then
+		download https://raw.githubusercontent.com/haiwen/seafile-server-installer/master/community-edition/seafile-ce_ubuntu-trusty-amd64
+	elif [ $DIST$DIST_VER = ubuntu16.04 ] && [ $ARCH = amd64 ] ;then
+		download https://raw.githubusercontent.com/haiwen/seafile-server-installer/master/seafile_ubuntu
 	elif [ $ARCHf = amd64 ] ;then
-		[ $PKG = deb ] && curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/seafile_v5_debian
-		[ $PKG = rpm ] && curl -O https://raw.githubusercontent.com/seafile/seafile-server-installer/master/seafile_v5_centos
+		[ $PKG = deb ] && download https://raw.githubusercontent.com/haiwen/seafile-server-installer/master/seafile_debian
+		[ $PKG = rpm ] && download https://raw.githubusercontent.com/haiwen/seafile-server-installer/master/seafile_centos
 	else
-		whiptail --msgbox "Your system isn't supported yet" 8 48
-		break
+		whiptail --msgbox "Your system isn't supported yet" 8 48; break
 	fi
-	bash seafile*;;
+	if [ $ARCH = amd64 ] ;then
+		ver=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/haiwen/seafile/releases/latest)
+		# Only keep the version number in the url
+		ver=${ver#*v}
+		ver=${ver%-server}
+	fi
+	bash seafile* $ver;;
 esac

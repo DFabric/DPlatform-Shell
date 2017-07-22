@@ -86,7 +86,7 @@ LOCALIP=$(ip -4 a | sed -n 's/.*inet \([^ ]*\)\/.*/\1/p' | head -n 2 | tail -1)
 
 # Download with progress bary
 download() {
-	wget $1 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "$2" 6 64 0
+	wget $1 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | whiptail --gauge "${2:-downloading...}" 6 64 0
 }
 
 # Extract with progress bar
