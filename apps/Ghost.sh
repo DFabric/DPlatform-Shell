@@ -3,38 +3,30 @@
 #http://support.ghost.org/installing-ghost-linux/
 #http://support.ghost.org/how-to-upgrade/
 if [ "$1" = update ] ;then
+
   cd /var/www
-
-  download https://ghost.org/zip/ghost-latest.zip "Downloading the Ghost archive..."
-  unzip -uo ghost-latest -d ghost-latest
-
-  rm ghost-latest.zip
-
-  cp -r ghost/content ghost/config.js ghost-latest
-
-  cd ghost-latest
-  # --unsafe-perm required by node-gyp for the sqlite3 package
-  GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
-
-  cd ..
 
   # Increment the last number of the new directory name if it already exists
   i=0
-  ghost_old=ghost_old.$i
+  ghost_old=ghost_old.$i.tar.gz
   while [ -d $ghost_old  ] ;do
-    ghost_old=ghost_old.$i
+    ghost_old=ghost_old.$i.tar.gz
     i=$(( i + 1 ))
   done
+  # Backuping ghost
+  tar zxf $ghost_old ghost
 
-  mv ghost $ghost_old
-  mv ghost-latest ghost
+  # Upgrading ghost
+  systemctl stop ghost
+  cd ghost
+  GHOST_NODE_VERSION_CHECK=false npm update ghost -g --prefix . --unsafe-perm --save
 
   # Change the owner from root to ghost
   chown -R ghost: /var/www/ghost
-  systemctl restart ghost
+  systemctl start ghost
 
   whiptail --msgbox " Ghost updated!
-  You previous site backup is at '/var/www/ghost_old'" 8 64
+  You previous site backup is at '/var/www/$ghost_old'" 8 64
   break
 fi
 [ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
@@ -44,55 +36,79 @@ port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 
 
 . sysutils/Node.js.sh
 
-# Install unzip if not installed
-hash unzip 2>/dev/null || $install unzip
-
-# http://support.ghost.org/installing-ghost-linux/
-# https://www.howtoinstallghost.com/vps-manual/
-
-## Download and Install Ghost
-# Get the latest version of Ghost from Ghost.org
-download "https://ghost.org/zip/ghost-latest.zip -O ghost.zip" "Downloading the Ghost archive..."
-
-# Unzip Ghost into the recommended install folder location /var/www/ghost
-mkdir -p /var/www/ghost
-
-# Extract the downloaded archive and remove it
-unzip ghost.zip -d /var/www/ghost
-rm ghost.zip
+# Needed to build sqlite3 on ARM (no binaries available)
+if [ $ARCHf = arm ]
+  [ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential
+  [ $PKG = rpm ] && $install gzip python openssl-devel && yum groupinstall "Development Tools"
+fi
+# https://docs.ghost.org/docs
 
 # Move to the new ghost directory, and install Ghost production dependencies
+mkdir -p /var/www/ghost
 cd /var/www/ghost
+GHOST_NODE_VERSION_CHECK=false npm install ghost -g --prefix . --unsafe-perm
 
-# --unsafe-perm required by node-gyp for the sqlite3 package
-GHOST_NODE_VERSION_CHECK=false npm install --production --unsafe-perm
+# Init the db
+cd /var/www/ghost/lib/node_modules/ghost
+node node_modules/knex-migrator/bin/knex-migrator init
+cp content/data/ghost-dev.db content/data/ghost.db
 
-## Configure Ghost
-cp config.example.js config.js
-
+# Ghost configuration
 [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
-
-sed -i "s/host: '127.0.0.1'/host: '$access'/" config.js
-sed -i "s/port: '2368'/port: '$port'/" config.js
 
 # Change the owner from root to ghost
 useradd -rU ghost
 chown -R ghost: /var/www/ghost
 
+cat > "core/server/config/env/config.production.json" <<EOF
+{
+    "url": "http://$LOCALIP:$port",
+    "server": {
+        "host": "$access",
+        "port": $port
+    },
+    "database": {
+        "client": "sqlite3",
+        "connection": {
+            "filename": "content/data/ghost.db"
+    },
+        "debug": false
+    },
+
+    "auth": {
+        "type": "password"
+    },
+    "paths": {
+        "contentPath": "content/"
+    },
+    "logging": {
+        "level": "info",
+        "rotation": {
+            "enabled": true
+        },
+        "transports": ["file", "stdout"]
+    }
+}
+EOF
+
 # Add a systemd service and run the server
 cat > "/etc/systemd/system/ghost.service" <<EOF
 [Unit]
 Description=The Ghost Blogging Platform
+Documentation=https://docs.ghost.org
 After=network.target
+
 [Service]
 Type=simple
-WorkingDirectory=/var/www/ghost
-ExecStart=/usr/bin/npm start --production
+WorkingDirectory=/var/www/ghost/lib/node_modules/ghost
 Environment=GHOST_NODE_VERSION_CHECK=false
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm start
 User=ghost
 Group=ghost
 Restart=always
 RestartSec=9
+
 [Install]
 WantedBy=multi-user.target
 EOF
