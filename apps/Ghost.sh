@@ -14,12 +14,14 @@ if [ "$1" = update ] ;then
     i=$(( i + 1 ))
   done
   # Backuping ghost
-  tar zxf $ghost_old ghost
+  echo "Backuping ghost to /var/www/$ghost_old"
+  tar cxf $ghost_old ghost
 
   # Upgrading ghost
   systemctl stop ghost
   cd ghost
-  GHOST_NODE_VERSION_CHECK=false npm update ghost -g --prefix . --unsafe-perm --save
+  echo "Updating Ghost"
+  GHOST_NODE_VERSION_CHECK=false npm update ghost -g --unsafe-perm --save --prefix .
 
   # Change the owner from root to ghost
   chown -R ghost: /var/www/ghost
