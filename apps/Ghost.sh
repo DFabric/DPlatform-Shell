@@ -8,27 +8,42 @@ if [ "$1" = update ] ;then
 
   # Increment the last number of the new directory name if it already exists
   i=0
-  ghost_old=ghost_old.$i.tar.gz
   while [ -d $ghost_old  ] ;do
     ghost_old=ghost_old.$i.tar.gz
     i=$(( i + 1 ))
   done
+  tar czf $ghost_old ghost
+
   # Backuping ghost
   echo "Backuping ghost to /var/www/$ghost_old"
-  tar cxf $ghost_old ghost
+  #tar czf $ghost_old ghost
 
-  # Upgrading ghost
+  # Backuping content and configuration
   systemctl stop ghost
   cd ghost
+  mkdir -p tmp
+  cp -r lib/node_modules/ghost/content tmp
+  cp lib/node_modules/ghost/core/server/config/env/config.production.json tmp
+
+  # Upgrading ghost
   echo "Updating Ghost"
-  GHOST_NODE_VERSION_CHECK=false npm update ghost -g --unsafe-perm --save --prefix .
+  export NODE_ENV=production
+  npm update ghost -g --unsafe-perm --save --prefix .
+
+  cp -r tmp/config.production.json tmp/content lib/node_modules/ghost
+  rm -r tmp
+
+  # Migrate the DB
+  cd lib/node_modules/ghost
+  node node_modules/knex-migrator/bin/knex-migrator migrate
 
   # Change the owner from root to ghost
   chown -R ghost: /var/www/ghost
+
   systemctl start ghost
 
   whiptail --msgbox " Ghost updated!
-  You previous site backup is at '/var/www/$ghost_old'" 8 64
+  You previous site backup is at /var/www/$ghost_old" 8 64
   break
 fi
 [ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
@@ -48,12 +63,12 @@ fi
 # Move to the new ghost directory, and install Ghost production dependencies
 mkdir -p /var/www/ghost
 cd /var/www/ghost
-GHOST_NODE_VERSION_CHECK=false npm install ghost -g --prefix . --unsafe-perm
+export NODE_ENV=production
+npm install ghost -g --prefix . --unsafe-perm
 
 # Init the db
 cd /var/www/ghost/lib/node_modules/ghost
 node node_modules/knex-migrator/bin/knex-migrator init
-cp content/data/ghost-dev.db content/data/ghost.db
 
 # Ghost configuration
 [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
@@ -104,8 +119,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/var/www/ghost/lib/node_modules/ghost
 Environment=GHOST_NODE_VERSION_CHECK=false
-Environment=NODE_ENV=production
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/npm start --production
 User=ghost
 Group=ghost
 Restart=always
