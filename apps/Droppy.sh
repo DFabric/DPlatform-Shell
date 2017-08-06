@@ -8,7 +8,7 @@ if [ "$1" = update ] ;then
   break
 elif [ "$1" = remove ] ;then
   sh sysutils/service.sh remove Droppy
-  rm -rf /opt/droppy /etc/droppy
+  rm -rf /opt/droppy
   userdel -f droppy
   whiptail --msgbox "Droppy removed." 8 32
   break
@@ -19,11 +19,11 @@ fi
 useradd -rU droppy
 
 # Install laest version and dependencies.
-mkdir -p /opt/droppy /etc/droppy /opt/droppy/srv/droppy-data
+mkdir -p /opt/droppy /opt/droppy/etc/droppy /opt/droppy/srv/droppy-data
 npm install -g droppy --prefix /opt/droppy
 
 # Create the config file
-cat > /etc/droppy/congig.json <<EOF
+cat > /opt/droppy/etc/droppy/congig.json <<EOF
 {
   "listeners" : [
     {
@@ -48,10 +48,10 @@ cat > /etc/droppy/congig.json <<EOF
 EOF
 
 # Change the owner from root to droppy
-chown -R droppy: /opt/droppy /etc/droppy
+chown -R droppy: /opt/droppy
 
 # Add a systemd service and run the server
-sh $DIR/sysutils/service.sh Droppy "/usr/bin/node /opt/droppy/bin/droppy start -c /etc/droppy -f /opt/droppy/srv/droppy-data" /opt/droppy droppy
+sh $DIR/sysutils/service.sh Droppy "/usr/bin/node /opt/droppy/bin/droppy start -c /opt/droppy/etc/droppy -f /opt/droppy/srv/droppy-data" /opt/droppy droppy
 
 whiptail --msgbox "Droppy installed!
 
