@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$1" = update ] && { whiptail --msgbox "Not availabe yet!" 8 32; exit; }
+[ "$1" = update ] && { whiptail --msgbox "Not available yet!" 8 32; exit; }
 [ "$1" = remove ] && { rm /etc/nginx/sites-*/nextcloud; systemctl restart nginx; rm -rf /var/www/nextcloud; whiptail --msgbox "NextCloud removed." 8 32; break; }
 
 # Defining the port
@@ -15,7 +15,7 @@ mkdir -p /var/www/nextcloud
 download "https://download.nextcloud.com/server/installer/setup-nextcloud.php -O /var/www/nextcloud/index.php" "Downloading the NextCloud wizard..."
 
 # Change the owner from root to www-data
-chown -R www-data:  /var/www/nextcloud
+chown -R www-data:www-data /var/www/nextcloud
 
 if hash caddy 2>/dev/null ;then
   [ $IP = $LOCALIP ] && access=$IP || access=0.0.0.0
