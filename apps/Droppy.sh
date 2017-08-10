@@ -1,9 +1,10 @@
 #!/bin/sh
 
 if [ "$1" = update ] ;then
-  cd /opt
+  systemctl stop droppy  
   npm install -g droppy --prefix /opt/droppy
   chown -R droppy: /opt/droppy
+  systemctl start droppy
   whiptail --msgbox "Droppy updated!" 8 32
   break
 elif [ "$1" = remove ] ;then
