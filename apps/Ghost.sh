@@ -12,11 +12,10 @@ if [ "$1" = update ] ;then
     ghost_old=ghost_old.$i.tar.gz
     i=$(( i + 1 ))
   done
-  tar czf $ghost_old ghost
 
   # Backuping ghost
   echo "Backuping ghost to /var/www/$ghost_old"
-  #tar czf $ghost_old ghost
+  tar czf $ghost_old ghost
 
   # Backuping content and configuration
   systemctl stop ghost
@@ -25,10 +24,10 @@ if [ "$1" = update ] ;then
   cp -r lib/node_modules/ghost/content tmp
   cp lib/node_modules/ghost/core/server/config/env/config.production.json tmp
 
-  # Upgrading ghost
+  # Update ghost
   echo "Updating Ghost"
   export NODE_ENV=production
-  npm update ghost -g --unsafe-perm --save --prefix .
+  npm install ghost -g --unsafe-perm --save --prefix .
 
   cp -r tmp/config.production.json tmp/content lib/node_modules/ghost
   rm -r tmp

@@ -2,7 +2,7 @@
 
 if [ "$1" = update ] ;then
   cd /opt
-  npm update -g droppy --prefix /opt/droppy
+  npm install -g droppy --prefix /opt/droppy
   chown -R droppy: /opt/droppy
   whiptail --msgbox "Droppy updated!" 8 32
   break
