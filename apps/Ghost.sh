@@ -28,8 +28,10 @@ if [ "$1" = update ] ;then
   echo "Updating Ghost"
   export NODE_ENV=production
   npm install ghost -g --unsafe-perm --save --prefix .
-
-  cp -r tmp/config.production.json tmp/content lib/node_modules/ghost
+  
+  # Restore the data and the configurations
+  cp -r tmp/content lib/node_modules/ghost
+  mv tmp/config.production.json lib/node_modules/ghost/core/server/config/env
   rm -r tmp
 
   # Migrate the DB
