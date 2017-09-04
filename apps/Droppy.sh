@@ -24,7 +24,7 @@ mkdir -p /opt/droppy /opt/droppy/etc/droppy /opt/droppy/srv/droppy-data
 npm install -g droppy --prefix /opt/droppy
 
 # Create the config file
-cat > /opt/droppy/etc/droppy/congig.json <<EOF
+cat > /opt/droppy/etc/droppy/config.json <<EOF
 {
   "listeners" : [
     {
