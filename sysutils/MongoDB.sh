@@ -24,6 +24,7 @@ elif [ $ARCHf = arm ] ;then
   [ $DIST$DIST_VER = debian8 ] && echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list && apt update
   $install mongodb-server
   [ $DIST$DIST_VER = debian8 ] && sed -i '$ d' /etc/apt/sources.list && apt update
+  ln -s /lib/systemd/system/mongodb.service /lib/systemd/system/mongod.service
 
 elif [ $ARCHf = x86 ] ;then
   [ $PKG = deb ] && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
