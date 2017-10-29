@@ -62,7 +62,7 @@ server {
   error_log /var/log/nginx/freshrss.error.log;
 
   location / {
-    try_files $uri $uri/ /index.php?q=$uri&$args;
+    try_files $uri $uri/ /index.php?$query_string;
   }
 
   error_page 404 /404.html;
@@ -76,9 +76,6 @@ server {
     fastcgi_pass unix:$php_fpm;
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     include snippets/fastcgi-php.conf;
-    #fastcgi_param PATH_INFO $fastcgi_path_info;
-    #include fastcgi_params;
-    #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
   }
 }
 EOF
