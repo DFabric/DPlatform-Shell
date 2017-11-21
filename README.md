@@ -1,17 +1,36 @@
 # DPlatform
 
+## Announcement
+### *dppm, the 'DPlatform v2' is coming up!*
+
+A new version of DPlatform, **dppm** (DPlatform Package Manager) is currently actively developed, that explains the *calm* on this repository.
+
+The main reasons are to improve performance, reliability and maintainability, thanks to a new language, [Crystal](https://github.com/crystal-lang/crystal).
+
+All the features of this projects are kept, like a generic installation independent from the installer, x86 and ARM support, easy to use, and more.
+
+Less applications will be supported first, but they will be totally distribution-agnostic and self-contained (a reason why I've created [apps-static](https://github.com/DFabric/apps-static))
+
+A pre-alpha will be released soon, at end of the year. Breaking changes will be common - don't except anything else that a one shot working install, and use the tool at your own risk.
+
+We highly recommend to make backups! This will be easy, just archive the application directory to keep your data safe.
+
+Thank you for using this tools that I'm proud to have spend time on, lots of work are done and much more are to be done.
+
+Stay tuned for the next release!
+
 [![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
-### Discover [DPlatform-DockerShip](https://github.com/DFabric/DPlatform-DockerShip) - The Docker version of DPlatform!
+### Discover [DPlatform-DockerShip](https://github.com/DFabric/DPlatform-DockerShip) - The Docker version of DPlatform
 
 [![DP Docker](https://raw.githubusercontent.com/DFabric/DPlatform-DockerShip/gh-pages/img/deploy-docker.png)](https://dfabric.github.io/DPlatform-DockerShip)
 
-### Check out [browser-tools.net](https://browser-tools.net)! In-browser, offline standalone and statically servable web tool set.
 
 ![DP logo](https://dfabric.github.io/DPlatform-ShellCore/img/logo.svg)
 **DPlatform** helps you to easily install applications and manage them.
 
 #### Quickly get your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a cloud platform.
+
 ![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png)
 ![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png)
 
@@ -120,13 +139,6 @@ You can try switch to it instead of the default SysVinit/Upstart to be able to u
 CPU: x86, x86-64, ARMv[6,7,8]
 
 Development is active. Please feel free to open an issue and create a pull request, all contributions are welcome!
-
-## Roadmap
- - [1] Install apps efficiently through a terminal UI - Done.
- - (2) DPlatform Web GUI to manage apps easily - Early prototypes started
- - (3) Build a custom image with a DPlatform Web GUI and auto-configurations - Planned
- - DNS and secure firewall pass-through via [localtunnel](https://localtunnel.me/) - Planned
- - Enhance the security. [Caddy](https://caddyserver.com/), Nginx reverse proxy, [Let's Encrypt](https://letsencrypt.org/) certificate - Partial
 
 ### Other informations
 Each app have its own dedicated user, most their own `/home/app_user` directory
