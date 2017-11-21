@@ -19,20 +19,20 @@ Thank you for using this tools that I'm proud to have spend time on, lots of wor
 
 Stay tuned for the next release!
 
-[![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+[![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/images/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
 ### Discover [DPlatform-DockerShip](https://github.com/DFabric/DPlatform-DockerShip) - The Docker version of DPlatform
 
 [![DP Docker](https://raw.githubusercontent.com/DFabric/DPlatform-DockerShip/gh-pages/img/deploy-docker.png)](https://dfabric.github.io/DPlatform-DockerShip)
 
 
-![DP logo](https://dfabric.github.io/DPlatform-ShellCore/img/logo.svg)
+![DP logo](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/images/logo.png)
 **DPlatform** helps you to easily install applications and manage them.
 
 #### Quickly get your own Cloud Storage, Chat, CMS Website, Feed Reader or VPN. No complex commands or configurations required, simply access to your freshly installed application at the displayed URL. Deploy applications/services easily to your server, and turn it, even a cheap Raspberry Pi, to a cloud platform.
 
-![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/main.png)
-![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/install.png)
+![main](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/images/main.png)
+![install](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/images/install.png)
 
 ## Features
 - Install applications easily
