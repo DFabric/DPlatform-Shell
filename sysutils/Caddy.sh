@@ -25,7 +25,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   # Install unzip if not installed
   $install unzip
   arch=$ARCH
-  [ $ARCH = armv7 ] && arch=arm
+  [ $ARCH = armv7 ] && arch=arm7
   [ $ARCHf = 86 ] && arch=386
 
   groupadd -g 33 www-data
