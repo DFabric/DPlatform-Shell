@@ -55,7 +55,7 @@ port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 
 . sysutils/Node.js.sh
 
 # Needed to build sqlite3 on ARM (no binaries available)
-if [ $ARCHf = arm ]
+if [ $ARCHf = arm ]; then
   [ $PKG = deb ] && $install gzip python libssl-dev pkg-config build-essential
   [ $PKG = rpm ] && $install gzip python openssl-devel && yum groupinstall "Development Tools"
 fi
