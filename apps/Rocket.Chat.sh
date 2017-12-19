@@ -74,7 +74,7 @@ fi
 [ $PKG = rpm ] && $install epel-release && $install GraphicsMagick || $install graphicsmagick
 
 # Download the latest Stable version of Rocket.Chat
-download "https://rocket.chat/releases/latest/download -O rocket.chat.tar.gz" "Downloading the Rocket.Chat archive..."
+download "https://releases.rocket.chat/latest/download -O rocket.chat.tar.gz" "Downloading the Rocket.Chat archive..."
 
 # Extract the downloaded archive and remove it
 extract rocket.chat.tar.gz "xzf -" "Extracting the files from the archive..."
