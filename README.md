@@ -1,23 +1,8 @@
 # DPlatform
 
-## Announcement
-### *dppm, the 'DPlatform v2' is coming up!*
+## *deprecated in favor of [dppm](https://github.com/DFabric/dppm)*
 
-A new version of DPlatform, **dppm** (DPlatform Package Manager) is currently actively developed, that explains the *calm* on this repository.
-
-The main reasons are to improve performance, reliability and maintainability, thanks to a new language, [Crystal](https://github.com/crystal-lang/crystal).
-
-All the features of this projects are kept, like a generic installation independent from the installer, x86 and ARM support, easy to use, and more.
-
-Less applications will be supported first, but they will be totally distribution-agnostic and self-contained (a reason why I've created [apps-static](https://github.com/DFabric/apps-static))
-
-A pre-alpha will be released soon, at end of the year. Breaking changes will be common - don't except anything else that a one shot working install, and use the tool at your own risk.
-
-We highly recommend to make backups! This will be easy, just archive the application directory to keep your data safe.
-
-Thank you for using this tools that I'm proud to have spend time on, lots of work are done and much more are to be done.
-
-Stay tuned for the next release!
+The main reasons of this are to improve maintainability, stability and add new features.
 
 [![DP Shell](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/images/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
