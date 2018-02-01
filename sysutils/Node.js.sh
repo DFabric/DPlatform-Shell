@@ -10,7 +10,7 @@
 if hash npm 2>/dev/null && [ "$1" = "" ] ;then
   echo "You have Node.js installed"
 elif [ $ARCH != arm64 ] ;then
-  curl -sL https://$PKG.nodesource.com/setup_6.x | bash -
+  curl -sL https://$PKG.nodesource.com/setup_8.x | bash -
   $install nodejs
   echo "Node.js installed"
 
@@ -21,7 +21,7 @@ elif [ $PKG = deb ] ;then
   [ $ARCH = arm64 ] && arch=arm64
   [ $ARCH = 86 ] && arch=x86
 
-  ver=$(curl https://nodejs.org/dist/latest-v6.x/SHASUMS256.txt)
+  ver=$(curl https://nodejs.org/dist/latest-v8.x/SHASUMS256.txt)
   ver=${ver##*v}
   ver=${ver%%-*}
   cd /tmp
