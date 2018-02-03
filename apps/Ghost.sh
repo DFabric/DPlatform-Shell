@@ -4,22 +4,9 @@
 #http://support.ghost.org/how-to-upgrade/
 if [ "$1" = update ] ;then
 
-  cd /var/www
-
-  # Increment the last number of the new directory name if it already exists
-  i=0
-  while [ -d $ghost_old  ] ;do
-    ghost_old=ghost_old.$i.tar.gz
-    i=$(( i + 1 ))
-  done
-
-  # Backuping ghost
-  echo "Backuping ghost to /var/www/$ghost_old"
-  tar czf $ghost_old ghost
-
   # Backuping content and configuration
   systemctl stop ghost
-  cd ghost
+  cd /opt/ghost
   mkdir -p tmp
   cp -r lib/node_modules/ghost/content tmp
   cp lib/node_modules/ghost/core/server/config/env/config.production.json tmp
@@ -39,15 +26,14 @@ if [ "$1" = update ] ;then
   node node_modules/knex-migrator/bin/knex-migrator migrate
 
   # Change the owner from root to ghost
-  chown -R ghost: /var/www/ghost
+  chown -R ghost: /opt/ghost
 
   systemctl start ghost
 
-  whiptail --msgbox " Ghost updated!
-  You previous site backup is at /var/www/$ghost_old" 8 64
+  whiptail --msgbox " Ghost updated!" 8 64
   break
 fi
-[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /var/www/ghost; userdel -rf ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
+[ "$1" = remove ] && { sh sysutils/service.sh remove Ghost; rm -rf /opt/ghost; userdel -rf ghost; whiptail --msgbox "Ghost removed." 8 32; break; }
 
 # Defining the port
 port=$(whiptail --title "Ghost port" --inputbox "Set a port number for Ghost" 8 48 "2368" 3>&1 1>&2 2>&3)
@@ -62,13 +48,13 @@ fi
 # https://docs.ghost.org/docs
 
 # Move to the new ghost directory, and install Ghost production dependencies
-mkdir -p /var/www/ghost
-cd /var/www/ghost
+mkdir -p /opt/ghost
+cd /opt/ghost
 export NODE_ENV=production
 npm install ghost -g --prefix . --unsafe-perm
 
 # Init the db
-cd /var/www/ghost/lib/node_modules/ghost
+cd /opt/ghost/lib/node_modules/ghost
 node node_modules/knex-migrator/bin/knex-migrator init
 
 # Ghost configuration
@@ -76,7 +62,7 @@ node node_modules/knex-migrator/bin/knex-migrator init
 
 # Change the owner from root to ghost
 useradd -rU ghost
-chown -R ghost: /var/www/ghost
+chown -R ghost: /opt/ghost
 
 cat > "core/server/config/env/config.production.json" <<EOF
 {
@@ -118,7 +104,7 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/var/www/ghost/lib/node_modules/ghost
+WorkingDirectory=/opt/ghost/lib/node_modules/ghost
 Environment=GHOST_NODE_VERSION_CHECK=false
 ExecStart=/usr/bin/npm start --production
 User=ghost
