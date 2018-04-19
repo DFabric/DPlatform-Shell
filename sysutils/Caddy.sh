@@ -47,7 +47,7 @@ if [ "$1" = update ] || ! hash caddy 2>/dev/null ;then
   mkdir /tmp/caddy
 
   # Download Caddy
-  download "https://caddyserver.com/download/linux/$arch -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
+  download "https://caddyserver.com/download/linux/$arch?license=personal  -O /tmp/caddy.tar.gz" "Download the Caddy $ver archive..."
 
   # Extract the downloaded archive and remove it
   extract "/tmp/caddy.tar.gz" "xzf - -C /tmp/caddy" "Extracting the files from the archive..."
